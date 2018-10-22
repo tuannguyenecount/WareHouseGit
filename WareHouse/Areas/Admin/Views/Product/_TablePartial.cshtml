@@ -1,0 +1,81 @@
+﻿<table class="table table-hover table-striped table-middle">
+    <thead>
+        <tr class="bg-info">
+            <th></th>
+            <th>
+                @Ajax.ActionLink("Mã", "ShowList", new { Category = Request.QueryString["Category"], sortName = "Id", sortBy = ViewBag.SortByNext }, new AjaxOptions() { AllowCache = true, HttpMethod = "Get", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể sắp xếp.')" })
+            </th>
+            <th>@Ajax.ActionLink("Tên sản phẩm", "ShowList", new { Category = Request.QueryString["Category"], sortName = "Name", sortBy = ViewBag.SortByNext }, new AjaxOptions() { AllowCache = true, HttpMethod = "Get", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể sắp xếp.')" })</th>
+            <th>@Ajax.ActionLink("Đơn giá", "ShowList", new { Category = Request.QueryString["Category"], sortName = "Price", sortBy = ViewBag.SortByNext }, new AjaxOptions() { AllowCache = true, HttpMethod = "Get", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể sắp xếp.')" })</th>
+            <th>@Ajax.ActionLink("Phân loại", "ShowList", new { Category = Request.QueryString["Category"], sortName = "Category", sortBy = ViewBag.SortByNext }, new AjaxOptions() { AllowCache = true, HttpMethod = "Get", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể sắp xếp.')" })</th>
+            <th>@Ajax.ActionLink("Ngày cập nhật", "ShowList", new { Category = Request.QueryString["Category"], sortName = "NgayCapNhat", sortBy = ViewBag.SortByNext }, new AjaxOptions() { AllowCache = true, HttpMethod = "Get", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể sắp xếp.')" })</th>
+            <th>@Ajax.ActionLink("Trạng thái", "ShowList", new { Category = Request.QueryString["Category"], sortName = "Display", sortBy = ViewBag.SortByNext }, new AjaxOptions() { AllowCache = true, HttpMethod = "Get", UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể sắp xếp.')" })</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            @*<th>Thay trạng thái</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    <img src="@item.ImageCustom" width="70" height="auto" />
+                </td>
+                <td class="text-center">
+                    @item.Id
+                </td>
+                <td>
+                    <a target="_blank" href="@Url.Action("Details","Product",new {alias = item.Alias_SEO,area=""})"><b>@item.Name</b></a>
+                </td>
+                <td>
+                    @(item.PriceThuc.ToString("#,##0").Replace(',', '.')) đồng
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.DateCreated)
+                </td>
+                <td>
+                    @if (item.Display)
+                    {
+                        <label class="label label-success">Đang hiện</label>
+                    }
+                    else
+                    {
+                        <label class="label label-warning">Đang ẩn</label>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-xs" href="@Url.Action("Details", new { id = item.Id, page = ViewBag.Page})"><span class="glyphicon glyphicon-zoom-in"></span> Xem</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.Id, page = ViewBag.Page  })" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span> Sửa</a>
+                </td>
+                <td>
+                    @if (item.PromotionProduct == null)
+                    {
+                        <a href="@Url.Action("Create","PromotionProduct", new { id = item.Id })" class="btn btn-default btn-xs">Tạo khuyến mãi</a>
+                    }
+                    else
+                    {
+                        <form method="post" action="@Url.Action("Delete", "PromotionProduct", new { id = item.Id})">
+                            @Html.AntiForgeryToken()
+                            <button onclick="return confirm('Sản phẩm được khuyến mãi với giá @(item.PromotionProduct.PromotionalPrice). Bạn có muổn chắc muốn bỏ khuyến mãi sản phẩm này?')" type="submit" class="btn btn-default btn-xs">Bỏ khuyến mãi</button>
+                        </form>
+                    }
+                </td>
+                @*<td>
+                        @if (item.Display == true) {
+                            <a href="@Url.Action("Hide", new { id = item.Id})" class="btn btn-default btn-xs">Tạm Ẩn</a>
+                        }
+                        else {
+                            <a href="@Url.Action("Show", new { id = item.Id })" class="btn btn-default btn-xs">Hiển Lại</a>
+                        }
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>

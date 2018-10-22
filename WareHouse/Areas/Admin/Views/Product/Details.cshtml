@@ -1,0 +1,129 @@
+﻿@model Product
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+   
+}
+@section styles
+{
+    <style>
+               table 
+       {
+           color:#2a3f52;
+       }
+       table td
+       {
+           padding:5px;
+       }
+       tr td[class='text-right']
+       {
+           width:150px;
+       }
+       label 
+       {
+           font-size:14px;
+       }
+    </style>
+}
+@section scripts
+{
+    <script>
+        $("select[name=ImageSlider] option").click(function () {
+
+                open('@(Url.Content("~/Photos/Product/"))' + $(this).val());
+            });
+    </script>
+}
+<div class="col-md-4  text-center" style="font-weight:bold">
+    <img src="~/Photos/Product/@Model.Image" width="200" height="auto" />
+    <br />
+    <h4>
+        @Model.Name
+    </h4>
+    @if(ViewBag.Slider != null)
+    { 
+    <table>
+        @foreach (string item in ViewBag.Slider)
+        {
+            <tr class="col-md-4 col-sm-3 col-xs-6">
+                <td class="text-center"> 
+                    <a target="_blank" data-toggle="tooltip" title="Xem ảnh lớn" href="~/Photos/Product/@item.Trim()">
+                    <img width="70" height="100" src="~/Photos/Product/@item.Trim()" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+    }
+
+</div>
+<div class="col-md-8">
+    <table>
+        <tr>
+            <td class="text-right ">@Html.DisplayNameFor(model => model.Id):</td>
+            <td><label>@Model.Id</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.CategoryId):</td>
+            <td><label>@Model.Category.Name</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Price):</td>
+            <td><label>@Model.Price.ToString("#,##0") đồng</label></td>
+        </tr>
+        @if (Model.PromotionProduct != null) {
+            <tr>
+                <td class="text-right">Giá khuyến mãi:</td>
+                <td><label>@Model.PromotionProduct.PromotionalPrice.ToString("#,##0") đồng</label></td>
+            </tr>
+        }
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Color):</td>
+            <td><label>@Html.DisplayFor(m => Model.Color)</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Size):</td>
+            <td><label>@Html.DisplayFor(m => Model.Size)</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Price):</td>
+            <td><label>@Model.Price.ToString("#,##0") đồng</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Likes):</td>
+            <td><label>@Model.Likes</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.LoveTurns):</td>
+            <td><label>@Model.LoveTurns</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Alias_SEO):</td>
+            <td><label>@Model.Alias_SEO</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.DateCreated):</td>
+            <td><label>@Html.DisplayFor(model => model.DateCreated)</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Status):</td>
+            <td><label>@(Model.Status == true ? "Còn hàng" : "Hết hàng")</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">Hiển thị:</td>
+            <td><label>@Model.Display</label></td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.DisplayNameFor(model => model.Content):</td>
+            <td><article>@Html.Raw(Model.Content)</article></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = Model.Id, page = Request.QueryString["page"] })" class="btn btn-primary btn-sm">Sửa</a>
+                <a href="@Url.Action("Index",new { page = Request.QueryString["page"] })" class="btn btn-default btn-sm">Trở về</a>
+            </td>
+        </tr>
+    </table>
+</div>

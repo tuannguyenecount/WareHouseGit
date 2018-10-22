@@ -1,0 +1,71 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Quản lý thành viên";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Quản lý thành viên";
+}
+@section styles{
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+        .form-control2 {
+            height: 30px;
+            padding: 4px 12px;
+            font-size: 14px;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            line-height: 1.42857143;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script>
+        $(function () {
+            $("#tukhoa").autocomplete({
+                source: '@Url.Action("LayDanhSachTenvsEmail")'
+            });
+            $("#frmTimKiem input[name=tukhoa]").keyup(function () {
+                $("#frmTimKiem").submit();
+            });
+        });
+    </script>
+}
+
+@using (Ajax.BeginForm("ShowList", null, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Xảy ra lỗi khi lọc.')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" }, new { method = "get", @class = "pull-left" }))
+{
+    <p>
+
+        Lọc theo loại: @Html.DropDownList("LoaiThanhVien", null, new { @class = "form-control2" })
+        <button type="submit" class="form-control2">Lọc</button>
+    </p>
+}
+@using (Ajax.BeginForm("ShowList", null, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Xảy ra lỗi khi lọc.')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" }, new { method = "get", @class = "pull-left" }))
+{
+    <p>
+        &nbsp; | Lọc theo : 
+        <select class="form-control2" name="LoaiThanhVien2">
+            <option value="DaMua">Đã mua hàng</option>
+            <option value="ChuaMua">Chưa mua hàng</option>
+        </select>
+        <button type="submit" class="form-control2">Lọc</button>
+    </p>
+}
+<div>
+    @using (Ajax.BeginForm("ShowList", null, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể tìm kiếm')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" }, new { id = "frmTimKiem" }))
+    {
+        <input type="text" id="tukhoa" style="width:100%" name="tukhoa" placeholder="Nhập tên thành viên hoặc email cần tìm" />
+    }
+</div>
+<div>&nbsp;</div>
+<div class="col-md-12" id="result">
+    @Html.Action("ShowList")
+</div>

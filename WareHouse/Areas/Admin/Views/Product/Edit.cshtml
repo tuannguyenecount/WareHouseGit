@@ -1,0 +1,312 @@
+﻿@using System.Configuration;
+@model Product
+@{
+    ViewBag.Title = "Sửa thông tin sản phẩm ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Sửa sản phẩm";
+}
+
+@section styles
+{
+    <link href="~/Content/canvasCrop.css" rel="stylesheet" />
+    <style>
+        .cropped {
+            position: absolute;
+            right: -230px;
+            top: 0;
+            width: 200px;
+            border: 1px #ddd solid;
+            height: 460px;
+            padding: 4px;
+            box-shadow: 0px 0px 12px #ddd;
+            text-align: center;
+        }
+
+        .imageBox {
+            position: relative;
+            height: @((int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]) + 100).ToString())px;
+            width: @((int.Parse(ConfigurationManager.AppSettings["WidthImageProduct"]) * 2).ToString())px;
+            margin:0 auto;
+            background: #fff;
+            overflow: hidden;
+            border:none;
+            background-repeat: no-repeat;
+            cursor: move;
+            box-shadow: 4px 4px 12px #B0B0B0;
+        }
+
+            .imageBox .thumbBox {
+                position: absolute;
+                width: @(ConfigurationManager.AppSettings["WidthImageProduct"])px;
+                height: @(ConfigurationManager.AppSettings["HeightImageProduct"])px;
+                margin-left: -@((int.Parse(ConfigurationManager.AppSettings["WidthImageProduct"]) / 2).ToString())px;
+                margin-top: -@((int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]) / 2).ToString())px;
+                box-sizing: border-box;
+                border:none;
+                box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+                background: none repeat scroll 0% 0% transparent;
+            }
+
+            .imageBox .spinner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                line-height: 400px;
+                background: rgba(0,0,0,0.7);
+            }
+    </style>
+    <style>
+        table td {
+            padding: 10px;
+        }
+
+            table td[class='text-right'] {
+                width: 30%;
+            }
+
+        label {
+            font-size: 16px;
+        }
+
+        form input[type='text'], form input[type='number'], form select {
+            width: 80%;
+            height: 30px;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $("select[multiple] option").click(function () {
+                if (confirm('Bạn muốn xóa hình này?') == false) {
+                    open('@(Url.Content("~/Photos/Product/"))' + $(this).val());
+                }
+                else
+                {
+                    $(this).remove();
+                    var ImageSlider = new String($("input[name='Slider']").val());
+                    ImageSlider = ImageSlider.replace($(this).val(), '');
+                    $("input[name='Slider']").val(ImageSlider);
+                }
+            });
+            $("#btnFile").change(function () {
+                if($(this).val() != "")
+                {
+                   if(confirm("Xác nhận đổi hình đại diện của sản phẩm?") == true)
+                    $("#frmDoiImage").submit();
+                }
+            });
+            $("#btnDoiImage").click(function(){
+                $("#btnFile").click();
+            });
+        });
+    </script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckfinder/ckfinder.js"></script>
+    <script>
+        CKEDITOR.replace('Content');
+        CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+    </script>
+    <script src="~/Scripts/jquery.canvasCrop.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var rot = 0, ratio = 1;
+
+            $('#upload-file').on('change', function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    CanvasCrop = $.CanvasCrop({
+                        cropBox: ".imageBox",
+                        imgSrc: e.target.result,
+                        limitOver: 2
+                    });
+                    rot = 0;
+                    ratio = 1;
+
+                }
+
+                reader.readAsDataURL(this.files[0]);
+                console.log(this);
+                this.value = "";
+                $("#crop").removeClass("hide");
+                $("#btnLuu").addClass("hide");
+            });
+
+            $("#crop").on("click", function () {
+                var src = CanvasCrop.getDataURL("jpeg");
+                $("#modal-crop-image .modal-body").append("<br/><img src='" + src + "' />");
+                $("#file").val(src);
+                $("#btnLuu").removeClass("hide");
+            });
+            console.log("ontouchend" in document);
+
+        })
+    </script>
+}
+<div class="col-md-12 text-center">
+    <img src="@Model.ImageCustom" width="230" height="300" />
+    <br />
+    <h4>
+        @Model.Name
+    </h4>
+    <form id="frmDoiImage" action="@Url.Action("ChangeImage")" method="post" >
+        @Html.ValidationMessage("LoiDoiImage", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="button" style="width:150px; border-radius:0px" data-toggle="modal" data-target="#modal-crop-image" id="btnChonHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Chọn hình</button>
+        <div class="modal fade" id="modal-crop-image">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-purple">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cắt hình</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="imageBox">
+                                <div class="mask"></div>
+                                <div class="thumbBox"></div>
+                                <div class="spinner" style="display: none">Loading...</div>
+                            </div>
+                            <div class="upload-wapper">
+                                <br />
+                                Chọn 1 hình
+                                <input type="file" id="upload-file" value="Upload"><br />
+                                <button type="button" class="btn btn-primary hide" id="crop">Cắt</button>
+                                <input type="hidden" name="base64String" id="file" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button onclick="if (document.getElementById('file').value != '') { document.getElementById('frmDoiImage').submit(); } " type="button" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </form>
+</div>
+<div>&nbsp;</div>
+<div class="col-md-12">
+    <form action="@Url.Action("Edit")" method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(model => model.Id)
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Image)
+        @Html.HiddenFor(model => model.DateCreated)
+        @Html.HiddenFor(model => model.Slider)
+        @Html.Hidden("OldName", Model.Name)
+        @Html.Hidden("OldAlias", Model.Alias_SEO)
+        <input type="hidden" name="returnURL" value="@(Request.UrlReferrer == null ? Url.Action("Index") : Request.UrlReferrer.ToString() )" />
+        <table>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Name)</td>
+                <td>@Html.EditorFor(model => model.Name)</td>
+            </tr>
+
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Color) <span class="text-danger">(cách nhau bởi dấu ,)</span></td>
+                <td>@Html.EditorFor(model => model.Color)</td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Size) <span class="text-danger">(cách nhau bởi dấu ,)</span></td>
+                <td>@Html.EditorFor(model => model.Size)</td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.CategoryId)</td>
+                <td>@Html.DropDownList("CategoryId")</td>
+            </tr>
+            @if (Model.PromotionProduct == null)
+            {
+                <tr>
+                    <td class="text-right">@Html.LabelFor(model => model.Price)</td>
+                    <td>@Html.TextBoxFor(model => model.Price, new { type = "number", min = 0, step = 1000 })</td>
+                </tr>
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.PromotionProduct.ProductId)
+                <tr>
+                    <td class="text-right">@Html.LabelFor(model => model.Price)</td>
+                    <td>@Html.TextBoxFor(model => model.Price, new { @readonly = "readonly", type = "number", min = 0, step = 1000 })</td>
+                </tr>
+                <tr>
+                    <td class="text-right">@Html.LabelFor(model => model.PromotionProduct.PromotionalPrice)</td>
+                    <td>@Html.TextBoxFor(model => model.PromotionProduct.PromotionalPrice, new { type = "number", min = 0, step = 1000 })</td>
+                </tr>
+            }
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Likes)</td>
+                <td>@Html.TextBoxFor(model => model.Likes, new { type = "number", min = 0 })</td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.LoveTurns)</td>
+                <td>@Html.TextBoxFor(model => model.LoveTurns, new { type = "number", min = 0 })</td>
+            </tr>
+            @if (ViewBag.Slider != null)
+            {
+                <tr>
+                    <td class="text-right">@Html.LabelFor(model => model.Slider)</td>
+                    <td>
+
+                        <select multiple>
+                            @foreach (string item in ViewBag.Slider)
+                            {
+                                <option>@item </option>
+                            }
+                        </select>
+
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td><span class="text-info">File hình ảnh hợp lệ là file có đuôi .jpg hoặc .png và phải nhỏ hơn 1MB</span></td>
+            </tr>
+            <tr>
+                <td class="text-right"><label>Thêm hình slider</label></td>
+                <td>
+                    <input type="file" multiple="multiple" name="Imagebosung" />
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right"><label>@Html.LabelFor(model => model.Alias_SEO)</label>:</td>
+                <td> @Html.EditorFor(model => model.Alias_SEO)</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label>Còn hàng</label>:</td>
+                <td> @Html.CheckBoxFor(model => model.Status)</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label>@Html.LabelFor(model => model.Display)</label>:</td>
+                <td> @Html.CheckBoxFor(model => model.Display)</td>
+            </tr>
+            <tr>
+                <td class="text-right"><label>@Html.LabelFor(model => model.Content)</label>:</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.TextAreaFor(model => model.Content)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="btn btn-success btn-sm">Sửa</button>
+                    <a href="@Url.Action("Index",new { page = Request.QueryString["page"]})" class="btn btn-default btn-sm">Trở về</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+

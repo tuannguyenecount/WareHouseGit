@@ -1,0 +1,41 @@
+﻿@using System.Configuration;
+@model List<OrderDetail>
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_ManageLayout.cshtml";
+    ViewBag.Message = "Chi tiết đơn hàng có ID" + Url.RequestContext.RouteData.Values["id"];
+}
+
+<ul class="list-group">
+    @foreach (OrderDetail item in Model)
+    {
+        <li class="list-group-item" style="overflow:auto">
+            <div class="col-md-3 text-center">
+                <img src="@item.ProductImageCustom" width="@ConfigurationManager.AppSettings["WidthImageProduct"]" height="@ConfigurationManager.AppSettings["HeightImageProduct"]"  />
+            </div>
+            <div class="col-md-9">
+                <h5 class="text-success">
+                    <a href="@Url.Action("Details","Product",new {id = @item.ProductId, Alias =  item.ProductAlias})"> Sản phẩm: @item.ProductName</a>
+                </h5>
+                <h5>
+                    Đơn giá: @item.Price.ToString("#,##0").Replace(',','.') đ
+                </h5>
+                <h5>
+                    Số lượng: @item.Count
+                </h5>
+                <h5>
+                    Thành tiền: @item.Subtotal.ToString("#,##0").Replace(',','.') đ
+                </h5>
+            </div>
+        </li>
+    }
+</ul>
+<div class="well">
+    <h5 class="text-info">Tổng số lượng: @Model.Sum(m => m.Count) sản phẩm</h5>
+    <h5 class="text-info">Tổng thành tiền: @Model.Sum(m => m.Subtotal).ToString("#,##0").Replace(',','.') đ</h5>
+</div>
+
+<div>
+    <a href="@Url.Action("DanhSachDonHang","Order")" class="btn btn-default btn-sm"> Về danh sách</a>
+</div>
+

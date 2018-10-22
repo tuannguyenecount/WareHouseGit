@@ -1,0 +1,243 @@
+﻿@model Product
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles
+{
+    <link href="~/Content/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="~/Scripts/slider/jquery.jblslider.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Scripts/slider/jquery.jblslider.js"></script>
+    <script src="~/Scripts/scriptDetails.js"></script>
+}
+@section meta
+{
+    <meta property="og:url" content="@Request.Url.ToString()" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@Model.Name" />
+    <meta property="og:description" content="Chi tiết sản phẩm @Model.Name. Cùng mua ngay sản phẩm này tại shop nhé." />
+    <meta property="og:image" content="@Model.ImageCustom" />
+}
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+                @if (ViewBag.Slider != null)
+                {
+                    <div class="slider text-center" id="jblslider" style="height:600px">
+                        @foreach (string image in ViewBag.Slider)
+                        {
+                            <div class="slide" style="background-image: url('@image.Trim()'); ">
+                                <span>@Model.Name</span>
+                            </div>
+                        }
+                    </div>
+                }
+                    <div class="product-information">
+                        <h2>@Model.Name</h2>
+                        <div class="col-md-12">
+                            <div class="btnFacebook">
+                                <div class="fb-send" data-href="@Request.Url.ToString()"></div> Giới thiệu sản phẩm này cho bạn bè của bạn thông qua Facebook Message.
+                            </div>
+                            <div class="btnFacebook">
+                                <div class="fb-like" data-href="@Request.Url.ToString()" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                            </div>
+                        </div>
+                        @*<h4>Kiểu áo trễ vai hợp xu thế, phối bèo cách điệu mang đến diện mạo trẻ trung, sành điệu cho bạn nữ.</h4>*@
+                        <div class="col-md-8">
+
+                            <div class="product-infos">
+                                <p>
+                                    <span>Đơn giá: <b class="text-danger">@(Model.PriceThuc.ToString("#,##0").Replace(',', '.')) <sup>đ</sup></b></span>
+                                </p>
+                                <p>
+                                    @if (Model.Status == true)
+                                    {
+                                        <span>Tình trạng: <label class="label label-success"> còn hàng</label></span>
+                                    }
+                                    else
+                                    {
+                                        <span>Tình trạng: <label class="label label-danger">hết hàng</label></span>
+                                    }
+                                </p>
+                                <p>
+                                    <span>Ngày cập nhật: @Model.DateCreated.ToString("dd/MM/yyyy")</span>
+                                </p>
+                                <p>
+                                    Lượt thích: @Model.Likes
+                                </p>
+
+                                <p>
+                                    Lượt yêu thích: @Model.LoveTurns
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div>&nbsp;</div>
+                            @if (Model.Status == true) {
+                                <form action="@Url.Action("Add","ShoppingCart")" id="frmAddCartItem" method="get">
+                                    <input type="hidden" name="muangay" id="muangay" />
+                                    <input type="hidden" name="Id" value="@Model.Id" />
+                                    <div class="modal fade" id="modal-ChonThuocTinh" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    @if (ViewBag.ListMauSac != null && (ViewBag.ListMauSac as string[]).Count() > 0) {
+                                                        <div class="form-group">
+                                                            <label class="control-label">Chọn màu:</label>
+                                                            <select class="form-control" name="color" required>
+                                                                @foreach (var color in ViewBag.ListMauSac) {
+                                                                    <option class="form-control" value="@color">@color</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    }
+                                                    @if (ViewBag.ListSize != null && (ViewBag.ListSize as string[]).Count() > 0) {
+                                                        <div class="form-group">
+                                                            <label class="control-label">Chọn size:</label>
+                                                            <select class="form-control" name="size" required>
+                                                                @foreach (var size in ViewBag.ListSize) {
+                                                                    <option value="@size">@size</option>
+                                                                }
+                                                            </select>
+
+                                                        </div>
+                                                    }
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <ul class="product-buttons">
+                                    <li>
+                                        @if ((ViewBag.ListMauSac != null && (ViewBag.ListMauSac as string[]).Count() > 0) || (ViewBag.ListSize != null && (ViewBag.ListSize as string[]).Count() > 0)) {
+                                            <button onclick="document.getElementById('muangay').value='true'" type="button" data-toggle="modal" data-target="#modal-ChonThuocTinh" class="main-btn" style="background:#e84c3d;border:none"><span class="glyphicon glyphicon-earphone"></span> Mua ngay</button>
+                                        }
+                                        else {
+                                            <button onclick="document.getElementById('muangay').value='true'" type="submit"  class="main-btn" style="background:#e84c3d;border:none"><span class="glyphicon glyphicon-earphone"></span> Mua ngay</button>
+                                        }
+                                    </li>
+                                    <li>
+                                        @if ((ViewBag.ListMauSac != null && (ViewBag.ListMauSac as string[]).Count() > 0) || (ViewBag.ListSize != null && (ViewBag.ListSize as string[]).Count() > 0)) {
+                                            <button type="button" data-toggle="modal" data-target="#modal-ChonThuocTinh" class="main-btn" style="border:none"><span class="glyphicon glyphicon-shopping-cart"></span> Thêm vào giỏ</button>
+                                        }
+                                        else {
+                                            <button type="submit" class="main-btn" style="border:none"><span class="glyphicon glyphicon-shopping-cart"></span> Thêm vào giỏ</button>
+                                        }
+                                    </li>
+                                </ul>
+                            }
+
+                            <p>
+                                <input type="image" src="~/images/facebook-like-icon.png" alt="" data-toggle="modal" data-target="#thichProductModal" data-placement="top" title="Thích sản phẩm" />&nbsp;&nbsp;&nbsp;
+                                <input id="btnYeuThich" type="image" src="~/images/Love-Letter-icon.png" data-toggle="modal" data-target="#yeuThichProductModal" data-placement="top" title="Yêu thích sản phẩm" />
+                            </p>
+                        </div>
+                        <div class="modal fade" id="thichProductModal" role="dialog">
+                            <div style="width:250px;margin:100px auto;text-align:center">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        @using (Ajax.BeginForm("ThichProduct", new AjaxOptions() { OnComplete = "OnComplete", HttpMethod = "get" }))
+                                        {
+                                            <input type="hidden" name="id" value="@Model.Id" />
+                                            <img src="/home/ShowCaptchaImage" />
+                                            <p>
+                                                <input type="text" name="CaptchaText" placeholder="Nhập mã xác nhận" />
+                                            </p>
+                                            <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span> Xác nhận</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="yeuThichProductModal" role="dialog">
+                            <div style="width:280px;margin:100px auto;text-align:center">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        @using (Ajax.BeginForm("YeuThichProduct", new AjaxOptions() { OnComplete = "OnComplete", HttpMethod = "get" }))
+                                        {
+                                            <input type="hidden" name="id" value="@Model.Id" />
+                                            <img src="/home/ShowCaptchaImage" />
+                                            <p>
+                                                <input type="text" name="CaptchaText" placeholder="Nhập mã xác nhận" />
+                                            </p>
+                                            <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span> Xác nhận</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 product-article">
+                            @Html.Raw(Model.Content)
+                        </div>
+                        <div class="col-lg-12" style="clear:both;">
+                            <div class="fb-comments" data-href="@Request.Url.ToString()" data-width="600" data-numposts="20"></div>
+                        </div>
+                    </div> <!-- /.product-information -->
+            </div> <!-- /.col-md-8 -->
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12" id="rightsidebar">
+                @if (ViewBag.ProductLienQuan.Count > 0)
+                {
+                    <div class="divTitle">
+                        <span><span class="glyphicon glyphicon-gift"></span> &nbsp;Sản phẩm liên quan </span>
+                    </div>
+                    <div>
+                        <ul class="list-group">
+                            @foreach (Product item in ViewBag.ProductLienQuan)
+                            {
+                                <li class="list-group-item" style="overflow:hidden">
+                                    <div class="col-sm-5 text-center">
+                                        <img src="@item.ImageCustom" class="img-responsive" style="margin:0 auto" />
+                                    </div>
+                                    <div class="col-sm-7 text-center">
+                                        <h5>
+                                            <a href="@Url.Action("Details","Product",new { alias =  item.Alias_SEO})">@item.Name</a>
+                                        </h5>
+                                        <h5 class="text-danger">@(item.PriceThuc.ToString("#,##0").Replace(',', '.')) đồng</h5>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @if (ViewBag.CoTheBanThich.Count > 0)
+                {
+                    <div class="divTitle">
+                        <span><span class="glyphicon glyphicon-gift"></span> &nbsp;Có thể bạn sẽ thích </span>
+                    </div>
+                    <div>
+                        <ul class="list-group">
+                            @foreach (Product item in ViewBag.CoTheBanThich)
+                            {
+                                <li class="list-group-item" style="overflow:hidden">
+                                    <div class="col-sm-5 text-center">
+                                        <img src="@item.ImageCustom" class="img-responsive" style="margin:0 auto" />
+                                    </div>
+                                    <div class="col-sm-7 text-center">
+                                        <h5>
+                                            <a href="@Url.Action("Details","Product",new {alias =  item.Alias_SEO})">@item.Name</a>
+                                        </h5>
+                                        <h5 class="text-danger">@(item.PriceThuc.ToString("#,##0").Replace(',', '.')) đồng</h5>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                }
+            </div> <!-- /.col-md-4 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div> <!-- /.content-section -->

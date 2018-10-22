@@ -1,0 +1,14 @@
+﻿<ul class="list-group" id="menuAccount" style="padding-top:0px;">
+    <li class="list-group-item text-center"><a href="@Url.Action("Index","Statistical")"><img src="~/images/thongke.png" /><br />Thống kê doanh thu</a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Index","Order")"><img src="~/images/listdathang.png" /><br /> Đơn hàng <br/><label class="label label-danger" id="tongdonchuagiao"></label> </a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Index", "Product")"> <img src="~/images/product.png" /><br /> Sản phẩm<br/> <label title="Tổng số lượng sản phẩm" data-toggle="tooltip" class="label label-primary" id="tongsanpham"></label> <label class="label label-danger" id="tongsanphamchuahien"></label> </a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Index", "Category")"><img src="~/images/phanloai.png" /><br /> Phân loại </a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Index", "Slide")"><img src="~/images/image-24.png" /><br /> Slide hình</a> </li>
+    @*<li class="list-group-item text-center"><a href="@Url.Action("Index", "News")"><img src="~/images/news.png" /><br /> Tin tức</a> </li>*@
+    <li class="list-group-item text-center"><a href="@Url.Action("Index", "AspNetUser")"><img src="~/images/members.png" /><br /> Thành viên</a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Download","Subscriber")" onclick="return confirm('Thao tác này sẽ tải xuống file chứa các mail nhận tin. Bạn có muốn tải về?')"><img src="~/images/lists.png" /><br />Thành viên nhận tin</a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Index", "MailBox", new { area="Admin" })"><img src="~/images/hopthu.png" /><br />Hộp thư liên hệ</a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Index", "InfoShop", new { area="Admin" })"><img src="~/images/info.png" /><br />Thông tin công ty</a> </li>
+    <li class="list-group-item text-center"><a target="_blank" href="/"><img src="~/images/home.png" width="" /><br />Xem website</a></li>
+    <li class="list-group-item text-center"><a href="@Url.Action("Manage", "Account", new { area=""})"><img src="~/images/user.png" /><br />Về trang cá nhân</a></li>
+</ul>

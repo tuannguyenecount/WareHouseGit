@@ -1,0 +1,36 @@
+﻿<header class="site-header">
+    <div class="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-sm-9 col-xs-12">
+                    <div class="top-header-left">
+                        @Html.Partial("_LoginPartial")
+                        <form action="@Url.Action("Search", "Product", new { area = "" })" method="get" style="display:inline-block">
+                            <input type="text" required placeholder="Tìm sản phẩm" name="keyword" class="form-control" style="float: left;width: 200px;margin:0px 5px;display: inline-block;" />
+                            <button type="submit" class="btn btn-link" style="position:relative"><span class="glyphicon glyphicon-search"></span> Tìm kiếm</button>
+                        </form>
+                        <a href="@Url.Action("Index", "ShoppingCart",new { area="" })" class="text-success"><span class="glyphicon glyphicon-shopping-cart"></span> Giỏ hàng <span class="badge" id="Countsptronggio">@((Session["GioHang"] as List<CartItem>).Sum(m => m.Count))</span></a>
+                        <a href="#" class="text-danger"><span class="glyphicon glyphicon-phone-alt"></span> Hot line: @((Session["InfoShop"] as InfoShop).Phone)</a>
+                    </div> <!-- /.top-header-left -->
+                </div> <!-- /.col-md-6 -->
+
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a target="_blank" href="@((Session["InfoShop"] as InfoShop).Fanpage)" class="fa fa-facebook"></a></li>
+                            <li><a href="tel:@((Session["InfoShop"] as InfoShop).Zalo)" class="glyphicon glyphicon-phone"></a></li>
+                            <li><a href="#" class="fa fa-envelope"></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div> <!-- /.social-icons -->
+                </div> <!-- /.col-md-6 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </div> <!-- /.top-header -->
+    <!-- /.main-header -->
+    @Html.Action("MainHeader", "Home", new { area = "" })
+    <!-- /.main-header -->
+
+    @Html.Action("MainNav", "Home", new { area = "" })
+
+</header> <!-- /.site-header -->

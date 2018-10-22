@@ -1,0 +1,37 @@
+﻿<hr />
+<div class="divTitle2" style="margin-bottom:0px">Kết quả tìm kiếm</div>
+<div style="overflow:hidden; border:1px solid;padding-top:10px;">
+    @foreach (var item in Model)
+    {
+        <div class="product-item-vote col-sm-6" style="min-height:350px">
+            <div class="product-thumb col-sm-6">
+                <img src="~/Photos/Product/@item.Image">
+            </div> <!-- /.product-thum -->
+            <div class="product-content col-sm-6" style="min-height:350px;">
+                <h5><a href="@Url.Action("Details","Product",new {id = item.Id, Alias =  item.Alias_SEO})">@item.Name</a></h5>
+                <span class="price">@(item.PriceThuc.ToString("#,##0").Replace(',', '.')) <sup>đ</sup></span>
+                <p>
+                    <label class="text-danger">Tình trang: @(item.Status == true ? "còn hàng" : "hết hàng")</label>
+                </p>
+                <p>
+                    Ngày cập nhật: @item.NgayCapNhat.ToString("dd/MM/yyyy")
+                </p>
+                <p>
+                    <input type="image" class="datvaogio" name="@item.Id" src="~/images/cart-add-icon.png" data-toggle="tooltip" data-placement="bottom" title="Đặt vào giỏ hàng" />
+                    @*<input type="image" src="~/images/facebook-like-icon.png"  title="Lượt thích sản phẩm"  />
+                        <input type="image" src="~/images/Love-Letter-icon.png" title="Lượt yêu thích sản phẩm" />*@
+                </p>
+            </div> <!-- /.product-content -->
+
+
+        </div> <!-- /.product-item-vote -->
+    }
+
+
+
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

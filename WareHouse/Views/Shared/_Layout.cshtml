@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    @RenderSection("meta", false)
+    <title>@ViewBag.Title | 23.06 STORE - Cửa hàng chuyên cung cấp sẩn phẩm thời trang nam sỉ, lẻ chất lượng nhất</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
+    <link rel="icon" href="~/favicon.ico" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", false)
+</head>
+<body class="off-canvas-nav-left">
+    
+
+    @Html.Partial("_HeaderPartial")
+    <a href="#" data-toggle="modal" id="thongbao" data-target="#thongBaoModal"></a>
+    <div class="modal fade" id="thongBaoModal" role="dialog">
+        <div class="modal-dialog modal-md">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" id="ContentThongBao"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @RenderBody()
+    
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.0&appId=222047801936739&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    @{ Html.RenderAction("_FooterPartial", "Home",new {area="" }); }
+    
+    @Scripts.Render("~/bundles/jqueryCDN")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        $(function () {
+            $("body").tooltip({
+                selector: '[data-toggle="tooltip"]'
+            });
+            $("#frmDangKyNhanTin").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: this.action,
+                    data: $(this).serialize(),
+                    //dataType: "json",
+                    method: "Post",
+                    error: function (response) {
+                        $("#ContentThongBao").html("<span class='text-danger'>" + response + "</span>");
+                        $("#thongbao").click();
+                    },
+                    success: function (response) {
+                        alert(response);
+                    }
+
+                });
+            });
+            $(document).on('click', '.social-icons a', function () {
+                if ($(this).hasClass('fa fa-facebook')) {
+                    window.open('https://www.facebook.com/sharer/sharer.php?u=@(Url.Action("Index", "Home", new { area = "" }, this.Request.Url.Scheme)) ', 'Share Facebook', config = 'height=300, width=500');
+                }
+
+                if ($(this).hasClass('fa fa-twitter')) {
+                    window.open('http://twitter.com/home?status=Currently inspired by @(Url.Action("Index", "Home", new { area = "" }, this.Request.Url.Scheme))', 'Share Twitter', config = 'height=300, width=500');
+                }
+
+                if ($(this).hasClass('fa fa-google-plus')) {
+                    window.open('https://plus.google.com/share?url=@(Url.Action("Index", "Home", new { area = "" }, this.Request.Url.Scheme))', 'Share Google +', config = 'height=300, width=500');
+                }
+
+            });
+        });
+
+    </script>
+    @RenderSection("scripts", required: false)
+
+    <script>window.jQuery || document.write('<script src="/Scripts/jquery-1.12.1.min.js"><\/script>')</script>
+</body>
+
+</html>

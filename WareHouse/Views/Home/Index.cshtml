@@ -1,0 +1,201 @@
+﻿@{ 
+    ViewBag.Title = "Trang chủ";
+}
+@section styles
+{
+    <link href="~/Content/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="~/Scripts/slider/jquery.jblslider.css" rel="stylesheet" />
+    <link href="~/Content/socialpic.min.css" rel="stylesheet" />
+    <link href="~/Content/tinthoitrang.css" rel="stylesheet" />
+}
+@section scripts
+{
+    <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Scripts/slider/jquery.jblslider.js"></script>
+    <script>
+        $(function () {
+            if (window.innerWidth  > 800) {
+                $(".top-header").attr("data-spy", "affix").attr("data-offset-top", "200").css("z-index", "100").css("width", "100%").css("background", "#fff");
+            }
+            $(window).load(function () {
+                $(".contentscroll").mCustomScrollbar({
+                    axis: "y",
+                    setHeight: "400",
+                    theme: "dark",
+                    scrollButtons: { enable: true }
+                });
+            });
+            $("#jblslider").jblSlider(
+                {
+                    autoplay: true
+                });
+           
+        })
+    </script>
+
+}
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 ">
+                <div class="divTitle">
+                    <span><span class="glyphicon glyphicon-gift"></span> &nbsp;Sản phẩm khuyến mãi </span>
+                </div>
+                <div class="contentscroll">
+                    <ul class="list-group">
+                        @foreach (PromotionProduct item in ViewBag.PromotionProducts)
+                        {
+                            <li class="list-group-item" style="overflow:auto;">
+                                <div class="col-md-5 col-sm-3 col-xs-12 text-center">
+                                    <a href="@Url.Action("Details","Product",new { alias =  item.Product.Alias_SEO})"> 
+                                    <img class="imgProductKM" src="@item.Product.ImageCustom" /></a>
+                                </div>
+                                <div class="col-md-7 col-sm-9">
+                                    <p>
+                                        <b><a href="@Url.Action("Details","Product",new { alias =  item.Product.Alias_SEO })">@(item.Product.Name.Length > 50 ? item.Product.Name.Substring(0, 50) + "..." : item.Product.Name)</a> <span class="badge">-@((int)((item.Product.Price - item.PromotionalPrice) * 100 / item.Product.Price))%</span></b>
+                                        <br />
+                                        <span style="text-decoration:line-through">@item.Product.Price.ToString("#,##0") đồng</span>&nbsp;&nbsp;
+                                        <b class="text-danger">@item.PromotionalPrice.ToString("#,##0") đồng</b>
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8  col-sm-12 ">
+                <div class="divTitle">
+                    <span><span class="glyphicon glyphicon-picture"></span> &nbsp;Cửa hàng của chúng tôi</span>
+                </div>
+                <div class="slider" id="jblslider">
+                    @foreach (Slide slide in ViewBag.Slides)
+                    {
+                    <div class="slide" style="background-image:url(@(slide.ImageCustom))">
+                        <span>@slide.Title</span>
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 section-title">
+                <h2>SẢN PHẨM MỚI</h2>
+            </div> <!-- /.section -->
+        </div> <!-- /.row -->
+        <div class="row">
+        @foreach(Product item in ViewBag.ProductMoiCapNhat)
+        { 
+            <div class="col-md-3 col-xs-6 col-sm-4 divItem" >
+                <div class="product-item-vote">
+                    <div class="product-thumb">
+                        <a href="@Url.Action("Details","Product",new { alias =  item.Alias_SEO })">
+                            <img  src="@item.ImageCustom" title="@item.Name" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]"  data-toggle="tooltip" data-placement="bottom">
+                        </a>
+                    </div> <!-- /.product-thum -->
+                    <div class="product-content">
+                        <div class="divName">
+                            <h5 data-toggle="tooltip" data-placement="bottom" title="@item.Name"><a href="@Url.Action("Details","Product",new { alias =  item.Alias_SEO })">@item.Name</a></h5>
+                        </div>
+                        <span class="price">@(item.PriceThuc.ToString("#,##0").Replace(',','.')) <sup>đ</sup> </span>
+                        <ul class="progess-bars">
+                            <li>
+                                <div class="progress">
+                                    <div data-toggle="tooltip" title="Lượt thích" class="progress-bar" role="progressbar" aria-valuenow="@item.Likes" aria-valuemin="0" style="width: @(30 + item.Likes)%;max-width:70% "></div>
+                                    <span>@item.Likes <i class="fa fa-thumbs-up"></i> </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="progress">
+                                    <div data-toggle="tooltip" title="Lượt yêu thích" class="progress-bar comments" role="progressbar" aria-valuenow="@item.LoveTurns" aria-valuemin="0"  style="width: @(30 + item.LoveTurns)%;max-width:70%"></div>
+                                    <span class="comments">@item.LoveTurns<i class="fa fa-heart"></i></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> <!-- /.product-content -->
+                </div> <!-- /.product-item-vote -->
+            </div> <!-- /.col-md-3 -->
+        }
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div> <!-- /.content-section -->
+<div class="content-section">
+    <div class="container">
+   
+        <div class="row">
+            <div class="col-md-12 section-title">
+                <h2>CÓ THỂ BẠN SẼ THÍCH</h2>
+            </div> <!-- /.section -->
+        </div> <!-- /.row -->
+        <div class="row">
+            @foreach (Product item in ViewBag.CoTheBanThich)
+            {
+                <div class="col-md-3 col-xs-6 col-sm-4   divItem">
+                    <div class="product-item-vote">
+                        <div class="product-thumb">
+                            <a href="@Url.Action("Details","Product",new { alias =  item.Alias_SEO })">
+                                <img src="@item.ImageCustom" title="@item.Name" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" data-toggle="tooltip" data-placement="bottom">
+                            </a>
+                        </div> <!-- /.product-thum -->
+                        <div class="product-content">
+                            <div class="divName">
+                                <h5 data-toggle="tooltip" data-placement="bottom" title="@item.Name"><a href="@Url.Action("Details","Product",new {alias =  item.Alias_SEO })">@(item.Name)</a></h5>
+                            </div>
+                            <span class="price">@(item.PriceThuc.ToString("#,##0").Replace(',','.')) <sup>đ</sup> </span>
+                            <ul class="progess-bars">
+                                <li>
+                                    <div class="progress">
+                                        <div data-toggle="tooltip" title="Lượt thích" class="progress-bar" role="progressbar" aria-valuenow="@item.Likes" aria-valuemin="0" style="width: @(30 + item.Likes)%;max-width:70% "></div>
+                                        <span>@item.Likes <i class="fa fa-thumbs-up"></i> </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="progress">
+                                        <div data-toggle="tooltip" title="Lượt yêu thích" class="progress-bar comments" role="progressbar" aria-valuenow="@item.LoveTurns" aria-valuemin="0" style="width: @(30 + item.LoveTurns)%;max-width:70%"></div>
+                                        <span class="comments">@item.LoveTurns<i class="fa fa-heart"></i></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div> <!-- /.product-content -->
+                    </div> <!-- /.product-item-vote -->
+                </div> <!-- /.col-md-3 -->
+            }
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div> <!-- /.content-section -->
+
+@*<div class="content-section">
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-12 section-title" >
+                <h2 style="margin-bottom:0px">TIN THỜI TRANG MỚI NHẤT</h2>
+            </div> <!-- /.section -->
+        </div> <!-- /.row -->
+        <div class="row Newscontent">
+            <ul style="list-style-position:outside;padding-left:0px;">
+                @foreach(News item in ViewBag.dsTin)
+                { 
+                <li style="margin-left:0px; ">
+                    <div class="col-md-3 col-sm-4 " style="margin:0px;padding:0px">
+                        <div style="overflow:auto;width:200px; margin:0 auto;">
+                            <a href="@Url.Action("ChiTiet", "News", new { alias = item.Alias_SEO})"><img src="@item.ImageCustom" width="200" height="120" /></a>
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-8" style="margin:0px;padding:0px">
+                        <a href="@Url.Action("ChiTiet", "News", new { alias = item.Alias_SEO})"><h2 style="margin-top:0px">@Html.DisplayFor(m => item.Title)</h2></a>
+                        <p>@Html.DisplayFor(m => item.Introduce)</p>
+                    </div>
+                    
+                </li>
+                }
+
+
+            </ul>
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div>*@
+ @*content-section*@ 

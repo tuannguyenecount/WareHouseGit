@@ -1,0 +1,26 @@
+﻿@model News
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section styles
+{
+}
+
+<div >
+    <p>
+        @Html.ActionLink("Sửa", "SuaContent", new { id = Model.Id }) |
+        @Html.ActionLink("Về danh sách", "Index")
+    </p>
+
+    <h2 >@Model.Title</h2>
+    <p>@Model.Introduce</p>
+    <article >
+        @Html.Raw(Model.Content)
+    </article>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Về danh sách", "Index")
+</p>

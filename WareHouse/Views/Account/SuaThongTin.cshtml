@@ -1,0 +1,61 @@
+﻿@model EditInformationViewModel
+@{
+    ViewBag.Title = "SuaThongTin";
+    Layout = "~/Views/Shared/_ManageLayout.cshtml";
+    ViewBag.Message = "Sửa thông tin";
+}
+@section styles
+{
+    <style>
+        form div
+        {
+            margin:20px 0px;
+        } 
+    </style>
+}
+
+    <form action="@Url.Action("SuaThongTin")" method="post" role="form">
+        @Html.AntiForgeryToken()       
+        @Html.ValidationSummary("", new { @class="text-danger"})
+        <div class="col-md-3 text-right" style="padding:5px" >
+            @Html.LabelFor(m => m.Name)
+        </div>
+        <div class="col-md-9 text-left">
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div class="col-md-3 text-right" style="padding:5px">
+            @Html.LabelFor(m => m.Phone)
+        </div>
+        <div class="col-md-9 text-left">
+            @Html.TextBoxFor(m => m.Phone)
+        </div>
+        <div class="col-md-3 text-right" style="padding:5px">
+            @Html.LabelFor(m => m.Address)
+        </div>
+        <div class="col-md-9 text-left">
+            @Html.TextBoxFor(m => m.Address)
+        </div>
+        <div class="col-md-3 text-right" style="padding:5px">
+            @Html.LabelFor(m => m.Gender)
+        </div>
+        <div class="col-md-9 text-left">
+            @if (Model.Gender == true)
+            {
+                @Html.RadioButtonFor(m => m.Gender, true, new { @checked = "checked" }) <label>&nbsp;Nam</label>
+                @Html.RadioButtonFor(m => m.Gender, false)<label>&nbsp;Nữ</label>
+            }
+            else
+            {
+               @Html.RadioButtonFor(m => m.Gender, true)                <label>&nbsp;Nam</label>
+                @Html.RadioButtonFor(m => m.Gender, false, new { @checked = "checked" })    <label>&nbsp;Nữ</label>
+            }
+        </div>
+        <div class="col-md-9 col-md-offset-3 text-left">
+           <button type="submit" class="btn btn-primary">Sửa thông tin</button>
+            <button type="button" class="btn btn-default" onclick="history.go(-1);"> Trở lại</button>
+        </div>
+    </form>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

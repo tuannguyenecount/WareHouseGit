@@ -1,0 +1,68 @@
+﻿@model InfoShop
+<footer class="site-footer">
+
+    <div class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="footer-widget">
+                        <h3 class="widget-title">Thông tin</h3>
+                        <span class="glyphicon glyphicon-phone"></span> Hot line: @Model.Phone<br />
+                        <span class="glyphicon glyphicon-inbox"></span> Email: @Model.Email<br />
+                        <span class="glyphicon glyphicon-home"></span> Địa chỉ: @Model.Address<br />
+                        <ul class="follow-us">
+                            <li><a href="@Model.Fanpage" data-toggle="tooltip" title="Theo dõi qua facebook"><i class="fa fa-facebook"></i>Facebook</a></li>
+                        </ul> <!-- /.follow-us -->
+                    </div> <!-- /.footer-widget -->
+                </div> <!-- /.col-md-3 -->
+                <div class="col-md-3">
+                    <div class="footer-widget">
+                        <h3 class="widget-title">Lý do bạn nên mua hàng tại @Model.ShopName?</h3>
+                        @Html.Raw(Model.TextFooter)
+                    </div> <!-- /.footer-widget -->
+                </div> <!-- /.col-md-3 -->
+                <div class="col-md-2">
+                    <div class="footer-widget">
+                        <h3 class="widget-title">Liên kết</h3>
+                        <ul>
+                            <li><a href="@Url.Action("Index", "News", new { area=""})">Tin Tức Shop</a></li>
+                            <li><a href="@Url.Action("About", "Home", new { area=""})">Giới Thiệu Shop</a></li>
+                            <li><a href="@Url.Action("Add", "MailBox", new { area=""})">Liên Hệ</a></li>
+                            <li><a href="@Url.Action("SalesPolicy", "Home", new { area=""})">Chính Sách Bán Hàng</a></li>
+                            <li><a href="@Url.Action("ShoppingGuide", "Home", new { area=""})">Hướng Dẫn Mua Hàng</a></li>
+                        </ul>
+                    </div> <!-- /.footer-widget -->
+                </div> <!-- /.col-md-2 -->
+                <div class="col-md-4">
+                    <div class="footer-widget">
+                        <h3 class="widget-title">Đăng ký nhận tin</h3>
+                        <div class="newsletter">
+                            <form  action="@Url.Action("Add","Subscriber")" id="frmDangKyNhanTin" method="post">
+                                @Html.AntiForgeryToken()
+                                <p>Đăng ký để nhận những thông tin về những sản phẩm mới của chúng tôi qua địa chỉ email của bạn.</p>
+                                <input type="email" required title="Email" name="email" placeholder="Nhập địa chỉ email">
+                                <input type="submit" class="s-button" name="submit" value="THEO DÕI">
+                            </form>
+                        </div> <!-- /.newsletter -->
+                    </div> <!-- /.footer-widget -->
+                </div> <!-- /.col-md-4 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </div> <!-- /.main-footer -->
+    <div class="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <span>Copyright &copy; 2018 <a href="#"> @Model.ShopName </a> | Design by: <a href="@Model.Fanpage">@Model.ShopName</a></span>
+                    <p>
+                        @*<iframe src="@Model.Google_Map"></iframe>*@
+                        @*Quảng cáo Giấy phép báo điện tử số: 236/GP-BTTTT. Tổng Biên tập: Ngô Việt Anh.
+                        Cơ quan chủ quản: Hội Xuất bản Việt Nam.
+                        Tòa soạn: D29 Trần Thái Tông, Cầu Giấy, Hà Nội.
+                        Chỉ được phát hành lại thông tin từ website này khi có sự đồng ý bằng văn bản của báo.*@
+                    </p>
+                </div> <!-- /.col-md-12 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </div> <!-- /.bottom-footer -->
+</footer> <!-- /.site-footer -->
