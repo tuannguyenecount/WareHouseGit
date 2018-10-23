@@ -13,11 +13,11 @@ namespace WareHouse.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            ViewBag.PromotionProducts = db.PromotionProducts.Where(m=>m.Product.Display == true && m.Product.Status == true).OrderByDescending(m=>m.ProductId).ToList();
-            ViewBag.ProductMoiCapNhat = db.Products.Where(m=>m.Display == true && m.Status == true).OrderByDescending (m => m.Id).Take(8).ToList();
-            ViewBag.CoTheBanThich = db.Products.Where(m => m.Display == true && m.Status == true).OrderByDescending(m => m.LoveTurns + m.Likes).Take(8).ToList();
+            //ViewBag.PromotionProducts = db.PromotionProducts.Where(m=>m.Product.Display == true && m.Product.Status == true).OrderByDescending(m=>m.ProductId).ToList();
+            //ViewBag.ProductMoiCapNhat = db.Products.Where(m=>m.Display == true && m.Status == true).OrderByDescending (m => m.Id).Take(8).ToList();
+            //ViewBag.CoTheBanThich = db.Products.Where(m => m.Display == true && m.Status == true).OrderByDescending(m => m.LoveTurns + m.Likes).Take(8).ToList();
             //ViewBag.dsTin = db.News.OrderByDescending(m=>m.Id).Take(5).ToList();
-            ViewBag.Slides = db.Slides.Where(m => m.Status == true).OrderBy(m => m.Order).ToList();
+            //ViewBag.Slides = db.Slides.Where(m => m.Status == true).OrderBy(m => m.Order).ToList();
             return View();
         }
 
