@@ -460,8 +460,14 @@
     <Content Include="Content\ps17\modules\ph_simpleblog\covers\8-thumb.jpeg" />
     <Content Include="Content\ps17\modules\ph_simpleblog\covers\9-thumb.jpeg" />
     <Content Include="Content\ps17\modules\revsliderprestashop\admin\assets\images\dummy.png" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\uploads\lggg.png" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\uploads\man-3.jpg" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\uploads\redstripe.png" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\uploads\store3.jpg" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\uploads\woman.jpg" />
     <Content Include="Content\ps17\themes\warehouse\assets\cache\bottom-5d8f5a37.js" />
     <Content Include="Content\ps17\themes\warehouse\assets\cache\theme-4a403a38.css" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\font-awesome.css" />
     <Content Include="Content\ps17\themes\warehouse\assets\img\blank.png" />
     <Content Include="Content\socialpic.min.css" />
     <Content Include="Content\stylemember.css" />
@@ -960,6 +966,15 @@
     <Content Include="Models\EntityDataModel.edmx.diagram">
       <DependentUpon>EntityDataModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\glyphicons-halflings-regular.svg#glyphicons_halflingsregular" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\public\assets\fonts\revicons\revicons.ttf" />
+    <Content Include="Content\ps17\modules\revsliderprestashop\public\assets\fonts\revicons\revicons.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />

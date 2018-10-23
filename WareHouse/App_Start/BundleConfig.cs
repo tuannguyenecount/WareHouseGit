@@ -14,6 +14,8 @@ namespace WareHouse
                         "~/Scripts/plugins.js",
                         "~/Scripts/main.js"));
 
+
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
