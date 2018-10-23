@@ -1,68 +1,195 @@
 ﻿@model InfoShop
-<footer class="site-footer">
 
-    <div class="main-footer">
+<footer id="footer">
+    <div id="footer-container-first" class="footer-container footer-style-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col block-newsletter">
+                    <h5>Sign up to newsletter</h5>
+                    <div class="ps-emailsubscription-block">
+                        <form action="//iqit-commerce.com/ps17/en/?fc=module&module=iqitemailsubscriptionconf&controller=subscription"
+                              method="post">
+                            <div class="input-group newsletter-input-group ">
+                                <input name="email"
+                                       type="email"
+                                       value=""
+                                       class="form-control input-subscription"
+                                       placeholder="Your email address">
+                                <button class="btn btn-primary btn-subscribe btn-iconic"
+                                        name="submitNewsletter"
+                                        type="submit">
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-muted"> </div>
+                            <input type="hidden" name="action" value="0">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-container-main" class="footer-container footer-style-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="footer-widget">
-                        <h3 class="widget-title">Thông tin</h3>
-                        <span class="glyphicon glyphicon-phone"></span> Hot line: @Model.Phone<br />
-                        <span class="glyphicon glyphicon-inbox"></span> Email: @Model.Email<br />
-                        <span class="glyphicon glyphicon-home"></span> Địa chỉ: @Model.Address<br />
-                        <ul class="follow-us">
-                            <li><a href="@Model.Fanpage" data-toggle="tooltip" title="Theo dõi qua facebook"><i class="fa fa-facebook"></i>Facebook</a></li>
-                        </ul> <!-- /.follow-us -->
-                    </div> <!-- /.footer-widget -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3">
-                    <div class="footer-widget">
-                        <h3 class="widget-title">Lý do bạn nên mua hàng tại @Model.ShopName?</h3>
-                        @Html.Raw(Model.TextFooter)
-                    </div> <!-- /.footer-widget -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-2">
-                    <div class="footer-widget">
-                        <h3 class="widget-title">Liên kết</h3>
+                <div class="col col-md block block-toggle block-iqitlinksmanager block-iqitlinksmanager-1 block-links js-block-toggle">
+                    <h5 class="block-title"><span>Information</span></h5>
+                    <div class="block-content">
                         <ul>
-                            <li><a href="@Url.Action("Index", "News", new { area=""})">Tin Tức Shop</a></li>
-                            <li><a href="@Url.Action("About", "Home", new { area=""})">Giới Thiệu Shop</a></li>
-                            <li><a href="@Url.Action("Add", "MailBox", new { area=""})">Liên Hệ</a></li>
-                            <li><a href="@Url.Action("SalesPolicy", "Home", new { area=""})">Chính Sách Bán Hàng</a></li>
-                            <li><a href="@Url.Action("ShoppingGuide", "Home", new { area=""})">Hướng Dẫn Mua Hàng</a></li>
+                            <li>
+                                <a href="/ps17/en/content/1-delivery"
+                                   title="Our terms and conditions of delivery">
+                                    Delivery
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/content/2-legal-notice"
+                                   title="Legal notice">
+                                    Legal Notice
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/content/4-about-us"
+                                   title="Learn more about us">
+                                    About us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/content/3-terms-and-conditions-of-use"
+                                   title="Our terms and conditions of use">
+                                    Terms and conditions of use
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://google.com">
+                                    Custom link
+                                </a>
+                            </li>
                         </ul>
-                    </div> <!-- /.footer-widget -->
-                </div> <!-- /.col-md-2 -->
-                <div class="col-md-4">
-                    <div class="footer-widget">
-                        <h3 class="widget-title">Đăng ký nhận tin</h3>
-                        <div class="newsletter">
-                            <form  action="@Url.Action("Add","Subscriber")" id="frmDangKyNhanTin" method="post">
-                                @Html.AntiForgeryToken()
-                                <p>Đăng ký để nhận những thông tin về những sản phẩm mới của chúng tôi qua địa chỉ email của bạn.</p>
-                                <input type="email" required title="Email" name="email" placeholder="Nhập địa chỉ email">
-                                <input type="submit" class="s-button" name="submit" value="THEO DÕI">
-                            </form>
-                        </div> <!-- /.newsletter -->
-                    </div> <!-- /.footer-widget -->
-                </div> <!-- /.col-md-4 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.container -->
-    </div> <!-- /.main-footer -->
-    <div class="bottom-footer">
+                    </div>
+                </div>
+                <div class="col col-md block block-toggle block-iqitlinksmanager block-iqitlinksmanager-3 block-links js-block-toggle">
+                    <h5 class="block-title"><span>Account</span></h5>
+                    <div class="block-content">
+                        <ul>
+                            <li>
+                                <a href="/ps17/en/login"
+                                   title="">
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/addresses"
+                                   title="">
+                                    Addresses
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/guest-tracking"
+                                   title="">
+                                    Guest tracking
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/order-history"
+                                   title="">
+                                    Order history
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col col-md block block-toggle block-iqitlinksmanager block-iqitlinksmanager-4 block-links js-block-toggle">
+                    <h5 class="block-title"><span>Customs</span></h5>
+                    <div class="block-content">
+                        <ul>
+                            <li>
+                                <a href="/ps17/en/prices-drop"
+                                   title="On-sale products">
+                                    Prices drop
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/stores"
+                                   title="">
+                                    Stores
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/manufacturers"
+                                   title="Manufacturers list">
+                                    Manufacturers
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/new-products"
+                                   title="Our new products">
+                                    New products
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ps17/en/sitemap"
+                                   title="Lost ? Find what your are looking for">
+                                    Sitemap
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col col-md block block-toggle block-iqitcontactpage js-block-toggle">
+                    <h5 class="block-title"><span>Contact us</span></h5>
+                    <div class="block-content">
+                        <div class="contact-rich">
+                            <strong>Your company</strong>            <div class="part">
+                                <div class="icon"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                                <div class="data">Your address</div>
+                            </div>
+                            <hr />
+                            <div class="part">
+                                <div class="icon"><i class="fa fa-phone" aria-hidden="true"></i></div>
+                                <div class="data">
+                                    <a href="tel:777 777 777">777 777 777</a>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="part">
+                                <div class="icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
+                                <div class="data email">
+                                    <a href="mailto:yourmail@com.com">yourmail@com.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </div>
+    <div id="footer-copyrights" class="_footer-copyrights-2 dropup">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <span>Copyright &copy; 2018 <a href="#"> @Model.ShopName </a> | Design by: <a href="@Model.Fanpage">@Model.ShopName</a></span>
-                    <p>
-                        @*<iframe src="@Model.Google_Map"></iframe>*@
-                        @*Quảng cáo Giấy phép báo điện tử số: 236/GP-BTTTT. Tổng Biên tập: Ngô Việt Anh.
-                        Cơ quan chủ quản: Hội Xuất bản Việt Nam.
-                        Tòa soạn: D29 Trần Thái Tông, Cầu Giấy, Hà Nội.
-                        Chỉ được phát hành lại thông tin từ website này khi có sự đồng ý bằng văn bản của báo.*@
-                    </p>
-                </div> <!-- /.col-md-12 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.container -->
-    </div> <!-- /.bottom-footer -->
-</footer> <!-- /.site-footer -->
+                <div class="col-12 copyright-img ">
+                    <img src="ps17/img/cms/people/lggg.png" class="img-fluid" alt="Payments" />
+                </div>
+                <div class="col-12 copyright-txt">
+                    <p><strong>Prestashop 1.7</strong></p>
+                </div>
+                <div class="col-12 block-social-links">
+                    <ul class="social-links _footer">
+                        <li class="facebook"><a href="facebook url" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="twitter"><a href="twitter url" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li class="instagram"><a href="instagram url" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li class="google"><a href="google url" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="pinterest"><a href="pintrest url" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                        <li class="youtube"><a href="youtube url" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                        <li class="vimeo"><a href="vimeo url" target="_blank"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
