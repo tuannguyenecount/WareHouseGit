@@ -18,28 +18,29 @@ namespace WareHouse.Controllers
         [Route("{alias}.html")]
         public ActionResult Details(string alias)
         {
-            Product Product = db.Products.SingleOrDefault(p=>p.Alias_SEO == alias && p.Display == true);
-            if(Product == null)
-            {
-                return Redirect("/pages/404");
-            }
-            if (Product.Slider != null)
-            {
-                ViewBag.Slider = Product.Slider.Split(' ').Select(m=> 
-                ConfigurationManager.AppSettings["BaseUrl"] != null ? 
-                    ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Product/" + m : m).ToList();
-            }
-            List<Product> ProductCungNhom = db.Products.Where(m => m.Display == true && m.CategoryId == Product.CategoryId && m.Alias_SEO != alias).ToList();
-            int count = ProductCungNhom.Count;
-            Random r = new Random();
-            int skip = count - 10 > 0 ? r.Next(0, count - 10) : 0; 
-            ViewBag.ProductLienQuan = ProductCungNhom.Skip(skip).Take(10).ToList();
-            ViewBag.CoTheBanThich = ProductCungNhom.OrderByDescending(m => m.LoveTurns + m.Likes).Take(10).ToList();
+            //Product Product = db.Products.SingleOrDefault(p=>p.Alias_SEO == alias && p.Display == true);
+            //if(Product == null)
+            //{
+            //    return Redirect("/pages/404");
+            //}
+            //if (Product.Slider != null)
+            //{
+            //    ViewBag.Slider = Product.Slider.Split(' ').Select(m=> 
+            //    ConfigurationManager.AppSettings["BaseUrl"] != null ? 
+            //        ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Product/" + m : m).ToList();
+            //}
+            //List<Product> ProductCungNhom = db.Products.Where(m => m.Display == true && m.CategoryId == Product.CategoryId && m.Alias_SEO != alias).ToList();
+            //int count = ProductCungNhom.Count;
+            //Random r = new Random();
+            //int skip = count - 10 > 0 ? r.Next(0, count - 10) : 0; 
+            //ViewBag.ProductLienQuan = ProductCungNhom.Skip(skip).Take(10).ToList();
+            //ViewBag.CoTheBanThich = ProductCungNhom.OrderByDescending(m => m.LoveTurns + m.Likes).Take(10).ToList();
 
-            string splitString = ConfigurationManager.AppSettings["split_string"].ToString();
-            ViewBag.ListMauSac = Product.Color != null ? Product.Color.Split(splitString.ToCharArray()) : null;
-            ViewBag.ListSize = Product.Size != null ? Product.Size.Split(splitString.ToCharArray()) : null;
-            return View(Product);
+            //string splitString = ConfigurationManager.AppSettings["split_string"].ToString();
+            //ViewBag.ListMauSac = Product.Color != null ? Product.Color.Split(splitString.ToCharArray()) : null;
+            //ViewBag.ListSize = Product.Size != null ? Product.Size.Split(splitString.ToCharArray()) : null;
+            //return View(Product);
+            return View();
         }
 
         [Route("ket-qua-tim-kiem.html")]
