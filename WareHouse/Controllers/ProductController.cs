@@ -14,7 +14,25 @@ namespace WareHouse.Controllers
     public class ProductController : Controller
     {
         hotellte_warehouseEntities db = new hotellte_warehouseEntities();
-        
+
+        [Route("danh-muc/{aliasCategory}.html")]
+        public ActionResult Index(string aliasCategory, string sort, int? page)
+        {
+            //Category Category = db.Categories.SingleOrDefault(c => c.Alias_SEO == aliasCategory);
+            //if (Category == null)
+            //{
+            //    return Redirect("/pages/404");
+            //}
+            //ViewBag.Name = Category.Name;
+            //IEnumerable<Product> dsProduct = db.Products.AsEnumerable().Where(m => m.Display == true && m.Category != null && m.Category.Alias_SEO == aliasCategory).OrderByDescending(m => m.Id);
+            //if (sort != null)
+            //{
+            //    dsProduct = Sorting(dsProduct, sort);
+            //}
+            //return View(dsProduct);
+            return View();
+        }
+
         [Route("{alias}.html")]
         public ActionResult Details(string alias)
         {
@@ -43,7 +61,8 @@ namespace WareHouse.Controllers
             return View();
         }
 
-        [Route("ket-qua-tim-kiem.html")]
+       
+        [Route("~/ket-qua-tim-kiem.html")]
         [OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Server, VaryByParam = "keyword")]
         public ActionResult SearchResult(string keyword)
         {
@@ -64,32 +83,6 @@ namespace WareHouse.Controllers
                 dsProduct = dsProduct.OrderByDescending(m => m.PromotionProduct != null ? m.PromotionProduct.PromotionalPrice : m.Price);
             }
             return dsProduct;
-        }
-
-        public PartialViewResult _PagedListPartial(string filterName, string filterValue, string sort, int page)
-        {
-            IEnumerable<Product> dsProduct = db.Products.Where(m => m.Display == true).OrderByDescending(m => m.Id).AsEnumerable();
-            dsProduct = dsProduct.Where(m => m.Category != null && m.Category.Alias_SEO == filterValue);
-            dsProduct = Sorting(dsProduct, sort);
-            dsProduct = dsProduct.Skip((page - 1) * 8).Take(8);
-            return PartialView(dsProduct);
-        }
-
-        [Route("danh-muc/{aliasCategory}.html")]
-        public ActionResult Index(string aliasCategory, string sort)
-        {
-            Category Category = db.Categories.SingleOrDefault(c=>c.Alias_SEO == aliasCategory);
-            if(Category == null)
-            {
-                return Redirect("/pages/404");
-            }
-            ViewBag.Name = Category.Name;
-            IEnumerable<Product> dsProduct = db.Products.AsEnumerable().Where(m => m.Display == true && m.Category != null && m.Category.Alias_SEO == aliasCategory).OrderByDescending(m=>m.Id);
-            if(sort != null)
-            {
-               dsProduct =  Sorting(dsProduct, sort);
-            }
-            return View(dsProduct.Take(8).ToList());
         }
  
         protected override void Dispose(bool disposing)

@@ -1022,7 +1022,6 @@
     <Content Include="Scripts\vendor\jquery.gmap3.min.js" />
     <Content Include="Scripts\xulygiohang.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="TextFile1.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1073,7 +1072,6 @@
     <Content Include="Views\MailBox\Add.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\_PagedListPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />

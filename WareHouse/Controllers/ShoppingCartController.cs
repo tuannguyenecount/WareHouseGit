@@ -21,7 +21,6 @@ namespace WareHouse.Controllers
         [Route("gio-hang.html")]
         public ActionResult Index()
         {
-            ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-cart tax-display-disabled body-desktop-header-style-w-4";
             return View(ShoppingCart);
         }
         #endregion

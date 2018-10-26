@@ -164,17 +164,16 @@ namespace WareHouse.Controllers
             }
             return Redirect(returnUrl);
         }
-        //
-        // GET: /Account/Login
+        
         [AllowAnonymous]
+        [Route("dang-nhap.html")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        //
-        // POST: /Account/Login
+        [Route("dang-nhap.html")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -205,16 +204,14 @@ namespace WareHouse.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
+        [Route("dang-ky.html")]
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
+        [Route("dang-ky.html")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

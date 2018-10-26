@@ -21,8 +21,8 @@
     @RenderSection("styles", false)
 </head>
 
-<body id="index" class="@(ViewBag.BodyClass ?? "lang-en country-us currency-usd layout-full-width page-index tax-display-disabled body-desktop-header-style-w-4" )">
-
+<body id="@ViewBag.BodyId" class="@(ViewBag.BodyClass ?? "lang-en country-us currency-usd layout-full-width page-index tax-display-disabled body-desktop-header-style-w-4")">
+     
     <main id="main-page-content">
 
         @Html.Partial("_HeaderPartial")
@@ -130,7 +130,7 @@
             </div>
         </div>
     </div>
-    <div id="iqitpopup">
+    @*<div id="iqitpopup">
         <div class="iqitpopup-close">
             <div class="iqit-close-checkbox">
                 <span class="custom-checkbox">
@@ -159,9 +159,10 @@
                 </div>
             </div>
         </div>
-    </div> <!-- #layer_cart -->
+    </div>*@ 
+    <!-- #layer_cart -->
 
-    <div id="iqitpopup-overlay"></div>
+    @*<div id="iqitpopup-overlay"></div>*@
 
     <div id="iqitcookielaw" class="p-3">
         <p>iqitcookielaw - module, put here your own cookie law text</p>
@@ -173,6 +174,7 @@
     <button id="back-to-top">
         <i class="fa fa-angle-up" aria-hidden="true"></i>
     </button>
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
         var elementorFrontendConfig = { "isEditMode": "", "stretchedSectionContainer": "", "is_rtl": "" };
