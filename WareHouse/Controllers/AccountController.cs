@@ -80,15 +80,15 @@ namespace WareHouse.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult _ThongTinTaiKhoanPartial()
+        public PartialViewResult _InfoPartial()
         {
             bool hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
             AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
-            return PartialView("_ThongTinTaiKhoanPartial", user);
+            return PartialView(user);
         }
 
-        public ViewResult SuaThongTin()
+        public ViewResult Edit()
         {
             AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
             EditInformationViewModel model = new EditInformationViewModel()
@@ -103,7 +103,7 @@ namespace WareHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SuaThongTin(EditInformationViewModel model)
+        public ActionResult Edit(EditInformationViewModel model)
         {
             AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
             user.FullName = model.Name;
@@ -119,6 +119,7 @@ namespace WareHouse.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
@@ -145,66 +146,15 @@ namespace WareHouse.Controllers
         }
 
         [HttpPost]
-        public ActionResult CapNhatImage(HttpPostedFileBase file)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Revalidate(string password, string returnUrl)
         {
-            if (file != null && file.ContentLength > 0)
-            {
-               List<string> ImageExtensions = new List<string> { ".JPG", ".JPEG", ".BMP", ".GIF", ".PNG" };
-
-                string extend = Path.GetExtension(file.FileName);
-                if( ImageExtensions.Contains(extend.ToUpperInvariant()) == false)
-                {
-                    ViewBag.ErrorMessage = "File không hợp lệ!";
-                    bool hasPassword = HasPassword();
-                    ViewBag.HasLocalPassword = hasPassword;
-                    ViewBag.ReturnUrl = Url.Action("Manage");
-                    return View("Manage");
-                   
-                }
-                if(file.ContentLength > 1048576)    //   Kiểm tra hình ko đc phép lớn hơn 1MB
-                {
-                    ViewBag.ErrorMessage = "Hình ảnh không được vượt quá 1MB!";
-                    bool hasPassword = HasPassword();
-                    ViewBag.HasLocalPassword = hasPassword;
-                    ViewBag.ReturnUrl = Url.Action("Manage");
-                    return View("Manage");
-                }
-                try
-                {
-                    AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
-                    user.Avatar = DateTime.Now.Ticks + extend;
-                    file.SaveAs(Server.MapPath("~/Photos/ThanhVien/" + user.Avatar));
-                    db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    string str = "";
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        str += string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            str += string.Format("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw new Exception(str);
-                }
-            }
-            return RedirectToAction("Manage");
-        }
-
-        public ActionResult XacThucLan2(string password, string returnUrl)
-        {
-           
-            var user = UserManager.Find(User.Identity.GetUserName(), password);
+            var user = await UserManager.FindAsync(User.Identity.GetUserName(), password);
             if(user != null)
             {
-                if (Session["XacThucLan2"] == null)
+                if (Session["Revalidate"] == null)
                 {
-                    Session["XacThucLan2"] = true;
+                    Session["Revalidate"] = true;
                 }
             }
             else
@@ -281,12 +231,12 @@ namespace WareHouse.Controllers
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản", "Vui lòng xác thực tài khoản của bạn tại website bằng cách click vào  <a href=\"" + callbackUrl + "\">đây</a>");
-                        ViewBag.ThongBao = "Chúng tôi vừa gửi đến email của bạn link xác nhận đăng ký. Bạn hãy kiểm tra email và xác nhận hoàn tất đăng ký thành viên. Vui lòng không thoát khỏi trang này khi chưa nhận được email. Nếu quá 10 phút mà bạn chưa nhận được email thì hãy ấn F5 tại trang này để thực hiện lại.";
+                        ViewBag.Message = "Chúng tôi vừa gửi đến email của bạn link xác nhận đăng ký. Bạn hãy kiểm tra email và xác nhận hoàn tất đăng ký thành viên. Vui lòng không thoát khỏi trang này khi chưa nhận được email. Nếu quá 10 phút mà bạn chưa nhận được email thì hãy ấn F5 tại trang này để thực hiện lại.";
                         return View(model);
                     }
                     catch
                     {
-                        ViewBag.ThongBao = "Đăng ký thành công.";
+                        ViewBag.Message = "Đăng ký thành công.";
                         return View(model);
                     }
                 }
@@ -630,7 +580,7 @@ namespace WareHouse.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            Session["XacThucLan2"] = null;
+            Session["Revalidate"] = null;
  
             return RedirectToAction("Index", "Home");
         }

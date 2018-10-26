@@ -44,7 +44,8 @@ namespace WareHouse.Controllers
         }
 
         [Route("ket-qua-tim-kiem.html")]
-        public ActionResult Search(string keyword)
+        [OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Server, VaryByParam = "keyword")]
+        public ActionResult SearchResult(string keyword)
         {
             List<Product> dsProduct = db.Products.Where(m => m.Display == true  && m.Name.Contains(keyword)).ToList();
                 return View(dsProduct);
@@ -52,7 +53,7 @@ namespace WareHouse.Controllers
         }
 
         [NonAction]
-        IEnumerable<Product> SapXep(IEnumerable<Product> dsProduct,string sort)
+        IEnumerable<Product> Sorting(IEnumerable<Product> dsProduct,string sort)
         {
             if(sort == "GiaTangDan")
             {
@@ -65,116 +66,31 @@ namespace WareHouse.Controllers
             return dsProduct;
         }
 
-        public PartialViewResult _PhanTrangPartial(string filterName, string filterValue, string sort, int page)
+        public PartialViewResult _PagedListPartial(string filterName, string filterValue, string sort, int page)
         {
             IEnumerable<Product> dsProduct = db.Products.Where(m => m.Display == true).OrderByDescending(m => m.Id).AsEnumerable();
             dsProduct = dsProduct.Where(m => m.Category != null && m.Category.Alias_SEO == filterValue);
-            dsProduct = SapXep(dsProduct, sort);
+            dsProduct = Sorting(dsProduct, sort);
             dsProduct = dsProduct.Skip((page - 1) * 8).Take(8);
             return PartialView(dsProduct);
         }
 
-        [Route("phan-loai/{alias}.html")]
-        public ActionResult SPTheoLoai(string alias, string sort)
+        [Route("danh-muc/{aliasCategory}.html")]
+        public ActionResult Index(string aliasCategory, string sort)
         {
-            Category Category = db.Categories.SingleOrDefault(c=>c.Alias_SEO == alias);
+            Category Category = db.Categories.SingleOrDefault(c=>c.Alias_SEO == aliasCategory);
             if(Category == null)
             {
                 return Redirect("/pages/404");
             }
             ViewBag.Name = Category.Name;
-
-            IEnumerable<Product> dsProduct = db.Products.AsEnumerable().Where(m => m.Display == true && m.Category != null && m.Category.Alias_SEO == alias).OrderByDescending(m=>m.Id);
+            IEnumerable<Product> dsProduct = db.Products.AsEnumerable().Where(m => m.Display == true && m.Category != null && m.Category.Alias_SEO == aliasCategory).OrderByDescending(m=>m.Id);
             if(sort != null)
             {
-               dsProduct =  SapXep(dsProduct, sort);
+               dsProduct =  Sorting(dsProduct, sort);
             }
-
             return View(dsProduct.Take(8).ToList());
         }
-
-        public string ThichProduct(int id, string CaptchaText)
-        {
-
-            try
-            {
-                if (CaptchaText != HttpContext.Session["captchastring"].ToString())
-                {
-                    return "Mã xác nhận không đúng!";
-                }
- 
-                Product product = db.Products.Find(id);
-                product.Likes++;
-                if (Request.IsAuthenticated)
-                {
-                    string userIDCurrent = User.Identity.GetUserId();
-                    UserLikeProduct model = new UserLikeProduct() { ProductId = id, UserId = User.Identity.GetUserId(), DateLike = DateTime.Now };
-                    if (db.UserLikeProducts.FirstOrDefault(m=>m.UserId == userIDCurrent && m.ProductId == product.Id) == null)
-                    {
-                        db.UserLikeProducts.Add(model);
-                    }
-                }
-                db.Entry(product).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return "Bạn đã thích sản phẩm này thành công.";
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        public string YeuThichProduct(int id, string CaptchaText)
-        {
-
-            try
-            {
-                if (CaptchaText != HttpContext.Session["captchastring"].ToString())
-                {
-                    return "Mã xác nhận không đúng!";
-                }
-
-                Product product = db.Products.Find(id);
-                product.LoveTurns++;
-                if (Request.IsAuthenticated)
-                {
-                    string userIDCurrent = User.Identity.GetUserId();
-                    UserLoveProduct model = new UserLoveProduct() { ProductId = id, UserId = User.Identity.GetUserId(), DateLove = DateTime.Now };
-                    if (db.UserLoveProducts.AsEnumerable().FirstOrDefault(m=>m.UserId == userIDCurrent && m.ProductId == product.Id) == null)
-                    {
-                        db.UserLoveProducts.Add(model);
-                    }
-                }
-                db.Entry(product).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return "Bạn đã yêu thích sản phẩm này thành công.";
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [Authorize]
-        [Route("san-phan-ban-yeu-thich.html")]
-        public ActionResult XemProductYeuThich()
-        {
-            string id = User.Identity.GetUserId();
-            AspNetUser user = db.AspNetUsers.Single(m=>m.Id == id);
-            List<Product> dsProductDuocYeuThich = db.Products.Where(m=>m.Display == true).ToList().Join(user.UserLoveProducts.ToList(), oo => oo.Id, ii => ii.ProductId, (oo, ii) => oo).ToList();
-            return View(dsProductDuocYeuThich);
-        }
-
-        [Authorize]
-        [Route("san-phan-ban-thich.html")]
-        public ActionResult XemProductThich()
-        {
-            string id = User.Identity.GetUserId();
-            AspNetUser user = db.AspNetUsers.Single(m => m.Id == id);
-            List<Product> dsProductDuocThich = db.Products.Where(m => m.Display == true).ToList().Join(user.UserLikeProducts.ToList(), oo => oo.Id, ii => ii.ProductId, (oo, ii) => oo).ToList();
-            return View(dsProductDuocThich);
-        }
-
  
         protected override void Dispose(bool disposing)
         {

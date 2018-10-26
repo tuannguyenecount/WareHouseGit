@@ -1,8 +1,8 @@
 ﻿@model EditInformationViewModel
 @{
-    ViewBag.Title = "SuaThongTin";
+    ViewBag.Title = "Sửa thông tin";
     Layout = "~/Views/Shared/_ManageLayout.cshtml";
-    ViewBag.Message = "Sửa thông tin";
+    ViewBag.Message = ViewBag.Title;
 }
 @section styles
 {
@@ -14,9 +14,9 @@
     </style>
 }
 
-    <form action="@Url.Action("SuaThongTin")" method="post" role="form">
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()       
-        @Html.ValidationSummary("", new { @class="text-danger"})
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="col-md-3 text-right" style="padding:5px" >
             @Html.LabelFor(m => m.Name)
         </div>
@@ -39,13 +39,11 @@
             @Html.LabelFor(m => m.Gender)
         </div>
         <div class="col-md-9 text-left">
-            @if (Model.Gender == true)
-            {
+            @if (Model.Gender == true) {
                 @Html.RadioButtonFor(m => m.Gender, true, new { @checked = "checked" }) <label>&nbsp;Nam</label>
                 @Html.RadioButtonFor(m => m.Gender, false)<label>&nbsp;Nữ</label>
             }
-            else
-            {
+            else {
                @Html.RadioButtonFor(m => m.Gender, true)                <label>&nbsp;Nam</label>
                 @Html.RadioButtonFor(m => m.Gender, false, new { @checked = "checked" })    <label>&nbsp;Nữ</label>
             }
@@ -54,7 +52,7 @@
            <button type="submit" class="btn btn-primary">Sửa thông tin</button>
             <button type="button" class="btn btn-default" onclick="history.go(-1);"> Trở lại</button>
         </div>
-    </form>
+    }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

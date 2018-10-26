@@ -5,16 +5,17 @@ using System.Web;
 
 namespace WareHouse.Models
 {
-    public class ThongKeDoanhThu
+    public class UserType
     {
-        public short Thang
+        public string Id
         {
             get;
             set;
         }
-        public decimal DoanhThu
+        public string Name
         {
-            get;set;
+            get;
+            set;
         }
     }
 }

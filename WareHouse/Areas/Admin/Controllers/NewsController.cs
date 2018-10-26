@@ -22,7 +22,7 @@ namespace WareHouse.Areas.Admin.Controllers
         private hotellte_warehouseEntities db = new hotellte_warehouseEntities();
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
-        public JsonResult LayDsTitle(string term)
+        public JsonResult GetListTitle(string term)
         {
             var result = db.News.Where(m => m.Title.ToUpper().Contains(term.ToUpper())).Select(m => m.Title).AsEnumerable();
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -92,7 +92,7 @@ namespace WareHouse.Areas.Admin.Controllers
         }
 
         // GET: Admin/News/Details/5
-        public async Task<ActionResult> XemContent(int? id)
+        public async Task<ActionResult> ViewContent(int? id)
         {
             if (id == null)
             {
@@ -101,20 +101,20 @@ namespace WareHouse.Areas.Admin.Controllers
             News News = await db.News.FindAsync(id);
             if (News == null)
             {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
+                return Redirect("/pages/404");
             }
             return View(News);
         }
 
-        public PartialViewResult SuaTitle(int id)
+        public PartialViewResult EditTitle(int id)
         {
             News News = db.News.Find(id);
-            return PartialView("_SuaTitlePartial", News);
+            return PartialView("_EditTitlePartial", News);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> SuaTitle(int id, string Title, string TitleOld)
+        public async Task<JsonResult> EditTitle(int id, string Title, string TitleOld)
         {
             News news = db.News.Find(id);
             if (TitleOld != Title)
@@ -135,15 +135,15 @@ namespace WareHouse.Areas.Admin.Controllers
             return Json(Title, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult SuaIntroduce(int id)
+        public PartialViewResult EditIntroduce(int id)
         {
             News News = db.News.Find(id);
-            return PartialView("_SuaIntroducePartial", News);
+            return PartialView("_EditIntroducePartial", News);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> SuaIntroduce(int id, string Introduce)
+        public async Task<JsonResult> EditIntroduce(int id, string Introduce)
         {
             News News = db.News.Find(id);
             News.Introduce = Introduce;
@@ -152,16 +152,16 @@ namespace WareHouse.Areas.Admin.Controllers
             return Json(Introduce, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult SuaPoster(int id)
+        public PartialViewResult EditAuthor(int id)
         {
             News News = db.News.Single(m=>m.Id == id);
             ViewBag.Poster = new SelectList(db.AspNetUsers.Include(a=>a.AspNetRoles).Where(m=>m.AspNetRoles.FirstOrDefault(a=>a.Name == "Admin" || a.Name == "Mod") != null) , "Id", "FullName", News.Poster);
-            return PartialView("_SuaPosterPartial", News);
+            return PartialView("_EditAuthorPartial", News);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<JsonResult> SuaPoster(int id, string Poster)
+        public async Task<JsonResult> EditAuthor(int id, string Poster)
         {
             News News = db.News.Single(m=>m.Id == id);
             News.Poster = Poster;
@@ -172,17 +172,17 @@ namespace WareHouse.Areas.Admin.Controllers
             return Json(Name, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult SuaImage(int id)
+        public PartialViewResult ChangeImage(int id)
         {
             News News = db.News.Find(id);
             ViewBag.Id = News.Id;
             ViewBag.Image = News.Image;
-            return PartialView("_SuaImagePartial");
+            return PartialView("_ChangeImagePartial");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SuaImage(int id, HttpPostedFileBase file)
+        public async Task<ActionResult> ChangeImage(int id, HttpPostedFileBase file)
         {
             News model = await db.News.FindAsync(id);
             if(model == null)
@@ -253,7 +253,7 @@ namespace WareHouse.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> SuaContent(int? id)
+        public async Task<ActionResult> EditContent(int? id)
         {
             if (id == null)
             {
@@ -270,7 +270,7 @@ namespace WareHouse.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public async Task<ActionResult> SuaContent(News News)
+        public async Task<ActionResult> EditContent(News News)
         {
             
             if (ModelState.IsValid)
@@ -302,7 +302,7 @@ namespace WareHouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id, string returnURL)
         {
-            if (Session["XacThucLan2"] == null)
+            if (Session["Revalidate"] == null)
             {
                 object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
                 return View("_ThongBaoLoi", thongbao);

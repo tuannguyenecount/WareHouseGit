@@ -4,7 +4,7 @@
     ViewBag.Message = "Danh sách đơn hàng";
 }
 <h5>Danh sách đơn hàng mà bạn chưa nhận hàng</h5>
-@if (ViewBag.dsDonChuaNhanHang.Count > 0)
+@if (ViewBag.ListUnAssigned.Count > 0)
 {
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -53,7 +53,7 @@ else
     </div>
 }
 <h5>Danh sách đơn hàng mà bạn đã nhận hàng</h5>
-@if (ViewBag.dsDonDaNhanHang.Count > 0)
+@if (ViewBag.ListAssigned.Count > 0)
 {
     <div class="table-responsive">
         <table class="table table-bordered table-hover">

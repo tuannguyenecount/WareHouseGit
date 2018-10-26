@@ -24,7 +24,6 @@ namespace WareHouse.Areas.Admin.Controllers
             return View(await db.Slides.ToListAsync());
         }
 
-
         // GET: Admin/Slide/Create
         public ActionResult Create()
         {

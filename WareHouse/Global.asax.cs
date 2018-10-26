@@ -39,8 +39,8 @@ namespace WareHouse
 
         protected void Session_Start()
         {
-            if(Session["GioHang"] == null)
-                Session["GioHang"] = new List<CartItem>();
+            if(Session["ShoppingCart"] == null)
+                Session["ShoppingCart"] = new List<CartItem>();
             hotellte_warehouseEntities db = new hotellte_warehouseEntities();
             Session["InfoShop"] = db.InfoShops.First();
         }

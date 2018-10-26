@@ -16,7 +16,6 @@ namespace WareHouse.Controllers
         [Route("lien-he")]
         public ActionResult Add()
         {
-           
             return View(new MailBox());
         }
         // GET: MailBox

@@ -40,7 +40,6 @@ namespace WareHouse.Areas.Admin.Controllers
             }
             return View(Order);
         }
-
         
         public int DemDonChuaGiao()
         {
@@ -104,7 +103,7 @@ namespace WareHouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, string returnURL)
         {
-            if (Session["XacThucLan2"] == null)
+            if (Session["Revalidate"] == null)
             {
                 object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
                 return View("_ThongBaoLoi", thongbao);

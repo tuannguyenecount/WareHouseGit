@@ -24,43 +24,38 @@
         }
     </style>
 }
-    <div class="col-md-12 text-center">
-        @using (Html.BeginForm())
-    {
+<div class="col-md-12 text-center">
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.LabelFor(m => m.Assigned)
         <input type="hidden" name="id" value="@Model.Id" />
         <input type="hidden" name="returnUrl" value="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"))" />
-    if (Model.Assigned)
-    {
-        <select class="form-control2" name="TrangThai">
-            <option value="Assigned" selected="selected">Đã giao</option>
-            <option value="ChuaGiao">Chưa giao</option>
-        </select>
-}
-else
-{
-    <select class="form-control2" name="TrangThai">
-        <option value="Assigned">Đã giao</option>
-        <option value="ChuaGiao" selected="selected">Chưa giao</option>
-    </select>
-}
-    @Html.LabelFor(m => m.Paid)
-if (Model.Paid)
-{
-    <select class="form-control2" name="Paid">
-        <option value="true" selected="selected">Đã thanh toán</option>
-        <option value="false">Chưa thanh toán</option>
-    </select>
-}
-else
-{
-    <select class="form-control2" name="Paid">
-        <option value="true">Đã thanh toán</option>
-        <option value="false" selected="selected">Chưa thanh toán</option>
-    </select>
-}
-    <input type="submit" class="btn btn-success btn-sm" value="Thay" />
-    <a href="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"))" class="btn btn-default btn-sm">Trở về</a>
-}
-    </div>
+        if (Model.Assigned) {
+            <select class="form-control2" name="TrangThai">
+                <option value="Assigned" selected="selected">Đã giao</option>
+                <option value="ChuaGiao">Chưa giao</option>
+            </select>
+        }
+        else {
+            <select class="form-control2" name="TrangThai">
+                <option value="Assigned">Đã giao</option>
+                <option value="ChuaGiao" selected="selected">Chưa giao</option>
+            </select>
+        }
+        @Html.LabelFor(m => m.Paid)
+        if (Model.Paid) {
+            <select class="form-control2" name="Paid">
+                <option value="true" selected="selected">Đã thanh toán</option>
+                <option value="false">Chưa thanh toán</option>
+            </select>
+        }
+        else {
+            <select class="form-control2" name="Paid">
+                <option value="true">Đã thanh toán</option>
+                <option value="false" selected="selected">Chưa thanh toán</option>
+            </select>
+        }
+        <input type="submit" class="btn btn-success btn-sm" value="Thay" />
+        <a href="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"))" class="btn btn-default btn-sm">Trở về</a>
+    }
+</div>

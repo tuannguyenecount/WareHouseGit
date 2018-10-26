@@ -73,7 +73,7 @@
         <div class="container">
             <div class="row">
                 <h1><a href="@Url.Action("Index", "Home", new { area=""})">TRANG QUẢN TRỊ</a></h1>
-                <div class="col-md-3" id="anhien">
+                <div class="col-md-3" id="ChangeStatusToolBarAdmin">
                     <div class="pull-left">
                         <label data-toggle="tooltip" data-placement="top" style="cursor:pointer" title="Hiện lại toolbar" id="btnHien"><span class="glyphicon glyphicon-arrow-right">Hiện&nbsp;</span></label>
                     </div>
@@ -149,9 +149,9 @@
     <script>
         $(function () {
           
-            @if(Session["An"] != null)
+            @if(Session["HideToolBarAdmin"] != null)
             {
-                    if(bool.Parse(Session["An"].ToString()) == true)
+                    if(bool.Parse(Session["HideToolBarAdmin"].ToString()) == true)
                     {
                         WriteLiteral(@"$('#leftsidebar').hide();$('#rightsidebar').attr('class', 'col-md-12');");
                     }
@@ -163,7 +163,7 @@
             $("#btnAn").click(function () {
 
                 $.ajax({
-                    url: '@Url.Action("AnHien","Admin", new { an = true})',
+                    url: '@Url.Action("ChangeStatusToolBarAdmin","Admin", new { an = true})',
                     type: 'Get',
                     success:
                         function () {
@@ -176,7 +176,7 @@
             });
             $("#btnHien").click(function () {
                 $.ajax({
-                    url: '@Url.Action("AnHien","Admin", new { an = false})',
+                    url: '@Url.Action("ChangeStatusToolBarAdmin","Admin", new { an = false})',
                     type: 'Get',
                     success:
                         function () {

@@ -1,4 +1,4 @@
-﻿@model List<ThongKeDoanhThu>
+﻿@model List<Statistical>
 @{
     ViewBag.Title = "Thống kê doanh thu";
     ViewBag.Message = ViewBag.Title;
@@ -27,7 +27,7 @@
 	        {
 		        type: "spline", //change it to line, area, column, pie, etc
                     dataPoints: [
-                @foreach (ThongKeDoanhThu item in Model)
+                @foreach (Statistical item in Model)
                 {
                     WriteLiteral("{ x: "+item.Thang+", y: "+item.DoanhThu+" },");
                 }

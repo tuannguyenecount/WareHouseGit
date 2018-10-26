@@ -224,10 +224,10 @@ html {
                                     <div class="tab-content">
                                         <div id="signup">
                                             <h1>Đăng ký thành viên</h1>
-                                            @if (ViewBag.ThongBao != null)
+                                            @if (ViewBag.Message != null)
                                             {
                                                 <p class="text-success">
-                                                    @ViewBag.ThongBao
+                                                    @ViewBag.Message
                                                 </p>
                                             }
                                             @Html.ValidationSummary("", new { @class="text-danger"})

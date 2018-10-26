@@ -18,7 +18,6 @@ namespace WareHouse.Areas.Admin.Controllers
         // GET: Admin/Category
         public ActionResult Index()
         {
-            
             return View(db.Categories.ToList());
         }
 
@@ -28,14 +27,10 @@ namespace WareHouse.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Category/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] Category category)
-        {
-            
+        {           
             if (ModelState.IsValid)
             {
                 if(db.Categories.FirstOrDefault(m=>m.Name.Trim().ToLower() == category.Name.Trim().ToLower()) != null)
@@ -107,7 +102,7 @@ namespace WareHouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (Session["XacThucLan2"] == null)
+            if (Session["Revalidate"] == null)
             {
                 object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
                 return View("_ThongBaoLoi", thongbao);

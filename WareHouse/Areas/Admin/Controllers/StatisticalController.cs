@@ -13,10 +13,10 @@ namespace WareHouse.Areas.Admin.Controllers
         // GET: Admin/Statistical
         public ActionResult Index()
         {
-            List<ThongKeDoanhThu> lst = new List<ThongKeDoanhThu>();
+            List<Statistical> lst = new List<Statistical>();
             for (short i = 1; i <= 12; i++)
             {
-                lst.Add(new ThongKeDoanhThu() { Thang = i, DoanhThu = db.Orders.Where(m => m.DateOrder.Year == DateTime.Today.Year && m.DateOrder.Month == i).Select(m => m.TotalMoney).DefaultIfEmpty(0).Sum() });
+                lst.Add(new Statistical() { Thang = i, DoanhThu = db.Orders.Where(m => m.DateOrder.Year == DateTime.Today.Year && m.DateOrder.Month == i).Select(m => m.TotalMoney).DefaultIfEmpty(0).Sum() });
             }
             return View(lst);
         }

@@ -8,23 +8,25 @@ namespace WareHouse.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        public List<CartItem> gioHang
+        hotellte_warehouseEntities db = new hotellte_warehouseEntities();
+        public List<CartItem> ShoppingCart
         {
             get
             {
-                return Session["GioHang"] as List<CartItem>;
+                return Session["ShoppingCart"] as List<CartItem>;
             }
         }
 
-        hotellte_warehouseEntities db = new hotellte_warehouseEntities();
-        // GET: ShoppingCart
+        #region Show Cart 
         [Route("gio-hang.html")]
         public ActionResult Index()
         {
             ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-cart tax-display-disabled body-desktop-header-style-w-4";
-            return View(gioHang);
+            return View(ShoppingCart);
         }
-       
+        #endregion
+
+        #region Add, Edit, Delete Cart Item
         public ActionResult Add(int id, string color, string size, bool? muangay)
         {
             Product Product = db.Products.SingleOrDefault(m => m.Id == id && m.Display == true);
@@ -54,21 +56,22 @@ namespace WareHouse.Controllers
                 }
             }
 
-            if (gioHang.SingleOrDefault(m => m.Id == id && m.Property == item.Property) != null)
+            if (ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == item.Property) != null)
             {
-                gioHang.Single(m => m.Id == id && m.Property == item.Property).Count += 1;
+                ShoppingCart.Single(m => m.Id == id && m.Property == item.Property).Count += 1;
             }
             else
             {
-                gioHang.Add(item);
+                ShoppingCart.Add(item);
             }
 
             return muangay.HasValue ? RedirectToAction("Index") : RedirectToAction("Details", "Product", new { alias = Product.Alias_SEO });
         }
+
         [HttpPost]
         public ActionResult Edit(int id, string property, int? Countmoi)
         {
-            CartItem itemEdit = gioHang.SingleOrDefault(m => m.Id == id && m.Property == property);
+            CartItem itemEdit = ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == property);
             if(itemEdit != null && Countmoi.HasValue && Countmoi >= 1)
             {
                 try {
@@ -87,14 +90,14 @@ namespace WareHouse.Controllers
         [HttpPost]
         public RedirectToRouteResult Delete(int id, string property)
         {
-            CartItem item = gioHang.SingleOrDefault(m => m.Id == id && m.Property == property);
+            CartItem item = ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == property);
             if (item != null)
             {
-                gioHang.Remove(item);
+                ShoppingCart.Remove(item);
             }
             return RedirectToAction("Index");
         }
-
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)

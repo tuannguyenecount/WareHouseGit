@@ -32,15 +32,15 @@
     <script>
         $(function () {
             $("#tukhoa").autocomplete({
-                source: '@Url.Action("LayDsTitle")'
+                source: '@Url.Action("GetListTitle")'
             });
             $("#frmTimKiem input[name=tukhoa]").keyup(function () {
                 $("#frmTimKiem").submit();
             });
             $(".btnThayImage").html("<span class='glyphicon glyphicon-picture'></span> Thay hình");
-            $(".btnSuaTitle").html("<span class='glyphicon glyphicon-pencil'></span> Sửa tiêu đề");
-            $(".btnSuaIntroduce").html("<span class='glyphicon glyphicon-pencil'></span> Sửa giới thiệu");
-            $(".btnSuaPoster").html("<span class='glyphicon glyphicon-pencil'></span> Sửa người đăng");
+            $(".btnEditTitle").html("<span class='glyphicon glyphicon-pencil'></span> Sửa tiêu đề");
+            $(".btnEditIntroduce").html("<span class='glyphicon glyphicon-pencil'></span> Sửa giới thiệu");
+            $(".btnEditAuthor").html("<span class='glyphicon glyphicon-pencil'></span> Sửa người đăng");
         });
     </script>
   }

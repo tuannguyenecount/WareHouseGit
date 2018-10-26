@@ -15,8 +15,6 @@ namespace WareHouse.Areas.Admin.Controllers
     {
         private hotellte_warehouseEntities db = new hotellte_warehouseEntities();
 
-
-        // GET: Admin/PromotionProduct/Create
         public ActionResult Create(int? id)
         {
             if(id == null)
@@ -26,7 +24,7 @@ namespace WareHouse.Areas.Admin.Controllers
             Product Product = db.Products.Find(id);
             if(Product == null)
             {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
+                return Redirect("/pages/404");
             }
             ViewBag.ProductId = Product.Id;
             ViewBag.Name = Product.Name;

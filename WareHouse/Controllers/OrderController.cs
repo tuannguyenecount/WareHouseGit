@@ -15,19 +15,19 @@ namespace WareHouse.Controllers
     {
         hotellte_warehouseEntities db = new hotellte_warehouseEntities();
         
-        public ViewResult DanhSachDonHang()
+        [Authorize]
+        public ViewResult Index()
         {
-            AspNetUser userCurrent = db.AspNetUsers.Single(m => m.UserName == User.Identity.Name);
-            ViewBag.dsDonChuaNhanHang = userCurrent.Orders.Where(m=>m.Assigned == false && m.Deleted == false).OrderBy(m=>m.Assigned).ToList();
-            ViewBag.dsDonDaNhanHang = userCurrent.Orders.Where(m => m.Assigned == true && m.Deleted == false).OrderBy(m => m.Assigned).ToList();
+            ViewBag.ListUnAssigned = db.Orders.Where(m=>m.Assigned == false && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m=>m.Assigned).ToList();
+            ViewBag.ListAssigned = db.Orders.Where(m => m.Assigned == true && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m => m.Assigned).ToList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ThemOrder([Bind(Exclude = "Paid,Deleted")]Order model, bool? thanhtoantructuyen)
+        public async Task<ActionResult> Add([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)
         {
-            List<CartItem> ds = Session["GioHang"] as List<CartItem>;
+            List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
             model.DateOrder = DateTime.Now;
             model.TotalCount = (byte)ds.Sum(m => m.Count);
             model.TotalMoney = ds.Sum(m => m.Money);
@@ -47,17 +47,17 @@ namespace WareHouse.Controllers
                 if (string.IsNullOrEmpty(model.Address))
                 {
                     ModelState.AddModelError("", "Bạn chưa cung cấp địa chỉ.");
-                    return View("ThongBaoLoi");
+                    return View("OrderError");
                 }
                 if (string.IsNullOrEmpty(model.Phone))
                 {
                     ModelState.AddModelError("", "Bạn chưa cung cấp số điện thoại.");
-                    return View("ThongBaoLoi");
+                    return View("OrderError");
                 }
                 if (ThuVien.IsValidEmail(model.Email) == false)
                 {
                     ModelState.AddModelError("", "Địa chỉ email không hợp lệ.");
-                    return View("ThongBaoLoi");
+                    return View("OrderError");
                 }
             }
             #region ModelState Valid
@@ -72,7 +72,7 @@ namespace WareHouse.Controllers
                 catch
                 {
                     ModelState.AddModelError("", "Không thể lưu đơn hàng này!");
-                    return View("ThongBaoLoi");
+                    return View("OrderError");
                 }
                 
                 foreach (CartItem item in ds)
@@ -113,19 +113,19 @@ namespace WareHouse.Controllers
                 {
 
                 }
-                if (thanhtoantructuyen == null || thanhtoantructuyen == false)
+                if (onlinePayment == null || onlinePayment == false)
                 {
                     ds.Clear();
-                    Session["GioHang"] = null;
+                    Session["ShoppingCart"] = null;
                     if (ModelState.IsValid)
-                        return View("ThongBaoThanhCong");
+                        return View("OrderSuccess");
                     else
-                        return View("ThongBaoLoi");
+                        return View("OrderError");
                 }
                 else
                 {
                     NL_Checkout nganluong = new NL_Checkout();
-                    string urlThanhToan = nganluong.buildCheckoutUrlNew(Url.Action("XacThucThanhToan", "Order", null, Request.Url.Scheme), ConfigurationManager.AppSettings["email_nganluong"].ToString(), "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", model.Id.ToString(), model.TotalMoney.ToString(), "vnd", 1, 0, 0, 0, 0, "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng",
+                    string urlThanhToan = nganluong.buildCheckoutUrlNew(Url.Action("Confirm", "Order", null, Request.Url.Scheme), ConfigurationManager.AppSettings["email_nganluong"].ToString(), "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", model.Id.ToString(), model.TotalMoney.ToString(), "vnd", 1, 0, 0, 0, 0, "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng",
                      "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", "");
                     return Redirect(urlThanhToan);
                 }
@@ -133,12 +133,12 @@ namespace WareHouse.Controllers
             #endregion
             else
             {
-                return View("ThongBaoLoi");
+                return View("OrderError");
             }
           
         }
         
-        public async Task<ActionResult> XacThucThanhToan(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
+        public async Task<ActionResult> Confirm(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
         {
             if (error_text == "")
             {
@@ -150,10 +150,9 @@ namespace WareHouse.Controllers
                     db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
                     await db.SaveChangesAsync();
                 }
-                catch
+                catch(Exception ex)
                 {
-                    ModelState.AddModelError("","Không thể sửa trạng thái đơn hàng này thành Đã Thanh Toán!");
-                    return View("ThongBaoLoi");
+                    return View("Error", new HandleErrorInfo(ex, "Order", "Confirm"));
                 }
                 try
                 {
@@ -178,13 +177,13 @@ namespace WareHouse.Controllers
                 catch(Exception ex)
                 {
                     ModelState.AddModelError("", "Không thể lưu lịch sử thanh toán! Lỗi " + ex.Message);
-                    return View("ThongBaoLoi");
+                    return View("OrderError");
                 }
-                Session["GioHang"] = null;
-                return View("ThongBaoThanhCong");
+                Session["ShoppingCart"] = null;
+                return View("OrderSuccess");
             }
             else
-                return View("Error",new HandleErrorInfo(new Exception(error_text), "Order", "XacThucThanhToan"));
+                return View("Error",new HandleErrorInfo(new Exception(error_text), "Order", "Confirm"));
         }
     }
 }

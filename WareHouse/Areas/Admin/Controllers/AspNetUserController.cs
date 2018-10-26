@@ -23,7 +23,7 @@ namespace WareHouse.Areas.Admin.Controllers
         private hotellte_warehouseEntities db = new hotellte_warehouseEntities();
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
-        public JsonResult LayDanhSachTenvsEmail(string term)
+        public JsonResult GetNameAndEmailUser(string term)
         {
             List<string> dsMail = db.AspNetUsers.Where(m => m.Email.ToUpper().Contains(term.ToUpper())).Select(m=>m.Email).ToList();
             List<string> dsTen = db.AspNetUsers.Where(m => m.FullName.ToUpper().Contains(term.ToUpper())).Select(m => m.FullName).ToList();
@@ -33,7 +33,7 @@ namespace WareHouse.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public PartialViewResult ShowList(string sort, string sortName, string LoaiThanhVien,string LoaiThanhVien2, int? page, string tukhoa)
+        public PartialViewResult ShowList(string sort, string sortName, string UserType,string UserType2, int? page, string tukhoa)
         {
             var dsThanhVien = db.AspNetUsers.Include(m => m.AspNetRoles).Include(m=>m.Orders);
             if (sort == null)
@@ -84,40 +84,18 @@ namespace WareHouse.Areas.Admin.Controllers
                 ViewBag.sortName = sortName;
                 ViewBag.sortCurrent = sort;
             }
-            if (LoaiThanhVien != null)
+
+            if (UserType != null)
             {
-                if (LoaiThanhVien == "DaXacThuc")
-                {
-                    dsThanhVien = dsThanhVien.Where(m => m.EmailConfirmed == true);
-                    ViewBag.ThongTin = "Thành viên đã xác thực email"; 
-                }
-                else if(LoaiThanhVien == "ChuaXacThuc")
-                {
-                    dsThanhVien = dsThanhVien.Where(m => m.EmailConfirmed == false);
-                    ViewBag.ThongTin = "Thành viên chưa xác thực email";
-                }
-                else
+                if (UserType == "Locked")
                 {
                     dsThanhVien = dsThanhVien.Where(m => m.LockoutEndDateUtc != null && m.LockoutEndDateUtc.Value > DateTime.Now);
                     ViewBag.ThongTin = "Thành viên bị khóa";
                 }
-                ViewBag.LoaiThanhVien = LoaiThanhVien;
+                ViewBag.UserType = UserType;
                 
             }
-            if(LoaiThanhVien2 != null)
-            {
-                if(LoaiThanhVien2 == "DaMua")
-                {
-                    dsThanhVien = dsThanhVien.Where(m => m.Orders.Count > 0);
-                    ViewBag.ThongTin = "Thành viên đã mua hàng";
-                }
-                else
-                {
-                    dsThanhVien = dsThanhVien.Where(m => m.Orders.Count == 0);
-                    ViewBag.ThongTin = "Thành viên chưa mua hàng";
-                }
-                ViewBag.LoaiThanhVien2 = LoaiThanhVien;
-            }
+
             if (tukhoa != null)
             {
                 dsThanhVien = dsThanhVien.Where(m => m.FullName.ToUpper().Contains(tukhoa.ToUpper()) || m.Email.ToUpper().Contains(tukhoa.ToUpper()));
@@ -131,8 +109,10 @@ namespace WareHouse.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            List<LoaiThanhVien> dsLoaiThanhVien = new List<LoaiThanhVien>() { new LoaiThanhVien() { Id = "DaXacThuc", Name = "Đã xác thực" },new LoaiThanhVien(){ Id="ChuaXacThuc", Name="Chưa xác thực"}, new LoaiThanhVien(){ Id="BiKhoa", Name="Bị khóa"}};
-            ViewBag.LoaiThanhVien = new SelectList(dsLoaiThanhVien,"Id", "Name");
+            List<UserType> dsUserType = new List<UserType>() {
+                new UserType(){ Id= "Locked", Name="Bị khóa" }
+            };
+            ViewBag.UserType = new SelectList(dsUserType,"Id", "Name");
             return View();
         }
 
@@ -149,7 +129,6 @@ namespace WareHouse.Areas.Admin.Controllers
             }
             return View(aspNetUser);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -220,15 +199,15 @@ namespace WareHouse.Areas.Admin.Controllers
             return View("Edit", user);
         }
 
-        public ViewResult Khoa(string userId)
+        public ViewResult Lock(string userId)
         {
-          
            AspNetUser aspNetUser = db.AspNetUsers.Find(userId);
            return View(aspNetUser);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult KhoaConfirmed(string userId, string LockoutEndDateUtc)
+        [ActionName("Lock")]
+        public ActionResult Locked(string userId, string LockoutEndDateUtc)
         {
             try
             {
@@ -250,16 +229,17 @@ namespace WareHouse.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ViewResult BoKhoa(string id)
+        public ViewResult UnLocked(string id)
         {
             AspNetUser aspNetUser = db.AspNetUsers.Find(id);
             return View(aspNetUser);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BoKhoa(AspNetUser user)
+        public ActionResult UnLocked(AspNetUser user)
         {
-            if (Session["XacThucLan2"] == null)
+            if (Session["Revalidate"] == null)
             {
                 object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
                 return View("_ThongBaoLoi", thongbao);
@@ -278,16 +258,18 @@ namespace WareHouse.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ViewResult PhanQuyen(string id)
+
+        public ViewResult ChangePermission(string id)
         {
              AspNetUser aspNetUser = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
-             ViewBag.Quyen = new SelectList(db.AspNetRoles.ToList(), "Id", "Name", aspNetUser.AspNetRoles.Count > 0 ? aspNetUser.AspNetRoles.First().Id : null);
+             ViewBag.Roles = new SelectList(db.AspNetRoles.ToList(), "Id", "Name", aspNetUser.AspNetRoles.Count > 0 ? aspNetUser.AspNetRoles.First().Id : null);
 
             return View(aspNetUser);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PhanQuyen(string id, string Quyen)
+        public ActionResult ChangePermission(string id, string Quyen)
         {
             AspNetRole role = db.AspNetRoles.Include(m => m.AspNetUsers).Single(m => m.Id == Quyen);
             AspNetUser user = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);

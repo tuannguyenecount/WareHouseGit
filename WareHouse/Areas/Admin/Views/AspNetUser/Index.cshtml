@@ -31,7 +31,7 @@
     <script>
         $(function () {
             $("#tukhoa").autocomplete({
-                source: '@Url.Action("LayDanhSachTenvsEmail")'
+                source: '@Url.Action("GetNameAndEmailUser")'
             });
             $("#frmTimKiem input[name=tukhoa]").keyup(function () {
                 $("#frmTimKiem").submit();
@@ -44,7 +44,7 @@
 {
     <p>
 
-        Lọc theo loại: @Html.DropDownList("LoaiThanhVien", null, new { @class = "form-control2" })
+        Lọc theo loại: @Html.DropDownList("UserType", null, new { @class = "form-control2" })
         <button type="submit" class="form-control2">Lọc</button>
     </p>
 }
@@ -52,7 +52,7 @@
 {
     <p>
         &nbsp; | Lọc theo : 
-        <select class="form-control2" name="LoaiThanhVien2">
+        <select class="form-control2" name="UserType2">
             <option value="DaMua">Đã mua hàng</option>
             <option value="ChuaMua">Chưa mua hàng</option>
         </select>

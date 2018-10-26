@@ -13,10 +13,10 @@
                 Hình
             </th>
             <th >
-                @Ajax.ActionLink("Họ tên", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "Name", LoaiThanhVien2 = ViewBag.LoaiThanhVien2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                @Ajax.ActionLink("Họ tên", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "Name", UserType2 = ViewBag.UserType2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
             </th>
             <th>
-                @Ajax.ActionLink("Email", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "Email", LoaiThanhVien2 = ViewBag.LoaiThanhVien2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                @Ajax.ActionLink("Email", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "Email", UserType2 = ViewBag.UserType2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
             </th>
             <th>
                 SĐT
@@ -28,7 +28,7 @@
                 Giới tính
             </th>
             <th>
-                @Ajax.ActionLink("Ngày đăng ký", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "DateRegister", LoaiThanhVien2 = ViewBag.LoaiThanhVien2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                @Ajax.ActionLink("Ngày đăng ký", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "DateRegister", UserType2 = ViewBag.UserType2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
             </th>
             <th>Bị khóa</th>
         </tr>
@@ -98,7 +98,7 @@
         }
         <tr>
             <td colspan="8" class="text-center">
-                @Html.PagedListPager(Model, page => Url.Action("ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortCurrent, sortName = ViewBag.sortName, page = page, LoaiThanhVien = ViewBag.LoaiThanhVien, LoaiThanhVien2 = ViewBag.LoaiThanhVien2 }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.Always, DisplayLinkToFirstPage = PagedListDisplayMode.Always, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể phân trang')", HttpMethod = "Get" }))
+                @Html.PagedListPager(Model, page => Url.Action("ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortCurrent, sortName = ViewBag.sortName, page = page, UserType = ViewBag.UserType, UserType2 = ViewBag.UserType2 }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.Always, DisplayLinkToFirstPage = PagedListDisplayMode.Always, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể phân trang')", HttpMethod = "Get" }))
             </td>
         </tr>
 

@@ -9,9 +9,9 @@ namespace WareHouse.Areas.Admin.Controllers
     [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
-        public void AnHien(bool an)
+        public void ChangeStatusToolBarAdmin(bool hide)
         {
-                Session["An"] = an;
+           Session["HideToolBarAdmin"] = hide;
         }
     }
 }

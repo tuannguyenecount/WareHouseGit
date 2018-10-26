@@ -339,7 +339,7 @@
     <Compile Include="Models\InfoShop.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoaiThanhVien.cs" />
+    <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\MailBox.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
@@ -371,7 +371,7 @@
     <Compile Include="Models\Subscriber.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThongKeDoanhThu.cs" />
+    <Compile Include="Models\Statistical.cs" />
     <Compile Include="Models\ThuVien.cs" />
     <Compile Include="Models\UniqueNameNewAttribute.cs" />
     <Compile Include="Models\UserLikeProduct.cs">
@@ -908,11 +908,11 @@
     <Content Include="Grid.mvc.readme" />
     <Content Include="Scripts\charts-flotcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Areas\Admin\Views\AspNetUser\BoKhoa.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\UnLocked.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\Khoa.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\PhanQuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\Lock.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\ChangePermission.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\_ListPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
@@ -937,13 +937,13 @@
     <Content Include="Areas\Admin\Views\News\Create.cshtml" />
     <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\News\SuaContent.cshtml" />
-    <Content Include="Areas\Admin\Views\News\XemContent.cshtml" />
+    <Content Include="Areas\Admin\Views\News\EditContent.cshtml" />
+    <Content Include="Areas\Admin\Views\News\ViewContent.cshtml" />
     <Content Include="Areas\Admin\Views\News\_ListPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_SuaIntroducePartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_SuaImagePartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_SuaPosterPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_SuaTitlePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\News\_EditIntroducePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\News\_ChangeImagePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\News\_EditAuthorPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\News\_EditTitlePartial.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="pages\500\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="pages\500\fonts\glyphicons-halflings-regular.ttf" />
@@ -976,6 +976,9 @@
     <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\ps17\modules\revsliderprestashop\public\assets\fonts\revicons\revicons.ttf" />
     <Content Include="Content\ps17\modules\revsliderprestashop\public\assets\fonts\revicons\revicons.woff" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ReValidatePartial.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
@@ -1056,23 +1059,20 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\SetPassword.cshtml" />
-    <Content Include="Views\Account\SuaThongTin.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ThongTinTaiKhoanPartial.cshtml" />
+    <Content Include="Views\Account\_InfoPartial.cshtml" />
     <Content Include="Views\OrderDetail\Index.cshtml" />
-    <Content Include="Views\Order\DanhSachDonHang.cshtml" />
-    <Content Include="Views\Order\ThongBaoLoi.cshtml" />
-    <Content Include="Views\Order\ThongBaoThanhCong.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\OrderError.cshtml" />
+    <Content Include="Views\Order\OrderSuccess.cshtml" />
     <Content Include="Views\Home\MainNav.cshtml" />
     <Content Include="Views\MailBox\Add.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Product\Search.cshtml" />
-    <Content Include="Views\Product\SPTheoLoai.cshtml" />
-    <Content Include="Views\Product\XemProductThich.cshtml" />
-    <Content Include="Views\Product\XemProductYeuThich.cshtml" />
-    <Content Include="Views\Product\_PhanTrangPartial.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\_PagedListPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
@@ -1088,6 +1088,7 @@
     <Content Include="Views\Home\MainHeader.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\Article.cshtml" />
+    <Content Include="Views\Product\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

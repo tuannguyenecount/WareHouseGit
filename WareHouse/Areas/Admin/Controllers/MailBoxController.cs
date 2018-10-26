@@ -20,8 +20,8 @@ namespace WareHouse.Areas.Admin.Controllers
         // GET: Admin/MailBox
         public async Task<ActionResult> Index(int? page)
         {
-            List<MailBox> dsMailBox = await db.MailBoxes.OrderByDescending(m=>m.Id). ToListAsync();
-            return View(dsMailBox.ToPagedList(page ?? 1, 10));
+            List<MailBox> mailBoxes = await db.MailBoxes.OrderByDescending(m=>m.Id). ToListAsync();
+            return View(mailBoxes.ToPagedList(page ?? 1, 10));
         }
 
         // POST: Admin/MailBox/Delete/5
@@ -32,8 +32,8 @@ namespace WareHouse.Areas.Admin.Controllers
             try
             {
                 
-                MailBox MailBox = await db.MailBoxes.FindAsync(id);
-                db.MailBoxes.Remove(MailBox);
+                MailBox mailBox = await db.MailBoxes.FindAsync(id);
+                db.MailBoxes.Remove(mailBox);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index", new { page = page });
             }
