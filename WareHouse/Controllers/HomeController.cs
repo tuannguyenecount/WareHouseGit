@@ -21,14 +21,15 @@ namespace WareHouse.Controllers
             return View();
         }
 
-        //[Route("gioi-thieu-shop.html")]
-        //public ViewResult About()
-        //{
-        //    InfoShop infoShop = Session["InfoShop"] as InfoShop;
-        //    ViewBag.Title = "Giới Thiệu " + infoShop.ShopName;
-        //    object model = infoShop.Introduce_Shop;
-        //    return View("Article", model);
-        //}
+        [Route("gioi-thieu.html")]
+        public ViewResult About()
+        {
+            //InfoShop infoShop = Session["InfoShop"] as InfoShop;
+            //ViewBag.Title = "Giới Thiệu " + infoShop.ShopName;
+            //object model = infoShop.Introduce_Shop;
+            //return View("Article", model);
+            return View("Article");
+        }
 
         //[Route("chinh-sach-ban-hang.html")]
         //public ViewResult SalesPolicy()

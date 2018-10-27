@@ -23,6 +23,11 @@ namespace WareHouse.Controllers
             return View();
         }
 
+        public ActionResult Checkout()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Add([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)

@@ -10,9 +10,7 @@ namespace WareHouse.Controllers
     public class SubscriberController : Controller
     {
         hotellte_warehouseEntities db = new hotellte_warehouseEntities();
-        #region front-end
-        // GET: NhanTinQuaEmail
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public string Add(string email)
@@ -41,6 +39,11 @@ namespace WareHouse.Controllers
                 return "Xảy ra lỗi ở phía server. Vui lòng thử lại sau!";
             }
         }
-        #endregion
+
+        [Route("dang-ky-nhan-tin-thanh-cong.html")]
+        public ViewResult SuccessSubscriber()
+        {
+            return View();
+        }
     }
 }

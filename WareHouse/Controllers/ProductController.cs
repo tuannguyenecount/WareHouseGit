@@ -15,6 +15,20 @@ namespace WareHouse.Controllers
     {
         hotellte_warehouseEntities db = new hotellte_warehouseEntities();
 
+        [NonAction]
+        IEnumerable<Product> Sorting(IEnumerable<Product> dsProduct, string sort)
+        {
+            if (sort == "priceAsc")
+            {
+                dsProduct = dsProduct.OrderBy(m => m.PromotionProduct != null ? m.PromotionProduct.PromotionalPrice : m.Price);
+            }
+            else if (sort == "priceDesc")
+            {
+                dsProduct = dsProduct.OrderByDescending(m => m.PromotionProduct != null ? m.PromotionProduct.PromotionalPrice : m.Price);
+            }
+            return dsProduct;
+        }
+
         [Route("danh-muc/{aliasCategory}.html")]
         public ActionResult Index(string aliasCategory, string sort, int? page)
         {
@@ -60,29 +74,20 @@ namespace WareHouse.Controllers
             //return View(Product);
             return View();
         }
-
-       
+   
         [Route("~/ket-qua-tim-kiem.html")]
         [OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Server, VaryByParam = "keyword")]
-        public ActionResult SearchResult(string keyword)
+        public ActionResult Search(string keyword)
         {
-            List<Product> dsProduct = db.Products.Where(m => m.Display == true  && m.Name.Contains(keyword)).ToList();
-                return View(dsProduct);
-            
+            //List<Product> dsProduct = db.Products.Where(m => m.Display == true  && m.Name.Contains(keyword)).ToList();
+            //    return View(dsProduct);
+            return View();
         }
 
-        [NonAction]
-        IEnumerable<Product> Sorting(IEnumerable<Product> dsProduct,string sort)
+        [Route("so-sanh.html")]
+        public ActionResult CompareProduct()
         {
-            if(sort == "GiaTangDan")
-            {
-                dsProduct = dsProduct.OrderBy(m => m.PromotionProduct != null ? m.PromotionProduct.PromotionalPrice : m.Price );
-            }
-            else if(sort == "GiaGiamDan")
-            {
-                dsProduct = dsProduct.OrderByDescending(m => m.PromotionProduct != null ? m.PromotionProduct.PromotionalPrice : m.Price);
-            }
-            return dsProduct;
+            return View();
         }
  
         protected override void Dispose(bool disposing)

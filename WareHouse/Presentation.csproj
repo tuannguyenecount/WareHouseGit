@@ -1081,13 +1081,19 @@
     <Content Include="Views\Shared\_ThongBaoLoi.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\StaticContent\PageNotFound.cshtml" />
-    <Content Include="Views\News\ChiTiet.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
-    <Content Include="Views\News\_BaiVietQuanTamPartial.cshtml" />
+    <Content Include="Views\News\_FeaturedArticlesPartial.cshtml" />
     <Content Include="Views\Home\MainHeader.cshtml" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\Article.cshtml" />
-    <Content Include="Views\Product\SearchResult.cshtml" />
+    <Content Include="Views\Product\Result.cshtml" />
+    <Content Include="Views\Shared\_QuickViewModalPartial.cshtml" />
+    <Content Include="Views\Product\_GridPartial.cshtml" />
+    <Content Include="Views\Product\_ListPartial.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Product\CompareProduct.cshtml" />
+    <Content Include="Views\Subscriber\SuccessSubscriber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

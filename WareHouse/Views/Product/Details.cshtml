@@ -1,5 +1,7 @@
 ﻿
 @{
+    /**/
+
     //ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "product";
@@ -16,10 +18,10 @@
 @section meta
 {
     @*<meta property="og:url" content="@Request.Url.ToString()" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="@Model.Name" />
-    <meta property="og:description" content="" />
-    <meta property="og:image" content="@Model.ImageCustom" />*@
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="@Model.Name" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="@Model.ImageCustom" />*@
 }
 
 <div class="container">
@@ -66,6 +68,7 @@
         </div>
     </nav>
 </div>
+
 <div id="inner-wrapper" class="container">
     <aside id="notifications"></aside>
     <div id="content-wrapper">
@@ -956,11 +959,7 @@
                                     <div class="product-availability">
                                         <span class="badge product-available mt-2">Available</span>
                                     </div>
-
-
                                 </div>
-
-
                             </article>
                         </div>
                     </div>
@@ -1010,8 +1009,9 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-            <footer class="page-footer">
-            </footer>
+            <footer class="page-footer"></footer>
         </section>
     </div>
 </div>
+
+@Html.Partial("_QuickViewModalPartial")
