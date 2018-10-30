@@ -1,0 +1,23 @@
+﻿@model News
+<script>
+    $(function () {
+        $("#btnHuyEditAuthor@(Model.Id)").click(function () {
+            $('#Poster@(Model.Id)').html('@(Model.AspNetUser != null ? Model.AspNetUser.FullName : "" )');
+        });
+    });
+</script>
+@using (Ajax.BeginForm("EditAuthor", "News", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "Poster" + Model.Id, InsertionMode = InsertionMode.Replace, OnFailure = "alert('Xảy ra lỗi khi thực hiện thao tác. Thử lại sau!')" }, new { method = "post" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id" />
+    @Html.DropDownList("Poster")
+    <div style="margin-top:10px">
+        <button type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span> Đồng ý</button> 
+       
+    </div>
+    <div style="margin-top:10px">
+        <button type="button" id="btnHuyEditAuthor@(Model.Id)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span> Hủy thao tác</button>
+    </div>
+}
+
+

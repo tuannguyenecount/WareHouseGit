@@ -1,0 +1,232 @@
+﻿@using System.Configuration;
+@model AspNetUser
+
+@{
+    ViewBag.Title = "Sửa thông tin thành viên";
+    Layout = "~/Views/Shared/_ManageLayout.cshtml";
+    ViewBag.Message = "Sửa thông tin thành viên";
+}
+@section styles
+{
+    <link href="~/Content/canvasCrop.css" rel="stylesheet" />
+    <style>
+        .cropped {
+            position: absolute;
+            right: -230px;
+            top: 0;
+            width: 200px;
+            border: 1px #ddd solid;
+            height: 460px;
+            padding: 4px;
+            box-shadow: 0px 0px 12px #ddd;
+            text-align: center;
+        }
+
+        .imageBox {
+            position: relative;
+            height: @((int.Parse(ConfigurationManager.AppSettings["HeightImageUser"]) + 100).ToString())px;
+            width: @((int.Parse(ConfigurationManager.AppSettings["WidthImageUser"]) * 2).ToString())px;
+            margin:0 auto;
+            border: none;
+            background: #fff;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            cursor: move;
+            box-shadow: 4px 4px 12px #B0B0B0;
+        }
+
+            .imageBox .thumbBox {
+                position: relative;
+                width: @(ConfigurationManager.AppSettings["WidthImageUser"])px;
+                height: @(ConfigurationManager.AppSettings["HeightImageUser"])px;
+                margin-left: -@((int.Parse(ConfigurationManager.AppSettings["WidthImageUser"]) / 2).ToString())px;
+                margin-top: -@((int.Parse(ConfigurationManager.AppSettings["HeightImageUser"]) / 2).ToString())px;
+                box-sizing: border-box;
+                border: none;
+                box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+                background: none repeat scroll 0% 0% transparent;
+            }
+
+            .imageBox .spinner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                line-height: 400px;
+                background: rgba(0,0,0,0.7);
+            }
+    </style>
+    <style>
+        table td {
+            padding: 10px;
+        }
+
+            table td[class='text-right'] {
+                width: 30%;
+            }
+
+        label {
+            font-size: 16px;
+        }
+
+        form input[type='text'], form input[type='number'], form select {
+            width: 80%;
+            height: 30px;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+}
+
+<div class="col-md-4 col-md-offset-4 text-center">
+    <img src="@Model.AvatarCustom" width="200" height="200" />
+    <br />
+    <h4>
+        @Model.FullName
+    </h4>
+    <form id="frmDoiImage" action="@Url.Action("ChangeImage")" method="post" >
+        @Html.ValidationMessage("LoiDoiImage", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnChonHinh" style="width:150px; border-radius:0px" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Chọn hình</button>
+        <div class="modal fade" id="modal-crop-image">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-purple">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Cắt hình</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box-body">
+                            <div class="imageBox">
+                                <div class="mask"></div>
+                                <div class="thumbBox"></div>
+                                <div class="spinner" style="display: none">Loading...</div>
+                            </div>
+                            <div class="upload-wapper">
+                                <br />
+                                Chọn 1 hình
+                                <input type="file" id="upload-file" value="Upload"><br />
+                                <button type="button" class="btn btn-primary hide" id="crop">Cắt</button>
+                                <input type="hidden"  name="base64String" id="file" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button onclick="if (document.getElementById('file').value != '') { document.getElementById('frmDoiImage').submit(); } " type="button" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </form>
+</div>
+
+<div class="col-md-12">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        <table style="margin:0 auto" class="col-md-12">
+            <tr>
+                <td colspan="2">@Html.ValidationSummary("", new { @class = "text-danger" })</td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.FullName)</td>
+                <td>
+                    @Html.EditorFor(model => model.FullName)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Phone)</td>
+                <td>
+                    @Html.EditorFor(model => model.Phone)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Address)</td>
+                <td>
+                    @Html.EditorFor(model => model.Address)
+
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">@Html.LabelFor(model => model.Gender)</td>
+                <td>
+                    @if (Model.Gender != null)
+                    {
+                        if (Model.Gender.Value == true)
+                        {
+                            <label>Nam</label> @Html.RadioButtonFor(m => m.Gender, true, new { @checked = "checked" })
+                            <label>Nữ</label> @Html.RadioButtonFor(m => m.Gender, false)
+                        }
+                        else
+                        {
+                            <label>Nam</label> @Html.RadioButtonFor(m => m.Gender, true)
+                            <label>Nữ</label> @Html.RadioButtonFor(m => m.Gender, false, new { @checked = "checked" })
+                        }
+                    }
+                    else
+                    {
+                        <label>Nam</label> @Html.RadioButtonFor(m => m.Gender, true)
+                        <label>Nữ</label> @Html.RadioButtonFor(m => m.Gender, false)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="btn btn-success btn-sm">Sửa</button>
+                    <a href="@Url.Action("Index")" class="btn btn-default btn-sm">Trở về</a>
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.canvasCrop.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var rot = 0, ratio = 1;
+
+            $('#upload-file').on('change', function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    CanvasCrop = $.CanvasCrop({
+                        cropBox: ".imageBox",
+                        imgSrc: e.target.result,
+                        limitOver: 2
+                    });
+                    rot = 0;
+                    ratio = 1;
+
+                }
+
+                reader.readAsDataURL(this.files[0]);
+                console.log(this);
+                this.value = "";
+                $("#crop").removeClass("hide");
+                $("#btnLuu").addClass("hide");
+            });
+
+            $("#crop").on("click", function () {
+                var src = CanvasCrop.getDataURL("jpeg");
+                $("#modal-crop-image .modal-body").append("<br/><img src='" + src + "' />");
+                $("#file").val(src);
+                $("#btnLuu").removeClass("hide");
+            });
+
+            console.log("ontouchend" in document);
+
+        })
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@model AspNetUser
+@{
+    ViewBag.Title = "Quản lý thành viên";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Bỏ khóa thành viên";
+}
+
+<div class="col-md-12 text-center">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <h3>Xác nhận bỏ khóa thành viên @Model.FullName ? </h3>
+        @Html.HiddenFor(m => Model.Id)
+        <div>
+            <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-remove"></span> Bỏ khóa</button>
+            <a href="@Url.Action("Index")" class="btn btn-default btn-sm">Trở về</a>
+        </div>
+    }
+</div>
+
+@Html.Partial("_ReValidatePartial")

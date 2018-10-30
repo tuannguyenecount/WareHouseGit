@@ -1,0 +1,19 @@
+﻿@model News
+<script>
+    $(function () {
+        $("#btnHuyEditTitle@(Model.Id)").click(function () {
+            $('#Title@(Model.Id)').html('@Model.Title');
+        });
+    });
+</script>
+@using (Ajax.BeginForm("EditTitle", "News", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "Title" + Model.Id, InsertionMode = InsertionMode.Replace, OnFailure = "alert('Xảy ra lỗi khi thực hiện thao tác. Thử lại sau!')" }, new { method = "post" })) {
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="TitleOld" value="@Model.Title" />
+    <textarea name="Title">@Model.Title</textarea>
+    @Html.ValidationMessageFor(m => Model.Title, "", new { @class = "text-danger" })
+    <div style="margin-top:10px">
+        <button type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span> Đồng ý</button> |
+        <button type="button" id="btnHuyEditTitle@(Model.Id)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span> Hủy thao tác</button>
+    </div>
+}

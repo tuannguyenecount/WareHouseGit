@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Slide>
+
+@{
+    ViewBag.Title = "Danh Sách Slide";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/Content/popupImage.css" type="text/css" />
+}
+
+<h5>
+    @Html.ActionLink("Tạo slide", "Create")
+</h5>
+
+<!-- The Modal -->
+<div id="modalShowImage" class="modal-Image">
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption"></div>
+</div>
+
+@Html.ValidationSummary("", new { @class = "text-danger" })
+
+<div class="table-responsive">
+    <table class="table table-middle">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="popupImage" src="@item.ImageCustom" width="100" height="auto" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                    <form class="hidden" action="@Url.Action("Delete")" id="frmDeleteSlide@(item.Id)" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="Id" value="@item.Id" />
+                    </form>
+                    <a class="btn btn-default btn-sm" onclick="return confirm('Xác nhận xóa hình slide này?');" href="javascript:document.getElementById('frmDeleteSlide@(item.Id)').submit();">Xoá</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            // Event khi người dùng click vào hình ảnh có class popupImage
+            $(".popupImage").click(function () {
+                var modal = document.getElementById("modalShowImage");  // Tạo biến modal lấy ra element có Id  modalShowImage
+                var captionText = document.getElementById("caption");  // Tạo biến captionText lấy ra từ element có Id caption
+                var modalImg = document.getElementById("img01");   // Tạo biến modalImg lấy ra từ element có Id img01
+                modal.style.display = "block";    // Hiển thị  popup
+                modalImg.src = $(this).attr("src");  // Gán thuộc tính src của hình ảnh trong popup
+                captionText.innerHTML = $(this).attr("alt");   // Gán giá trị cho caption theo thuộc tính alt của hình
+            });
+            // Event khi người dùng click nút Close popup
+            $(".modal-Image .close").click(function () {
+                var modal = document.getElementById("modalShowImage");
+                modal.style.display = 'none';  // Ẩn popup
+            });
+        });
+    </script>
+}

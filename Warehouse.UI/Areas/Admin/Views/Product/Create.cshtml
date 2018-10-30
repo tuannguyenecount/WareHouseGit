@@ -1,0 +1,239 @@
+﻿@using System.Configuration;
+@model Product
+@{
+    ViewBag.Title = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Thêm sản phẩm";
+}
+
+@section styles
+{
+    <link href="~/Content/canvasCrop.css" rel="stylesheet" />
+    <style>
+        .cropped {
+            position: absolute;
+            right: -230px;
+            top: 0;
+            width: 200px;
+            border: 1px #ddd solid;
+            height: 460px;
+            padding: 4px;
+            box-shadow: 0px 0px 12px #ddd;
+            text-align: center;
+        }
+
+        .imageBox {
+            position: relative;
+            height: @((int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]) + 100).ToString())px;
+            width: @((int.Parse(ConfigurationManager.AppSettings["WidthImageProduct"]) * 2).ToString())px;
+            margin:0 auto;
+            border: none;
+            background: #fff;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            cursor: move;
+            box-shadow: 4px 4px 12px #B0B0B0;
+        }
+
+            .imageBox .thumbBox {
+                 position: relative;
+                width: @(ConfigurationManager.AppSettings["WidthImageProduct"])px;
+                height: @(ConfigurationManager.AppSettings["HeightImageProduct"])px;
+                margin-left: -@((int.Parse(ConfigurationManager.AppSettings["WidthImageProduct"]) / 2).ToString())px;
+                margin-top: -@((int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]) / 2).ToString())px;
+                box-sizing: border-box;
+                border: none;
+                box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+                background: none repeat scroll 0% 0% transparent;
+            }
+
+            .imageBox .spinner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                line-height: 400px;
+                background: rgba(0,0,0,0.7);
+            }
+    </style>
+    <style>
+        table td {
+            padding: 10px;
+        }
+
+            table td[class='text-right'] {
+                width: 40%;
+            }
+
+        label {
+            font-size: 16px;
+        }
+
+        form input[type='text'], form input[type='number'], form select {
+            width: 80%;
+            height: 30px;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+}
+@section scripts
+{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckfinder/ckfinder.js"></script>
+    <script>
+        CKEDITOR.replace('Content');
+        CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+    </script>
+    <script src="~/Scripts/jquery.canvasCrop.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var rot = 0, ratio = 1;
+
+            $('#upload-file').on('change', function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    CanvasCrop = $.CanvasCrop({
+                        cropBox: ".imageBox",
+                        imgSrc: e.target.result,
+                        limitOver: 2
+                    });
+                    rot = 0;
+                    ratio = 1;
+
+                }
+
+                reader.readAsDataURL(this.files[0]);
+                console.log(this);
+                this.value = "";
+                $("#crop").removeClass("hide");
+                $("#btnLuu").addClass("hide");
+            });
+
+            $("#crop").on("click", function () {
+                var src = CanvasCrop.getDataURL("jpeg");
+                $("#modal-crop-image .modal-body").append("<img src='" + src + "' />");
+                $("#file").val(src);
+                $("#btnLuu").removeClass("hide");
+            });
+
+
+
+            console.log("ontouchend" in document);
+
+        })
+    </script>
+}
+<form action="@Url.Action("Create")" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <table>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.Name)</td>
+            <td>@Html.EditorFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.Color) 
+                <span class="text-danger">(cách nhau bởi các dấu @{ foreach (char splitString in ConfigurationManager.AppSettings["split_string"].ToString().ToCharArray()) { <span>@splitString </span> } })</span>
+            </td>
+            <td>@Html.EditorFor(model => model.Color)</td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.Size) 
+                    <span class="text-danger">(cách nhau bởi các dấu @{ foreach (char splitString in ConfigurationManager.AppSettings["split_string"].ToString().ToCharArray()) { <span>@splitString </span> } })</span>
+            </td>
+            <td>@Html.EditorFor(model => model.Size)</td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.CategoryId)</td>
+            <td>@Html.DropDownList("CategoryId")</td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.Price)</td>
+            <td>@Html.TextBoxFor(model => model.Price, new { type = "number", min = 0, step = 1000 })</td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.Image)</td>
+            <td>
+                <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnChonHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Chọn hình</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">@Html.LabelFor(model => model.Slider)</td>
+            <td>
+                @Html.TextBox("Imagebosung", null, new { type = "file", multiple = "multiple" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><span class="text-info">File hình ảnh hợp lệ là file có đuôi .jpg hoặc .png và phải nhỏ hơn 1MB</span></td>
+        </tr>
+        <tr>
+            <td class="text-right"><label>@Html.LabelFor(model => model.Alias_SEO)</label>:</td>
+            <td> @Html.EditorFor(model => model.Alias_SEO)</td>
+        </tr>
+        <tr>
+            <td class="text-right"><label>Còn hàng</label>:</td>
+            <td> @Html.CheckBoxFor(model => model.Status, new { @checked = "checked" })</td>
+        </tr>
+        <tr>
+            <td class="text-right"><label>@Html.LabelFor(model => model.Display)</label>:</td>
+            <td> @Html.CheckBoxFor(model => model.Display)</td>
+        </tr>
+        <tr>
+            <td class="text-right"><label>@Html.LabelFor(model => model.Content)</label>:</td>
+
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.TextAreaFor(model => model.Content)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span> Thêm</button>
+                <a href="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index") )" class="btn btn-default btn-sm">Trở về</a>
+            </td>
+        </tr>
+    </table>
+    <div class="modal fade" id="modal-crop-image">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-purple">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Cắt hình</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="imageBox">
+                            <div class="mask"></div>
+                            <div class="thumbBox"></div>
+                            <div class="spinner" style="display: none">Loading...</div>
+                        </div>
+                        <div class="upload-wapper">
+                            <br />
+                            Chọn 1 hình
+                            <input type="file" id="upload-file" value="Upload"><br />
+                            <button type="button" class="btn btn-primary hide" id="crop">Cắt</button>
+                            @*<button type="submit" class="btn btn-danger hide" id="btnLuu"><i class="fa fa-save"></i> Lưu</button>*@
+                            <input type="hidden" name="base64String" id="file" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</form>

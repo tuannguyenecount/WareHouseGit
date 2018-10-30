@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Danh sách đơn đặt hàng của bạn";
+    Layout = "~/Views/Shared/_ManageLayout.cshtml";
+    ViewBag.Message = "Danh sách đơn hàng";
+}
+<h5>Danh sách đơn hàng mà bạn chưa nhận hàng</h5>
+@if (ViewBag.ListUnAssigned.Count > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Mã đơn hàng</th>
+                    <th class="text-center">Tổng số lượng</th>
+                    <th class="text-center">Tổng thành tiền</th>
+                    <th class="text-center">Ngày đặt</th>
+                    <th class="text-center">Đã thanh toán?</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Order item in ViewBag.dsDonChuaNhanHang)
+                {
+
+                <tr class="danger">
+                    <td class="text-center">#@item.Id</td>
+                    <td class="text-center">@item.TotalCount</td>
+                    <td class="text-center">@item.TotalMoney</td>
+                    <td class="text-center">@item.DateOrder.ToString("dd/MM/yyyy")</td>
+                    @if (item.Paid)
+                    {
+                        <td class="text-center"><label class="label label-success">Đã thanh toán</label></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><label class="label label-danger">Chưa thanh toán</label></td>
+                    }
+
+                    <td class="text-center"><a href="@Url.Action("Index", "OrderDetail", new {id = item.Id  })">Xem chi tiết</a> </td>
+                </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>
+            Bạn không có đơn hàng chưa nhận hàng.
+        </p>
+    </div>
+}
+<h5>Danh sách đơn hàng mà bạn đã nhận hàng</h5>
+@if (ViewBag.ListAssigned.Count > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Mã đơn hàng</th>
+                    <th class="text-center">Tổng số lượng</th>
+                    <th class="text-center">Tổng thành tiền</th>
+                    <th class="text-center">Ngày đặt</th>
+                    <th class="text-center">Đã thanh toán?</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.dsDonDaNhanHang)
+                {
+                <tr class="success">
+                    <td class="text-center">#@item.Id</td>
+                    <td class="text-center">@item.TotalCount</td>
+                    <td class="text-center">@item.TotalMoney</td>
+                    <td class="text-center">@item.DateOrder.ToString("dd/MM/yyyy")</td>
+                    @if (item.Paid)
+                    {
+                        <td class="text-center"><label class="label label-success">Đã thanh toán</label></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><label class="label label-danger">Chưa thanh toán</label></td>
+                    }
+
+                    <td class="text-center"><a href="@Url.Action("Index", "OrderDetail", new {id = item.Id  })">Xem chi tiết</a> </td>
+                </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>
+            Bạn không có đơn hàng đã nhận hàng.
+        </p>
+    </div>
+}
