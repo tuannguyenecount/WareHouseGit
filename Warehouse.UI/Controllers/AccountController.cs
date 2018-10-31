@@ -20,7 +20,6 @@ namespace Warehouse.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -55,6 +54,7 @@ namespace Warehouse.Controllers
                 _userManager = value;
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeAvatar(string userId, string base64String)
@@ -84,13 +84,13 @@ namespace Warehouse.Controllers
         {
             bool hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
-            AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
+            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
             return PartialView(user);
         }
 
-        public ViewResult Edit()
+        public ViewResult ChangeInfo()
         {
-            AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
+            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
             EditInformationViewModel model = new EditInformationViewModel()
             {
                 Name = user.FullName,
@@ -103,15 +103,14 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditInformationViewModel model)
+        public ActionResult ChangeInfo(EditInformationViewModel model)
         {
-            AspNetUser user = db.AspNetUsers.Find(User.Identity.GetUserId());
+            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
             user.FullName = model.Name;
             user.Phone = model.Phone;
             user.Address = model.Address;
             user.Gender = model.Gender;
-            db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            UserManager.Update(user);
             return RedirectToAction("Manage");
         }
 
@@ -160,7 +159,7 @@ namespace Warehouse.Controllers
             else
             {
                 object thongbao = "Sai mật khẩu!";
-                return View("_ThongBaoLoi", thongbao);
+                return View("Error", new HandleErrorInfo(new Exception(thongbao.ToString()),"Account","Revalidate"));
             }
             return Redirect(returnUrl);
         }
@@ -191,7 +190,6 @@ namespace Warehouse.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        
                         return RedirectToLocal(returnUrl);
                     }
                 case SignInStatus.LockedOut:
@@ -263,9 +261,6 @@ namespace Warehouse.Controllers
             IdentityResult result = await UserManager.ConfirmEmailAsync(userId, code);
             if (result.Succeeded)
             {
-                AspNetUser user = db.AspNetUsers.Find(userId);
-                db.AspNetRoles.Include("AspNetUsers").Single(m=>m.Id == "Mem").AspNetUsers.Add(user);
-                await db.SaveChangesAsync();
                 return View("ConfirmEmail");
             }
             else
@@ -403,8 +398,7 @@ namespace Warehouse.Controllers
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
-            AspNetUser userCurrent = db.AspNetUsers.Find(User.Identity.GetUserId());
-            //ViewBag.HasLocalPassword = userCurrent.PasswordHash != null;
+            ApplicationUser userCurrent = UserManager.FindByName(User.Identity.Name);
             return View(userCurrent);
         }
 
@@ -556,16 +550,7 @@ namespace Warehouse.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
-                else
-                {
-                    hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-                    if (db.AspNetUsers.SingleOrDefault(m => m.Email == model.Email) != null)
-                    {
-                        AddErrors(new IdentityResult("Email này đã đăng ký tại website. Bạn hãy đăng ký với một email khác."));
-                        return View(model);
-                    }
-                }
-                    AddErrors(result);
+                AddErrors(result);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -639,12 +624,7 @@ namespace Warehouse.Controllers
 
         private bool HasPassword()
         {
-           var user =  db.AspNetUsers.Find(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
+            return UserManager.HasPassword(User.Identity.GetUserId());
         }
 
         private void SendEmail(string email, string callbackUrl, string subject, string message)

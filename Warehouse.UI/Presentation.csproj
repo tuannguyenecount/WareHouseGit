@@ -302,21 +302,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
-    <Compile Include="Areas\Admin\Controllers\AspNetUserController.cs" />
-    <Compile Include="Areas\Admin\Controllers\InfoShopController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
-    <Compile Include="Areas\Admin\Controllers\StatisticalController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SubscriberController.cs" />
-    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
-    <Compile Include="Areas\Admin\Controllers\MailBoxController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PromotionProductController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MailBoxController.cs" />
@@ -337,101 +323,15 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Article.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CaptchaImageResult.cs" />
-    <Compile Include="Models\Category.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Country.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\District.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntityDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntityDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntityDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityDataModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\Helper\GreaterThan0Attribute.cs" />
-    <Compile Include="Models\Helper\UniqueNameCategoryAttribute.cs" />
-    <Compile Include="Models\Helper\UniqueAliasCategoryAttribute.cs" />
-    <Compile Include="Models\Helper\UniqueAliasProductAttribute.cs" />
-    <Compile Include="Models\Helper\UniqueAliasNewAttribute.cs" />
-    <Compile Include="Models\Helper\UniqueTitleNewAttribute.cs" />
-    <Compile Include="Models\Helper\UniqueNameProductAttribute.cs" />
-    <Compile Include="Models\historyBankCharging.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageUtilities.cs" />
-    <Compile Include="Models\InfoShop.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserType.cs" />
-    <Compile Include="Models\MailBox.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
-    <Compile Include="Models\News.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\nganluong.cs" />
-    <Compile Include="Models\Order.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OrderDetail.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PromotionProduct.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Province.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\RecaptchaResult.cs" />
-    <Compile Include="Models\Slide.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Subscriber.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Statistical.cs" />
-    <Compile Include="Models\ThuVien.cs" />
-    <Compile Include="Models\UniqueNameNewAttribute.cs" />
-    <Compile Include="Models\UserLikeProduct.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserLoveProduct.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Ward.cs">
-      <DependentUpon>EntityDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -659,16 +559,6 @@
     <Content Include="images\tm-170x80-2.jpg" />
     <Content Include="images\trangadmin.png" />
     <Content Include="images\user.png" />
-    <Content Include="Models\EntityDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntityDataModel.edmx</DependentUpon>
-      <LastGenOutput>EntityDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\EntityDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntityDataModel.edmx</DependentUpon>
-      <LastGenOutput>EntityDataModel.cs</LastGenOutput>
-    </Content>
     <Content Include="pages\404\css\style.css" />
     <Content Include="pages\404\img\text.png" />
     <Content Include="pages\404\index.html" />
@@ -965,65 +855,10 @@
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Areas\Admin\Views\AspNetUser\UnLocked.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\Lock.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\ChangePermission.cshtml" />
-    <Content Include="Areas\Admin\Views\AspNetUser\_ListPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\ThayTrangThai.cshtml" />
-    <Content Include="Areas\Admin\Views\MailBox\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Hide.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_ListPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_SearchPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\PromotionProduct\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_MenuAdminPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_ThongBaoLoi.cshtml" />
-    <Content Include="Areas\Admin\Views\News\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\News\EditContent.cshtml" />
-    <Content Include="Areas\Admin\Views\News\ViewContent.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_ListPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_EditIntroducePartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_ChangeImagePartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_EditAuthorPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\News\_EditTitlePartial.cshtml" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="pages\500\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="pages\500\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="pages\500\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="pages\500\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Areas\Admin\Views\Statistical\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\InfoShop\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\InfoShop\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\InfoShop\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\InfoShop\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Slide\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Slide\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Slide\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Slide\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Slide\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_TablePartial.cshtml" />
-    <EntityDeploy Include="Models\EntityDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EntityDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\EntityDataModel.edmx.diagram">
-      <DependentUpon>EntityDataModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\fontawesome-webfont.woff2" />
@@ -1033,9 +868,6 @@
     <Content Include="Content\ps17\themes\warehouse\assets\css\font-awesome\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\ps17\modules\revsliderprestashop\public\assets\fonts\revicons\revicons.ttf" />
     <Content Include="Content\ps17\modules\revsliderprestashop\public\assets\fonts\revicons\revicons.woff" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_ReValidatePartial.cshtml" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
@@ -1114,7 +946,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Scripts\_references.js" />
-    <Content Include="TextFile1.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1136,7 +967,7 @@
     <Content Include="Scripts\slider\LICENSE.md" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\ChangeInfo.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
@@ -1159,7 +990,6 @@
     <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\_FeaturedArticlesPartial.cshtml" />
-    <Content Include="Views\OrderDetail\Index.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\OrderError.cshtml" />
@@ -1183,14 +1013,12 @@
     <Content Include="Views\Shared\_ManageLayout.cshtml" />
     <Content Include="Views\Shared\_MenuMemberPartial.cshtml" />
     <Content Include="Views\Shared\_QuickViewModalPartial.cshtml" />
-    <Content Include="Views\Shared\_ThongBaoLoi.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
-    <Content Include="Views\StaticContent\PageNotFound.cshtml" />
     <Content Include="Views\Subscriber\SuccessSubscriber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

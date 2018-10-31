@@ -1,13 +1,7 @@
 ﻿using Warehouse.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
+using Warehouse.Entities;
 
 namespace Warehouse.Controllers
 {
@@ -16,7 +10,8 @@ namespace Warehouse.Controllers
         [Route("lien-he")]
         public ActionResult Add()
         {
-            return View(new MailBox());
+            //return View(new MailBox());
+            return View();
         }
         // GET: MailBox
         [HttpPost]
@@ -33,9 +28,9 @@ namespace Warehouse.Controllers
             }
             try
             {
-                hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-                db.MailBoxes.Add(model);
-                db.SaveChanges();
+                //hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
+                //db.MailBoxes.Add(model);
+                //db.SaveChanges();
                 ViewBag.Message = "Gửi thành công.";
                 return View(model);
             }

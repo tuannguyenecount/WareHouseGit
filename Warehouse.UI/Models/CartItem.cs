@@ -5,22 +5,42 @@ using System.Web;
 using System.Configuration;
 namespace Warehouse.Models
 {
+    /// <summary>
+    /// CartItem is object of ShoppingCart
+    /// </summary>
     public class CartItem
     {
+        // Id product
         public int Id { get; set; }
+
+        // Name product
         public string Name { get; set; }
+
+        // Property product (color, size, ...)
         public string Property { get; set; }
+
+        // Alias product
         public string Alias { get; set; }
-        public int Count { get; set; }
+
+        // Quantity
+        public int Quantity { get; set; }
+
+        // Price
         public decimal Price { get; set; }
+
+        // Image 
         public string Image { get; set; }
-        public decimal Money
+
+        // Subtotal money
+        public decimal Subtotal
         {
             get
             {
-                return Count * Price;
+                return Quantity * Price;
             }
         }
+
+        // Image FullUrl
         public string ImageCustom
         {
             get

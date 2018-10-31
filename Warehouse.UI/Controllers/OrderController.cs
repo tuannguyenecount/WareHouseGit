@@ -7,19 +7,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Warehouse.Entities;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Warehouse.Controllers
 {
 
     public class OrderController : Controller
     {
-        hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-        
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public OrderController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+
         [Authorize]
         public ViewResult Index()
         {
-            ViewBag.ListUnAssigned = db.Orders.Where(m=>m.Assigned == false && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m=>m.Assigned).ToList();
-            ViewBag.ListAssigned = db.Orders.Where(m => m.Assigned == true && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m => m.Assigned).ToList();
+            //ViewBag.ListUnAssigned = db.Orders.Where(m=>m.Assigned == false && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m=>m.Assigned).ToList();
+            //ViewBag.ListAssigned = db.Orders.Where(m => m.Assigned == true && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m => m.Assigned).ToList();
             return View();
         }
 
@@ -29,17 +49,16 @@ namespace Warehouse.Controllers
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
             model.DateOrder = DateTime.Now;
-            model.TotalCount = (byte)ds.Sum(m => m.Count);
-            model.TotalMoney = ds.Sum(m => m.Money);
-            model.Deleted = false;
+            model.TotalQuantity = (byte)ds.Sum(m => m.Quantity);
+            model.TotalMoney = ds.Sum(m => m.Subtotal);
+
             if (User.Identity.IsAuthenticated)
             {
-                string emailUserCurrent = User.Identity.Name;
-                AspNetUser user = db.AspNetUsers.Single(m => m.UserName == emailUserCurrent);
+                ApplicationUser user = UserManager.FindByName(User.Identity.Name);
                 model.UserId = user.Id;
                 model.Name = user.FullName;
                 model.Phone = user.Phone;
-                model.Email = emailUserCurrent;
+                model.Email = user.Email;
                 model.Address = user.Address;
             }
             else
@@ -54,7 +73,7 @@ namespace Warehouse.Controllers
                     ModelState.AddModelError("", "Bạn chưa cung cấp số điện thoại.");
                     return View("OrderError");
                 }
-                if (ThuVien.IsValidEmail(model.Email) == false)
+                if (Functions.IsValidEmail(model.Email) == false)
                 {
                     ModelState.AddModelError("", "Địa chỉ email không hợp lệ.");
                     return View("OrderError");
@@ -66,8 +85,8 @@ namespace Warehouse.Controllers
 
                 try
                 {
-                    db.Orders.Add(model);
-                    await db.SaveChangesAsync();
+                    //db.Orders.Add(model);
+                    //await db.SaveChangesAsync();
                 }
                 catch
                 {
@@ -84,51 +103,52 @@ namespace Warehouse.Controllers
                         ProductName = item.Name,
                         ProductAlias = item.Alias,
                         ProductId = item.Id,
-                        Count = item.Count,
+                        Quantity = item.Quantity,
                         Price = item.Price,
-                        Subtotal = item.Money
+                        Money = item.Subtotal
                     };
                     try
                     {
-                        db.OrderDetails.Add(chiTiet);
-                        await db.SaveChangesAsync();
+                        //db.OrderDetails.Add(chiTiet);
+                        //await db.SaveChangesAsync();
                     }
                     catch
                     {
                         ModelState.AddModelError("", "Không thể lưu bản ghi chi tiết số " + chiTiet.Id.ToString());
                     }
                 }
-                try
-                {
-                    EmailService email = new EmailService();
-                    await email.SendAsync(new IdentityMessage()
-                    {
-                        Body = "Khách hàng <b>" + model.Name + "</b> vừa đặt đơn hàng #" + model.Id.ToString() + " tại shop",
-                        Destination = (Session["InfoShop"] as InfoShop).Email,
-                        Subject = "Đơn hàng mới tại shop"
-                    });
+                //try
+                //{
+                //    EmailService email = new EmailService();
+                //    await email.SendAsync(new IdentityMessage()
+                //    {
+                //        Body = "Khách hàng <b>" + model.Name + "</b> vừa đặt đơn hàng #" + model.Id.ToString() + " tại shop",
+                //        Destination = (Session["InfoShop"] as InfoShop).Email,
+                //        Subject = "Đơn hàng mới tại shop"
+                //    });
 
-                }
-                catch
-                {
+                //}
+                //catch
+                //{
 
-                }
-                if (onlinePayment == null || onlinePayment == false)
-                {
-                    ds.Clear();
-                    Session["ShoppingCart"] = null;
-                    if (ModelState.IsValid)
-                        return View("OrderSuccess");
-                    else
-                        return View("OrderError");
-                }
-                else
-                {
-                    NL_Checkout nganluong = new NL_Checkout();
-                    string urlThanhToan = nganluong.buildCheckoutUrlNew(Url.Action("Confirm", "Order", null, Request.Url.Scheme), ConfigurationManager.AppSettings["email_nganluong"].ToString(), "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", model.Id.ToString(), model.TotalMoney.ToString(), "vnd", 1, 0, 0, 0, 0, "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng",
-                     "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", "");
-                    return Redirect(urlThanhToan);
-                }
+                //}
+                //if (onlinePayment == null || onlinePayment == false)
+                //{
+                //    ds.Clear();
+                //    Session["ShoppingCart"] = null;
+                //    if (ModelState.IsValid)
+                //        return View("OrderSuccess");
+                //    else
+                //        return View("OrderError");
+                //}
+                //else
+                //{
+                //    NL_Checkout nganluong = new NL_Checkout();
+                //    string urlThanhToan = nganluong.buildCheckoutUrlNew(Url.Action("Confirm", "Order", null, Request.Url.Scheme), ConfigurationManager.AppSettings["email_nganluong"].ToString(), "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", model.Id.ToString(), model.TotalMoney.ToString(), "vnd", 1, 0, 0, 0, 0, "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng",
+                //     "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", "");
+                //    return Redirect(urlThanhToan);
+                //}
+                return View("OrderSuccess");
             }
             #endregion
             else
@@ -145,10 +165,10 @@ namespace Warehouse.Controllers
                 int Id = int.Parse(order_code);
                 try
                 {
-                    Order Order = db.Orders.Find(Id);
-                    Order.Paid = true;
-                    db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    //Order Order = db.Orders.Find(Id);
+                    //Order.Paid = true;
+                    //db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
+                    //await db.SaveChangesAsync();
                 }
                 catch(Exception ex)
                 {
@@ -156,12 +176,12 @@ namespace Warehouse.Controllers
                 }
                 try
                 {
-                    AspNetUser userCurrent = db.AspNetUsers.Find(User.Identity.GetUserId());
+                    ApplicationUser user = UserManager.FindByName(User.Identity.Name);
                     historyBankCharging history = new historyBankCharging()
                     {
-                        fullname = userCurrent.FullName,
-                        email = userCurrent.Email,
-                        phone = userCurrent.Phone,
+                        fullname = user.FullName,
+                        email = user.Email,
+                        phone = user.Phone,
                         date_trans = DateTime.Now,
                         price = price,
                         order_code = order_code,
@@ -171,8 +191,8 @@ namespace Warehouse.Controllers
                         payment_type = payment_type,
                         secure_code = secure_code
                     };
-                    db.historyBankChargings.Add(history);
-                    await db.SaveChangesAsync();
+                    //db.historyBankChargings.Add(history);
+                    //await db.SaveChangesAsync();
                 }
                 catch(Exception ex)
                 {

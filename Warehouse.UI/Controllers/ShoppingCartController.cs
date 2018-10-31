@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Warehouse.Entities;
 using Warehouse.Models;
+using Warehouse.Services.Interface;
+
 namespace Warehouse.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
+        IProductService _productService;
+        public ShoppingCartController(IProductService productService)
+        {
+            _productService = productService;
+        }
+
+        //Get Session["ShoppingCart"]
         public List<CartItem> ShoppingCart
         {
             get
@@ -17,19 +24,27 @@ namespace Warehouse.Controllers
             }
         }
 
-        #region Show Cart 
+        /// <summary>
+        /// Show Cart Page
+        /// </summary>
+        /// <returns></returns>
         [Route("gio-hang.html")]
         public ActionResult Index()
         {
-            ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-cart tax-display-disabled body-desktop-header-style-w-4";
             return View(ShoppingCart);
         }
-        #endregion
 
-        #region Add, Edit, Delete Cart Item
+        /// <summary>
+        /// Add product to Cart
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="color"></param>
+        /// <param name="size"></param>
+        /// <param name="muangay"></param>
+        /// <returns></returns>
         public ActionResult Add(int id, string color, string size, bool? muangay)
         {
-            Product Product = db.Products.SingleOrDefault(m => m.Id == id && m.Display == true);
+            Product Product = _productService.GetById(id);
 
             if (Product == null)
             {
@@ -38,8 +53,8 @@ namespace Warehouse.Controllers
 
             CartItem item = new CartItem()
             {
-                Price = Product.PriceThuc,
-                Count = 1,
+                Price = Product.PriceNew ?? Product.Price,
+                Quantity = 1,
                 Id = id,
                 Name = Product.Name,
                 Image = Product.Image,
@@ -49,16 +64,16 @@ namespace Warehouse.Controllers
 
             if (!string.IsNullOrEmpty(color) || !string.IsNullOrEmpty(size)) {
                 if (!string.IsNullOrEmpty(color)) {
-                    item.Property += "Màu " + color + ".";
+                    item.Property += "<p>Màu " + color + "<p/>";
                 }
                 if(!string.IsNullOrEmpty(size)) {
-                    item.Property += "Size " + size;
+                    item.Property += "<p>Size " + size+"</p>";
                 }
             }
 
             if (ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == item.Property) != null)
             {
-                ShoppingCart.Single(m => m.Id == id && m.Property == item.Property).Count += 1;
+                ShoppingCart.Single(m => m.Id == id && m.Property == item.Property).Quantity += 1;
             }
             else
             {
@@ -68,25 +83,24 @@ namespace Warehouse.Controllers
             return muangay.HasValue ? RedirectToAction("Index") : RedirectToAction("Details", "Product", new { alias = Product.Alias_SEO });
         }
 
+        // Edit Quantity Item
         [HttpPost]
-        public ActionResult Edit(int id, string property, int? Countmoi)
+        public ActionResult Edit(int id, string property, int quantity)
         {
             CartItem itemEdit = ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == property);
-            if(itemEdit != null && Countmoi.HasValue && Countmoi >= 1)
+            if(itemEdit != null && quantity > 0)
             {
-                try {
-                    Product p = db.Products.Find(id);
-                    itemEdit.Count = Countmoi.Value;
-                    return RedirectToAction("Index");
-                }
-                catch {
-                    object message = "Xảy ra lỗi khi sửa số lượng!";
-                    return View("_ThongBaoLoi", message);
-                }
+                itemEdit.Quantity = quantity;
             }
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        ///  Delete item in Cart
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="property"></param>
+        /// <returns></returns>
         [HttpPost]
         public RedirectToRouteResult Delete(int id, string property)
         {
@@ -96,15 +110,6 @@ namespace Warehouse.Controllers
                 ShoppingCart.Remove(item);
             }
             return RedirectToAction("Index");
-        }
-        #endregion
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -24,7 +24,7 @@
 
                 <tr class="danger">
                     <td class="text-center">#@item.Id</td>
-                    <td class="text-center">@item.TotalCount</td>
+                    <td class="text-center">@item.TotalQuantity</td>
                     <td class="text-center">@item.TotalMoney</td>
                     <td class="text-center">@item.DateOrder.ToString("dd/MM/yyyy")</td>
                     @if (item.Paid)
@@ -68,11 +68,11 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.dsDonDaNhanHang)
+                @foreach (Order item in ViewBag.dsDonDaNhanHang)
                 {
                 <tr class="success">
                     <td class="text-center">#@item.Id</td>
-                    <td class="text-center">@item.TotalCount</td>
+                    <td class="text-center">@item.TotalQuantity</td>
                     <td class="text-center">@item.TotalMoney</td>
                     <td class="text-center">@item.DateOrder.ToString("dd/MM/yyyy")</td>
                     @if (item.Paid)

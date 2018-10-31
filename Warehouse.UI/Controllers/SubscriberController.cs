@@ -9,31 +9,30 @@ namespace Warehouse.Controllers
 {
     public class SubscriberController : Controller
     {
-        hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
         #region front-end
         // GET: NhanTinQuaEmail
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public string Add(string email)
+        public string Register(string email)
         {
             if(string.IsNullOrEmpty(email))
             {
                 return "Bạn chưa nhập email!";
             }
-            if(ThuVien.IsValidEmail(email) == false)
+            if(Functions.IsValidEmail(email) == false)
             {
                 return "Địa chỉ email không hợp lệ!";
             }
             try
             {
-                if(db.Subscribers.FirstOrDefault(m=>m.Email == email) != null)
-                {
-                    return "Địa chỉ email này đã đăng ký nhận tin trước đó.";
-                }
-                Subscriber model = new Subscriber() { Email = email, DateSubscriber = DateTime.Today };
-                db.Subscribers.Add(model);
-                db.SaveChangesAsync();
+                //if(db.Subscribers.FirstOrDefault(m=>m.Email == email) != null)
+                //{
+                //    return "Địa chỉ email này đã đăng ký nhận tin trước đó.";
+                //}
+                //Subscriber model = new Subscriber() { Email = email, DateSubscriber = DateTime.Today };
+                //db.Subscribers.Add(model);
+                //db.SaveChangesAsync();
                 return "Đăng ký nhận tin tức qua email " + email + " thành công. Chúc bạn 1 ngày tốt lành.";
             }
             catch
