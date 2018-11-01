@@ -5,9 +5,10 @@ namespace Warehouse.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Warehouse.Core.Entities;
 
     [Table("historyBankCharging")]
-    public partial class historyBankCharging
+    public partial class historyBankCharging : IEntity
     {
         public int Id { get; set; }
 

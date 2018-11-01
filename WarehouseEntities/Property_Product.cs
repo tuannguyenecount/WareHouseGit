@@ -5,8 +5,9 @@ namespace Warehouse.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Warehouse.Core.Entities;
 
-    public partial class Property_Product
+    public partial class Property_Product : IEntity
     {
         [Key]
         [Column(Order = 0)]

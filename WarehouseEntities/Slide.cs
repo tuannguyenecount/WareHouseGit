@@ -5,9 +5,10 @@ namespace Warehouse.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Warehouse.Core.Entities;
 
     [Table("Slide")]
-    public partial class Slide
+    public partial class Slide : IEntity
     {
         public int Id { get; set; }
 

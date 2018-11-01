@@ -65,9 +65,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\ICategoryService.cs" />
+    <Compile Include="Interface\IOrderDetailService.cs" />
+    <Compile Include="Interface\INewsService.cs" />
+    <Compile Include="Interface\ISubscriberService.cs" />
+    <Compile Include="Interface\ISlideService.cs" />
+    <Compile Include="Interface\IProvinceService.cs" />
+    <Compile Include="Interface\IOrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interface\IProductService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\OrderDetailService.cs" />
+    <Compile Include="Services\NewsService.cs" />
+    <Compile Include="Services\SubscriberService.cs" />
+    <Compile Include="Services\SlideService.cs" />
+    <Compile Include="Services\ProvinceService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,9 +5,10 @@ namespace Warehouse.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Warehouse.Core.Entities;
 
     [Table("Order")]
-    public partial class Order
+    public partial class Order : IEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()

@@ -5,8 +5,9 @@ namespace Warehouse.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Warehouse.Core.Entities;
 
-    public partial class News
+    public partial class News : IEntity
     {
         public int Id { get; set; }
 

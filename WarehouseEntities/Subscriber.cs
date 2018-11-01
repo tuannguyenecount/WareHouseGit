@@ -5,9 +5,10 @@ namespace Warehouse.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Warehouse.Core.Entities;
 
     [Table("Subscriber")]
-    public partial class Subscriber
+    public partial class Subscriber : IEntity
     {
         [Key]
         [StringLength(256)]

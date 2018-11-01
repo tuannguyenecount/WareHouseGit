@@ -68,9 +68,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CategoryDal.cs" />
+    <Compile Include="Data\NewsDal.cs" />
+    <Compile Include="Data\SubscriberDal.cs" />
+    <Compile Include="Data\SlideDal.cs" />
+    <Compile Include="Data\ProvinceDal.cs" />
+    <Compile Include="Data\OrderDetailDal.cs" />
+    <Compile Include="Data\OrderDal.cs" />
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
+    <Compile Include="Interface\INewsDal.cs" />
+    <Compile Include="Interface\ISubscriberDal.cs" />
+    <Compile Include="Interface\ISlideDal.cs" />
+    <Compile Include="Interface\IProvinceDal.cs" />
+    <Compile Include="Interface\IOrderDetailDal.cs" />
+    <Compile Include="Interface\IOrderDal.cs" />
     <Compile Include="Interface\IProductDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
