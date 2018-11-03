@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ENUM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccess\IEntityRepository.cs" />
     <Compile Include="DataAccess\EntityFramework\EntityRepositoryBase.cs" />

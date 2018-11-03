@@ -83,6 +83,10 @@
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Warehouse.Common\Warehouse.Common.csproj">
+      <Project>{FEE3DB28-C559-4F84-A17B-B6E7DFE35D81}</Project>
+      <Name>Warehouse.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WarehouseCore\Warehouse.Core.csproj">
       <Project>{538031f8-fcac-4287-98ca-34ac79ad8e26}</Project>
       <Name>Warehouse.Core</Name>

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Warehouse.Services.Interface;
 using System.Configuration;
 using System;
+using Warehouse.Common;
 
 namespace Warehouse.UI.Controllers
 {

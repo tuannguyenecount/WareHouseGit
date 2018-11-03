@@ -4,6 +4,8 @@ using Warehouse.Entities;
 using Warehouse.Services.Interface;
 using Warehouse.Data.Interface;
 using System.Linq;
+using Warehouse.Common;
+
 namespace Warehouse.Services.Services
 {
     public class ProductService : IProductService 
