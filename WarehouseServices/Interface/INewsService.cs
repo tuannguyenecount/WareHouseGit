@@ -12,6 +12,8 @@ namespace Warehouse.Services.Interface
 
         List<News> GetAll();
 
+        List<News> GetNews();
+
         News GetById(int id);
 
         void Add(News news);

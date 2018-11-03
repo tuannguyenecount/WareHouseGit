@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Warehouse.UI/Content/ps17/themes/warehouse/assets/cache/main-custom.js

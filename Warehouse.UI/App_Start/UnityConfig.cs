@@ -26,6 +26,13 @@ namespace Warehouse
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<ICategoryDal, CategoryDal>();
 
+
+            container.RegisterType<ISlideService, SlideService>();
+            container.RegisterType<ISlideDal, SlideDal>();
+
+            container.RegisterType<INewsService, NewsService>();
+            container.RegisterType<INewsDal, NewsDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

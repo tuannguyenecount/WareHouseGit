@@ -20,9 +20,25 @@ namespace Warehouse.Data.Data
                     : context.Set<Product>().Include(p => p.Category).Where(filter).ToList();
             }
         }
-        public override IQueryable<Product> SortList(IQueryable<Product> entities, Expression<Func<Product, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
+
+        public List<Product> GetNewProducts()
         {
-            return base.SortList(entities, sorting, sortType);
+            using (var context = new WarehouseContext())
+            {
+                return context.Set<Product>().Include(p => p.Category).OrderByDescending(p=>p.Id).Take(8).ToList();
+            }
         }
+
+        public IQueryable<Product> SortList(IQueryable<Product> entities, Expression<Func<Product, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
+        {
+            using (var context = new WarehouseContext())
+            {
+                return sortType == ENUM.SORT_TYPE.Ascending
+                    ? entities.OrderBy(sorting)
+                    : entities.OrderByDescending(sorting);
+            }
+        }
+
+
     }
 }

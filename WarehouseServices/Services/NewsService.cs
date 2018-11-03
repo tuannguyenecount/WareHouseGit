@@ -39,5 +39,10 @@ namespace Warehouse.Services.Services
         {
             _newsDal.Delete(new News { Id = id });
         }
+
+        public List<News> GetNews()
+        {
+            return _newsDal.GetNews();
+        }
     }
 }

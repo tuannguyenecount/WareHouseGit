@@ -84,13 +84,29 @@
     <Compile Include="Interface\IOrderDetailDal.cs" />
     <Compile Include="Interface\IOrderDal.cs" />
     <Compile Include="Interface\IProductDal.cs" />
+    <Compile Include="Migrations\201811030756218_deleteColumnSizeAndColor.cs" />
+    <Compile Include="Migrations\201811030756218_deleteColumnSizeAndColor.Designer.cs">
+      <DependentUpon>201811030756218_deleteColumnSizeAndColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811030759271_deleteColumnSizeAndColor2.cs" />
+    <Compile Include="Migrations\201811030759271_deleteColumnSizeAndColor2.Designer.cs">
+      <DependentUpon>201811030759271_deleteColumnSizeAndColor2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811030756218_deleteColumnSizeAndColor.resx">
+      <DependentUpon>201811030756218_deleteColumnSizeAndColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811030759271_deleteColumnSizeAndColor2.resx">
+      <DependentUpon>201811030759271_deleteColumnSizeAndColor2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WarehouseCore\Warehouse.Core.csproj">
       <Project>{538031f8-fcac-4287-98ca-34ac79ad8e26}</Project>

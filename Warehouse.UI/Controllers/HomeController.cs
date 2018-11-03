@@ -4,20 +4,34 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Warehouse.Models;
+using Warehouse.Services.Interface;
 namespace Warehouse.Controllers
 {
     public class HomeController : Controller
     {
-        //hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-        
+        private readonly IProductService _productService;
+        private readonly INewsService _newsService;
+        private readonly ISlideService _slideService;
+
+        public HomeController(IProductService productService, INewsService newsService, ISlideService slideService)
+        {
+            _productService = productService;
+            _newsService = newsService;
+            _slideService = slideService;
+        }
+
         [Route("")]
         public ActionResult Index()
         {
-            //ViewBag.PromotionProducts = db.PromotionProducts.Where(m=>m.Product.Display == true && m.Product.Status == true).OrderByDescending(m=>m.ProductId).ToList();
+
             //ViewBag.ProductMoiCapNhat = db.Products.Where(m=>m.Display == true && m.Status == true).OrderByDescending (m => m.Id).Take(8).ToList();
             //ViewBag.CoTheBanThich = db.Products.Where(m => m.Display == true && m.Status == true).OrderByDescending(m => m.LoveTurns + m.Likes).Take(8).ToList();
             //ViewBag.dsTin = db.News.OrderByDescending(m=>m.Id).Take(5).ToList();
-            //ViewBag.Slides = db.Slides.Where(m => m.Status == true).OrderBy(m => m.Order).ToList();
+            // ViewBag.Slides = db.Slides.Where(m => m.Status == true).OrderBy(m => m.Order).ToList();
+            ViewBag.NewProducts = _productService.GetNewProducts();
+            ViewBag.Slides = _slideService.GetAll();
+            ViewBag.News = _newsService.GetNews();
+            
             return View();
         }
 

@@ -12,6 +12,8 @@ namespace Warehouse.Services.Interface
 
         List<Slide> GetAll();
 
+        
+
         Slide GetById(int id);
 
         void Add(Slide slide);

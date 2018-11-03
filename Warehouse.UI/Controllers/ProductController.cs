@@ -61,8 +61,6 @@ namespace Warehouse.UI.Controllers
             int skip = count - 10 > 0 ? r.Next(0, count - 10) : 0;
             ViewBag.productsRelated = productsRelated.Skip(skip).Take(10).ToList();
             string splitString = ConfigurationManager.AppSettings["split_string"].ToString();
-            ViewBag.ListMauSac = product.Color != null ? product.Color.Split(splitString.ToCharArray()) : null;
-            ViewBag.ListSize = product.Size != null ? product.Size.Split(splitString.ToCharArray()) : null;
             return View(product);
         }
 

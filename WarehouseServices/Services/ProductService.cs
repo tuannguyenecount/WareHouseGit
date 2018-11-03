@@ -6,7 +6,7 @@ using Warehouse.Data.Interface;
 using System.Linq;
 namespace Warehouse.Services.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductService 
     {
         private IProductDal _productDal;
 
@@ -76,6 +76,11 @@ namespace Warehouse.Services.Services
         public List<Product> GetRelatedProducts(int? categoryId, int productMainId)
         {
             return _productDal.GetList(p => p.Display == true && p.CategoryId == categoryId && p.Id != productMainId);
+        }
+
+        public List<Product> GetNewProducts()
+        {
+            return _productDal.GetNewProducts();
         }
     }
 }

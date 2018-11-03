@@ -10426,48 +10426,48 @@
             var i = this;
             t(i.$slider).hasClass("slick-initialized") || (t(i.$slider).addClass("slick-initialized"), i.buildRows(), i.buildOut(), i.setProps(), i.startLoad(), i.loadSlider(), i.initializeEvents(), i.updateArrows(), i.updateDots(), i.checkResponsive(!0), i.focusHandler()), e && i.$slider.trigger("init", [i]), i.options.accessibility === !0 && i.initADA(), i.options.autoplay && (i.paused = !1, i.autoPlay())
         }, e.prototype.initADA = function () {
-            var e = this,
-                i = Math.ceil(e.slideCount / e.options.slidesToShow),
-                n = e.getNavigableIndexes().filter(function (t) {
-                    return t >= 0 && t < e.slideCount
-                });
-            e.$slides.add(e.$slideTrack.find(".slick-cloned")).attr({
-                "aria-hidden": "true",
-                tabindex: "-1"
-            }).find("a, input, button, select").attr({
-                tabindex: "-1"
-            }), null !== e.$dots && (e.$slides.not(e.$slideTrack.find(".slick-cloned")).each(function (i) {
-                var o = n.indexOf(i);
-                if (t(this).attr({
-                    role: "tabpanel",
-                    id: "slick-slide" + e.instanceUid + i,
-                    tabindex: -1
-                }), o !== -1) {
-                    var s = "slick-slide-control" + e.instanceUid + o;
-                    t("#" + s).length && t(this).attr({
-                        "aria-describedby": s
-                    })
-                }
-            }), e.$dots.attr("role", "tablist").find("li").each(function (o) {
-                var s = n[o];
-                t(this).attr({
-                    role: "presentation"
-                }), t(this).find("button").first().attr({
-                    role: "tab",
-                    id: "slick-slide-control" + e.instanceUid + o,
-                    "aria-controls": "slick-slide" + e.instanceUid + s,
-                    "aria-label": o + 1 + " of " + i,
-                    "aria-selected": null,
-                    tabindex: "-1"
-                })
-            }).eq(e.currentSlide).find("button").attr({
-                "aria-selected": "true",
-                tabindex: "0"
-            }).end());
-            for (var o = e.currentSlide, s = o + e.options.slidesToShow; o < s; o++) e.options.focusOnChange ? e.$slides.eq(o).attr({
-                tabindex: "0"
-            }) : e.$slides.eq(o).removeAttr("tabindex");
-            e.activateADA() 
+            //var e = this,
+            //    i = Math.ceil(e.slideCount / e.options.slidesToShow),
+            //    n = e.getNavigableIndexes().filter(function (t) {
+            //        return t >= 0 && t < e.slideCount
+            //    });
+            //e.$slides.add(e.$slideTrack.find(".slick-cloned")).attr({
+            //    "aria-hidden": "true",
+            //    tabindex: "-1"
+            //}).find("a, input, button, select").attr({
+            //    tabindex: "-1"
+            //}), null !== e.$dots && (e.$slides.not(e.$slideTrack.find(".slick-cloned")).each(function (i) {
+            //    var o = n.indexOf(i);
+            //    if (t(this).attr({
+            //        role: "tabpanel",
+            //        id: "slick-slide" + e.instanceUid + i,
+            //        tabindex: -1
+            //    }), o !== -1) {
+            //        var s = "slick-slide-control" + e.instanceUid + o;
+            //        t("#" + s).length && t(this).attr({
+            //            "aria-describedby": s
+            //        })
+            //    }
+            //}), e.$dots.attr("role", "tablist").find("li").each(function (o) {
+            //    var s = n[o];
+            //    t(this).attr({
+            //        role: "presentation"
+            //    }), t(this).find("button").first().attr({
+            //        role: "tab",
+            //        id: "slick-slide-control" + e.instanceUid + o,
+            //        "aria-controls": "slick-slide" + e.instanceUid + s,
+            //        "aria-label": o + 1 + " of " + i,
+            //        "aria-selected": null,
+            //        tabindex: "-1"
+            //    })
+            //}).eq(e.currentSlide).find("button").attr({
+            //    "aria-selected": "true",
+            //    tabindex: "0"
+            //}).end());
+            //for (var o = e.currentSlide, s = o + e.options.slidesToShow; o < s; o++) e.options.focusOnChange ? e.$slides.eq(o).attr({
+            //    tabindex: "0"
+            //}) : e.$slides.eq(o).removeAttr("tabindex");
+            //e.activateADA()
         }, e.prototype.initArrowEvents = function () {
             var t = this;
             t.options.arrows === !0 && t.slideCount > t.options.slidesToShow && (t.$prevArrow.off("click.slick").on("click.slick", {

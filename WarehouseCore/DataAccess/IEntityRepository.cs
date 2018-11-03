@@ -13,8 +13,6 @@ namespace Warehouse.Core.DataAccess
 
         List<T> GetList(Expression<Func<T, bool>> filter = null);
 
-        IQueryable<T> SortList(IQueryable<T> entities, Expression<Func<T, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Ascending);
-
         void Add(T entity);
 
         void Update(T entity);

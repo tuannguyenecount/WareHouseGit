@@ -18,6 +18,8 @@ namespace Warehouse.Services.Interface
 
         Product GetByAlias(string alias);
 
+        List<Product> GetNewProducts();
+
         IQueryable<Product> Sorting(IQueryable<Product> products, string sortName, ENUM.SORT_TYPE sortType);
 
         void Add(Product product);

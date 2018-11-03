@@ -17,7 +17,7 @@ namespace Warehouse.Services.Services
 
         public List<Slide> GetAll()
         {
-            return _slideDal.GetList();
+            return _slideDal.GetList().OrderByDescending(s => s.Order).ToList(); ;
         }
 
         public Slide GetById(int id)
@@ -39,5 +39,7 @@ namespace Warehouse.Services.Services
         {
             _slideDal.Delete(new Slide { Id = id });
         }
+
+        
     }
 }

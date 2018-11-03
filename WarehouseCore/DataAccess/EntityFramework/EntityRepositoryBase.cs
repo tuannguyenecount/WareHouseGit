@@ -54,16 +54,6 @@ namespace Warehouse.Core.DataAccess.EntityFramework
             }
         }
 
-        public virtual IQueryable<TEntity> SortList(IQueryable<TEntity> entities, Expression<Func<TEntity, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Ascending)
-        {
-            using (var context = new TContext())
-            {
-                return sortType ==  ENUM.SORT_TYPE.Ascending
-                    ? entities.OrderBy(sorting)
-                    : entities.OrderByDescending(sorting);
-            }
-        }
-
         public virtual void Update(TEntity entity)
         {
             using (var context = new TContext())

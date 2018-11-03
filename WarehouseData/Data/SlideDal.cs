@@ -11,6 +11,6 @@ namespace Warehouse.Data.Data
 {
     public class SlideDal : EntityRepositoryBase<Slide, WarehouseContext>, ISlideDal
     {
-
+        
     }
 }
