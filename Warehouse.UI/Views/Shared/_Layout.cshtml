@@ -156,7 +156,9 @@
 
     <main id="main-page-content">
 
-        @Html.Partial("_HeaderPartial")
+        @{
+            Html.RenderAction("_HeaderPartial", "Home", new { area = "" });
+        }
         <section id="wrapper" style="margin-bottom: 553px;">
             @RenderBody()
         </section>

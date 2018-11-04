@@ -313,14 +313,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810151202054_deleteColumnDeletedInAspNetUsers.cs" />
-    <Compile Include="Migrations\201810151202054_deleteColumnDeletedInAspNetUsers.Designer.cs">
-      <DependentUpon>201810151202054_deleteColumnDeletedInAspNetUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810151213252_deleteColumnDeletedInAspNetUsers2.cs" />
-    <Compile Include="Migrations\201810151213252_deleteColumnDeletedInAspNetUsers2.Designer.cs">
-      <DependentUpon>201810151213252_deleteColumnDeletedInAspNetUsers2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CaptchaImageResult.cs" />
@@ -837,14 +829,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810151202054_deleteColumnDeletedInAspNetUsers.resx">
-      <DependentUpon>201810151202054_deleteColumnDeletedInAspNetUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810151213252_deleteColumnDeletedInAspNetUsers2.resx">
-      <DependentUpon>201810151213252_deleteColumnDeletedInAspNetUsers2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Warehouse.Common\Warehouse.Common.csproj">

@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\CategoryDal.cs" />
+    <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\NewsDal.cs" />
     <Compile Include="Data\SubscriberDal.cs" />
     <Compile Include="Data\SlideDal.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
+    <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />
     <Compile Include="Interface\ISubscriberDal.cs" />
     <Compile Include="Interface\ISlideDal.cs" />

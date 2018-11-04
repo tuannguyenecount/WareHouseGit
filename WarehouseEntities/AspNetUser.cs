@@ -63,8 +63,6 @@ namespace Warehouse.Entities
         [Column(TypeName = "date")]
         public DateTime DateRegister { get; set; }
 
-        public bool Deleted { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
 

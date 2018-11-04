@@ -34,7 +34,6 @@ namespace Warehouse.Controllers
             UserManager = userManager;
         }
 
-
         [Authorize]
         public ViewResult Index()
         {
@@ -43,9 +42,14 @@ namespace Warehouse.Controllers
             return View();
         }
 
+        public ActionResult Checkout()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Add([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)
+        public async Task<ActionResult> Checkout([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
             model.DateOrder = DateTime.Now;

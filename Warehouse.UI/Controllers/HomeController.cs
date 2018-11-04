@@ -12,26 +12,22 @@ namespace Warehouse.Controllers
         private readonly IProductService _productService;
         private readonly INewsService _newsService;
         private readonly ISlideService _slideService;
+        private readonly ICategoryService _categoryService;
 
-        public HomeController(IProductService productService, INewsService newsService, ISlideService slideService)
+        public HomeController(IProductService productService, INewsService newsService, ISlideService slideService, ICategoryService categoryService)
         {
             _productService = productService;
             _newsService = newsService;
             _slideService = slideService;
+            _categoryService = categoryService;
         }
 
         [Route("")]
         public ActionResult Index()
         {
-
-            //ViewBag.ProductMoiCapNhat = db.Products.Where(m=>m.Display == true && m.Status == true).OrderByDescending (m => m.Id).Take(8).ToList();
-            //ViewBag.CoTheBanThich = db.Products.Where(m => m.Display == true && m.Status == true).OrderByDescending(m => m.LoveTurns + m.Likes).Take(8).ToList();
-            //ViewBag.dsTin = db.News.OrderByDescending(m=>m.Id).Take(5).ToList();
-            // ViewBag.Slides = db.Slides.Where(m => m.Status == true).OrderBy(m => m.Order).ToList();
             ViewBag.NewProducts = _productService.GetNewProducts();
             ViewBag.Slides = _slideService.GetAll();
-            ViewBag.News = _newsService.GetNews();
-            
+            ViewBag.News = _newsService.GetNews();          
             return View();
         }
 
@@ -69,12 +65,14 @@ namespace Warehouse.Controllers
         //    return PartialView(db.Categories.ToList());
         //}
 
-        //[ChildActionOnly]
-        ////[OutputCache(Duration = 3600)]
-        //public PartialViewResult MainHeader()
-        //{
-        //    return PartialView(Session["InfoShop"]);
-        //}
+        [ChildActionOnly]
+        //[OutputCache(Duration = 3600)]
+        public PartialViewResult _HeaderPartial()
+        {
+            // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
+            ViewBag.Categorys = _categoryService.Sorting(_categoryService.GetAll().AsQueryable(), Common.ENUM.SORT_TYPE.Ascending);
+            return PartialView(Session["InfoShop"]);  // truyền thêm Session lưu thông tin của shop
+        }
 
         //public CaptchaImageResult ShowCaptchaImage()
         //{

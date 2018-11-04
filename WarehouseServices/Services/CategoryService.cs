@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Warehouse.Entities;
 using Warehouse.Services.Interface;
 using Warehouse.Data.Interface;
+using Warehouse.Common;
 
 namespace Warehouse.Services.Services
 {
@@ -52,6 +53,12 @@ namespace Warehouse.Services.Services
         {
             return _categoryDal.Get(c => c.Alias_SEO == alias);
         }
+
+        public IQueryable<Category> Sorting(IQueryable<Category> categories, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Ascending)
+        {
+            return _categoryDal.SortList(categories, ENUM.SORT_TYPE.Ascending);
+        }
+
 
         #endregion
     }

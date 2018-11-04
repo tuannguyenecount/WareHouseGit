@@ -7,25 +7,17 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Warehouse.Data.Data;
+using Warehouse.Data.Interface;
 using Warehouse.Models;
+using Warehouse.Services.Interface;
+using Warehouse.Services.Services;
+
 namespace Warehouse
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        //async void AddInfoShop()
-        //{
-        //    hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-        //    if (db.InfoShops.Count() == 0)
-        //    {
-        //        InfoShop infoShop = new InfoShop()
-        //        {
-        //            ShopName = "Shop Name",
-        //            Address = "TPHCM"
-        //        };
-        //        db.InfoShops.Add(infoShop);
-        //        await db.SaveChangesAsync();
-        //    }
-        //}
+       
         protected void Application_Start()
         {
             UnityConfig.RegisterComponents();
@@ -42,8 +34,9 @@ namespace Warehouse
         {
             if(Session["ShoppingCart"] == null)
                 Session["ShoppingCart"] = new List<CartItem>();
-            //hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-            //Session["InfoShop"] = db.InfoShops.First();
+            InfoShopDal infoShopDal = new InfoShopDal();
+            InfoShopService infoShopService = new InfoShopService(infoShopDal);
+            Session["InfoShop"] = infoShopService.GetFirst();
         }
     }
 }

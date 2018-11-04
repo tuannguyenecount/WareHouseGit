@@ -31,12 +31,6 @@ namespace Warehouse.Entities
         [Column(TypeName = "money")]
         public decimal? PriceNew { get; set; }
 
-        //[StringLength(50)]
-        //public string Color { get; set; }
-
-        //[StringLength(50)]
-        //public string Size { get; set; }
-
         [StringLength(300)]
         public string Image { get; set; }
 
