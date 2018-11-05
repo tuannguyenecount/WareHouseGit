@@ -1,0 +1,29 @@
+﻿@model AspNetUser
+@{
+    ViewBag.Title = "Quản lý thành viên";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Cấm thành viên";
+}
+
+<div class="col-md-8 col-md-offset-2">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div>
+            <input name="userId" type="hidden" value="@Model.Id" />
+            <label>Khóa thành viên @Html.DisplayFor(m => Model.FullName) đến ngày:</label>
+            <div class='input-group date' id='datetimepicker'>
+                @Html.TextBoxFor(m => m.LockoutEndDateUtc, new { type = "date", @class = "form-control" })
+                <span class="input-group-addon">
+                    <span class="fa fa-calendar">
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div>&nbsp;</div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-lock"></span> Khóa</button>
+            <a href="@Url.Action("Index")" class="btn btn-default btn-sm">Trở về</a>
+        </div>
+    }
+</div>
+@Html.Partial("_ReValidatePartial")

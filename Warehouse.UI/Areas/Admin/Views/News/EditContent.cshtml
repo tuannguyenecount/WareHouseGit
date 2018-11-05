@@ -1,0 +1,51 @@
+﻿@model News
+
+@{
+    ViewBag.Title = "Sửa nội dung";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Sửa nội dung";
+}
+<div>
+    @Html.ActionLink("Về danh sách", "Index")
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div >
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model=>model.Image)
+        @Html.HiddenFor(model=>model.Title)
+        @Html.HiddenFor(model=>model.Poster)
+        @Html.HiddenFor(model=>model.DateSubmitted)
+        @Html.HiddenFor(model=>model.Introduce)
+        @Html.HiddenFor(model=>model.Alias_SEO)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content)
+            <div >
+                @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new {@class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Sửa</button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/ckfinder/ckfinder.js"></script>
+<script>
+
+    CKEDITOR.replace('Content');
+        CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+</script>
+}

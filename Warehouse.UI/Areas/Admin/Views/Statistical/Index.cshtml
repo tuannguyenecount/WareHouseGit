@@ -1,0 +1,45 @@
+﻿@model List<Statistical>
+@{
+    ViewBag.Title = "Thống kê doanh thu";
+    ViewBag.Message = ViewBag.Title;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section styles{
+    <link href="https://canvasjs.com/assets/css/jquery-ui.1.11.2.min.css" rel="stylesheet" />
+    <style>
+        .ui-tabs-anchor {
+            outline: none;
+        }
+    </style>
+}
+
+@section Scripts
+{
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script>
+      var options = {
+	        title: {
+		        text: "Spline Chart with Export as Image"
+	        },
+	        animationEnabled: true,
+	        exportEnabled: true,
+	        data: [
+	        {
+		        type: "spline", //change it to line, area, column, pie, etc
+                    dataPoints: [
+                @foreach (Statistical item in Model)
+                {
+                    WriteLiteral("{ x: "+item.Thang+", y: "+item.DoanhThu+" },");
+                }
+                
+		        ]
+	        }
+	        ]
+        };
+
+        $("#chartContainer").CanvasJSChart(options);
+
+    </script>
+}
+<h1>THỐNG KÊ DOANH THU THEO THÁNG</h1>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>

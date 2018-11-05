@@ -1,0 +1,113 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<AspNetUser>
+
+<h5>
+    @ViewBag.ThongTin
+</h5>
+@if (Model.Count > 0)
+{
+    <table class="table table-middle">
+        <tr class="info">
+            <th class="text-center">
+                Hình
+            </th>
+            <th >
+                @Ajax.ActionLink("Họ tên", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "Name", UserType2 = ViewBag.UserType2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+            </th>
+            <th>
+                @Ajax.ActionLink("Email", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "Email", UserType2 = ViewBag.UserType2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+            </th>
+            <th>
+                SĐT
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Giới tính
+            </th>
+            <th>
+                @Ajax.ActionLink("Ngày đăng ký", "ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortNext, sortName = "DateRegister", UserType2 = ViewBag.UserType2 }, new AjaxOptions() { HttpMethod = "Get", OnFailure = "alert('Không thể sắp xếp')", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+            </th>
+            <th>Bị khóa</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="Image@(item.Id)">
+                    <img src="@item.AvatarCustom" width="70" height="70" />
+
+                </td>
+                <td id="Name@(item.Id)">
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td id="Introduce@(item.Id)">
+                    @item.Email
+                </td>
+                <td id="Poster@(item.Id)">
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                @if(item.Gender == null)
+                { 
+                <td>
+                    NULL
+                </td>
+                }
+                else
+                {
+                    <td>
+                       @(item.Gender == true ? "Nam" : "Nữ" )
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRegister)
+                </td>
+                <td>
+                    @if (item.LockoutEndDateUtc > DateTime.Now)
+                    {
+                        <label class="label label-danger">Đang khóa</label>
+                    }
+                    else
+                    {
+                        <label class="label label-success">Không</label>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" class="text-center warning">
+
+                    <a class="btn btn-default btn-xs" href="@Url.Action("Edit", new { id = item.Id })"><span class="glyphicon glyphicon-edit"></span> Sửa</a> |
+                    <a class="btn btn-default btn-xs" href="@Url.Action("PhanQuyen", new { id = item.Id })"><span class="glyphicon glyphicon-user"></span> Phân quyền</a> |
+                    @if (item.LockoutEndDateUtc != null && item.LockoutEndDateUtc.Value > DateTime.Now)
+                    {
+                        <a href="@Url.Action("BoKhoa", new { id = item.Id})" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-remove"></span> Bỏ khóa</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Khoa", new { userId = item.Id})" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-lock"></span> Khóa</a>
+                    }
+                </td>
+             
+            </tr>
+
+        }
+        <tr>
+            <td colspan="8" class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("ShowList", new { tukhoa = ViewBag.tuKhoa, sort = ViewBag.sortCurrent, sortName = ViewBag.sortName, page = page, UserType = ViewBag.UserType, UserType2 = ViewBag.UserType2 }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.Always, DisplayLinkToFirstPage = PagedListDisplayMode.Always, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace, OnFailure = "alert('Không thể phân trang')", HttpMethod = "Get" }))
+            </td>
+        </tr>
+
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        Không có dòng thỏa yêu cầu.
+    </div>
+}
+

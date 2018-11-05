@@ -1,0 +1,36 @@
+﻿@model AspNetUser
+@{
+    ViewBag.Title = "Quản lý thành viên";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Phân quyền của thành viên";
+}
+@section styles
+{
+    <style>
+        form select
+        {
+            height:30px;
+            padding:0px;
+            margin:0px;
+        }
+    </style>
+}
+<div class="col-md-12 text-center">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.HiddenFor(Model => Model.Id )
+            <label>Phân quyền thành viên @Html.DisplayFor(m => Model.FullName) trở thành:</label>
+            @Html.DropDownList("Roles")
+        </div>
+        <div>&nbsp;</div>
+        <div>
+            <button type="submit" class="btn btn-success btn-sm" ><span class="glyphicon glyphicon-ok"></span> Đồng ý</button>
+            <a href="@Url.Action("Index")" class="btn btn-default btn-sm">Trở về</a>
+        </div>
+    }
+</div>
+
+@Html.Partial("_ReValidatePartial")
+

@@ -1,0 +1,12 @@
+﻿<ul class="list-group menuAccount" style="padding-top:0px;">
+    <li class="list-group-item text-center"><a href="@Url.Action("Manage", "Account",new { area="" })"><img src="~/images/thongtincanhan.png" /><br />Thông tin cá nhân </a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("DanhSachDonHang", "Order",new { area="" })"><img src="~/images/orders.png" /><br /> Đơn đặt hàng của bạn</a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("XemProductThich", "Product",new { area="" })"><img src="~/images/facebook-like-icon.png" width="24" height="24" /><br /> Sản phẩm thích</a> </li>
+    <li class="list-group-item text-center"><a href="@Url.Action("XemProductYeuThich", "Product",new { area="" })"><img src="~/images/Love-Letter-icon.png" width="24" height="24" /><br /> Sản phẩm yêu thích</a> </li>
+    @if (User.IsInRole("Admin"))
+    {
+        <li class="list-group-item text-center"><a target="_blank" href="@Url.Action("Index", "Product", new { area="Admin"})"><img src="~/images/admin.png" /><br /> Vào trang admin</a> </li>
+    }
+  
+</ul>
+

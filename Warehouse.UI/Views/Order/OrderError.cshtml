@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Thông báo lỗi đặt hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h5 class="text-danger">@Html.ValidationSummary("Thông báo:", new { @class = "text-danger" })</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+

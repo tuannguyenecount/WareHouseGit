@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Category>
+
+@{
+    ViewBag.Title = "Phân loại, nhóm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Message = "Phân loại, nhóm sản phẩm";
+}
+<p>
+    @Html.ActionLink("Thêm", "Create", null, new { @class="btn btn-success btn-sm"})
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-info">
+            <th class="text-center"><label>Phân loại ID</label></th>
+            <th class="text-center">
+                <label>Tên phân loại</label>
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="text-center">
+                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-sm" })
+            </td>
+            <td class="text-center">
+                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+
+        </tr>
+    }
+</table>

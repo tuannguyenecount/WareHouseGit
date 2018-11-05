@@ -1,0 +1,377 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title | Warehouse for Prestashop 1.7</title>
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="keywords" content="">
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:url" content="@Request.Url.ToString()" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="@ViewBag.Description">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="~/Content/ps17/img/warehouse-for-prestashop-17-logo-1496957294.jpg" />
+    @RenderSection("meta", false)
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/Content/ps17/img/favicon.ico?1496957294">
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/ps17/img/favicon.ico?1496957294">
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/ps17/themes/warehouse/assets/cache/theme-4a403a38.css" type="text/css" media="all">
+    <script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflcPgmxB/www-widgetapi.js" async=""></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        var elementorFrontendConfig = { "isEditMode": "", "stretchedSectionContainer": "", "is_rtl": "" };
+        var iqitTheme = { "rm_sticky": "0", "rm_breakpoint": 0, "op_preloader": "0", "cart_style": "side", "cart_confirmation": "modal", "h_layout": "4", "f_fixed": "1", "f_layout": "3", "h_absolute": "0", "h_sticky": "0", "hw_width": "fullwidth", "h_search_type": "full", "pl_lazyload": true, "pl_infinity": false, "pl_rollover": true, "pl_crsl_autoplay": false, "pl_slider_ld": 5, "pl_slider_d": 4, "pl_slider_t": 3, "pl_slider_p": 2, "pp_thumbs": "bottom", "pp_zoom": "inner", "pp_tabs": "tabh" };
+        var iqitcompare = { "nbProducts": 0 };
+        var iqitcountdown_days = "d.";
+        var iqitfdc_from = 500;
+        var iqitmegamenu = { "sticky": "false", "containerSelector": "#wrapper > .container" };
+        var iqitpopup = { "time": 10, "name": "iqitpopup_25073", "delay": 3000 };
+        var iqitreviews = [];
+        var iqitwishlist = { "nbProducts": 0 };
+        var prestashop = { "cart": { "products": [], "totals": { "total": { "type": "total", "label": "Total", "amount": 0, "value": "$0.00" }, "total_including_tax": { "type": "total", "label": "Total (tax incl.)", "amount": 0, "value": "$0.00" }, "total_excluding_tax": { "type": "total", "label": "Total (tax excl.)", "amount": 0, "value": "$0.00" } }, "subtotals": { "products": { "type": "products", "label": "Subtotal", "amount": 0, "value": "$0.00" }, "discounts": null, "shipping": { "type": "shipping", "label": "Shipping", "amount": 0, "value": "Free" }, "tax": null }, "products_count": 0, "summary_string": "0 items", "vouchers": { "allowed": 1, "added": [] }, "discounts": [], "minimalPurchase": 0, "minimalPurchaseRequired": "" }, "currency": { "name": "US Dollar", "iso_code": "USD", "iso_code_num": "840", "sign": "$" }, "customer": { "lastname": null, "firstname": null, "email": null, "birthday": null, "newsletter": null, "newsletter_date_add": null, "optin": null, "website": null, "company": null, "siret": null, "ape": null, "is_logged": false, "gender": { "type": null, "name": null }, "addresses": [] }, "language": { "name": "English (English)", "iso_code": "en", "locale": "en-US", "language_code": "en-us", "is_rtl": "0", "date_format_lite": "m\/d\/Y", "date_format_full": "m\/d\/Y H:i:s", "id": 1 }, "page": { "title": "", "canonical": null, "meta": { "title": "Warehouse for Prestashop 1.7", "description": "Shop powered by PrestaShop", "keywords": "", "robots": "index" }, "page_name": "index", "body_classes": { "lang-en": true, "lang-rtl": false, "country-US": true, "currency-USD": true, "layout-full-width": true, "page-index": true, "tax-display-disabled": true }, "admin_notifications": [] }, "shop": { "name": "Warehouse for Prestashop 1.7", "logo": "\/ps17\/img\/warehouse-for-prestashop-17-logo-1496957294.jpg", "stores_icon": "\/ps17\/img\/logo_stores.png", "favicon": "\/ps17\/img\/favicon.ico" }, "urls": { "base_url": "https:\/\/iqit-commerce.com\/ps17\/", "current_url": "https:\/\/iqit-commerce.com\/ps17\/en\/", "shop_domain_url": "https:\/\/iqit-commerce.com", "img_ps_url": "https:\/\/iqit-commerce.com\/ps17\/img\/", "img_cat_url": "https:\/\/iqit-commerce.com\/ps17\/img\/c\/", "img_lang_url": "https:\/\/iqit-commerce.com\/ps17\/img\/l\/", "img_prod_url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/", "img_manu_url": "https:\/\/iqit-commerce.com\/ps17\/img\/m\/", "img_sup_url": "https:\/\/iqit-commerce.com\/ps17\/img\/su\/", "img_ship_url": "https:\/\/iqit-commerce.com\/ps17\/img\/s\/", "img_store_url": "https:\/\/iqit-commerce.com\/ps17\/img\/st\/", "img_col_url": "https:\/\/iqit-commerce.com\/ps17\/img\/co\/", "img_url": "https:\/\/iqit-commerce.com\/ps17\/themes\/warehouse\/assets\/img\/", "css_url": "https:\/\/iqit-commerce.com\/ps17\/themes\/warehouse\/assets\/css\/", "js_url": "https:\/\/iqit-commerce.com\/ps17\/themes\/warehouse\/assets\/js\/", "pic_url": "https:\/\/iqit-commerce.com\/ps17\/upload\/", "pages": { "address": "https:\/\/iqit-commerce.com\/ps17\/en\/address", "addresses": "https:\/\/iqit-commerce.com\/ps17\/en\/addresses", "authentication": "https:\/\/iqit-commerce.com\/ps17\/en\/login", "cart": "https:\/\/iqit-commerce.com\/ps17\/en\/cart", "category": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=category", "cms": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=cms", "contact": "https:\/\/iqit-commerce.com\/ps17\/en\/contact-us", "discount": "https:\/\/iqit-commerce.com\/ps17\/en\/discount", "guest_tracking": "https:\/\/iqit-commerce.com\/ps17\/en\/guest-tracking", "history": "https:\/\/iqit-commerce.com\/ps17\/en\/order-history", "identity": "https:\/\/iqit-commerce.com\/ps17\/en\/identity", "index": "https:\/\/iqit-commerce.com\/ps17\/en\/", "my_account": "https:\/\/iqit-commerce.com\/ps17\/en\/my-account", "order_confirmation": "https:\/\/iqit-commerce.com\/ps17\/en\/order-confirmation", "order_detail": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=order-detail", "order_follow": "https:\/\/iqit-commerce.com\/ps17\/en\/order-follow", "order": "https:\/\/iqit-commerce.com\/ps17\/en\/order", "order_return": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=order-return", "order_slip": "https:\/\/iqit-commerce.com\/ps17\/en\/credit-slip", "pagenotfound": "https:\/\/iqit-commerce.com\/ps17\/en\/page-not-found", "password": "https:\/\/iqit-commerce.com\/ps17\/en\/password-recovery", "pdf_invoice": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=pdf-invoice", "pdf_order_return": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=pdf-order-return", "pdf_order_slip": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=pdf-order-slip", "prices_drop": "https:\/\/iqit-commerce.com\/ps17\/en\/prices-drop", "product": "https:\/\/iqit-commerce.com\/ps17\/en\/index.php?controller=product", "search": "https:\/\/iqit-commerce.com\/ps17\/en\/search", "sitemap": "https:\/\/iqit-commerce.com\/ps17\/en\/sitemap", "stores": "https:\/\/iqit-commerce.com\/ps17\/en\/stores", "supplier": "https:\/\/iqit-commerce.com\/ps17\/en\/supplier", "register": "https:\/\/iqit-commerce.com\/ps17\/en\/login?create_account=1", "order_login": "https:\/\/iqit-commerce.com\/ps17\/en\/order?login=1" }, "alternative_langs": { "en-us": "https:\/\/iqit-commerce.com\/ps17\/en\/", "pl": "https:\/\/iqit-commerce.com\/ps17\/pl\/" }, "theme_assets": "\/ps17\/themes\/warehouse\/assets\/", "actions": { "logout": "https:\/\/iqit-commerce.com\/ps17\/en\/?mylogout=" }, "no_picture_image": { "bySize": { "small_default": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-small_default.jpg", "width": 98, "height": 127 }, "cart_default": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-cart_default.jpg", "width": 125, "height": 162 }, "home_default": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-home_default.jpg", "width": 350, "height": 452 }, "medium_default": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-medium_default.jpg", "width": 452, "height": 584 }, "large_default": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-large_default.jpg", "width": 605, "height": 782 }, "thickbox_default": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-thickbox_default.jpg", "width": 1100, "height": 1422 } }, "small": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-small_default.jpg", "width": 98, "height": 127 }, "medium": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-medium_default.jpg", "width": 452, "height": 584 }, "large": { "url": "https:\/\/iqit-commerce.com\/ps17\/img\/p\/en-default-thickbox_default.jpg", "width": 1100, "height": 1422 }, "legend": "" } }, "configuration": { "display_taxes_label": false, "is_catalog": false, "show_prices": true, "opt_in": { "partner": true }, "quantity_discount": { "type": "discount", "label": "Discount" }, "voucher_enabled": 1, "return_enabled": 0 }, "field_required": [], "breadcrumb": { "links": [{ "title": "Home", "url": "https:\/\/iqit-commerce.com\/ps17\/en\/" }], "count": 1 }, "link": { "protocol_link": "https:\/\/", "protocol_content": "https:\/\/" }, "time": 1540225123, "static_token": "3e8cee7ca4392af7040793adb7288b50", "token": "91cfb4cb0c6e4ef2ee06b19a8ee79776" };
+    </script>
+
+    <style></style>
+    <style>
+        .tp-caption.Gym-Display, .Gym-Display {
+        }
+
+        .tp-caption.Gym-Subline, .Gym-Subline {
+            color: rgba(255,255,255,1.00);
+            font-size: 30px;
+            line-height: 30px;
+            font-weight: 100;
+            font-style: normal;
+            font-family: Raleway;
+            text-decoration: none;
+            background-color: transparent;
+            border-color: transparent;
+            border-style: none;
+            border-width: 0px;
+            border-radius: 0 0 0 0px;
+            letter-spacing: 5px
+        }
+
+        .tp-caption.Gym-SmallText, .Gym-SmallText {
+            color: rgba(255,255,255,1.00);
+            font-size: 17px;
+            line-height: 22px;
+            font-weight: 300;
+            font-style: normal;
+            font-family: Raleway;
+            text-decoration: none;
+            background-color: transparent;
+            border-color: transparent;
+            border-style: none;
+            border-width: 0px;
+            border-radius: 0 0 0 0px;
+            text-shadow: none
+        }
+
+        .tp-caption.Gym-Button, .Gym-Button {
+            letter-spacing: 1px
+        }
+
+            .tp-caption.Gym-Button:hover, .Gym-Button:hover {
+                color: rgba(255,255,255,1.00);
+                text-decoration: none;
+                background-color: rgba(158,69,65,1.00);
+                border-color: rgba(0,0,0,0);
+                border-style: solid;
+                border-width: 0px;
+                border-radius: 30px 30px 30px 30px
+            }
+
+        .tp-caption.gym-display-black, .gym-display-black {
+            color: rgba(0,0,0,1.00);
+            font-size: 80px;
+            line-height: 70px;
+            font-weight: 900;
+            font-style: normal;
+            font-family: Raleway;
+            text-decoration: none;
+            background-color: transparent;
+            border-color: transparent;
+            border-style: none;
+            border-width: 0px;
+            border-radius: 0 0 0 0px
+        }
+
+        .tp-caption.gym-subline-black, .gym-subline-black {
+            color: rgba(0,0,0,1.00);
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 300;
+            font-style: normal;
+            font-family: Raleway;
+            text-decoration: none;
+            background-color: transparent;
+            border-color: transparent;
+            border-style: none;
+            border-width: 0px;
+            border-radius: 0 0 0 0px
+        }
+    </style>
+    <style>
+        .custom.tparrows {
+            cursor: pointer;
+            background: #000;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            display: block;
+            z-index: 100;
+        }
+
+            .custom.tparrows:hover {
+                background: #000;
+            }
+
+            .custom.tparrows:before {
+                font-family: "revicons";
+                font-size: 15px;
+                color: #fff;
+                display: block;
+                line-height: 40px;
+                text-align: center;
+            }
+
+            .custom.tparrows.tp-leftarrow:before {
+                content: "\e824";
+            }
+
+            .custom.tparrows.tp-rightarrow:before {
+                content: "\e825";
+            }
+    </style>
+    @RenderSection("styles", false)
+</head>
+
+
+<body id="@ViewBag.BodyId" class="@(ViewBag.BodyClass ?? "lang-en country-us currency-usd layout-full-width page-index tax-display-disabled body-desktop-header-style-w-4")">
+
+    <main id="main-page-content">
+
+        @{
+            Html.RenderAction("_HeaderPartial", "Home", new { area = "" });
+        }
+        <section id="wrapper" style="margin-bottom: 553px;">
+            @RenderBody()
+        </section>
+
+        @{ Html.RenderAction("_FooterPartial", "Home", new { area = "" }); }
+
+    </main>
+    @*<script src="~/Content/ps17/themes/warehouse/assets/cache/bottom-5d8f5a37.js"></script>*@
+    <script src="~/Content/ps17/themes/warehouse/assets/cache/main-custom.js"></script>
+    <div id="iqitwishlist-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">You need to login or create account</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <section class="login-form">
+                        <p> Save products on your wishlist to buy them later or share with your friends.</p>
+
+
+
+
+
+
+
+
+
+
+                        <form id="login-form-modal" action="/ps17/en/login" method="post">
+
+                            <section>
+
+
+
+
+
+
+                                <input type="hidden" name="back" value="">
+
+
+
+
+
+
+
+
+                                <div class="form-group row align-items-center ">
+                                    <label class="col-md-2 col-form-label required">
+                                        Email
+                                    </label>
+                                    <div class="col-md-8">
+
+
+
+                                        <input class="form-control" name="email" type="email" value="" required="">
+
+
+
+
+
+
+                                    </div>
+
+                                    <div class="col-md-2 form-control-comment">
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+                                <div class="form-group row align-items-center ">
+                                    <label class="col-md-2 col-form-label required">
+                                        Password
+                                    </label>
+                                    <div class="col-md-8">
+
+
+
+                                        <div class="input-group js-parent-focus">
+                                            <input class="form-control js-child-focus js-visible-password" name="password" autocomplete="new-password" type="password" value="" pattern=".{5,}" required="">
+                                            <span class="input-group-btn">
+                                                <button class="btn" type="button" data-action="show-password">
+                                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
+                                    <div class="col-md-2 form-control-comment">
+
+
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="forgot-password">
+                                    <a href="/ps17/en/password-recovery" rel="nofollow">
+                                        Forgot your password?
+                                    </a>
+                                </div>
+                            </section>
+
+
+                            <footer class="form-footer text-center clearfix">
+                                <input type="hidden" name="submitLogin" value="1">
+
+                                <button id="submit-login" class="btn btn-primary form-control-submit" data-link-action="sign-in" type="submit">
+                                    Sign in
+                                </button>
+
+                            </footer>
+
+
+                        </form>
+
+
+
+                    </section>
+                    <hr>
+
+
+
+                    <div class="no-account">
+                        <a href="/ps17/en/login?create_account=1" data-link-action="display-register-form">
+                            No account? Create one here
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="iqitcompare-notification" class="ns-box ns-effect-thumbslider ns-text-only">
+        <div class="ns-box-inner">
+            <div class="ns-content">
+                <span class="ns-title"><i class="fa fa-check" aria-hidden="true"></i> <strong>Product added to compare.</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="iqitpopup" class="" style="transform: translate(-50%, -50%) scale(0.88);">
+        <div class="iqitpopup-close">
+            <div class="iqit-close-checkbox">
+                <span class="custom-checkbox">
+                    <input type="checkbox" name="iqitpopup-checkbox" id="iqitpopup-checkbox">
+                    <span><i class="fa fa-check checkbox-checked"></i></span>
+                    <label for="iqitpopup-checkbox">Do not show again.</label>
+                </span>
+
+            </div>
+            <div class="iqit-close-popup"><span class="cross" title="Close window"></span></div>
+        </div>
+
+
+        <div class="iqitpopup-content"></div>
+        <div class="iqitpopup-newsletter-form">
+            <div class="row">
+                <div class="col-12">
+                    <form action="//iqit-commerce.com/ps17/en/?fc=module&amp;module=iqitemailsubscriptionconf&amp;controller=subscription" method="post" class="form-inline justify-content-center">
+                        <input class="inputNew form-control grey newsletter-input mr-3" type="text" name="email" size="18" placeholder="Enter your e-mail" value="">
+                        <button type="submit" name="submitNewsletter" class="btn btn-default button button-medium iqit-btn-newsletter">
+                            <span>Subscribe</span>
+                        </button>
+                        <input type="hidden" name="action" value="0">
+                        <div class="mt-3 text-muted"> </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="iqitpopup-overlay" class=""></div>
+
+    <div id="iqitcookielaw" class="p-3 iqitcookielaw-showed">
+        <p>iqitcookielaw - module, put here your own cookie law text</p>
+
+        <button class="btn btn-primary" id="iqitcookielaw-accept">Accept</button>
+    </div>
+
+    <button id="back-to-top" class="-back-to-top-visible">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </button>
+
+    @RenderSection("scripts", required: false)
+
+    @*<script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $(".js-quick-view-iqit").click(function (e) {
+                e.preventDefault();
+                $("#quickview-modal").attr("style", "display:block").fadeIn("fast").addClass("show");
+            });
+            $("span[aria-hidden=true]").click(function () {
+                $(this).closest(".modal").fadeOut("fast").removeAttr("style").removeClass("show");
+            });
+        });
+    </script>*@
+</body>
+</html>
+

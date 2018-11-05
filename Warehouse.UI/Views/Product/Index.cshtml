@@ -1,0 +1,73 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Sản phẩm danh mục " + ViewBag.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.BodyId = "category";
+    ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-category tax-display-disabled category-id-18 category-accessories category-id-parent-3 category-depth-level-3 body-desktop-header-style-w-4 ";
+}
+
+@section scripts
+{
+
+}
+
+<div class="container">
+    <nav data-depth="3" class="breadcrumb">
+        <div class="row align-items-center">
+            <div class="col">
+                <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+
+
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/">
+                            <span itemprop="name">Home</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                    </li>
+
+
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/3-women">
+                            <span itemprop="name">Women</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                    </li>
+
+
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/18-accessories">
+                            <span itemprop="name">Accessories</span>
+                        </a>
+                        <meta itemprop="position" content="3">
+                    </li>
+
+
+                </ol>
+            </div>
+            <div class="col col-auto"> </div>
+        </div>
+    </nav>
+</div>
+
+<div id="inner-wrapper" class="container">
+    <aside id="notifications"></aside>
+    <div id="content-wrapper">
+        <section id="main">
+            <h1 class="h1 page-title"><span>Accessories</span></h1>
+            @if (Request.QueryString["productListView"] == null || Request.QueryString["productListView"] == "grid")
+            {
+                <section id="products">
+                    @Html.Partial("_GridPartial")
+                </section>
+            }
+            else
+            {
+                <section id="products">
+                    @Html.Partial("_ListPartial")
+                </section>
+            }
+        </section>
+    </div>
+</div>
+
+@Html.Partial("_QuickViewModalPartial")

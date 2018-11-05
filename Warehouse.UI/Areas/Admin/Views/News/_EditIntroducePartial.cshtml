@@ -1,0 +1,19 @@
+﻿@model News
+<script>
+    $(function () {
+        $("#btnHuyEditIntroduce@(Model.Id)").click(function () {
+            $('#Introduce@(Model.Id)').html('@Model.Introduce');
+        });
+    });
+</script>
+@using (Ajax.BeginForm("EditIntroduce", "News", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "Introduce" + Model.Id, InsertionMode = InsertionMode.Replace, OnFailure = "alert('Xảy ra lỗi khi thực hiện thao tác. Thử lại sau!')" }, new { method = "post" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id" />
+    <textarea name="Introduce">@Model.Introduce</textarea>
+    <div style="margin-top:10px">
+        <button type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span> Đồng ý</button> |
+        <button type="button" id="btnHuyEditIntroduce@(Model.Id)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span> Hủy thao tác</button>
+    </div>
+}
+

@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <title>Trang của bạn</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
+    <link rel="icon" href="~/images/Elegantthemes-Beautiful-Flat-One-Color-Fashion.ico" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", false)
+    <link href="~/Content/account.css" rel="stylesheet" />
+</head>
+<body class="off-canvas-nav-left">
+    <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    @Html.Partial("_HeaderPartial")
+
+    <a href="#" data-toggle="modal" id="thongbao" data-target="#thongBaoModal"></a>
+    <div class="modal fade" id="thongBaoModal" role="dialog">
+        <div class="modal-dialog modal-md">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <label id="ContentThongBao"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content-section content-Account">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="divTitle">
+                        Thao tác
+                    </div>
+                    <div style="border-right:1px solid; border-left:1px solid;min-height:500px; overflow:hidden;">
+                        <ul class="list-group menuAccount" style="padding-top:0px;">
+                            @Html.Partial("_MenuMemberPartial")
+                        </ul>
+                    </div>
+                    <div class="divTitle">
+
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="divTitle">
+                        @ViewBag.Message
+                    </div>
+                    <div style="border-left:1px solid;border-right:1px solid;min-height:500px; padding:10px;">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @{ Html.RenderAction("_FooterPartial", "Home", new { area = "" }); }
+
+    @Scripts.Render("~/bundles/jqueryCDN")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        $(function () {
+            $("body").tooltip({
+                selector: '[data-toggle="tooltip"]'
+            });
+            $("#frmDangKyNhanTin").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: this.action,
+                    data: $(this).serialize(),
+                    //dataType: "json",
+                    method: "Post",
+                    error: function (response) {
+                        $("#ContentThongBao").html("<span class='text-danger'>" + response + "</span>");
+                        $("#thongbao").click();
+                    },
+                    success: function (response) {
+                        alert(response);
+                    }
+
+                });
+            });
+            $(document).on('click', '.social-icons a', function () {
+                if ($(this).hasClass('fa fa-facebook')) {
+                    window.open('https://www.facebook.com/sharer/sharer.php?u=@(Request.Url)', 'Share Facebook', config = 'height=300, width=500');
+                }
+
+                if ($(this).hasClass('fa fa-twitter')) {
+                    window.open('http://twitter.com/home?status=Currently inspired by @(Request.Url)', 'Share Twitter', config = 'height=300, width=500');
+                }
+
+                if ($(this).hasClass('fa fa-google-plus')) {
+                    window.open('https://plus.google.com/share?url=@(Request.Url)', 'Share Google +', config = 'height=300, width=500');
+                }
+
+            });
+        });
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+    <script>window.jQuery || document.write('<script src="/Scripts/jquery-1.10.2.min.js"><\/script>')</script>
+</body>
+</html>
+
