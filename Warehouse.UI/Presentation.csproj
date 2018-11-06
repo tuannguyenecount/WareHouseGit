@@ -316,14 +316,19 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CaptchaImageResult.cs" />
-    <Compile Include="Models\Category\Class1.cs" />
+    <Compile Include="Models\Category\CategoryAddModel.cs" />
+    <Compile Include="Models\Category\CategoryUpdateModel.cs" />
+    <Compile Include="Models\Category\CategoryListModel.cs" />
     <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageUtilities.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\News\NewsListModel.cs" />
+    <Compile Include="Models\Product\ProductAddViewModel.cs" />
     <Compile Include="Models\Product\ProductListModel.cs" />
+    <Compile Include="Models\Product\ProductUpdateViewModel.cs" />
     <Compile Include="Models\RecaptchaResult.cs" />
     <Compile Include="Models\Statistical.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -821,7 +826,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
-    <Folder Include="Models\News\" />
     <Folder Include="Photos\Slides\" />
   </ItemGroup>
   <ItemGroup>
