@@ -16,7 +16,6 @@ namespace Warehouse.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IOrderService _orderService;
 
-       
 
         public HomeController(IProductService productService, INewsService newsService, ISlideService slideService, ICategoryService categoryService, IOrderService orderService)
         {

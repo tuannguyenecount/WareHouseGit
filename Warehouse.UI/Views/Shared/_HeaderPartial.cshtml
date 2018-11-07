@@ -112,16 +112,17 @@
                                                                                                 <div class="row cbp-categories-row">
                                                                                                     <div class="col-12">
                                                                                                         <div class="cbp-category-link-w">
-                                                                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@categories.ElementAt(z).Name</a>
+                                                                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@category.Name</a>
                                                                                                             <ul class="cbp-links cbp-category-tree">
-                                                                                                                @foreach (Category subCategory in categories.ElementAt(z).Category1.OrderBy(c => c.OrderNum)) {
+                                                                                                                @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
+                                                                                                                {
                                                                                                                     <li>
                                                                                                                         <div class="cbp-category-link-w">
                                                                                                                             <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a>
                                                                                                                         </div>
                                                                                                                     </li>
                                                                                                                 }
-
+                                                                                                                
                                                                                                             </ul>
                                                                                                         </div>
                                                                                                     </div>
@@ -130,6 +131,8 @@
                                                                                         </div>
                                                                                     }
                                                                                     z++;
+                                                                                    count -= take;
+
                                                                                 }
 
                                                                             </div>

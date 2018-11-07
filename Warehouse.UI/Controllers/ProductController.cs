@@ -9,11 +9,11 @@ using Warehouse.Common;
 using Warehouse.Models;
 using PagedList;
 
-namespace Warehouse.UI.Controllers
+namespace Warehouse.Controllers
 {
 
     [RoutePrefix("san-pham")]
-    public class ProductController : Controller
+    public class ProductController: Controller
     {
         private IProductService _productService;
         private ICategoryService _categoryService;
@@ -29,17 +29,19 @@ namespace Warehouse.UI.Controllers
         /// <param name="sort"></param>
         /// <returns></returns>
         [Route("danh-muc/{aliasCategory}.html")]
-        public ActionResult Index(string aliasCategory, string sortName, ENUM.SORT_TYPE? sortType, int page = 1)
+        public ActionResult Index(string aliasCategory, string sortName, ENUM.SORT_TYPE? sortType, int? page)
         {
-            int pageSize = 5; // số dòng trên 1 trang
 
+            int pageSize = 5;
             Category category = _categoryService.GetByAlias(aliasCategory);
             if (category == null)
             {
                 return Redirect("/pages/404");
             }
+
             ViewBag.Name = aliasCategory;
             var products = _productService.GetByCategory(category.Id).AsQueryable();
+
             if (sortName != null)
             {
                 products = _productService.Sorting(products, sortName, sortType ?? ENUM.SORT_TYPE.Ascending);
@@ -47,11 +49,7 @@ namespace Warehouse.UI.Controllers
             }
             ProductListModel model = new ProductListModel
             {
-                Products = products.ToPagedList(page, pageSize),//.Skip((curentpage - 1) * pageSize).Take(pageSize),
-                PageCount = (int)Math.Ceiling(products.Count() / (double)pageSize),
-                PageSize = pageSize,
-                CurrentCategory = category.Id,
-                CurrentPage = page
+                Products = products.ToPagedList(page ?? 1, pageSize)//.Skip((curentpage - 1) * pageSize).Take(pageSize),
             };
 
            
