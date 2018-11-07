@@ -305,7 +305,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MailBoxController.cs" />
     <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -326,6 +325,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\News\NewsListModel.cs" />
+    <Compile Include="Models\Product\GridProductViewModel.cs" />
     <Compile Include="Models\Product\ProductAddViewModel.cs" />
     <Compile Include="Models\Product\ProductListModel.cs" />
     <Compile Include="Models\Product\ProductUpdateViewModel.cs" />
@@ -792,8 +792,6 @@
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\MainHeader.cshtml" />
-    <Content Include="Views\MailBox\Add.cshtml" />
     <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\_FeaturedArticlesPartial.cshtml" />
@@ -816,13 +814,19 @@
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_MainMenuPartial.cshtml" />
     <Content Include="Views\Shared\_ManageLayout.cshtml" />
-    <Content Include="Views\Shared\_MenuMemberPartial.cshtml" />
-    <Content Include="Views\Shared\_QuickViewModalPartial.cshtml" />
+    <Content Include="Views\Shared\_QuickViewProductPartial.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Subscriber\SuccessSubscriber.cshtml" />
     <Content Include="Views\Shared\_ShoppingCartPartial.cshtml" />
+    <Content Include="Views\Home\_SliderPartial.cshtml" />
+    <Content Include="Views\Home\_WidgetPartial.cshtml" />
+    <Content Include="Views\Home\_NewProductsPartial.cshtml" />
+    <Content Include="Views\Shared\_GridProductPartial.cshtml" />
+    <Content Include="Views\Home\_StatisticalPartial.cshtml" />
+    <Content Include="Views\Home\_CustomersTestimonialsPartial.cshtml" />
+    <Content Include="Views\Home\_GoogleMapPartial.cshtml" />
+    <Content Include="Views\Home\_BlogPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

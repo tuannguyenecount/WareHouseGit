@@ -59,6 +59,11 @@ namespace Warehouse.Services.Services
             return _categoryDal.SortList(categories, ENUM.SORT_TYPE.Ascending);
         }
 
+        public int CountAll()
+        {
+            return _categoryDal.Count();
+        }
+
         #endregion
     }
 }

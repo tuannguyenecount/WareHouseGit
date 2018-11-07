@@ -63,5 +63,13 @@ namespace Warehouse.Core.DataAccess.EntityFramework
                 context.SaveChanges();
             }
         }
+
+        public virtual int Count(Expression<Func<TEntity, bool>> filter)
+        {
+            using (var context = new TContext())
+            {
+                return filter != null ? context.Set<TEntity>().Count(filter) : context.Set<TEntity>().Count();
+            }
+        }
     }
 }

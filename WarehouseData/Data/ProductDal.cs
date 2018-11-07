@@ -7,6 +7,7 @@ using Warehouse.Data.Interface;
 using Warehouse.Entities;
 using System.Linq.Expressions;
 using Warehouse.Common;
+using System.Globalization;
 
 namespace Warehouse.Data.Data
 {
@@ -22,14 +23,6 @@ namespace Warehouse.Data.Data
             }
         }
 
-        public List<Product> GetNewProducts()
-        {
-            using (var context = new WarehouseContext())
-            {
-                return context.Set<Product>().Include(p => p.Category).OrderByDescending(p=>p.Id).Take(8).ToList();
-            }
-        }
-
         public IQueryable<Product> SortList(IQueryable<Product> entities, Expression<Func<Product, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
         {
             using (var context = new WarehouseContext())
@@ -40,6 +33,20 @@ namespace Warehouse.Data.Data
             }
         }
 
+        Func<DateTime, int> weekProjector = d => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                                         d,
+                                         CalendarWeekRule.FirstFourDayWeek,
+                                         DayOfWeek.Sunday);
 
+        public List<Product> GetHotProductsInWeek()
+        {
+            using (var context = new WarehouseContext())
+            {
+                return context.Set<Product>().Include(p => p.OrderDetails)
+                        .Where(p => p.Display == true).AsEnumerable()
+                        .OrderByDescending(p => p.OrderDetails.GroupBy(o => weekProjector(o.Order.DateOrder)).Count())
+                        .ToList();
+            }
+        }
     }
 }

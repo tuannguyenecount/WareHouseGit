@@ -6,6 +6,7 @@ using Warehouse.Data.Interface;
 using System.Linq;
 using Warehouse.Common;
 
+
 namespace Warehouse.Services.Services
 {
     public class ProductService : IProductService 
@@ -82,7 +83,17 @@ namespace Warehouse.Services.Services
 
         public List<Product> GetNewProducts()
         {
-            return _productDal.GetNewProducts();
+            return _productDal.GetList(p=>p.Display == true).OrderByDescending(p=>p.Id).Take(8).ToList();
+        }
+
+        public List<Product> GetHotProductsInWeek()
+        {
+            return _productDal.GetHotProductsInWeek();
+        }
+
+        public int CountAll()
+        {
+            return _productDal.Count();
         }
     }
 }

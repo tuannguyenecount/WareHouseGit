@@ -33,6 +33,9 @@ namespace Warehouse
             container.RegisterType<INewsService, NewsService>();
             container.RegisterType<INewsDal, NewsDal>();
 
+            container.RegisterType<IOrderService, OrderService>();
+            container.RegisterType<IOrderDal, OrderDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

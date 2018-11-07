@@ -19,5 +19,7 @@ namespace Warehouse.Core.DataAccess
 
         void Delete(T entity);
 
+        int Count(Expression<Func<T, bool>> filter = null);
+
     }
 }

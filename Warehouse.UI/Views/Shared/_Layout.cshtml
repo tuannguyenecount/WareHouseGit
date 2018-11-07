@@ -307,6 +307,8 @@
         </div>
     </div>
 
+    @Html.Partial("_QuickViewProductPartial")
+
     <div id="iqitcompare-notification" class="ns-box ns-effect-thumbslider ns-text-only">
         <div class="ns-box-inner">
             <div class="ns-content">
@@ -316,62 +318,62 @@
     </div>
 
     @*<div id="iqitpopup" class="" style="transform: translate(-50%, -50%) scale(0.88);">
-        <div class="iqitpopup-close">
-            <div class="iqit-close-checkbox">
-                <span class="custom-checkbox">
-                    <input type="checkbox" name="iqitpopup-checkbox" id="iqitpopup-checkbox">
-                    <span><i class="fa fa-check checkbox-checked"></i></span>
-                    <label for="iqitpopup-checkbox">Do not show again.</label>
-                </span>
+            <div class="iqitpopup-close">
+                <div class="iqit-close-checkbox">
+                    <span class="custom-checkbox">
+                        <input type="checkbox" name="iqitpopup-checkbox" id="iqitpopup-checkbox">
+                        <span><i class="fa fa-check checkbox-checked"></i></span>
+                        <label for="iqitpopup-checkbox">Do not show again.</label>
+                    </span>
 
+                </div>
+                <div class="iqit-close-popup"><span class="cross" title="Close window"></span></div>
             </div>
-            <div class="iqit-close-popup"><span class="cross" title="Close window"></span></div>
-        </div>
 
 
-        <div class="iqitpopup-content"></div>
-        <div class="iqitpopup-newsletter-form">
-            <div class="row">
-                <div class="col-12">
-                    <form action="//iqit-commerce.com/ps17/en/?fc=module&amp;module=iqitemailsubscriptionconf&amp;controller=subscription" method="post" class="form-inline justify-content-center">
-                        <input class="inputNew form-control grey newsletter-input mr-3" type="text" name="email" size="18" placeholder="Enter your e-mail" value="">
-                        <button type="submit" name="submitNewsletter" class="btn btn-default button button-medium iqit-btn-newsletter">
-                            <span>Subscribe</span>
-                        </button>
-                        <input type="hidden" name="action" value="0">
-                        <div class="mt-3 text-muted"> </div>
-                    </form>
+            <div class="iqitpopup-content"></div>
+            <div class="iqitpopup-newsletter-form">
+                <div class="row">
+                    <div class="col-12">
+                        <form action="//iqit-commerce.com/ps17/en/?fc=module&amp;module=iqitemailsubscriptionconf&amp;controller=subscription" method="post" class="form-inline justify-content-center">
+                            <input class="inputNew form-control grey newsletter-input mr-3" type="text" name="email" size="18" placeholder="Enter your e-mail" value="">
+                            <button type="submit" name="submitNewsletter" class="btn btn-default button button-medium iqit-btn-newsletter">
+                                <span>Subscribe</span>
+                            </button>
+                            <input type="hidden" name="action" value="0">
+                            <div class="mt-3 text-muted"> </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
     @*<div id="iqitpopup-overlay" class=""></div>*@
 
     @*<div id="iqitcookielaw" class="p-3 iqitcookielaw-showed">
-        <p>iqitcookielaw - module, put here your own cookie law text</p>
+            <p>iqitcookielaw - module, put here your own cookie law text</p>
 
-        <button class="btn btn-primary" id="iqitcookielaw-accept">Accept</button>
-    </div>
+            <button class="btn btn-primary" id="iqitcookielaw-accept">Accept</button>
+        </div>
 
-    <button id="back-to-top" class="-back-to-top-visible">
-        <i class="fa fa-angle-up" aria-hidden="true"></i>
-    </button>*@
+        <button id="back-to-top" class="-back-to-top-visible">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </button>*@
 
     @RenderSection("scripts", required: false)
 
     @*<script type="text/javascript">
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-            $(".js-quick-view-iqit").click(function (e) {
-                e.preventDefault();
-                $("#quickview-modal").attr("style", "display:block").fadeIn("fast").addClass("show");
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+                $(".js-quick-view-iqit").click(function (e) {
+                    e.preventDefault();
+                    $("#quickview-modal").attr("style", "display:block").fadeIn("fast").addClass("show");
+                });
+                $("span[aria-hidden=true]").click(function () {
+                    $(this).closest(".modal").fadeOut("fast").removeAttr("style").removeClass("show");
+                });
             });
-            $("span[aria-hidden=true]").click(function () {
-                $(this).closest(".modal").fadeOut("fast").removeAttr("style").removeClass("show");
-            });
-        });
-    </script>*@
+        </script>*@
 </body>
 </html>
 

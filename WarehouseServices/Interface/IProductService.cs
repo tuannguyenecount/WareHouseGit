@@ -21,6 +21,8 @@ namespace Warehouse.Services.Interface
 
         List<Product> GetNewProducts();
 
+        List<Product> GetHotProductsInWeek();
+
         IQueryable<Product> Sorting(IQueryable<Product> products, string sortName, ENUM.SORT_TYPE sortType);
 
         void Add(Product product);
@@ -31,5 +33,6 @@ namespace Warehouse.Services.Interface
 
         List<Product> GetRelatedProducts(int? categoryId, int productMainId);
 
+        int CountAll();
     }
 }
