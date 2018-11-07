@@ -11,6 +11,6 @@ namespace Warehouse.Data.Interface
 {
     public interface ICategoryDal:IEntityRepository<Category>
     {
-        IQueryable<Category> SortList(IQueryable<Category> entities,ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending);
+        List<Category> SortList(List<Category> entities,ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending);
     }
 }

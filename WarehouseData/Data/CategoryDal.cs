@@ -13,14 +13,15 @@ namespace Warehouse.Data.Data
 {
     public class CategoryDal : EntityRepositoryBase<Category, WarehouseContext>, ICategoryDal
     {
-        public IQueryable<Category> SortList(IQueryable<Category> entities, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
+        public List<Category> SortList(List<Category> entities, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
         {
             using (var context = new WarehouseContext())
             {
                 return sortType == ENUM.SORT_TYPE.Ascending
-                    ? entities.OrderBy(c=>c.OrderNum)
-                    : entities.OrderByDescending(c=>c.OrderNum);
+                    ? entities.OrderBy(c=>c.OrderNum).ToList()
+                    : entities.OrderByDescending(c=>c.OrderNum).ToList();
             }
         }
+      
     }
 }

@@ -18,5 +18,6 @@ namespace Warehouse.Core.DataAccess
         void Update(T entity);
 
         void Delete(T entity);
+
     }
 }
