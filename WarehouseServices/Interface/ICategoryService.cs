@@ -13,7 +13,7 @@ namespace Warehouse.Services.Interface
         List<Category> GetAll();
         Category GetById(int Id);
         Category GetByAlias(string alias);
-        IQueryable<Category> Sorting(IQueryable<Category> products, ENUM.SORT_TYPE sortType);
-
+        List<Category> Sorting(List<Category> products, ENUM.SORT_TYPE sortType);
+        IQueryable<Category> GetAllQueryable();
     }
 }

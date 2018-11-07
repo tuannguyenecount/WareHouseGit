@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Warehouse.Entities;
 using Warehouse.Models;
 using Warehouse.Services.Interface;
 namespace Warehouse.Controllers
@@ -70,7 +71,7 @@ namespace Warehouse.Controllers
         public PartialViewResult _HeaderPartial()
         {
             // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
-            ViewBag.Categorys = _categoryService.Sorting(_categoryService.GetAll().AsQueryable(), Common.ENUM.SORT_TYPE.Ascending);
+            ViewBag.Categories = _categoryService.Sorting(_categoryService.GetAll(), Common.ENUM.SORT_TYPE.Ascending).ToList();
             return PartialView(Session["InfoShop"]);  // truyền thêm Session lưu thông tin của shop
         }
 

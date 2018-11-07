@@ -54,11 +54,15 @@ namespace Warehouse.Services.Services
             return _categoryDal.Get(c => c.Alias_SEO == alias);
         }
 
-        public IQueryable<Category> Sorting(IQueryable<Category> categories, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Ascending)
+        public List<Category> Sorting(List<Category> categories, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Ascending)
         {
             return _categoryDal.SortList(categories, ENUM.SORT_TYPE.Ascending);
         }
 
+        public IQueryable<Category> GetAllQueryable()
+        {
+            return _categoryDal.GetQueryable();
+        }
 
         #endregion
     }
