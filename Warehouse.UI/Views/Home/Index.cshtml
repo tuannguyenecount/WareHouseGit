@@ -132,16 +132,12 @@
         <div class="row align-items-center">
             <div class="col">
                 <ol itemscope itemtype="http://schema.org/BreadcrumbList">
-
-
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/Content/ps17/en/">
-                            <span itemprop="name">Home</span>
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Trang chủ</span>
                         </a>
                         <meta itemprop="position" content="1">
                     </li>
-
-
                 </ol>
             </div>
             <div class="col col-auto"> </div>
@@ -149,342 +145,24 @@
     </nav>
 </div>
 <div id="inner-wrapper" class="container">
-
-
-
     <aside id="notifications"></aside>
-
-
-
-
-
     <div id="content-wrapper">
-
-
-
         <section id="main">
-
-
-
-
-
-
             <section id="content" class="page-home">
-
-
-
-
                 <link href="https://fonts.googleapis.com/css?family=Raleway:900%2C100%2C400%2C600%2C300" rel="stylesheet" property="stylesheet" type="text/css" media="all">
                 <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-source="gallery" style="margin:0px auto;background-color:transparent;padding:0px;margin-top:-20px;margin-bottom:0px;">
                     <!-- START REVOLUTION SLIDER  fullwidth mode -->
                     <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="">
                         <ul>
+                            @foreach (Slide slide in ViewBag.Slides) {
                             <!-- SLIDE  -->
                             <li data-index="rs-1" data-transition="slideoververtical" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title="Intro" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
                                 <!-- MAIN IMAGE -->
-                                <img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="" data-lazyload="/Content/ps17/modules/revsliderprestashop/uploads/man-3.jpg" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                                <img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="@slide.Title" data-lazyload="/Content/ps17/modules/revsliderprestashop/uploads/@slide.Image" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
                                 <!-- LAYERS -->
-                                <!-- LAYER NR. 1 -->
-                                <div class="tp-caption Gym-Display   tp-resizeme"
-                                     id="slide-1-layer-1"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="-73"
-                                     data-width="['auto','auto']"
-                                     data-height="['auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":500,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 5; white-space: nowrap; font-size: 80px; line-height: 70px; font-weight: 900; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;">KEEP WALKING</div>
-
-                                <!-- LAYER NR. 2 -->
-                                <div class="tp-caption Gym-Display   tp-resizeme"
-                                     id="slide-1-layer-3"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="5"
-                                     data-width="['auto','auto']"
-                                     data-height="['auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":750,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 6; white-space: nowrap; font-size: 80px; line-height: 70px; font-weight: 900; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;">INTO RIGHT DIRECTION</div>
-
-                                <!-- LAYER NR. 3 -->
-                                <div class="tp-caption Gym-Subline   tp-resizeme"
-                                     id="slide-1-layer-4"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="75"
-                                     data-width="['auto','auto']"
-                                     data-height="['auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1000,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 7; white-space: nowrap;text-transform:left;">YOUR LIFESTYLE PULLS THE TRIGGER</div>
-
-                                <!-- LAYER NR. 4 -->
-                                <div class="tp-caption Gym-SmallText  "
-                                     id="slide-1-layer-5"
-                                     data-x="center" data-hoffset=""
-                                     data-y="bottom" data-voffset="171"
-                                     data-width="['auto','auto','auto','auto']"
-                                     data-height="['auto','auto','auto','auto']"
-                                     data-visibility="['on','on','off','off']"
-                                     data-type="text"
-                                     data-basealign="slide"
-                                     data-responsive_offset="off"
-                                     data-responsive="off"
-                                     data-frames='[{"from":"opacity:0;","speed":300,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1500,"split":"chars","splitdelay":0.05,"ease":"Power2.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     data-captionhidden="on"
-                                     style="z-index: 8; white-space: nowrap; line-height: 22px; font-weight: 400; color: rgba(255,255,255,0.50);text-transform:left;">Now free workout session trials.</div>
-
-                                <!-- LAYER NR. 5 -->
-                                <div class="tp-caption Gym-Button rev-btn rev-maxround rev-hiddenicon "
-                                     id="slide-1-layer-6"
-                                     data-x="center" data-hoffset=""
-                                     data-y="bottom" data-voffset="117"
-                                     data-width="['auto','auto','auto','auto']"
-                                     data-height="['auto','auto','auto','auto']"
-                                     data-visibility="['on','on','off','off']"
-                                     data-type="button"
-                                     data-actions='[{"event":"click","action":"jumptoslide","slide":"rs-2","delay":""}]'
-                                     data-basealign="slide"
-                                     data-responsive_offset="off"
-                                     data-responsive="off"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"},{"frame":"hover","speed":"300","ease":"Power2.easeOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(255,255,255,1);bg:rgba(158,69,65,1);"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[13,13,13,13]"
-                                     data-paddingright="[35,35,35,35]"
-                                     data-paddingbottom="[13,13,13,13]"
-                                     data-paddingleft="[35,35,35,35]"
-                                     style="z-index: 9; white-space: nowrap; font-size: 15px; line-height: 15px; font-weight: 600; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;background-color:rgba(208,110,106,1);border-radius:30px 30px 30px 30px;">GET GOING NOW<i class='fa fa-chevron-right'></i></div>
+                              
                             </li>
-                            <!-- SLIDE  -->
-                            <li data-index="rs-2" data-transition="slideoververtical" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-saveperformance="off" data-title="Service" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                                <!-- MAIN IMAGE -->
-                                <img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="" data-lazyload="/Content/ps17/modules/revsliderprestashop/uploads/woman.jpg" data-bgposition="left center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                                <!-- LAYERS -->
-                                <!-- LAYER NR. 6 -->
-                                <div class="tp-caption gym-display-black   tp-resizeme"
-                                     id="slide-2-layer-1"
-                                     data-x="34"
-                                     data-y="center" data-voffset="-183"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":500,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 10; white-space: nowrap;text-transform:left;">THE GREATEST</div>
-
-                                <!-- LAYER NR. 7 -->
-                                <div class="tp-caption gym-display-black   tp-resizeme"
-                                     id="slide-2-layer-3"
-                                     data-x="40"
-                                     data-y="center" data-voffset="-108"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":750,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 11; white-space: nowrap;text-transform:left;">SUMMER MIX</div>
-
-                                <!-- LAYER NR. 8 -->
-                                <div class="tp-caption gym-subline-black   tp-resizeme"
-                                     id="slide-2-layer-4"
-                                     data-x="83"
-                                     data-y="center" data-voffset="33"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1000,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 12; white-space: nowrap;text-transform:left;">
-                                    <i class='fa fa-plus' style='color:#d06e6a;'></i> LOREM IPSUM<br />
-                                    <i class='fa fa-plus' style='color:#d06e6a;'></i> 24H DELIVERY WORDLWIDE<br />
-                                    <i class='fa fa-plus' style='color:#d06e6a;'></i> GREAT STUFF<br />
-                                    <i class='fa fa-plus' style='color:#d06e6a;'></i> AWESOME LOOK ON STRET
-                                </div>
-
-                                <!-- LAYER NR. 9 -->
-                                <div class="tp-caption   tp-resizeme"
-                                     id="slide-2-layer-5"
-                                     data-x="48"
-                                     data-y="center" data-voffset="195"
-                                     data-width="['none','none','none','none']"
-                                     data-height="['none','none','none','none']"
-                                     data-type="image"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1500,"ease":"Power3.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];opacity:1;","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 13;text-transform:left;"><img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="" data-ww="auto" data-hh="auto" data-lazyload="//iqit-commerce.com/ps17/modules/revsliderprestashop/uploads/redstripe.png" data-no-retina></div>
-
-                                <!-- LAYER NR. 10 -->
-                                <div class="tp-caption Gym-Display   tp-resizeme"
-                                     id="slide-2-layer-6"
-                                     data-x="133"
-                                     data-y="center" data-voffset="194"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":1500,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 14; white-space: nowrap; font-size: 30px; line-height: 30px; font-weight: 900; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;">BUY<span style='font-size:15px;'>NOW</span></div>
-                            </li>
-                            <!-- SLIDE  -->
-                            <li data-index="rs-3" data-transition="slideoververtical" data-slotamount="7" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-saveperformance="off" data-title="Contact" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                                <!-- MAIN IMAGE -->
-                                <img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="" data-lazyload="/Content/ps17/modules/revsliderprestashop/uploads/store3.jpg" data-bgposition="left center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                                <!-- LAYERS -->
-                                <!-- LAYER NR. 11 -->
-                                <div class="tp-caption -  "
-                                     id="slide-3-layer-1"
-                                     data-x=""
-                                     data-y=""
-                                     data-width="['auto']"
-                                     data-height="['auto']"
-                                     data-type="text"
-                                     data-basealign="slide"
-                                     data-responsive_offset="off"
-                                     data-responsive="off"
-                                     data-frames='[{"from":"opacity:0;","speed":1500,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":0,"ease":"Power2.easeOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"auto:auto;","ease":"Power2.easeOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 15; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255,255,255,1);text-transform:left;"><div class='coverdark'></div></div>
-
-                                <!-- LAYER NR. 12 -->
-                                <div class="tp-caption Gym-Display   tp-resizeme"
-                                     id="slide-3-layer-2"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="-161"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":500,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 16; white-space: nowrap; font-size: 80px; line-height: 70px; font-weight: 900; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;">NO. 1</div>
-
-                                <!-- LAYER NR. 13 -->
-                                <div class="tp-caption Gym-Display   tp-resizeme"
-                                     id="slide-3-layer-4"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="-81"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":750,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 17; white-space: nowrap; font-size: 80px; line-height: 70px; font-weight: 900; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;">IN E-COMMERCE</div>
-
-                                <!-- LAYER NR. 14 -->
-                                <div class="tp-caption Gym-Subline   tp-resizeme"
-                                     id="slide-3-layer-5"
-                                     data-x="center" data-hoffset="2"
-                                     data-y="center" data-voffset="72"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":2000,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1000,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1500,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['center','center','center','center']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 18; white-space: nowrap; font-size: 20px; font-weight: 300;text-transform:left;">
-                                    BEST PRODUCTS<br />
-                                    BEST SHIPPING<br />
-                                    BEST CUSTOMER CARE<br />
-                                </div>
-
-                                <!-- LAYER NR. 15 -->
-                                <div class="tp-caption   tp-resizeme"
-                                     id="slide-3-layer-6"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="212"
-                                     data-width="['none','none','none','none']"
-                                     data-height="['none','none','none','none']"
-                                     data-type="image"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1500,"ease":"Power3.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];opacity:1;","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 19;text-transform:left;"><img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="" data-ww="auto" data-hh="auto" data-lazyload="/Content/ps17/modules/revsliderprestashop/uploads/redstripe.png" data-no-retina></div>
-
-                                <!-- LAYER NR. 16 -->
-                                <div class="tp-caption Gym-Display   tp-resizeme"
-                                     id="slide-3-layer-7"
-                                     data-x="center" data-hoffset=""
-                                     data-y="center" data-voffset="211"
-                                     data-width="['auto','auto','auto']"
-                                     data-height="['auto','auto','auto']"
-                                     data-type="text"
-                                     data-responsive_offset="on"
-                                     data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":1500,"sfx_effect":"","sfxcolor":"#ffffff","to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","sfx_effect":"","sfxcolor":"#ffffff","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
-                                     data-textAlign="['left','left','left','left']"
-                                     data-paddingtop="[0,0,0,0]"
-                                     data-paddingright="[0,0,0,0]"
-                                     data-paddingbottom="[0,0,0,0]"
-                                     data-paddingleft="[0,0,0,0]"
-                                     style="z-index: 20; white-space: nowrap; font-size: 20px; line-height: 30px; font-weight: 900; color: rgba(255,255,255,1);font-family:Raleway;text-transform:left;">THANKS</div>
-                            </li>
+                            }
                         </ul>
                         <script>
     var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var htmlDivCss = "";
@@ -2629,61 +2307,15 @@
                                                                             </div>
                                                                             <!-- .post-content -->
 
-
                                                                             <div class="post-additional-info post-meta-info text-muted">
                                                                                 <span class="post-date">
                                                                                     <i class="fa fa-calendar"></i> <time datetime="2017-09-26T11:50:06+02:00">26 Sep 2017, 11:50</time>
                                                                                 </span>
-
-
                                                                             </div><!-- .post-additional-info post-meta-info -->
-
                                                                         </div><!-- .post-item -->
                                                                     </div>
                                                                 </div>
                                                             </section>
-
-
-
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="elementor-section elementor-element elementor-element-rpka77n elementor-top-section elementor-section-stretched elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-element_type="section">
-                                <div class="elementor-container elementor-column-gap-no">
-                                    <div class="elementor-row">
-                                        <div class="elementor-column elementor-element elementor-element-iewfvei elementor-col-100 elementor-top-column" data-element_type="column">
-                                            <div class="elementor-column-wrap elementor-element-populated">
-                                                <div class="elementor-widget-wrap">
-                                                    <div class="elementor-widget elementor-element elementor-element-r2bj5cl elementor-widget-heading" data-element_type="heading">
-                                                        <div class="elementor-widget-container">
-                                                            <span class="elementor-heading-title elementor-size-small none"><span>Follow us on</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="elementor-widget elementor-element elementor-element-5zbif3o elementor-widget-divider" data-element_type="divider">
-                                                        <div class="elementor-widget-container">
-                                                            <div class="elementor-divider">
-                                                                <span class="elementor-divider-separator"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="elementor-widget elementor-element elementor-element-fpx2zah elementor-widget-heading" data-element_type="heading">
-                                                        <div class="elementor-widget-container">
-                                                            <span class="elementor-heading-title elementor-size-default none"><span>INSTAGRAM</span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="elementor-widget elementor-element elementor-element-irpycxb elementor-widget-instagram" data-element_type="instagram">
-                                                        <div class="elementor-widget-container">
-                                                            <div class="elementor-instagram row" data-options='{"token":"4639204837.aeeff59.6709ed3f43784535b332ee8d6917363e","limit":"6","linked":true,"class":"col-4 col-md-2 col-lg-2"}'></div>
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2695,35 +2327,14 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </section>
-
-
-
             <footer class="page-footer">
 
                 <!-- Footer content -->
 
             </footer>
-
-
         </section>
-
-
-
     </div>
-
-
-
-
-
-
-
-
 </div>
 
 @Html.Partial("_QuickViewModalPartial")

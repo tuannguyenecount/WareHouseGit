@@ -13413,22 +13413,23 @@ $(document).ready(function () {
         })
     })
 }), (function (module, exports) { })]);
-$(document).ready(function () {
-    $("#iqitcookielaw").addClass('iqitcookielaw-showed');
-    $("#iqitcookielaw-accept").click(function (event) {
-        event.preventDefault();
-        $("#iqitcookielaw").removeClass('iqitcookielaw-showed');
-        setcook()
-    })
-});
+//$(document).ready(function () {
+//    $("#iqitcookielaw").addClass('iqitcookielaw-showed');
+//    $("#iqitcookielaw-accept").click(function (event) {
+//        event.preventDefault();
+//        $("#iqitcookielaw").removeClass('iqitcookielaw-showed');
+//        setcook()
+//    })
+//});
 
-function setcook() {
-    var name = 'cookielaw_module';
-    var value = '1';
-    var expire = new Date();
-    expire.setMonth(expire.getMonth() + 12);
-    document.cookie = name + "=" + escape(value) + ";path=/;" + ((expire == null) ? "" : ("; expires=" + expire.toGMTString()))
-};
+//function setcook() {
+//    var name = 'cookielaw_module';
+//    var value = '1';
+//    var expire = new Date();
+//    expire.setMonth(expire.getMonth() + 12);
+//    document.cookie = name + "=" + escape(value) + ";path=/;" + ((expire == null) ? "" : ("; expires=" + expire.toGMTString()))
+//};
+
 ! function (a) {
     "use strict";
 

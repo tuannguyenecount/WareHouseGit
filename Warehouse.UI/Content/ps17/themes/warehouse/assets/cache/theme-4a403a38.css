@@ -21560,7 +21560,7 @@ body {
 
 .cbp-horizontal > ul > li > a, .cbp-horizontal > ul > li > a:not([href]):not([tabindex]), .cbp-horizontal > ul > li > .cbp-main-link {
     line-height: 3.21429rem;
-    max-width: 14.28571rem;
+    /*max-width: 14.28571rem;*/
     color: #000;
     padding-left: .85714rem;
     padding-right: .85714rem;

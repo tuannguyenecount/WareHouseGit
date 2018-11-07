@@ -1,5 +1,5 @@
 ﻿@model InfoShop
-@{ 
+@{
     List<Category> categories = ViewBag.Categories;
 }
 <header id="header" class="desktop-header-style-w-4">
@@ -44,16 +44,16 @@
                                 </div>
                             </div>
                         </div>*@
-                    <div class="d-inline-block">
-                        <a href="//iqit-commerce.com/ps17/en/module/iqitwishlist/view">
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> Sản phẩm yêu thích (<span id="iqitwishlist-nb">0</span>)
-                        </a>
-                    </div>
-                    <div class="d-inline-block">
-                        <a href="//iqit-commerce.com/ps17/en/module/iqitcompare/comparator">
-                            <i class="fa fa-random" aria-hidden="true"></i> <span>So sánh (<span id="iqitcompare-nb">0</span>)</span>
-                        </a>
-                    </div>
+                    @*<div class="d-inline-block">
+                            <a href="//iqit-commerce.com/ps17/en/module/iqitwishlist/view">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i> Sản phẩm yêu thích (<span id="iqitwishlist-nb">0</span>)
+                            </a>
+                        </div>
+                        <div class="d-inline-block">
+                            <a href="//iqit-commerce.com/ps17/en/module/iqitcompare/comparator">
+                                <i class="fa fa-random" aria-hidden="true"></i> <span>So sánh (<span id="iqitcompare-nb">0</span>)</span>
+                            </a>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -64,8 +64,8 @@
                 <div class="row align-items-center">
                     <div class="col col-auto col-header-left">
                         <div id="desktop_logo">
-                            <a href="@Url.Action("Index","Home",new { area = "" })">
-                                <img class="logo img-fluid" src="/Content/ps17/img/warehouse-for-prestashop-17-logo-1496957294.jpg" alt="Warehouse for Prestashop 1.7">
+                            <a href="/">
+                                <img class="logo img-fluid" src="~/images/@Model.Logo" alt="@Model.ShopName">
                             </a>
                         </div>
                     </div>
@@ -76,242 +76,10 @@
                                     <nav id="cbp-hrmenu" class="cbp-hrmenu cbp-horizontal cbp-hrsub-narrow">
                                         <ul>
                                             <li class="cbp-hrmenu-tab">
-                                                <a class="nav-link" href="@Url.Action("Index","Home",new { area = "" })">
+                                                <a class="nav-link" href="/">
                                                     <span class="cbp-tab-title">Trang chủ</span>
                                                 </a>
                                             </li>
-                                            @*<li class="cbp-hrmenu-tab  cbp-has-submeu">
-                                                    <a href="@Url.Action("Index","Home",new { area = "" })" class="nav-link">
-                                                        <span class="cbp-tab-title">
-                                                            Danh mục sản phẩm <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
-                                                        </span>
-                                                    </a>
-                                                    <div class="cbp-hrsub col-12">
-                                                        <div class="cbp-hrsub-inner">
-                                                            <div class="container iqitmegamenu-submenu-container">
-                                                                <div class="row menu_row menu-element  first_rows menu-element-id-1">
-                                                                    <div class="col-3 cbp-menu-column cbp-menu-element menu-element-id-2 ">
-                                                                        <div class="cbp-menu-column-inner">
-                                                                            <div class="row cbp-categories-row">
-                                                                                <div class="col-12">
-                                                                                    <div class="cbp-category-link-w">
-                                                                                        <a href="https://iqit-commerce.com/ps17/en/3-women" class="cbp-column-title nav-link cbp-category-title">Women</a>
-                                                                                        <ul class="cbp-links cbp-category-tree">
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/7-blouses">Blouses</a></div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/4-tops">Tops</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/17-shoes">Shoes</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/18-accessories">Accessories</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/19-hats">Hats</a></div>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3 cbp-menu-column cbp-menu-element menu-element-id-3 ">
-                                                                        <div class="cbp-menu-column-inner">
-                                                                            <div class="row cbp-categories-row">
-                                                                                <div class="col-12">
-                                                                                    <div class="cbp-category-link-w">
-                                                                                        <a href="https://iqit-commerce.com/ps17/en/3-women" class="cbp-column-title nav-link cbp-category-title">Women</a>
-                                                                                        <ul class="cbp-links cbp-category-tree">
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/7-blouses">Blouses</a></div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/4-tops">Tops</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/17-shoes">Shoes</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/18-accessories">Accessories</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/19-hats">Hats</a></div>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3 cbp-menu-column cbp-menu-element menu-element-id-4 ">
-                                                                        <div class="cbp-menu-column-inner">
-                                                                            <div class="row cbp-categories-row">
-                                                                                <div class="col-12">
-                                                                                    <div class="cbp-category-link-w">
-                                                                                        <a href="https://iqit-commerce.com/ps17/en/3-women" class="cbp-column-title nav-link cbp-category-title">Women</a>
-                                                                                        <ul class="cbp-links cbp-category-tree">
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/7-blouses">Blouses</a></div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/4-tops">Tops</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/17-shoes">Shoes</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/18-accessories">Accessories</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/19-hats">Hats</a></div>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3 cbp-menu-column cbp-menu-element menu-element-id-5 ">
-                                                                        <div class="cbp-menu-column-inner">
-                                                                            <div class="row cbp-categories-row">
-                                                                                <div class="col-12">
-                                                                                    <div class="cbp-category-link-w">
-                                                                                        <a href="https://iqit-commerce.com/ps17/en/3-women" class="cbp-column-title nav-link cbp-category-title">Women</a>
-                                                                                        <ul class="cbp-links cbp-category-tree">
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/7-blouses">Blouses</a></div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/4-tops">Tops</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li class="cbp-hrsub-haslevel2">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                                                                                    <ul class="cbp-hrsub-level2">
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/17-shoes">Shoes</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/18-accessories">Accessories</a></div>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/19-hats">Hats</a></div>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>*@
-
                                             <li id="cbp-hrmenu-tab-8" class="cbp-hrmenu-tab  cbp-has-submeu">
                                                 <a role="button" class="cbp-empty-mlink nav-link">
                                                     <span class="cbp-tab-title">
@@ -330,187 +98,58 @@
                                                                         @{ int z = 0;
                                                                             int count = categories.Count;
                                                                             int take = count / 4;
-                                                                            }
-                                                                        @for (int i = 0; i < 2; i++)
-                                                                        {
-                                                                        <div class="row menu_row menu-element  menu-element-id-3">
-                                                                            @for (int j = 0; j < 2; j++)
-                                                                            {
-                                                                                if (count < 4)
-                                                                                {
-                                                                                    take = count % 4;
-                                                                                }
+                                                                        }
+                                                                        @for (int i = 0; i < 2; i++) {
+                                                                            <div class="row menu_row menu-element  menu-element-id-3">
+                                                                                @for (int j = 0; j < 2; j++) {
+                                                                                    if (count < 4) {
+                                                                                        take = count % 4;
+                                                                                    }
 
-                                                                                foreach (Category category in categories.Where(c=>c.ParentId == null).Skip(z * take).Take(take).OrderBy(c=>c.OrderNum))
-                                                                                {
-                                                                                    <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-4 ">
-                                                                                    <div class="cbp-menu-column-inner">
-                                                                                        <div class="row cbp-categories-row">
-                                                                                            <div class="col-12">
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="https://iqit-commerce.com/ps17/en/8-dresses" class="cbp-column-title nav-link cbp-category-title">@categories.ElementAt(z).Name</a>
-                                                                                                    <ul class="cbp-links cbp-category-tree">
-                                                                                                        @foreach (Category subCategory in categories.ElementAt(z).Category1.OrderBy(c => c.OrderNum))
-                                                                                                        {
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a></div>
-                                                                                                        </li>                                                                                                    
-                                                                                                        }
-                                                                                                        @*<li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                        </li>*@
-                                                                                                    </ul>
+                                                                                    foreach (Category category in categories.Where(c => c.ParentId == null).Skip(z * take).Take(take).OrderBy(c => c.OrderNum)) {
+                                                                                        <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-4 ">
+                                                                                            <div class="cbp-menu-column-inner">
+                                                                                                <div class="row cbp-categories-row">
+                                                                                                    <div class="col-12">
+                                                                                                        <div class="cbp-category-link-w">
+                                                                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@categories.ElementAt(z).Name</a>
+                                                                                                            <ul class="cbp-links cbp-category-tree">
+                                                                                                                @foreach (Category subCategory in categories.ElementAt(z).Category1.OrderBy(c => c.OrderNum)) {
+                                                                                                                    <li>
+                                                                                                                        <div class="cbp-category-link-w">
+                                                                                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a>
+                                                                                                                        </div>
+                                                                                                                    </li>
+                                                                                                                }
+
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </div>
+                                                                                    }
+                                                                                    z++;
                                                                                 }
-                                                                                z++;
-                                                                            }
-                                                                            @*<div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-5 ">
-                                                                                <div class="cbp-menu-column-inner">
-                                                                                    <div class="row cbp-categories-row">
-                                                                                        <div class="col-12">
-                                                                                            <div class="cbp-category-link-w">
-                                                                                                <a href="https://iqit-commerce.com/ps17/en/4-tops" class="cbp-column-title nav-link cbp-category-title">Tops</a>
-                                                                                                <ul class="cbp-links cbp-category-tree">
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></div>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>*@
-                                                                        </div>
+
+                                                                            </div>
                                                                         }
-                                                                        @*<div class="row menu_row menu-element  menu-element-id-9">
-                                                                            <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-7 ">
-                                                                                <div class="cbp-menu-column-inner">
-                                                                                    <div class="row cbp-categories-row">
-                                                                                        <div class="col-12">
-                                                                                            <div class="cbp-category-link-w">
-                                                                                                <a href="https://iqit-commerce.com/ps17/en/8-dresses" class="cbp-column-title nav-link cbp-category-title">Dresses</a>
-                                                                                                <ul class="cbp-links cbp-category-tree">
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></div>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-6 ">
-                                                                                <div class="cbp-menu-column-inner">
-                                                                                    <div class="row cbp-categories-row">
-                                                                                        <div class="col-12">
-                                                                                            <div class="cbp-category-link-w">
-                                                                                                <a href="https://iqit-commerce.com/ps17/en/3-women" class="cbp-column-title nav-link cbp-category-title">Women</a>
-                                                                                                <ul class="cbp-links cbp-category-tree">
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/7-blouses">Blouses</a></div>
-                                                                                                    </li>
-                                                                                                    <li class="cbp-hrsub-haslevel2">
-                                                                                                        <div class="cbp-category-link-w">
-                                                                                                            <a href="https://iqit-commerce.com/ps17/en/4-tops">Tops</a>
-                                                                                                            <ul class="cbp-hrsub-level2">
-                                                                                                                <li>
-                                                                                                                    <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></div>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></div>
-                                                                                                                </li>
-                                                                                                            </ul>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                    <li class="cbp-hrsub-haslevel2">
-                                                                                                        <div class="cbp-category-link-w">
-                                                                                                            <a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                                                                                            <ul class="cbp-hrsub-level2">
-                                                                                                                <li>
-                                                                                                                    <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></div>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></div>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></div>
-                                                                                                                </li>
-                                                                                                            </ul>
-                                                                                                        </div>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/17-shoes">Shoes</a></div>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/18-accessories">Accessories</a></div>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <div class="cbp-category-link-w"><a href="https://iqit-commerce.com/ps17/en/19-hats">Hats</a></div>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>*@
+
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                           
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="cbp-hrmenu-tab  cbp-has-submeu">
-                                                <a href="https://iqit-commerce.com/ps17/en/" class="nav-link">
-                                                    <span class="cbp-tab-title">
-                                                        Chính sách <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
-                                                    </span>
-                                                </a>
-                                                <div class="cbp-hrsub col-4">
-                                                    <div class="cbp-hrsub-inner">
-                                                        <div class="container iqitmegamenu-submenu-container">
-                                                            <div class="row menu_row menu-element  first_rows menu-element-id-1">
-                                                                <div class="col-12 cbp-menu-column cbp-menu-element menu-element-id-2 ">
-                                                                    <div class="cbp-menu-column-inner">
-                                                                        <div class="row cbp-categories-row">
-                                                                            <div class="col-12">
-                                                                                <div class="cbp-category-link-w">
-                                                                                    <a href="@Url.Action("SalesPolicy","Home",new { area = "" })" class="cbp-column-title nav-link cbp-category-title">Chính sách bán hàng</a>
-                                                                                </div>
-                                                                                <div class="cbp-category-link-w">
-                                                                                    <a href="#" class="cbp-column-title nav-link cbp-category-title">Chính sách giao hàng</a>
-                                                                                </div>
-                                                                                <div class="cbp-category-link-w">
-                                                                                    <a href="#" class="cbp-column-title nav-link cbp-category-title">Chính sách đổi/trả hàng</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
-                                                </div>
                                             </li>
                                             <li class="cbp-hrmenu-tab">
-                                                <a href="@Url.Action("About","Home")" class="nav-link"><span class="cbp-tab-title">Giới Thiệu Shop</span></a>
+                                                <a href="@Url.Action("About","Home")" class="nav-link"><span class="cbp-tab-title">Giới Thiệu</span></a>
+                                            </li>
+                                            <li class="cbp-hrmenu-tab">
+                                                <a href="@Url.Action("SalesPolicy","Home")" class="nav-link"><span class="cbp-tab-title">Chính Sách Bán Hàng</span></a>
+                                            </li>
+                                            <li class="cbp-hrmenu-tab">
+                                                <a href="@Url.Action("ShoppingGuide","Home")" class="nav-link"><span class="cbp-tab-title">Hướng Dẫn Mua Hàng</span></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -520,48 +159,47 @@
                         </div>
                         <div id="_desktop_iqitmegamenu-mobile">
                             <ul id="iqitmegamenu-mobile">
-                                <li><a href="@Url.Action("Index","Home",new { area = "" })">Trang chủ</a></li>
                                 <li>
-                                    <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span><a href="https://iqit-commerce.com/ps17/en/3-women">Women</a>
-                                    <ul>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/7-blouses">Blouses</a></li>
-                                        <li>
-                                            <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span><a href="https://iqit-commerce.com/ps17/en/4-tops">Tops</a>
-                                            <ul>
-                                                <li><a href="https://iqit-commerce.com/ps17/en/6-top">Tops</a></li>
-                                                <li><a href="https://iqit-commerce.com/ps17/en/5-tshirts">T-shirts</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span><a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                            <ul>
-                                                <li><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></li>
-                                                <li><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></li>
-                                                <li><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/17-shoes">Shoes</a></li>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/18-accessories">Accessories</a></li>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/19-hats">Hats</a></li>
-                                    </ul>
+                                    <a href="@Url.Action("Index","Home",new { area = "" })">Trang chủ</a>
                                 </li>
-                                <li>
-                                    <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span><a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                    <ul>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/9-casual-dresses">Casual Dresses</a></li>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/11-summer-dresses">Summer Dresses</a></li>
-                                        <li><a href="https://iqit-commerce.com/ps17/en/10-evening-dresses">Evening Dresses</a></li>
-                                    </ul>
-                                </li>
+                                @foreach (Category category in categories.Where(c => c.ParentId == null).OrderBy(c => c.OrderNum)) {
+                                    <li>
+                                        <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
+                                        <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })">@category.Name</a>
+                                        @if (category.Category1 != null && category.Category1.Count > 0) {
+                                            <ul>
+                                                @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum)) {
+                                                    <li>
+                                                        @if (subCategory.Category1 == null || subCategory.Category1.Count == 0) {
+                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a>
+                                                        }
+                                                        else {
+                                                            <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
+                                                            <a href="https://iqit-commerce.com/ps17/en/4-tops">@subCategory.Name</a>
+                                                            <ul>
+                                                                @foreach (Category subSubCategory in subCategory.Category1.OrderBy(c => c.OrderNum)) {
+                                                                    <li>
+                                                                        <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subSubCategory.Name</a>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+
+                                                        }
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
                                 <li>
                                     <a href="@Url.Action("About","Home",new { area = "" })">Giới thiệu shop</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("SalesPolicy","Home",new { area = "" })">Chính sách bán hàng</a>
                                 </li>
-                                <li>
+                                @*<li>
                                     <a href="@Url.Action("ShoppingGuide","Home",new { area = "" })">Hướng dẫn mua sắm</a>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </div>
@@ -592,134 +230,12 @@
                                 </div>
                             </div>
                             <div id="header-user-btn" class="col col-auto header-btn-w header-user-btn-w">
-                                <a href="https://iqit-commerce.com/ps17/en/my-account" title="Log in to your customer account" rel="nofollow" class="header-btn header-user-btn">
+                                <a href="@Url.Action("Login","Account")" title="Đăng nhập" rel="nofollow" class="header-btn header-user-btn">
                                     <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
                                     <span class="title">Đăng nhập</span>
                                 </a>
                             </div>
-                            <div id="ps-shoppingcart-wrapper" class="col col-auto">
-                                <div id="ps-shoppingcart" class="header-btn-w header-cart-btn-w ps-shoppingcart side-cart">
-                                    <div id="blockcart" class="blockcart cart-preview" data-refresh-url="//iqit-commerce.com/ps17/en/module/ps_shoppingcart/ajax">
-                                        <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn" data-toggle="dropdown">
-                                            <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">3</span></i>
-                                            <span class="info-wrapper">
-                                                <span class="title">Giỏ hàng</span>
-                                                <span class="cart-toggle-details">
-                                                    <span class="text-faded cart-separator"> / </span>
-                                                    <span class="cart-products-count">(@((Session["ShoppingCart"] as List<CartItem>).Count))</span>
-                                                    <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((Session["ShoppingCart"] as List<CartItem>).Count))</span>
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <div id="_desktop_blockcart-content">
-                                            <div id="blockcart-content" class="blockcart-content">
-                                                <div class="cart-title">
-                                                    <span class="modal-title">Giỏ hàng</span>
-                                                    <button type="button" id="js-cart-close" class="close">
-                                                        <span>×</span>
-                                                    </button>
-                                                    <hr>
-                                                </div>
-                                                <ul class="cart-products">
-                                                    <li>
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col-3">
-                                                                <span class="product-image media-middle">
-                                                                    <a href="https://iqit-commerce.com/ps17/en/shoes/133-363-printed-chiffon-dress.html#/1-size-s/16-color-yellow"><img src="https://iqit-commerce.com/ps17/451-cart_default/printed-chiffon-dress.jpg" alt="Printed Chiffon Dress" class="img-fluid"></a>
-                                                                </span>
-                                                            </div>
-                                                            <div class="col col-info">
-                                                                <div class="pb-1">
-                                                                    <a href="https://iqit-commerce.com/ps17/en/shoes/133-363-printed-chiffon-dress.html#/1-size-s/16-color-yellow">Printed Chiffon Dress</a>
-                                                                </div>
-
-                                                                <div class="product-attributes text-muted pb-1">
-                                                                    <div class="product-line-info">
-                                                                        <span class="label">Size:</span>
-                                                                        <span class="value">S</span>
-                                                                    </div>
-                                                                    <div class="product-line-info">
-                                                                        <span class="label">Color:</span>
-                                                                        <span class="value">Yellow</span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <span class="text-muted">1 x</span> <span>$20.50</span>
-                                                            </div>
-                                                            <div class="col col-auto">
-                                                                <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=133&amp;id_product_attribute=363&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-link-place="cart-preview" data-id-product="133" data-id-product-attribute="363" data-id-customization="" title="remove from cart">
-                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li>
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col-3">
-                                                                <span class="product-image media-middle">
-                                                                    <a href="https://iqit-commerce.com/ps17/en/blouses/116-printed-summer-dress.html"><img src="https://iqit-commerce.com/ps17/395-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid"></a>
-                                                                </span>
-                                                            </div>
-                                                            <div class="col col-info">
-                                                                <div class="pb-1">
-                                                                    <a href="https://iqit-commerce.com/ps17/en/blouses/116-printed-summer-dress.html">Leather bag</a>
-                                                                </div>
-
-
-                                                                <span class="text-muted">1 x</span> <span>$30.50</span>
-                                                            </div>
-                                                            <div class="col col-auto">
-                                                                <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=116&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-link-place="cart-preview" data-id-product="116" data-id-product-attribute="0" data-id-customization="" title="remove from cart">
-                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li>
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col-3">
-                                                                <span class="product-image media-middle">
-                                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html"><img src="https://iqit-commerce.com/ps17/289-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid"></a>
-                                                                </span>
-                                                            </div>
-                                                            <div class="col col-info">
-                                                                <div class="pb-1">
-                                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html">Leather bag</a>
-                                                                </div>
-
-
-                                                                <span class="text-muted">1 x</span> <span>$30.50</span>
-                                                            </div>
-                                                            <div class="col col-auto">
-                                                                <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=87&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-link-place="cart-preview" data-id-product="87" data-id-product-attribute="0" data-id-customization="" title="remove from cart">
-                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </li>
-                                                </ul>
-                                                <div class="cart-subtotals">
-                                                    <div class="products clearfix">
-                                                        <span class="label">Tổng tiền</span>
-                                                        <span class="value float-right">@(Warehouse.Common.Format.FormatCurrencyVND((int)(Session["ShoppingCart"] as List<CartItem>).Sum(c => c.Subtotal)))</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="cart-buttons text-center">
-                                                    <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-block btn-lg mb-2">Đặt hàng ngay</a>
-                                                    <a rel="nofollow" class="btn btn-secondary btn-block" href="@Url.Action("Index","ShoppingCart")">Xem giỏ hàng</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @Html.Partial("_ShoppingCartPartial")
                         </div>
                     </div>
                     <div class="col-12">
@@ -759,9 +275,9 @@
                             </div>
                         </div>
                         <div class="col col-auto col-mobile-btn col-mobile-btn-account">
-                            <a href="https://iqit-commerce.com/ps17/en/my-account" class="m-nav-btn">
+                            <a href="@Url.Action("Login","Account")" class="m-nav-btn">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <span>Sign in</span>
+                                <span>Đăng nhập</span>
                             </a>
                         </div>
                         <div class="col col-auto col-mobile-btn col-mobile-btn-cart ps-shoppingcart side-cart">
