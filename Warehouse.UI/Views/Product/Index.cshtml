@@ -1,5 +1,4 @@
-﻿@model List<Product>
-@{
+﻿@{
     ViewBag.Title = "Sản phẩm danh mục " + ViewBag.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "category";
@@ -70,4 +69,27 @@
     </div>
 </div>
 
-@Html.Partial("_QuickViewModalPartial")
+@*@Html.Partial("_QuickViewModalPartial")*@
+
+@*<div>
+        <table class="table table-responsive">
+            <tr>
+                <td>Product Name</td>
+                <td>Product Price</td>
+                <td>Product in Stock</td>
+                <td></td>
+            </tr>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td><a class="btn btn-xs btn-success" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id">add to cart</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <product-list-pager current-category="@Model.CurrentCategory"
+                        current-page="@Model.CurrentPage"
+                        page-count="@Model.PageCount"
+                        page-size="@Model.PageSize">
+    </product-list-pager>*@

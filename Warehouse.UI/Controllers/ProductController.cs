@@ -6,6 +6,8 @@ using Warehouse.Services.Interface;
 using System.Configuration;
 using System;
 using Warehouse.Common;
+using Warehouse.Models;
+using PagedList;
 
 namespace Warehouse.UI.Controllers
 {
@@ -27,19 +29,34 @@ namespace Warehouse.UI.Controllers
         /// <param name="sort"></param>
         /// <returns></returns>
         [Route("danh-muc/{aliasCategory}.html")]
-        public ActionResult Index(string aliasCategory, string sortName, ENUM.SORT_TYPE? sortType)
+        public ActionResult Index(string aliasCategory, string sortName, ENUM.SORT_TYPE? sortType, int page = 1)
         {
+            int pageSize = 5; // số dòng trên 1 trang
+
             Category category = _categoryService.GetByAlias(aliasCategory);
             if (category == null)
             {
                 return Redirect("/pages/404");
             }
-            IQueryable<Product> products = _productService.GetByCategory(category.Id).AsQueryable();
+            ViewBag.Name = aliasCategory;
+            var products = _productService.GetByCategory(category.Id).AsQueryable();
             if (sortName != null)
             {
                 products = _productService.Sorting(products, sortName, sortType ?? ENUM.SORT_TYPE.Ascending);
+
             }
-            return View(products.ToList());
+            ProductListModel model = new ProductListModel
+            {
+                Products = products.ToPagedList(page, pageSize),//.Skip((curentpage - 1) * pageSize).Take(pageSize),
+                PageCount = (int)Math.Ceiling(products.Count() / (double)pageSize),
+                PageSize = pageSize,
+                CurrentCategory = category.Id,
+                CurrentPage = page
+            };
+
+           
+            return View(model);
+            // return View();
         }
 
         [Route("{alias}.html")]
@@ -74,22 +91,19 @@ namespace Warehouse.UI.Controllers
 
         //}
 
-        public PartialViewResult _PagedListPartial(string filterName, string filterValue, string sort, int page)
+        public ActionResult _ListPartial(int curentpage = 1)
         {
-            IEnumerable<Warehouse.Entities.Product> dsProduct = _productService.GetAll().Where(m => m.Display == true).OrderByDescending(m => m.Id).AsEnumerable();
-            dsProduct = dsProduct.Where(m => m.Category != null && m.Category.Alias_SEO == filterValue);
-            dsProduct = dsProduct.Skip((page - 1) * 8).Take(8);
-            return PartialView(dsProduct);
+            int pageSize = 5; // số dòng trên 1 trang
+            var products = _productService.GetAll().Where(m => m.Display == true).OrderByDescending(m => m.Id).AsQueryable();
+            ProductListModel model = new ProductListModel
+            {
+                Products = products.ToPagedList(curentpage, pageSize), //.Where(m => m.Category != null && m.Category.Alias_SEO == filterValue),
+                PageCount = (int)Math.Ceiling(products.Count() / (double)pageSize),
+                PageSize = pageSize,
+                CurrentPage = curentpage
+            };
+
+            return PartialView(model);
         }
-
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

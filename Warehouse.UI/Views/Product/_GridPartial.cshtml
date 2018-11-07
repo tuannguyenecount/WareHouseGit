@@ -1,4 +1,10 @@
-﻿<div>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Warehouse.Models;
+
+@model ProductListModel
+
+<div>
     <div id="js-active-search-filters" class="hide">
     </div>
 </div>
@@ -90,910 +96,916 @@
     <div id="facets-loader-icon"><i class="fa fa-circle-o-notch fa-spin"></i></div>
     <div id="js-product-list">
         <div class="products row products-grid">
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="87" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html" class="thumbnail product-thumbnail">
+            @foreach (var product in Model.Products)
+            {
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="87" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html" class="thumbnail product-thumbnail">
 
-                            <img data-src="https://iqit-commerce.com/ps17/289-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/289-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/289-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+                                <img data-src="https://iqit-commerce.com/ps17/289-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/289-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/289-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
 
-                            <img src="https://iqit-commerce.com/ps17/290-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/290-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="87" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="87" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
+                                <img src="https://iqit-commerce.com/ps17/290-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/290-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="87" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="87" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
 
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
 
+                                </div>
+                            </div>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
                             </div>
                         </div>
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-                        </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=87&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-                                <input type="hidden" name="id_product" value="87">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html">@product.Name</a>
+                            </h3>
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=87&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+                                    <input type="hidden" name="id_product" value="87">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
 
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="88" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/88-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/293-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/293-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/293-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/292-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/292-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="88" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="88" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-
-
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
-
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/88-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-                        </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
+                    </article>
+                </div>
+            }
+            @*<div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="88" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/88-printed-summer-dress.html" class="thumbnail product-thumbnail">
 
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=88&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+                                <img data-src="https://iqit-commerce.com/ps17/293-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/293-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/293-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
 
-                                <input type="hidden" name="id_product" value="88">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                                <img src="https://iqit-commerce.com/ps17/292-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/292-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="88" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="88" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
 
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
+
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
                                 </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper col-6 col-md-4 col-lg-3 col-xl-15">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="89" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/297-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/297-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/297-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/295-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/295-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="89" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="89" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-
-
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
-
+                            </div>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
                             </div>
                         </div>
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/88-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
 
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=88&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
 
+                                    <input type="hidden" name="id_product" value="88">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
 
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
 
-
-                    </div>
-
-
-
-
-                    <div class="product-description">
-
-
-                        <div class="product-category-name text-muted">Accessories</div>
-
-
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-
-
-
-                        <div class="product-brand text-muted">Antara</div>
-
-
-                        <div class="product-reference text-muted">demo_6</div>
-
-
-
-
-
-
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-
-
-                        </div>
-
-
-
-
-
-
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-
-
-
-                        <div class="product-add-cart">
-
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-
-                                <input type="hidden" name="id_product" value="89">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-
-
-
-
-
-                    </div>
-
-
-
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="90" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-
-
-
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/90-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/301-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/301-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/301-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/302-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/302-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-
-
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-
-
-
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="90" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="90" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-
-
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
-
+                                </form>
                             </div>
                         </div>
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="89" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/297-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/297-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/297-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/295-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/295-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="89" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="89" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
 
 
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
 
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-
-
-                    </div>
-
-
-
-
-                    <div class="product-description">
-
-
-                        <div class="product-category-name text-muted">Accessories</div>
-
-
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/90-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-
-
-
-                        <div class="product-brand text-muted">Antara</div>
-
-
-                        <div class="product-reference text-muted">demo_6</div>
-
-
-
-
-
-
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-
-
-                        </div>
-
-
-
-
-
-
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-
-
-
-                        <div class="product-add-cart">
-
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=90&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-
-                                <input type="hidden" name="id_product" value="90">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
                                 </div>
+                            </div>
 
-                            </form>
+
+
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+
+
                         </div>
 
 
 
 
-
-                    </div>
-
+                        <div class="product-description">
 
 
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="91" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                            <div class="product-category-name text-muted">Accessories</div>
 
 
-
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/91-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/309-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/309-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/309-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/308-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/308-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-
-
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html">Leather bag</a>
+                            </h3>
 
 
 
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="91" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="91" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-brand text-muted">Antara</div>
 
 
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-reference text-muted">demo_6</div>
+
+
+
+
+
+
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+
 
                             </div>
-                        </div>
-
-
-
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-
-
-                    </div>
-
-
-
-
-                    <div class="product-description">
-
-
-                        <div class="product-category-name text-muted">Accessories</div>
-
-
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/91-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-
-
-
-                        <div class="product-brand text-muted">Antara</div>
-
-
-                        <div class="product-reference text-muted">demo_6</div>
 
 
 
 
 
 
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-
-
-                        </div>
-
-
-
-
-
-
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-
-
-
-                        <div class="product-add-cart">
-
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=91&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-
-                                <input type="hidden" name="id_product" value="91">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-
-
-
-
-
-                    </div>
-
-
-
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="92" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/92-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/317-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/317-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/317-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/315-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/315-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="92" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="92" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
                             </div>
-                        </div>
-
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-
-                    <div class="product-description">
-
-                        <div class="product-category-name text-muted">Accessories</div>
-
-
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/92-printed-summer-dress.html">Leather bag</a>
-                        </h3>
 
 
 
-                        <div class="product-brand text-muted">Antara</div>
+                            <div class="product-add-cart">
+
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+
+                                    <input type="hidden" name="id_product" value="89">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
 
 
-                        <div class="product-reference text-muted">demo_6</div>
 
-
-
-
-
-
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
 
 
                         </div>
 
 
 
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="90" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
 
 
 
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/90-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/301-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/301-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/301-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/302-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/302-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+
+
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
 
 
 
-                        <div class="product-add-cart">
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="90" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="90" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
 
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=92&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
 
-                                <input type="hidden" name="id_product" value="92">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
 
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
                                 </div>
+                            </div>
 
-                            </form>
+
+
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+
+
                         </div>
 
 
 
 
-
-                    </div>
-
+                        <div class="product-description">
 
 
-                </article>
-            </div>
+                            <div class="product-category-name text-muted">Accessories</div>
 
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="93" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html" class="thumbnail product-thumbnail">
 
-                            <img data-src="https://iqit-commerce.com/ps17/325-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/325-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/325-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/90-printed-summer-dress.html">Leather bag</a>
+                            </h3>
 
-                            <img src="https://iqit-commerce.com/ps17/322-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/322-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
 
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
 
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="93" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="93" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-brand text-muted">Antara</div>
 
+
+                            <div class="product-reference text-muted">demo_6</div>
+
+
+
+
+
+
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+
+
+                            </div>
+
+
+
+
+
+
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+
+
+
+                            <div class="product-add-cart">
+
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=90&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+
+                                    <input type="hidden" name="id_product" value="90">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="91" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+
+
+
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/91-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/309-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/309-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/309-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/308-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/308-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+
+
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+
+
+
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="91" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="91" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+
+
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <div class="product-description">
+
+
+                            <div class="product-category-name text-muted">Accessories</div>
+
+
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/91-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+
+
+
+                            <div class="product-brand text-muted">Antara</div>
+
+
+                            <div class="product-reference text-muted">demo_6</div>
+
+
+
+
+
+
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+
+
+                            </div>
+
+
+
+
+
+
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+
+
+
+                            <div class="product-add-cart">
+
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=91&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+
+                                    <input type="hidden" name="id_product" value="91">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="92" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/92-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/317-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/317-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/317-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/315-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/315-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="92" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="92" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
                             </div>
                         </div>
 
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
+                        <div class="product-description">
 
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-                        </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=93&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-
-                                <input type="hidden" name="id_product" value="93">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="94" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/94-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/333-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/333-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/333-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/329-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/329-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="94" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="94" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/94-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-                        </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
-
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=94&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-
-                                <input type="hidden" name="id_product" value="94">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="95" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/95-printed-summer-dress.html" class="thumbnail product-thumbnail">
-
-                            <img data-src="https://iqit-commerce.com/ps17/341-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/341-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/341-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/336-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/336-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="95" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="95" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-category-name text-muted">Accessories</div>
 
 
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/92-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+
+
+
+                            <div class="product-brand text-muted">Antara</div>
+
+
+                            <div class="product-reference text-muted">demo_6</div>
+
+
+
+
+
+
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+
 
                             </div>
-                        </div>
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/95-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+
+
+
+
+
+
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+
+
+
+                            <div class="product-add-cart">
+
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=92&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+
+                                    <input type="hidden" name="id_product" value="92">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+
+
 
                         </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=95&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
 
-                                <input type="hidden" name="id_product" value="95">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
 
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
+
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="93" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/325-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/325-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/325-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/322-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/322-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="93" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="93" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
                                 </div>
+                            </div>
 
-                            </form>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+
                         </div>
-                    </div>
-                </article>
-            </div>
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
 
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="96" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/96-printed-summer-dress.html" class="thumbnail product-thumbnail">
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html">Leather bag</a>
+                            </h3>
 
-                            <img data-src="https://iqit-commerce.com/ps17/349-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/349-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/349-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
 
-                            <img src="https://iqit-commerce.com/ps17/343-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/343-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="96" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="96" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=93&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
 
+                                    <input type="hidden" name="id_product" value="93">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
 
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
 
+                                </form>
                             </div>
                         </div>
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/96-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-                        </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=96&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-                                <input type="hidden" name="id_product" value="96">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                    </article>
+                </div>
 
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="94" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/94-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/333-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/333-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/333-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/329-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/329-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="94" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="94" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
-                <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="97" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
-                    <div class="thumbnail-container">
-                        <a href="https://iqit-commerce.com/ps17/en/accessories/97-printed-summer-dress.html" class="thumbnail product-thumbnail">
-                            <img data-src="https://iqit-commerce.com/ps17/350-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/350-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/350-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                            <img src="https://iqit-commerce.com/ps17/351-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/351-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
-                        </a>
-                        <ul class="product-flags">
-                            <li class="product-flag new">
-                                New
-                            </li>
-                        </ul>
-                        <div class="product-functional-buttons product-functional-buttons-bottom">
-                            <div class="product-functional-buttons-links">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="97" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="97" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
-                                    <i class="fa fa-random" aria-hidden="true"></i>
-                                </a>
-                                <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
+                            </div>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
                             </div>
                         </div>
-                        <div class="product-availability">
-                            <span class="badge product-available mt-2">Available</span>
-                        </div>
-                    </div>
-                    <div class="product-description">
-                        <div class="product-category-name text-muted">Accessories</div>
-                        <h3 class="h3 product-title" itemprop="name">
-                            <a href="https://iqit-commerce.com/ps17/en/accessories/97-printed-summer-dress.html">Leather bag</a>
-                        </h3>
-                        <div class="product-brand text-muted">Antara</div>
-                        <div class="product-reference text-muted">demo_6</div>
-                        <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="USD">
-                            <span itemprop="price" class="product-price" content="30.5">$30.50</span>
-                        </div>
-                        <div class="product-description-short text-muted">
-                            Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
-                        </div>
-                        <div class="product-add-cart">
-                            <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=97&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-                                <input type="hidden" name="id_product" value="97">
-                                <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/94-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
 
-                                    <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
-                                    </button>
-                                </div>
-                            </form>
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=94&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+
+                                    <input type="hidden" name="id_product" value="94">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="95" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/95-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/341-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/341-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/341-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/336-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/336-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="95" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="95" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+
+
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+                        </div>
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/95-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=95&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+
+                                    <input type="hidden" name="id_product" value="95">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="96" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/96-printed-summer-dress.html" class="thumbnail product-thumbnail">
+
+                                <img data-src="https://iqit-commerce.com/ps17/349-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/349-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/349-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/343-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/343-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="96" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="96" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+
+
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+                        </div>
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/96-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=96&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+                                    <input type="hidden" name="id_product" value="96">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="js-product-miniature-wrapper         col-6 col-md-4 col-lg-3 col-xl-15     ">
+                    <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="97" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
+                        <div class="thumbnail-container">
+                            <a href="https://iqit-commerce.com/ps17/en/accessories/97-printed-summer-dress.html" class="thumbnail product-thumbnail">
+                                <img data-src="https://iqit-commerce.com/ps17/350-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/350-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/350-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
+
+                                <img src="https://iqit-commerce.com/ps17/351-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/351-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                            </a>
+                            <ul class="product-flags">
+                                <li class="product-flag new">
+                                    New
+                                </li>
+                            </ul>
+                            <div class="product-functional-buttons product-functional-buttons-bottom">
+                                <div class="product-functional-buttons-links">
+                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="97" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                        <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="97" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <i class="fa fa-random" aria-hidden="true"></i>
+                                    </a>
+                                    <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-availability">
+                                <span class="badge product-available mt-2">Available</span>
+                            </div>
+                        </div>
+                        <div class="product-description">
+                            <div class="product-category-name text-muted">Accessories</div>
+                            <h3 class="h3 product-title" itemprop="name">
+                                <a href="https://iqit-commerce.com/ps17/en/accessories/97-printed-summer-dress.html">Leather bag</a>
+                            </h3>
+                            <div class="product-brand text-muted">Antara</div>
+                            <div class="product-reference text-muted">demo_6</div>
+                            <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                <meta itemprop="priceCurrency" content="USD">
+                                <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                            </div>
+                            <div class="product-description-short text-muted">
+                                Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.
+                            </div>
+                            <div class="product-add-cart">
+                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=97&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+                                    <input type="hidden" name="id_product" value="97">
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+
+                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Add to cart
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                </div>*@
         </div>
         <nav class="pagination">
+            Page @(Model.PageCount < Model.PageSize ? 0 : Model.PageSize) of @Model.PageCount
+
+            @Html.PagedListPager(Model.Products, page => Url.Action("Index",
+                new { page, sortName = ViewBag.sortName, curentpage = ViewBag.sortType }))
         </nav>
     </div>
 </div>
