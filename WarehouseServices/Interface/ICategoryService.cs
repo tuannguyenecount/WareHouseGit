@@ -14,6 +14,5 @@ namespace Warehouse.Services.Interface
         Category GetById(int Id);
         Category GetByAlias(string alias);
         List<Category> Sorting(List<Category> products, ENUM.SORT_TYPE sortType);
-        IQueryable<Category> GetAllQueryable();
     }
 }

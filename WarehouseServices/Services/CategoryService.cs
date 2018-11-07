@@ -59,11 +59,6 @@ namespace Warehouse.Services.Services
             return _categoryDal.SortList(categories, ENUM.SORT_TYPE.Ascending);
         }
 
-        public IQueryable<Category> GetAllQueryable()
-        {
-            return _categoryDal.GetQueryable();
-        }
-
         #endregion
     }
 }

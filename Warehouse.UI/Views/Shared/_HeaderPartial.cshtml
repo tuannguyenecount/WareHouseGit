@@ -341,7 +341,7 @@
                                                                                     take = count % 4;
                                                                                 }
 
-                                                                                foreach (Category category in categories.Take(take).Skip(z * take))
+                                                                                foreach (Category category in categories.Where(c=>c.ParentId == null).Skip(z * take).Take(take).OrderBy(c=>c.OrderNum))
                                                                                 {
                                                                                     <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-4 ">
                                                                                     <div class="cbp-menu-column-inner">
@@ -350,7 +350,7 @@
                                                                                                 <div class="cbp-category-link-w">
                                                                                                     <a href="https://iqit-commerce.com/ps17/en/8-dresses" class="cbp-column-title nav-link cbp-category-title">@categories.ElementAt(z).Name</a>
                                                                                                     <ul class="cbp-links cbp-category-tree">
-                                                                                                        @foreach (Category subCategory in categories.ElementAt(z).Category1)
+                                                                                                        @foreach (Category subCategory in categories.ElementAt(z).Category1.OrderBy(c => c.OrderNum))
                                                                                                         {
                                                                                                         <li>
                                                                                                             <div class="cbp-category-link-w"><a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a></div>
@@ -473,30 +473,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row menu_row menu-element  first_rows menu-element-id-10">
-                                                                <div class="col-7 cbp-menu-column cbp-menu-element menu-element-id-11 ">
-                                                                    <div class="cbp-menu-column-inner">
-                                                                        <ul class="cbp-links cbp-valinks cbp-valinks-vertical cbp-valinks-vertical2">
-                                                                            <li>
-                                                                                <a href="https://iqit-commerce.com/ps17/en/content/1-delivery">Delivery</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="https://iqit-commerce.com/ps17/en/content/2-legal-notice">Legal Notice</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="https://iqit-commerce.com/ps17/en/content/4-about-us">About us</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="https://iqit-commerce.com/ps17/en/manufacturers">All manufacturers</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="https://iqit-commerce.com/ps17/en/8-dresses">Dresses</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                           
                                                     </div>
                                                 </div>
                                             </li>
