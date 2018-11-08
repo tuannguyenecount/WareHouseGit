@@ -36,6 +36,12 @@ namespace Warehouse
             container.RegisterType<IOrderService, OrderService>();
             container.RegisterType<IOrderDal, OrderDal>();
 
+
+            container.RegisterType<IArticleService, ArticleService>();
+            container.RegisterType<IArticleDal, ArticleDal>();
+
+
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

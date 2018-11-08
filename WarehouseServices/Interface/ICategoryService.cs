@@ -14,7 +14,6 @@ namespace Warehouse.Services.Interface
         Category GetById(int Id);
         Category GetByAlias(string alias);
         int CountAll();
-
         List<Category> GetParents();
     }
 }

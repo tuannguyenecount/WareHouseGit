@@ -63,12 +63,7 @@ namespace Warehouse.Controllers
             {
                 return Redirect("/pages/404");
             }
-            if (product.Slider != null)
-            {
-                ViewBag.Slider = product.Slider.Split(' ').Select(m =>
-                ConfigurationManager.AppSettings["BaseUrl"] != null ?
-                    ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Product/" + m : m).ToList();
-            }
+          
             List<Product> productsRelated = _productService.GetRelatedProducts(product.CategoryId, product.Id);
             int count = productsRelated.Count;
             Random r = new Random();

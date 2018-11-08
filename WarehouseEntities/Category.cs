@@ -27,9 +27,9 @@ namespace Warehouse.Entities
         [StringLength(256)]
         public string Alias_SEO { get; set; }
 
-        public int? ParentId { get; set; }
+        public Nullable<int> ParentId { get; set; }
 
-        public int? OrderNum { get; set; }
+        public Nullable<int> OrderNum { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category1 { get; set; }

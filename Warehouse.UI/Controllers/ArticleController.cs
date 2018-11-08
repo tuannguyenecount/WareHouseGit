@@ -4,38 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Warehouse.Entities;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Controllers
 {
+    [RoutePrefix("bai-viet")]
     public class ArticleController : Controller
     {
-       
-        [Route("gioi-thieu-shop.html")]
-        public ViewResult About()
+        readonly IArticleService _articleService;
+
+        public ArticleController(IArticleService articleService)
         {
-            InfoShop infoShop = Session["InfoShop"] as InfoShop;
-            ViewBag.Title = "Giới Thiệu " + infoShop.ShopName;
-            object model = infoShop.Introduce_Shop;
-            return View("Article", model);
+            _articleService = articleService;
         }
 
-        [Route("chinh-sach-ban-hang.html")]
-        public ViewResult SalesPolicy()
+        [Route("{alias}.html")]
+        public ActionResult Details(string alias)
         {
-            InfoShop infoShop = Session["InfoShop"] as InfoShop;
-            ViewBag.Title = "Chính Sách Bán Hàng";
-            object model = infoShop.SalesPolicy;
-            return View("Article", model);
+            Article article = _articleService.GetByAlias(alias);
+            if (article == null)
+                return Redirect("/pages/404");
+
+            return View("Article", article);
         }
 
-        [Route("huong-dan-mua-hang.html")]
-        public ViewResult ShoppingGuide()
-        {
-            InfoShop infoShop = Session["InfoShop"] as InfoShop;
-            ViewBag.Title = "Hướng Dẫn Mua Hàng";
-            object model = infoShop.ShoppingGuide;
-            return View("Article", model);
-        }
 
     }
 }

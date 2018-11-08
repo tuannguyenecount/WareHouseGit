@@ -45,15 +45,15 @@
                             </div>
                         </div>*@
                     <div class="d-inline-block">
-                            <a href="//iqit-commerce.com/ps17/en/module/iqitwishlist/view">
-                                <i class="fa fa-heart-o" aria-hidden="true"></i> Sản phẩm bạn thích (<span id="iqitwishlist-nb">0</span>)
-                            </a>
-                        </div>
-                        <div class="d-inline-block">
-                            <a href="//iqit-commerce.com/ps17/en/module/iqitcompare/comparator">
-                                <i class="fa fa-random" aria-hidden="true"></i> <span>So sánh (<span id="iqitcompare-nb">0</span>)</span>
-                            </a>
-                        </div>
+                        <a href="//iqit-commerce.com/ps17/en/module/iqitwishlist/view">
+                            <i class="fa fa-heart-o" aria-hidden="true"></i> Sản phẩm bạn thích (<span id="iqitwishlist-nb">0</span>)
+                        </a>
+                    </div>
+                    <div class="d-inline-block">
+                        <a href="//iqit-commerce.com/ps17/en/module/iqitcompare/comparator">
+                            <i class="fa fa-random" aria-hidden="true"></i> <span>So sánh (<span id="iqitcompare-nb">0</span>)</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,14 +99,18 @@
                                                                             int count = categories.Count;
                                                                             int take = count / 4;
                                                                         }
-                                                                        @for (int i = 0; i < 2; i++) {
+                                                                        @for (int i = 0; i < 2; i++)
+                                                                        {
                                                                             <div class="row menu_row menu-element  menu-element-id-3">
-                                                                                @for (int j = 0; j < 2; j++) {
-                                                                                    if (count < 4) {
+                                                                                @for (int j = 0; j < 2; j++)
+                                                                                {
+                                                                                    if (count < 4)
+                                                                                    {
                                                                                         take = count % 4;
                                                                                     }
 
-                                                                                    foreach (Category category in categories.Where(c => c.ParentId == null).Skip(z * take).Take(take).OrderBy(c => c.OrderNum)) {
+                                                                                    foreach (Category category in categories.Where(c => c.ParentId == null).Skip(z * take).Take(take).OrderBy(c => c.OrderNum))
+                                                                                    {
                                                                                         <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-4 ">
                                                                                             <div class="cbp-menu-column-inner">
                                                                                                 <div class="row cbp-categories-row">
@@ -122,7 +126,7 @@
                                                                                                                         </div>
                                                                                                                     </li>
                                                                                                                 }
-                                                                                                                
+
                                                                                                             </ul>
                                                                                                         </div>
                                                                                                     </div>
@@ -145,15 +149,45 @@
                                                         </div>
                                                     </div>
                                             </li>
-                                            <li class="cbp-hrmenu-tab">
-                                                <a href="@Url.Action("About","Article")" class="nav-link"><span class="cbp-tab-title">Giới Thiệu</span></a>
+                                            <li class="cbp-hrmenu-tab cbp-has-submeu">
+                                                <a href="javascript:void(0)" class="nav-link">
+                                                    <span class="cbp-tab-title">
+                                                        Thông tin shop <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
+                                                    </span>
+                                                </a>
+                                                <div class="cbp-hrsub col-4 cbp-show">
+                                                    <div class="cbp-hrsub-inner">
+                                                        <div class="container iqitmegamenu-submenu-container">
+                                                            <div class="row menu_row menu-element  first_rows menu-element-id-1">
+                                                                <div class="col-12 cbp-menu-column cbp-menu-element menu-element-id-2 ">
+                                                                    <div class="cbp-menu-column-inner">
+                                                                        <div class="row cbp-categories-row">
+                                                                            <div class="col-12">
+                                                                                <div class="cbp-category-link-w">
+                                                                                    <a href="javascript:void(0)" class="cbp-column-title nav-link cbp-category-title">Xem thông tin</a>
+
+                                                                                    <ul class="cbp-links cbp-category-tree">
+                                                                                        @foreach (Article article in ViewBag.Articles)
+                                                                                        {
+                                                                                            <li>
+                                                                                                <div class="cbp-category-link-w">
+                                                                                                    <a href="@Url.Action("Details", "Article", new { aliasCategory = article.Alias })">@article.Title</a>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        }
+                                                                                    </ul>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </li>
-                                            <li class="cbp-hrmenu-tab">
-                                                <a href="@Url.Action("SalesPolicy","Article")" class="nav-link"><span class="cbp-tab-title">Chính Sách Bán Hàng</span></a>
-                                            </li>
-                                            @*<li class="cbp-hrmenu-tab">
-                                                <a href="@Url.Action("ShoppingGuide","Home")" class="nav-link"><span class="cbp-tab-title">Hướng Dẫn Mua Hàng</span></a>
-                                            </li>*@
+
                                         </ul>
                                     </nav>
                                 </div>
@@ -165,22 +199,28 @@
                                 <li>
                                     <a href="@Url.Action("Index","Home",new { area = "" })">Trang chủ</a>
                                 </li>
-                                @foreach (Category category in categories.Where(c => c.ParentId == null).OrderBy(c => c.OrderNum)) {
+                                @foreach (Category category in categories.Where(c => c.ParentId == null).OrderBy(c => c.OrderNum))
+                                {
                                     <li>
                                         <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
                                         <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })">@category.Name</a>
-                                        @if (category.Category1 != null && category.Category1.Count > 0) {
+                                        @if (category.Category1 != null && category.Category1.Count > 0)
+                                        {
                                             <ul>
-                                                @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum)) {
+                                                @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
+                                                {
                                                     <li>
-                                                        @if (subCategory.Category1 == null || subCategory.Category1.Count == 0) {
+                                                        @if (subCategory.Category1 == null || subCategory.Category1.Count == 0)
+                                                        {
                                                             <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a>
                                                         }
-                                                        else {
+                                                        else
+                                                        {
                                                             <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
                                                             <a href="https://iqit-commerce.com/ps17/en/4-tops">@subCategory.Name</a>
                                                             <ul>
-                                                                @foreach (Category subSubCategory in subCategory.Category1.OrderBy(c => c.OrderNum)) {
+                                                                @foreach (Category subSubCategory in subCategory.Category1.OrderBy(c => c.OrderNum))
+                                                                {
                                                                     <li>
                                                                         <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subSubCategory.Name</a>
                                                                     </li>
@@ -194,15 +234,16 @@
                                         }
                                     </li>
                                 }
-                                <li>
-                                    <a href="@Url.Action("About","Home",new { area = "" })">Giới thiệu shop</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("SalesPolicy","Home",new { area = "" })">Chính sách bán hàng</a>
-                                </li>
+                                @foreach (Article article in ViewBag.Articles)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Details", "Article", new { area = "", alias = article.Alias })">@article.Title</a>
+                                    </li>
+                                }
+
                                 @*<li>
-                                    <a href="@Url.Action("ShoppingGuide","Home",new { area = "" })">Hướng dẫn mua sắm</a>
-                                </li>*@
+                                        <a href="@Url.Action("ShoppingGuide","Home",new { area = "" })">Hướng dẫn mua sắm</a>
+                                    </li>*@
                             </ul>
                         </div>
                     </div>

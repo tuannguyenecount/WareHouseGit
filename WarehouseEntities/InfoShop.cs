@@ -33,18 +33,9 @@ namespace Warehouse.Entities
         [StringLength(256)]
         public string Fanpage { get; set; }
 
-        public string Introduce_Shop { get; set; }
-
-        public string Contact_Info { get; set; }
-
         public string Google_Map { get; set; }
-
-        public string TextFooter { get; set; }
 
         public string GoogleAnalytics { get; set; }
 
-        public string SalesPolicy { get; set; }
-
-        public string ShoppingGuide { get; set; }
     }
 }

@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Article.cs" />
     <Compile Include="AspNetRole.cs" />
     <Compile Include="AspNetUser.cs" />
     <Compile Include="AspNetUserClaim.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Country.cs" />
     <Compile Include="District.cs" />
     <Compile Include="historyBankCharging.cs" />
+    <Compile Include="ImagesProduct.cs" />
     <Compile Include="InfoShop.cs" />
     <Compile Include="MailBox.cs" />
     <Compile Include="News.cs" />

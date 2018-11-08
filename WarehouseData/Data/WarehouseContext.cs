@@ -33,6 +33,8 @@ namespace Warehouse.Data.Data
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<Subscriber> Subscribers { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<ImagesProduct> ImagesProducts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -141,10 +143,6 @@ namespace Warehouse.Data.Data
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Image)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Slider)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Product>()

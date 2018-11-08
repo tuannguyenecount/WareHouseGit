@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ArticleDal.cs" />
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\NewsDal.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Data\OrderDal.cs" />
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
+    <Compile Include="Interface\IArticleDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />
@@ -86,13 +88,17 @@
     <Compile Include="Interface\IOrderDetailDal.cs" />
     <Compile Include="Interface\IOrderDal.cs" />
     <Compile Include="Interface\IProductDal.cs" />
-    <Compile Include="Migrations\201811030756218_deleteColumnSizeAndColor.cs" />
-    <Compile Include="Migrations\201811030756218_deleteColumnSizeAndColor.Designer.cs">
-      <DependentUpon>201811030756218_deleteColumnSizeAndColor.cs</DependentUpon>
+    <Compile Include="Migrations\201811081541082_addTableArticleandImagesProduct.cs" />
+    <Compile Include="Migrations\201811081541082_addTableArticleandImagesProduct.Designer.cs">
+      <DependentUpon>201811081541082_addTableArticleandImagesProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811030759271_deleteColumnSizeAndColor2.cs" />
-    <Compile Include="Migrations\201811030759271_deleteColumnSizeAndColor2.Designer.cs">
-      <DependentUpon>201811030759271_deleteColumnSizeAndColor2.cs</DependentUpon>
+    <Compile Include="Migrations\201811081554191_updatedb_20181108_10_53_PM.cs" />
+    <Compile Include="Migrations\201811081554191_updatedb_20181108_10_53_PM.Designer.cs">
+      <DependentUpon>201811081554191_updatedb_20181108_10_53_PM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811081639158_updatedb_20181108_10_PM.cs" />
+    <Compile Include="Migrations\201811081639158_updatedb_20181108_10_PM.Designer.cs">
+      <DependentUpon>201811081639158_updatedb_20181108_10_PM.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,14 +106,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811030756218_deleteColumnSizeAndColor.resx">
-      <DependentUpon>201811030756218_deleteColumnSizeAndColor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811030759271_deleteColumnSizeAndColor2.resx">
-      <DependentUpon>201811030759271_deleteColumnSizeAndColor2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Warehouse.Common\Warehouse.Common.csproj">
@@ -122,6 +120,17 @@
       <Project>{6dcff014-fc70-4d2b-bcd5-c6e6dfb7d851}</Project>
       <Name>Warehouse.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811081541082_addTableArticleandImagesProduct.resx">
+      <DependentUpon>201811081541082_addTableArticleandImagesProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811081554191_updatedb_20181108_10_53_PM.resx">
+      <DependentUpon>201811081554191_updatedb_20181108_10_53_PM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811081639158_updatedb_20181108_10_PM.resx">
+      <DependentUpon>201811081639158_updatedb_20181108_10_PM.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -807,7 +807,7 @@
     <Content Include="Views\Product\Result.cshtml" />
     <Content Include="Views\Product\_GridPartial.cshtml" />
     <Content Include="Views\Product\_ListPartial.cshtml" />
-    <Content Include="Views\Shared\Article.cshtml" />
+    <Content Include="Views\Article\Details.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
@@ -834,7 +834,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Photos\Slides\" />
-    <Folder Include="Views\Article\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

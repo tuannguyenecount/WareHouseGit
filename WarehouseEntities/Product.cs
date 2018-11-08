@@ -34,9 +34,6 @@ namespace Warehouse.Entities
         [StringLength(300)]
         public string Image { get; set; }
 
-        [StringLength(100)]
-        public string Slider { get; set; }
-
         [StringLength(500)]
         public string Description { get; set; }
 

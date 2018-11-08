@@ -7,13 +7,13 @@ namespace Warehouse.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class deleteColumnSizeAndColor2 : IMigrationMetadata
+    public sealed partial class updatedb_20181108_10_53_PM : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(deleteColumnSizeAndColor2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updatedb_20181108_10_53_PM));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811030759271_deleteColumnSizeAndColor2"; }
+            get { return "201811081554191_updatedb_20181108_10_53_PM"; }
         }
         
         string IMigrationMetadata.Source
