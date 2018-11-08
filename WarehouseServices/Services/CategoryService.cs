@@ -53,15 +53,18 @@ namespace Warehouse.Services.Services
         {
             return _categoryDal.Get(c => c.Alias_SEO == alias);
         }
-
-        public List<Category> Sorting(List<Category> categories, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Ascending)
-        {
-            return _categoryDal.SortList(categories, ENUM.SORT_TYPE.Ascending);
-        }
-
+        /// <summary>
+        /// Count All Category
+        /// </summary>
+        /// <returns></returns>
         public int CountAll()
         {
             return _categoryDal.Count();
+        }
+
+        public List<Category> GetParents()
+        {
+            return _categoryDal.GetList(c => c.ParentId == null).OrderBy(c => c.OrderNum).ToList();
         }
 
         #endregion

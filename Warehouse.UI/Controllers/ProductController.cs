@@ -49,12 +49,10 @@ namespace Warehouse.Controllers
             }
             ProductListModel model = new ProductListModel
             {
-                Products = products.ToPagedList(page ?? 1, pageSize)//.Skip((curentpage - 1) * pageSize).Take(pageSize),
+                Products = products.ToPagedList(page ?? 1, pageSize)
             };
 
-           
             return View(model);
-            // return View();
         }
 
         [Route("{alias}.html")]

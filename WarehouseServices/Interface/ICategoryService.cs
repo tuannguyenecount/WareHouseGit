@@ -13,7 +13,8 @@ namespace Warehouse.Services.Interface
         List<Category> GetAll();
         Category GetById(int Id);
         Category GetByAlias(string alias);
-        List<Category> Sorting(List<Category> products, ENUM.SORT_TYPE sortType);
         int CountAll();
+
+        List<Category> GetParents();
     }
 }

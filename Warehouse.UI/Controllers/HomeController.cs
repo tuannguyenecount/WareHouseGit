@@ -65,50 +65,6 @@ namespace Warehouse.Controllers
             return PartialView();
         }
 
-        [Route("gioi-thieu-shop.html")]
-        public ViewResult About()
-        {
-            InfoShop infoShop = Session["InfoShop"] as InfoShop;
-            ViewBag.Title = "Giới Thiệu " + infoShop.ShopName;
-            object model = infoShop.Introduce_Shop;
-            return View("Article", model);
-        }
-
-        [Route("chinh-sach-ban-hang.html")]
-        public ViewResult SalesPolicy()
-        {
-            InfoShop infoShop = Session["InfoShop"] as InfoShop;
-            ViewBag.Title = "Chính Sách Bán Hàng";
-            object model = infoShop.SalesPolicy;
-            return View("Article", model);
-        }
-
-        [Route("huong-dan-mua-hang.html")]
-        public ViewResult ShoppingGuide()
-        {
-            InfoShop infoShop = Session["InfoShop"] as InfoShop;
-            ViewBag.Title = "Hướng Dẫn Mua Hàng";
-            object model = infoShop.ShoppingGuide;
-            return View("Article", model);
-        }
-
-
-        [ChildActionOnly]
-        //[OutputCache(Duration = 3600)]
-        public PartialViewResult _HeaderPartial()
-        {
-            // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
-            ViewBag.Categories = _categoryService.Sorting(_categoryService.GetAll(), Common.ENUM.SORT_TYPE.Ascending).ToList();
-            return PartialView(Session["InfoShop"]);  // truyền thêm Session lưu thông tin của shop
-        }
-
-        [ChildActionOnly]
-        //[OutputCache(Duration = 3600)]
-        public PartialViewResult _FooterPartial()
-        {
-            return PartialView(Session["InfoShop"]);
-        }
-
         [OutputCache(Duration = 86400)]
         public PartialViewResult _GoogleMapPartial()
         {

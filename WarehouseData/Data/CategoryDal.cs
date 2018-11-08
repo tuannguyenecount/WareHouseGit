@@ -21,17 +21,6 @@ namespace Warehouse.Data.Data
                     ? context.Set<Category>().Include(p => p.Category1).Include(p=>p.Category2).ToList()
                     : context.Set<Category>().Include(p => p.Category1).Include(p => p.Category2).Where(filter).ToList();
             }
-        }
-
-        public List<Category> SortList(List<Category> entities, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
-        {
-            using (var context = new WarehouseContext())
-            {
-                return sortType == ENUM.SORT_TYPE.Ascending
-                    ? entities.OrderBy(c=>c.OrderNum).ToList()
-                    : entities.OrderByDescending(c=>c.OrderNum).ToList();
-            }
-        }
-      
+        }      
     }
 }
