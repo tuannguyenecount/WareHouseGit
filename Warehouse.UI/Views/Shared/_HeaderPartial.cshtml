@@ -155,7 +155,7 @@
                                                         Thông tin shop <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
                                                     </span>
                                                 </a>
-                                                <div class="cbp-hrsub col-4 cbp-show">
+                                                <div class="cbp-hrsub col-3 cbp-show">
                                                     <div class="cbp-hrsub-inner">
                                                         <div class="container iqitmegamenu-submenu-container">
                                                             <div class="row menu_row menu-element  first_rows menu-element-id-1">
@@ -164,18 +164,10 @@
                                                                         <div class="row cbp-categories-row">
                                                                             <div class="col-12">
                                                                                 <div class="cbp-category-link-w">
-                                                                                    <a href="javascript:void(0)" class="cbp-column-title nav-link cbp-category-title">Xem thông tin</a>
-
-                                                                                    <ul class="cbp-links cbp-category-tree">
-                                                                                        @foreach (Article article in ViewBag.Articles)
-                                                                                        {
-                                                                                            <li>
-                                                                                                <div class="cbp-category-link-w">
-                                                                                                    <a href="@Url.Action("Details", "Article", new { aliasCategory = article.Alias })">@article.Title</a>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                        }
-                                                                                    </ul>
+                                                                                    @foreach (Article article in ViewBag.Articles) {
+                                                                                    <a  href="@Url.Action("Details", "Article", new { aliasCategory = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
+                                                                                    
+                                                                                    }
 
                                                                                 </div>
                                                                             </div>
