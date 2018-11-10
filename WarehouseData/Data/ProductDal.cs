@@ -23,6 +23,14 @@ namespace Warehouse.Data.Data
             }
         }
 
+        public List<Product> GetByCategory(int Id)
+        {
+            using (var context = new WarehouseContext())
+            {
+                return context.Set<Product>().Include(p => p.Category).Where(p=>p.CategoryId == Id).ToList();
+            }           
+        }
+
         public IQueryable<Product> SortList(IQueryable<Product> entities, Expression<Func<Product, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
         {
             using (var context = new WarehouseContext())
@@ -48,5 +56,6 @@ namespace Warehouse.Data.Data
                         .ToList();
             }
         }
+
     }
 }

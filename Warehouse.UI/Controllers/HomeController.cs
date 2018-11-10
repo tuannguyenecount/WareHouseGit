@@ -52,7 +52,7 @@ namespace Warehouse.Controllers
                 }).ToList(); ;
 
             ViewBag.Slides = _slideService.GetAll().Where(s=>s.Status == true).OrderBy(s=>s.Order);
-            ViewBag.News = _newsService.GetNews();
+            ViewBag.News = _newsService.GetNews().Where(m=>m.Status == true);
             return View();
         }
 

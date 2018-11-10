@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Sản phẩm danh mục " + ViewBag.Name;
+﻿@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = ViewBag.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "category";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-category tax-display-disabled category-id-18 category-accessories category-id-parent-3 category-depth-level-3 body-desktop-header-style-w-4 ";
@@ -7,7 +9,21 @@
 
 @section scripts
 {
-
+    <script>
+        $(function () {
+            $(document).on("click", ".sort", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("href"),
+                    method: "Post",
+                    success: function (data) {
+                        $("#products").html(data);
+                    }
+                });
+            });
+           
+        });
+    </script>
 }
 
 <div class="container">
@@ -15,31 +31,18 @@
         <div class="row align-items-center">
             <div class="col">
                 <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
-
-
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/">
+                        <a itemprop="item" href="/">
                             <span itemprop="name">Trang chủ</span>
                         </a>
                         <meta itemprop="position" content="1">
-                    </li>
-
-                    
+                    </li>                  
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/3-women">
-                            <span itemprop="name">Women</span>
+                        <a itemprop="item" href="#">
+                            <span itemprop="name">@ViewBag.Title</span>
                         </a>
                         <meta itemprop="position" content="2">
                     </li>
-
-
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/18-accessories">
-                            <span itemprop="name">Accessories</span>
-                        </a>
-                        <meta itemprop="position" content="3">
-                    </li>
-
                 </ol>
             </div>
             <div class="col col-auto"> </div>
@@ -51,44 +54,17 @@
     <aside id="notifications"></aside>
     <div id="content-wrapper">
         <section id="main">
-            <h1 class="h1 page-title"><span>Accessories</span></h1>
-            @if (Request.QueryString["productListView"] == null || Request.QueryString["productListView"] == "grid")
-            {
-                <section id="products">
-                    @Html.Partial("_GridPartial")
-                </section>
-            }
-            else
-            {
-                <section id="products">
-                    @Html.Partial("_ListPartial")
-                </section>
-            }
+            <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1>
+            <div id="js-product-list-bottom">
+                <div id="js-product-list-bottom"></div>
+            </div>
+            <section id="products">
+                @Html.Partial("_GridPartial")
+                <div id="infinity-loader-icon" style="text-align:center;display:none">
+                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+            </section>
+
         </section>
     </div>
 </div>
-
-@*@Html.Partial("_QuickViewModalPartial")*@
-
-@*<div>
-        <table class="table table-responsive">
-            <tr>
-                <td>Product Name</td>
-                <td>Product Price</td>
-                <td>Product in Stock</td>
-                <td></td>
-            </tr>
-            @foreach (var product in Model.Products)
-            {
-                <tr>
-                    <td>@product.Name</td>
-                    <td><a class="btn btn-xs btn-success" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id">add to cart</a></td>
-                </tr>
-            }
-        </table>
-    </div>
-    <product-list-pager current-category="@Model.CurrentCategory"
-                        current-page="@Model.CurrentPage"
-                        page-count="@Model.PageCount"
-                        page-size="@Model.PageSize">
-    </product-list-pager>*@

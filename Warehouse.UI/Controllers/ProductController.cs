@@ -17,11 +17,13 @@ namespace Warehouse.Controllers
     {
         private IProductService _productService;
         private ICategoryService _categoryService;
+
         public ProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
             _categoryService = categoryService;
         }
+
         /// <summary>
         ///  List Product by Category
         /// </summary>
@@ -29,10 +31,8 @@ namespace Warehouse.Controllers
         /// <param name="sort"></param>
         /// <returns></returns>
         [Route("danh-muc/{aliasCategory}.html")]
-        public ActionResult Index(string aliasCategory, string sortName, ENUM.SORT_TYPE? sortType, int? page)
+        public ActionResult Index(string aliasCategory, string productListView,  string sortName, ENUM.SORT_TYPE? sortType, int? page)
         {
-
-            int pageSize = 5;
             Category category = _categoryService.GetByAlias(aliasCategory);
             if (category == null)
             {
@@ -40,17 +40,36 @@ namespace Warehouse.Controllers
             }
 
             ViewBag.Name = aliasCategory;
-            var products = _productService.GetByCategory(category.Id).AsQueryable();
+            var products = _productService.GetByCategory(category.Id)
+                            .Where(p => p.Status == true).OrderByDescending(p => p.Id).ToList();
 
             if (sortName != null)
             {
-                products = _productService.Sorting(products, sortName, sortType ?? ENUM.SORT_TYPE.Ascending);
-
+                products = _productService.Sorting(products.AsQueryable(), sortName, sortType ?? ENUM.SORT_TYPE.Ascending).ToList();
             }
-            ProductListModel model = new ProductListModel
+
+            ViewBag.CountAll = products.Count;
+            ViewBag.Start = (((page ?? 1) - 1) * 20) + 1;
+            IPagedList<GridProductViewModel> model = products.Select(p =>
+                            new GridProductViewModel()
+                            {
+                                Name = p.Name,
+                                Alias = p.Alias_SEO,
+                                Image = p.Image,
+                                Price = (int)(p.PriceNew ?? p.Price),
+                                FlagColor = "#eba53d",
+                                ProductFlag = p.Category.Name
+                            }).ToPagedList(page ?? 1, 20);
+            if (!string.IsNullOrEmpty(productListView) || sortName != null )
             {
-                Products = products.ToPagedList(page ?? 1, pageSize)
-            };
+                ViewBag.productListView = productListView;
+                switch (productListView)
+                {
+                    case "grid": return PartialView("_GridPartial", model);
+                    case "list": return PartialView("_ListPartial", model);
+                    default: return PartialView("_GridPartial", model); 
+                }
+            }
 
             return View(model);
         }
