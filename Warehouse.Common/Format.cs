@@ -12,6 +12,12 @@ namespace Warehouse.Common
         {
             return (price ?? 0).ToString("#,##0").Replace(',', '.') + " VNĐ";
         }
-
+        public static string FormatDateTime(DateTime dateTime)
+        {
+            return dateTime.Day.ToString() + ", tháng " 
+                        + dateTime.Month.ToString() + " " 
+                        + dateTime.Year.ToString() + ", " 
+                        + dateTime.Hour.ToString() + ":" + dateTime.Minute.ToString();
+        }
     }
 }

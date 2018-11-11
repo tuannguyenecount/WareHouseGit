@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,33 +27,47 @@ namespace Warehouse.Controllers
             _orderService = orderService;
         }
 
-        [Route("")]
+  
         public ActionResult Index()
         {
             ViewBag.NewProducts = _productService.GetNewProducts().Select(
-                p=> new GridProductViewModel()
+                p => new GridProductViewModel()
                 {
-                   Name = p.Name,
-                   Alias = p.Alias_SEO,
-                   Image = p.Image,
-                   Price = (int)(p.PriceNew ?? p.Price),
-                   FlagColor = "#969696",
-                   ProductFlag = "new"
+                    Id = p.Id,
+                    Name = p.Name,
+                    Alias = p.Alias_SEO,
+                    Image = p.Image,
+                    SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null), 
+                    Price = (int)(p.PriceNew ?? p.Price),
+                    FlagColor = "#969696",
+                    ProductFlag = "new"
                 }).ToList();
 
             ViewBag.HotProductsInWeek = _productService.GetHotProductsInWeek().Select(
                 p => new GridProductViewModel()
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Alias = p.Alias_SEO,
-                    Image = p.Image,
+                    Image =  p.Image,
+                    SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                     Price = (int)(p.PriceNew ?? p.Price),
                     FlagColor = "#ad1f00",
                     ProductFlag = "hot"
                 }).ToList(); ;
 
-            ViewBag.Slides = _slideService.GetAll().Where(s=>s.Status == true).OrderBy(s=>s.Order);
-            ViewBag.News = _newsService.GetNews().Where(m=>m.Status == true);
+
+            ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true).OrderBy(s => s.Order);
+
+            ViewBag.News = _newsService.GetNews(10).Select(n => new NewsListViewModel()
+            {
+                Id = n.Id,
+                Alias = n.Alias_SEO,
+                Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/News/" + n.Image,
+                Introduce = n.Introduce,
+                Title = n.Title,
+                DateSubmitted = n.DateSubmitted ?? new DateTime(2018, 01, 01)
+            });
             return View();
         }
 

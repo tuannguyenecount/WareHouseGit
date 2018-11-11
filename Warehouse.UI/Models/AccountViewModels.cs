@@ -67,6 +67,18 @@ namespace Warehouse.Models
         public bool RememberMe { get; set; }
     }
 
+    public class AdminLoginViewModel
+    {
+        [Required(ErrorMessage = "Bạn chưa nhập tài khoản")]
+        [Display(Name = "Email")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
+        public string Password { get; set; }
+    }
+
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Bạn chưa nhập email")]

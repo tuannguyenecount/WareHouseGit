@@ -9,6 +9,7 @@ namespace Warehouse.Data.Interface
 {
     public interface INewsDal : IEntityRepository<News>
     {
-        List<News> GetNews();
+        List<News> GetList();
+        List<News> GetNews(int take = 8);
     }
 }

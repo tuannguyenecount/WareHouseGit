@@ -25,9 +25,10 @@ namespace Warehouse
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //new Task(() => AddInfoShop()).Start();
-            Application["WidthImageProduct"] = ConfigurationManager.AppSettings["WidthImageProduct"] != null ? ConfigurationManager.AppSettings["WidthImageProduct"].ToString() : "230";
-            Application["HeightImageProduct"] = ConfigurationManager.AppSettings["HeightImageProduct"] != null ? ConfigurationManager.AppSettings["HeightImageProduct"].ToString() : "300";
+            Application["WidthImageProduct"] = ConfigurationManager.AppSettings["WidthImageProduct"].ToString();
+            Application["HeightImageProduct"] = ConfigurationManager.AppSettings["HeightImageProduct"].ToString();
+            Application["WidthImageNews"] = ConfigurationManager.AppSettings["WidthImageNews"].ToString();
+            Application["HeightImageNews"] = ConfigurationManager.AppSettings["HeightImageNews"].ToString();
         }
 
         protected void Session_Start()

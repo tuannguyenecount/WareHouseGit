@@ -64,5 +64,7 @@ namespace Warehouse.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Property_Product> Property_Product { get; set; }
+
+        public virtual ICollection<ImagesProduct> ImagesProducts { get; set; }
     }
 }

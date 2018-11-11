@@ -32,6 +32,12 @@ namespace Warehouse.Controllers
             UserManager = userManager;
         }
 
+        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+        }
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -170,6 +176,47 @@ namespace Warehouse.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        [AllowAnonymous]
+        [Route("AdminLogin")]
+        public ActionResult LoginAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AdminLogin(AdminLoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, shouldLockout: true);
+
+            if(UserManager.FindByName(model.UserName).Roles == null || UserManager.FindByName(model.UserName).Roles.FirstOrDefault(r=>r.RoleId == "Admin") == null)
+            {
+                result = SignInStatus.Failure;
+            }
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = Url.Action("Index", "Home", new { area = "Admin" }), RememberMe = false });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");
+                    return View(model);
+            }
         }
 
         //

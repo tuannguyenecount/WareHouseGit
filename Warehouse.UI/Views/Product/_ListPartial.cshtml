@@ -5,7 +5,9 @@
 
 @Html.Partial("_FilterPartial")
 <div id="">
-    <div id="facets-loader-icon"><i class="fa fa-circle-o-notch fa-spin"></i></div>
+    <div id="facets-loader-icon">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+    </div>
     <div id="js-product-list">
         <div class="products row products-list">
             @foreach (var product in Model)
@@ -31,10 +33,10 @@
                             <div class="col-12 col-sm-auto col-buy">
                                 <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
                                     <meta itemprop="priceCurrency" content="USD">
-                                    <span itemprop="price" class="product-price" content="30.5">$30.50</span>
+                                    <span itemprop="price" class="product-price">@(Warehouse.Common.Format.FormatCurrencyVND(product.Price))</span>
                                 </div>
                                 <div class="product-add-cart">
-                                    <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=87&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
+                                    <form action="#" method="post">
                                         <div class="input-group input-group-add-cart">
                                             <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1" />
                                             <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
@@ -45,11 +47,11 @@
                                 </div>
                                 <div class="product-functional-buttons product-functional-buttons-bottom">
                                     <div class="product-functional-buttons-links">
-                                        <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="87" data-id-product-attribute="0" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist"><i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="87" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                        <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-url="#" data-toggle="tooltip" title="" data-original-title="Add to wishlist"><i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i></a>
+                                        <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-url="#" data-toggle="tooltip" title="" data-original-title="Compare">
                                             <i class="fa fa-random" aria-hidden="true"></i>
                                         </a>
-                                        <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                                        <a href="@Url.Action("_ContentQuickViewModal","Product",new { Id = product.Id })" data-toggle="modal" data-target="#quickview-modal">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -62,7 +64,7 @@
         </div>
         <nav class="pagination">
             @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { page, sortName = ViewBag.sortName, curentpage = ViewBag.sortType }),
+                new { page, productListView = "list", sortName = ViewBag.sortName, curentpage = ViewBag.sortType }),
                 new PagedListRenderOptions() { ContainerDivClasses = new string[] { "pagination" },
                     UlElementClasses = new string[] { "page-list clearfix text-center" },
                     LiElementClasses = new string[] { "page-list clearfix text-center" },

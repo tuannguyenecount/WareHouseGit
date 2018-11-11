@@ -164,9 +164,10 @@
                                                                         <div class="row cbp-categories-row">
                                                                             <div class="col-12">
                                                                                 <div class="cbp-category-link-w">
-                                                                                    @foreach (Article article in ViewBag.Articles) {
-                                                                                    <a  href="@Url.Action("Details", "Article", new { aliasCategory = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
-                                                                                    
+                                                                                    @foreach (Article article in ViewBag.Articles)
+                                                                                    {
+                                                                                        <a href="@Url.Action("Details", "Article", new { aliasCategory = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
+
                                                                                     }
 
                                                                                 </div>
@@ -179,7 +180,11 @@
                                                     </div>
                                                 </div>
                                             </li>
-
+                                            <li class="cbp-hrmenu-tab">
+                                                <a class="nav-link" href="@Url.Action("Index","Blog")">
+                                                    <span class="cbp-tab-title">Blog Tin Tức</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -232,10 +237,10 @@
                                         <a href="@Url.Action("Details", "Article", new { area = "", alias = article.Alias })">@article.Title</a>
                                     </li>
                                 }
-
-                                @*<li>
-                                        <a href="@Url.Action("ShoppingGuide","Home",new { area = "" })">Hướng dẫn mua sắm</a>
-                                    </li>*@
+                                <li>
+                                    <a href="@Url.Action("Index", "Blog", new { area = "" })">Blog tin tức</a>
+                                </li>
+                                
                             </ul>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-﻿@*@model List<GridProductViewModel>*@
+﻿@model List<GridProductViewModel>
 
 @foreach (var product in Model)
 {
@@ -6,10 +6,11 @@
         <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" data-id-product="87" data-id-product-attribute="0" itemscope="" itemtype="http://schema.org/Product">
             <div class="thumbnail-container">
                 <a href="@Url.Action("Details","Product",new { alias = product.Alias})" class="thumbnail product-thumbnail">
-
-                    <img data-src="https://iqit-commerce.com/ps17/289-home_default/printed-summer-dress.jpg" src="https://iqit-commerce.com/ps17/289-home_default/printed-summer-dress.jpg" alt="" data-full-size-image-url="https://iqit-commerce.com/ps17/289-thickbox_default/printed-summer-dress.jpg" width="350" height="452" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true">
-
-                    <img src="https://iqit-commerce.com/ps17/290-home_default/printed-summer-dress.jpg" data-src="https://iqit-commerce.com/ps17/290-home_default/printed-summer-dress.jpg" width="350" height="452" alt=" 2" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true">
+                    <img data-src="@product.FullUrlImage" src="@product.FullUrlImage" alt="" data-full-size-image-url="@product.ZoomImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true" />
+                    @if (product.SecondImage != null)
+                    {
+                    <img data-src="@product.FullUrlSecondImage" src="@product.FullUrlSecondImage" alt="" data-full-size-image-url="@product.ZoomSecondImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true" />
+                    }
                 </a>
                 <ul class="product-flags">
                     <li class="product-flag" style="background:@product.FlagColor">
@@ -18,29 +19,29 @@
                 </ul>
                 <div class="product-functional-buttons product-functional-buttons-bottom">
                     <div class="product-functional-buttons-links">
-                        <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-id-product="87" data-id-product-attribute="0" data-url="#" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                        <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-url="#" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
                             <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-id-product="87" data-url="#" data-toggle="tooltip" title="" data-original-title="Compare">
+                        <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-url="#" data-toggle="tooltip" title="" data-original-title="Compare">
                             <i class="fa fa-random" aria-hidden="true"></i>
                         </a>
 
-                        <a class="js-quick-view-iqit" href="#" data-link-action="quickview" data-toggle="tooltip" title="" data-original-title="Quick view">
+                        <a href="@Url.Action("_ContentQuickViewModal","Product",new { Id = product.Id })" data-toggle="modal" data-target="#quickview-modal">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
 
                     </div>
                 </div>
-               
+
             </div>
             <div class="product-description">
                 <h3 class="h3 product-title" itemprop="name">
                     <a href="@Url.Action("Details","Product",new { alias = product.Alias})">@product.Name</a>
                 </h3>
                 <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                    <span itemprop="price" class="product-price" >@(Warehouse.Common.Format.FormatCurrencyVND(product.Price))</span>
+                    <span itemprop="price" class="product-price">@(Warehouse.Common.Format.FormatCurrencyVND(product.Price))</span>
                 </div>
-               
+
                 <div class="product-add-cart">
                     <form action="#" method="post">
                         <input type="hidden" name="id_product" value="87">

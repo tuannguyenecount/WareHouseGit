@@ -40,9 +40,9 @@ namespace Warehouse.Services.Services
             _newsDal.Delete(new News { Id = id });
         }
 
-        public List<News> GetNews()
+        public List<News> GetNews(int take)
         {
-            return _newsDal.GetNews();
+            return _newsDal.GetNews(take);
         }
     }
 }

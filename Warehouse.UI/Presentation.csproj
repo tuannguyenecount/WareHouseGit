@@ -302,6 +302,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -326,11 +328,13 @@
     <Compile Include="Models\ImageUtilities.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
-    <Compile Include="Models\News\NewsListModel.cs" />
+    <Compile Include="Models\News\NewsListViewModel.cs" />
+    <Compile Include="Models\Product\DetailsProductViewModel.cs" />
     <Compile Include="Models\Product\GridProductViewModel.cs" />
     <Compile Include="Models\Product\ProductAddViewModel.cs" />
     <Compile Include="Models\Product\ProductListModel.cs" />
     <Compile Include="Models\Product\ProductUpdateViewModel.cs" />
+    <Compile Include="Models\Product\QuickViewProductViewModel.cs" />
     <Compile Include="Models\RecaptchaResult.cs" />
     <Compile Include="Models\Statistical.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -352,6 +356,11 @@
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\login-form_2\css\style.css" />
+    <Content Include="Content\login-form_2\index.html" />
+    <Content Include="Content\login-form_2\js\index.js" />
+    <Content Include="Content\login-form_2\license.txt" />
+    <Content Include="Content\login-form_2\README.txt" />
     <Content Include="Content\mCSB_buttons.png" />
     <Content Include="Content\normalize.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -685,6 +694,8 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -756,6 +767,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\zoom-image.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -823,17 +835,19 @@
     <Content Include="Views\Shared\_ShoppingCartPartial.cshtml" />
     <Content Include="Views\Home\_SliderPartial.cshtml" />
     <Content Include="Views\Home\_WidgetPartial.cshtml" />
-    <Content Include="Views\Home\_NewProductsPartial.cshtml" />
     <Content Include="Views\Home\_GridProductPartial.cshtml" />
     <Content Include="Views\Home\_StatisticalPartial.cshtml" />
     <Content Include="Views\Home\_CustomersTestimonialsPartial.cshtml" />
     <Content Include="Views\Home\_GoogleMapPartial.cshtml" />
     <Content Include="Views\Home\_BlogPartial.cshtml" />
     <Content Include="Views\Product\_FilterPartial.cshtml" />
+    <Content Include="Views\Product\_ContentQuickViewModal.cshtml" />
+    <Content Include="Views\Account\LoginAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Photos\Slides\" />
   </ItemGroup>
   <ItemGroup>

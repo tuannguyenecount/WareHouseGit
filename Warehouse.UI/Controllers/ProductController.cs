@@ -53,13 +53,16 @@ namespace Warehouse.Controllers
             IPagedList<GridProductViewModel> model = products.Select(p =>
                             new GridProductViewModel()
                             {
+                                Id = p.Id,
                                 Name = p.Name,
                                 Alias = p.Alias_SEO,
                                 Image = p.Image,
+                                SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                                 Price = (int)(p.PriceNew ?? p.Price),
                                 FlagColor = "#eba53d",
                                 ProductFlag = p.Category.Name
                             }).ToPagedList(page ?? 1, 20);
+
             if (!string.IsNullOrEmpty(productListView) || sortName != null )
             {
                 ViewBag.productListView = productListView;
@@ -88,8 +91,27 @@ namespace Warehouse.Controllers
             Random r = new Random();
             int skip = count - 10 > 0 ? r.Next(0, count - 10) : 0;
             ViewBag.productsRelated = productsRelated.Skip(skip).Take(10).ToList();
-            string splitString = ConfigurationManager.AppSettings["split_string"].ToString();
+
             return View(product);
+        }
+
+        public ActionResult _ContentQuickViewModal(int Id)
+        {
+            Product product = _productService.GetById(Id);
+            if (product == null)
+                return Content("<p>Sản phẩm không tồn tại!</p>");
+            QuickViewProductViewModel quickViewProductViewModel = new QuickViewProductViewModel()
+            {
+                Id = product.Id,
+                Alias = product.Alias_SEO,
+                FlagColor = "#eba53d",
+                ProductFlag = product.Category.Name,
+                Name = product.Name,
+                Image = product.Image,
+                Description = product.Description,
+                Price = (int)(product.PriceNew ?? product.Price)
+            };
+            return PartialView(quickViewProductViewModel);
         }
 
         //[Route("ket-qua-tim-kiem.html")]

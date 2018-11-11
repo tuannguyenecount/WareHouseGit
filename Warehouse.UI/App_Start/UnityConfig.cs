@@ -1,3 +1,5 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
@@ -40,7 +42,8 @@ namespace Warehouse
             container.RegisterType<IArticleService, ArticleService>();
             container.RegisterType<IArticleDal, ArticleDal>();
 
-
+            container.RegisterType<ApplicationSignInManager, ApplicationSignInManager>();
+            container.RegisterType<ApplicationUserManager, ApplicationUserManager>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

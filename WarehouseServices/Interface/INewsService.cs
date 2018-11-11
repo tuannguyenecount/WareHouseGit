@@ -12,7 +12,7 @@ namespace Warehouse.Services.Interface
 
         List<News> GetAll();
 
-        List<News> GetNews();
+        List<News> GetNews(int take);
 
         News GetById(int id);
 

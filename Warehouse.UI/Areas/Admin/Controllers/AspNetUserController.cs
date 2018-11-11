@@ -14,13 +14,13 @@ using Microsoft.AspNet;
 using System.IO;
 using System.Configuration;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AspNetUserController : Controller
     {
-        private hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
         public JsonResult GetNameAndEmailUser(string term)
@@ -122,7 +122,7 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            ApplicationUser aspNetUser = db.AspNetUsers.Find(id);
             if (aspNetUser == null)
             {
                 return Redirect("/pages/404");
@@ -132,9 +132,9 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FullName,Phone,Address,Gender")] AspNetUser model)
+        public ActionResult Edit([Bind(Include = "Id,FullName,Phone,Address,Gender")] ApplicationUser model)
         {
-            AspNetUser user = db.AspNetUsers.Find(model.Id);
+            ApplicationUser user = db.AspNetUsers.Find(model.Id);
             try
             {           
                 user.FullName = model.FullName;
@@ -156,7 +156,7 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangeImage(string id, string base64String)
         {
-            AspNetUser user = await db.AspNetUsers.FindAsync(id);
+            ApplicationUser user = await db.AspNetUsers.FindAsync(id);
             if (user == null)
             {
                 ModelState.AddModelError("LoiDoiImage", "Thành viên này không tồn tại!");
@@ -201,9 +201,10 @@ namespace Warehouse.Areas.Admin.Controllers
 
         public ViewResult Lock(string userId)
         {
-           AspNetUser aspNetUser = db.AspNetUsers.Find(userId);
+            ApplicationUser aspNetUser = db.AspNetUsers.Find(userId);
            return View(aspNetUser);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Lock")]
@@ -211,7 +212,7 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             try
             {
-                AspNetUser aspNetUser = db.AspNetUsers.Find(userId);
+                ApplicationUser aspNetUser = db.AspNetUsers.Find(userId);
                 aspNetUser.LockoutEndDateUtc = DateTime.Parse(LockoutEndDateUtc);
                 db.Entry(aspNetUser).State = EntityState.Modified;
                 db.SaveChanges();
@@ -231,13 +232,13 @@ namespace Warehouse.Areas.Admin.Controllers
 
         public ViewResult UnLocked(string id)
         {
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            ApplicationUser aspNetUser = db.AspNetUsers.Find(id);
             return View(aspNetUser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UnLocked(AspNetUser user)
+        public ActionResult UnLocked(ApplicationUser user)
         {
             if (Session["Revalidate"] == null)
             {
@@ -246,7 +247,7 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             try
             {
-                AspNetUser aspNetUser = db.AspNetUsers.Find(user.Id);
+                ApplicationUser aspNetUser = db.AspNetUsers.Find(user.Id);
                 aspNetUser.LockoutEndDateUtc = DateTime.Today;
                 db.Entry(aspNetUser).State = EntityState.Modified;
                 db.SaveChanges();
@@ -261,7 +262,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
         public ViewResult ChangePermission(string id)
         {
-             AspNetUser aspNetUser = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
+            ApplicationUser aspNetUser = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
              ViewBag.Roles = new SelectList(db.AspNetRoles.ToList(), "Id", "Name", aspNetUser.AspNetRoles.Count > 0 ? aspNetUser.AspNetRoles.First().Id : null);
 
             return View(aspNetUser);
@@ -271,8 +272,8 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePermission(string id, string Quyen)
         {
-            AspNetRole role = db.AspNetRoles.Include(m => m.AspNetUsers).Single(m => m.Id == Quyen);
-            AspNetUser user = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
+            IdentityRole role = db.AspNetRoles.Include(m => m.AspNetUsers).Single(m => m.Id == Quyen);
+            ApplicationUser user = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
             
             if (user.AspNetRoles.Count > 0)
             {
