@@ -866,7 +866,7 @@
     <Content Include="Views\Product\_FilterPartial.cshtml" />
     <Content Include="Views\Product\_ContentQuickViewModal.cshtml" />
     <Content Include="Views\Account\LoginAdmin.cshtml" />
-    <Content Include="Views\ShoppingCart\_ShoppingCartViewModal.cshtml" />
+    <Content Include="Views\ShoppingCart\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,13 +50,13 @@ namespace Warehouse.Controllers
         /// <param name="size"></param>
         /// <param name="muangay"></param>
         /// <returns></returns>
-        public bool Add(int id, string color, string size)
+        public ActionResult Add(int id, string color, string size)
         {
             Product Product = _productService.GetById(id);
 
             if (Product == null)
             {
-                return false;
+                return Redirect("/pages/404");
             }
 
             CartItem item = new CartItem()
@@ -91,7 +91,24 @@ namespace Warehouse.Controllers
                 ShoppingCart.Add(item);
             }
 
-            return true; /*("_ShoppingCartViewModal", "ShoppingCart", new { id = item.Id });*/
+            Product product = _productService.GetById(id);
+
+            if (product == null)
+                return Content("<p>Sản phẩm không tồn tại!</p>");
+
+            QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
+            {
+                Id = product.Id,
+                Alias = product.Alias_SEO,
+                FlagColor = "#eba53d",
+                ProductFlag = product.Category.Name,
+                Name = product.Name,
+                Image = product.Image,
+                Description = product.Description,
+                Price = (int)(product.PriceNew ?? product.Price)
+            };
+
+            return PartialView(_ShoppingCartViewModal); /*("_ShoppingCartViewModal", "ShoppingCart", new { id = item.Id });*/
         }
 
         // Edit Quantity Item
@@ -175,24 +192,24 @@ namespace Warehouse.Controllers
         //    return PartialView();
         //}
 
-        public ActionResult _ShoppingCartViewModal(int Id)
-        {
-            Product product = _productService.GetById(Id);
-            if (product == null)
-                return Content("<p>Sản phẩm không tồn tại!</p>");
-            QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
-            {
-                Id = product.Id,
-                Alias = product.Alias_SEO,
-                FlagColor = "#eba53d",
-                ProductFlag = product.Category.Name,
-                Name = product.Name,
-                Image = product.Image,
-                Description = product.Description,
-                Price = (int)(product.PriceNew ?? product.Price)
-            };
-            return PartialView(_ShoppingCartViewModal);
-        }
+        //public ActionResult _ShoppingCartViewModal(int Id)
+        //{
+        //    Product product = _productService.GetById(Id);
+        //    if (product == null)
+        //        return Content("<p>Sản phẩm không tồn tại!</p>");
+        //    QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
+        //    {
+        //        Id = product.Id,
+        //        Alias = product.Alias_SEO,
+        //        FlagColor = "#eba53d",
+        //        ProductFlag = product.Category.Name,
+        //        Name = product.Name,
+        //        Image = product.Image,
+        //        Description = product.Description,
+        //        Price = (int)(product.PriceNew ?? product.Price)
+        //    };
+        //    return PartialView(_ShoppingCartViewModal);
+        //}
 
         #endregion
 
