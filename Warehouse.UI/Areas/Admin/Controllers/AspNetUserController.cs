@@ -28,20 +28,17 @@ namespace Warehouse.Areas.Admin.Controllers
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        readonly IAspNetUserDal _aspNetUserDal;
-        readonly IAspNetRoleDal _aspNetRoleDal;
+
 
         public AspNetUserController()
         {
            
         }
 
-        public AspNetUserController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IAspNetUserDal aspNetUserDal, IAspNetRoleDal aspNetRoleDal)
+        public AspNetUserController(ApplicationSignInManager signInManager, ApplicationUserManager userManager)
         {
             SignInManager = signInManager;
             UserManager = userManager;
-            _aspNetUserDal = aspNetUserDal;
-            _aspNetRoleDal = aspNetRoleDal;
         }
 
         public string UserId
@@ -76,6 +73,7 @@ namespace Warehouse.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Mod")]
         public PartialViewResult _UserLoggedPartial()
         {
             ApplicationUser applicationUser = UserManager.FindById(UserId);
@@ -84,58 +82,76 @@ namespace Warehouse.Areas.Admin.Controllers
             return PartialView(applicationUser);
         }
 
+        [Authorize(Roles = "Admin,Mod")]
         public PartialViewResult _UserPanelPartial()
         {
             ApplicationUser applicationUser = UserManager.FindById(UserId);
             return PartialView(applicationUser);
         }
 
+        [Authorize(Roles = "Admin,Mod")]
         public ViewResult ProfileUser(string Id)
         {
             if (Id == null)
             {
                 Id = UserId;
             }
+
             ApplicationUser model = UserManager.FindById(Id);
-            ViewBag.RoleName = UserManager.GetRoles(Id).First();
+            ViewBag.RoleId = model.Roles.First().RoleId;
             ViewBag.Title = "Thông tin nhân viên";
+
             if (Id == UserId)
             {
                 ViewBag.Title = "Hồ sơ cá nhân";
             }
-            
-            return View(model);
+
+            UpdateInfoViewModel updateInfoViewModel = new UpdateInfoViewModel()
+            {
+                Address = model.Address,
+                UserName = model.UserName,
+                FullName = model.FullName,
+                Id = model.Id,
+                PhoneNumber = model.PhoneNumber,
+                RoleId = ViewBag.RoleId,
+                Avatar = model.Avatar,
+                Email = model.Email
+            };
+
+
+            return View(updateInfoViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ProfileUser(ApplicationUser user, string OldRole, string Role)
+        [Authorize(Roles = "Admin,Mod")]
+        public ActionResult ProfileUser([Bind(Exclude = "UserName")] UpdateInfoViewModel updateInfoViewModel, string OldRole, string RoleId)
         {
             if (User.IsInRole("Admin") == false)
             {
-                user.Id = UserId;
+                updateInfoViewModel.Id = UserId;
             }
-            var model = UserManager.FindById(user.Id);
+            var model = UserManager.FindById(updateInfoViewModel.Id);
             if (ModelState.IsValid)
             {
-                model.FullName = user.FullName;
-                model.Address = user.Address;
-                model.Email = user.Email;
-                model.PhoneNumber = user.PhoneNumber;
+                model.FullName = updateInfoViewModel.FullName;
+                model.Address = updateInfoViewModel.Address;
+                model.Email = updateInfoViewModel.Email;
+                model.PhoneNumber = updateInfoViewModel.PhoneNumber;
                 if (User.IsInRole("Admin"))
                 {
-                    if (OldRole != Role)
+                    if (OldRole != RoleId)
                     {
                         model.Roles.Clear();
-                        model.Roles.Add(new IdentityUserRole { RoleId = Role });
+                        model.Roles.Add(new IdentityUserRole { RoleId = RoleId });
                     }
                 }
                 UserManager.Update(model);
-                return RedirectToAction("ProfileUser", new { Id = user.Id });
+                return RedirectToAction("ProfileUser", new { Id = updateInfoViewModel.Id });
             }
-            ViewBag.RoleName = UserManager.GetRoles(user.Id).First();
+            ViewBag.RoleId = RoleId;
             ViewBag.Title = "Thông tin nhân viên";
-            if (user.Id == UserId)
+            if (updateInfoViewModel.Id == UserId)
             {
                 ViewBag.Title = "Hồ sơ cá nhân";
             }
@@ -144,6 +160,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Mod")]
         public ActionResult ChangeAvatar(string userId, string base64String)
         {
             if (User.IsInRole("Admin") == false)
@@ -168,17 +185,6 @@ namespace Warehouse.Areas.Admin.Controllers
             }
 
             return RedirectToAction("ProfileUser", new { Id = userId });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(string Id)
-        {
-            ApplicationUser user = await UserManager.FindByIdAsync(Id);
-            await UserManager.DeleteAsync(user);
-            return RedirectToAction("Manage");
-
         }
 
         public ActionResult Index(int? afterInsert)
@@ -210,7 +216,6 @@ namespace Warehouse.Areas.Admin.Controllers
             return PartialView(applicationUser);
         }
 
- 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FullName,PhoneNumber,Address")] ApplicationUser applicationUser)
@@ -231,51 +236,27 @@ namespace Warehouse.Areas.Admin.Controllers
 
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ChangeImage(string Id, string base64String)
+
+        public ActionResult _DeleteModal(string Id)
         {
             ApplicationUser applicationUser = UserManager.FindById(Id);
             if (applicationUser == null)
             {
-                ModelState.AddModelError("LoiDoiImage", "Thành viên này không tồn tại!");
+                return Content("<p>Khách không tồn tại trong hệ thống!</p>");
             }
-            else
-            {
-                #region Save File From String Base64
-                if (!string.IsNullOrEmpty(base64String))
-                {
-                    try
-                    {
-                        base64String = base64String.Substring(base64String.IndexOf(',') + 1);
-                        string newAvatar = applicationUser.Id + DateTime.Now.Ticks.ToString() + ".jpg";
-                        Functions.SaveFileFromBase64(Server.MapPath("~/Photos/Users/" + newAvatar), base64String);
-                        applicationUser.Avatar = newAvatar;
-                    }
-                    catch (Exception ex)
-                    {
-                        ModelState.AddModelError("LoiDoiImage", "Lỗi khi lưu hình từ chuỗi base64 " + ex.Message);
-                    }
-                    try
-                    {
-                        UserManager.Update(applicationUser);
-                        return RedirectToAction("Edit", new { id = applicationUser.Id });
-                    }
-                    catch
-                    {
-                        ModelState.AddModelError("LoiDoiImage", "Xảy ra lỗi khi lưu dữ liệu!");
-                    }
-
-                }
-                #endregion
-                else
-                {
-                    ModelState.AddModelError("LoiDoiImage", "Bạn chưa chọn hình muốn đổi!");
-                }
-            }
-
-            return View("Edit", applicationUser);
+            return PartialView(applicationUser);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(string Id)
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(Id);
+            await UserManager.DeleteAsync(user);
+            return RedirectToAction("Manage");
+        }
+
 
         public ViewResult Lock(string Id)
         {

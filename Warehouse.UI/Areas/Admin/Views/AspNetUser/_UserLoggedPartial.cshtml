@@ -9,7 +9,7 @@
         <li class="user-header">
             <img src="~/Photos/Users/@Model.Avatar" class="img-circle" alt="User Image">
             <p>
-                @Model.FullName - @(ViewBag.UserRole == "Admin" ? "Quản trị viên" : "Cộng tác việc")
+                @Model.FullName - @(ViewBag.UserRole)
                 <small>Gia nhập ngày @Warehouse.Common.Format.FormatDateTime(Model.DateRegister)</small>
             </p>
         </li>

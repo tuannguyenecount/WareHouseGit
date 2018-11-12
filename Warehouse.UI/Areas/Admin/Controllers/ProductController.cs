@@ -23,7 +23,7 @@ using System.ComponentModel;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles="Admin,Mod")]
     public class ProductController : Controller
     {
         #region Private Propertys

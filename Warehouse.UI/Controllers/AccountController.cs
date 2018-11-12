@@ -24,20 +24,15 @@ namespace Warehouse.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        readonly IAspNetUserDal _aspNetUserDal;
-        readonly IAspNetRoleDal _aspNetRoleDal;
-
         public AccountController()
         {
 
         }
 
-        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IAspNetUserDal aspNetUserDal, IAspNetRoleDal aspNetRoleDal)
+        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager)
         {
             SignInManager = signInManager;
             UserManager = userManager;
-            _aspNetUserDal = aspNetUserDal;
-            _aspNetRoleDal = aspNetRoleDal;
         }
 
         public ApplicationSignInManager SignInManager
@@ -186,7 +181,6 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         [Route("AdminLogin")]
         public async Task<ActionResult> AdminLogin(AdminLoginViewModel model)
         {
@@ -226,7 +220,6 @@ namespace Warehouse.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -705,7 +698,7 @@ namespace Warehouse.Controllers
             }
         }
 
-        private class ChallengeResult : HttpUnauthorizedResult
+        internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {

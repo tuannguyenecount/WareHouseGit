@@ -1,4 +1,4 @@
-﻿@model ApplicationUser
+﻿@model UpdateInfoViewModel
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     ChangePasswordViewModel changepassword = new ChangePasswordViewModel();
@@ -64,7 +64,7 @@
     <script type="text/javascript">
         $(function(){
         var rot = 0,ratio = 1;
-      
+
         $('#upload-file').on('change', function(){
             var reader = new FileReader();
             reader.onload = function(e) {
@@ -75,9 +75,9 @@
                 });
                 rot =0 ;
                 ratio = 1;
-               
+
             }
-           
+
             reader.readAsDataURL(this.files[0]);
             console.log(this);
             this.value = "";
@@ -99,7 +99,7 @@
         }
 
         console.log("ontouchend" in document);
-        
+
     })
     </script>
     <script type="text/javascript">
@@ -133,7 +133,7 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    @using (Html.BeginForm("ChangeAvatar","User", FormMethod.Post))
+                    @using (Html.BeginForm("ChangeAvatar", "AspNetUser", FormMethod.Post))
                     {
                         <input type="hidden" name="userId" value="@Model.Id" />
                         @Html.AntiForgeryToken()
@@ -143,13 +143,13 @@
                             <div class="spinner" style="display: none">Loading...</div>
                         </div>
                         <div class="upload-wapper">
-                        <br/>
+                            <br />
                             Chọn 1 hình
-                        <input type="file" id="upload-file" value="Upload"><br/>
-                        <button type="button" class="btn btn-primary hide" id="crop">Crop</button>
-                        <button type="submit" class="btn btn-danger hide" id="btnLuu"><i class="fa fa-save"></i> Lưu</button>
-                        <input type="hidden" name="base64String" id="file" />
-                    </div>
+                            <input type="file" id="upload-file" value="Upload"><br />
+                            <button type="button" class="btn btn-primary hide" id="crop">Crop</button>
+                            <button type="submit" class="btn btn-danger hide" id="btnLuu"><i class="fa fa-save"></i> Lưu</button>
+                            <input type="hidden" name="base64String" id="file" />
+                        </div>
                     }
                 </div>
             </div>
@@ -180,13 +180,13 @@
                 <div class="box-body box-profile">
                     <img style="cursor:pointer" title="Đổi hình" data-placement="bottom" class="profile-user-img img-responsive img-circle" src="~/Photos/Users/@Model.Avatar" alt="@Model.Avatar">
                     <h3 class="profile-username text-center">@Model.FullName</h3>
-                    <h5 class="text-center text-info">@(ViewBag.RoleName == "Admin" ? "Quản trị viên" : "Cộng tác viên")</h5>
+                    <h5 class="text-center text-info">@ViewBag.RoleId</h5>
                     @if (User.IsInRole("Admin") || User.Identity.Name == Model.UserName)
                     {
-                    <p class="text-center">
-                        <input id="avatar" type="hidden" name="avatar">
-                        <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Đổi hình</button>
-                    </p>
+                        <p class="text-center">
+                            <input id="avatar" type="hidden" name="avatar">
+                            <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Đổi hình</button>
+                        </p>
                     }
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
@@ -203,37 +203,36 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
-          
             <!-- /.box -->
         </div>
         <!-- /.col -->
         <div class="col-md-9">
-            
+
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#settings" data-toggle="tab">Thông tin</a></li>
                     <li><a href="#product" data-toggle="tab">Sản phẩm đã đăng</a></li>
                     @if (User.Identity.Name == Model.UserName)
                     {
-                    <li><a href="#changepassword" data-toggle="tab">Đổi mật khẩu</a></li>
+                        <li><a href="#changepassword" data-toggle="tab">Đổi mật khẩu</a></li>
                     }
-                    @if (User.IsInRole("Admin") && Model.Roles.First().RoleId == "User")
+                    @if (User.IsInRole("Admin") && Model.RoleId != "Admin")
                     {
-                     <li><a href="#setpassword" data-toggle="tab">Đặt lại mật khẩu</a></li>
+                        <li><a href="#setpassword" data-toggle="tab">Đặt lại mật khẩu</a></li>
                     }
                 </ul>
-                
+
                 <div class="tab-content">
                     <!-- /.tab-pane -->
                     <div class="active tab-pane" id="settings">
-                        <form action="@Url.Action("ProfileUser")"  method="post" class="form-horizontal">
+                        <form action="@Url.Action("ProfileUser")" method="post" class="form-horizontal">
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("",new {@class="text-danger" })
-                            @Html.HiddenFor(m=>m.Id)
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            @Html.HiddenFor(m => m.Id)
                             <div class="form-group">
-                                @Html.LabelFor(m => m.FullName,new { @class="col-sm-3 control-label" })
+                                @Html.LabelFor(m => m.FullName, new { @class = "col-sm-3 control-label" })
                                 <div class="col-sm-6">
-                                    @Html.TextBoxFor(m => m.FullName, new { @class="form-control" })
+                                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -257,20 +256,20 @@
 
                             @if (User.IsInRole("Admin"))
                             {
-                                <input type="hidden" name="OldRole" value="@((Model.Roles.FirstOrDefault() != null ? Model.Roles.First().RoleId : "User"))" />
+                                <input type="hidden" name="OldRole" value="@Model.RoleId" />
                                 <div class="form-group">
-                                    <label class = "col-sm-3 control-label">Vai trò</label>
+                                    <label class="col-sm-3 control-label">Vai trò</label>
                                     <div class="col-sm-6">
-                                        <select name="Role" class="form-control">
-                                            @if (Model.Roles.SingleOrDefault(m => m.RoleId == "Admin") != null)
+                                        <select name="RoleId" class="form-control">
+                                            @if (Model.RoleId == "Admin")
                                             {
-                                                <option value="Mod" >Cộng tác viên</option>
-                                                <option value="Admin" selected>Quản trị viên</option>
+                                                <option value="Mod">Mod</option>
+                                                <option value="Admin" selected>Admin</option>
                                             }
                                             else
                                             {
-                                                <option value="Mod" selected>Cộng tác viên</option>
-                                                <option value="Admin">Quản trị viên</option>
+                                                <option value="Mod" selected>Mod</option>
+                                                <option value="Admin">Admin</option>
                                             }
                                         </select>
                                     </div>
@@ -278,11 +277,11 @@
                             }
                             @if (User.IsInRole("Admin") || User.Identity.Name == Model.UserName)
                             {
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-6">
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-save"></i> Cập Nhật</button>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-6">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-save"></i> Cập Nhật</button>
+                                    </div>
                                 </div>
-                            </div>
                             }
                         </form>
                     </div>
@@ -291,63 +290,65 @@
                     <div id="product" class="tab-pane">
                         <div class="table-responsive">
                             @*<table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Ngày lập</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (Invoice item in ViewBag.InvoicesOfUser)
-                                    {
-                                    <tr>
-                                        <td>#@item.Id</td>
-                                        <td>@item.TotalPay_Format</td>
-                                        <td>@item.DateCreated</td>
-                                    </tr>
-                                    }
-                                </tbody>
-                            </table>*@
+                                    <thead>
+                                        <tr>
+                                            <th>Mã sản phẩm</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Ngày lập</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Invoice item in ViewBag.InvoicesOfUser)
+                                        {
+                                        <tr>
+                                            <td>#@item.Id</td>
+                                            <td>@item.TotalPay_Format</td>
+                                            <td>@item.DateCreated</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>*@
                         </div>
                     </div>
+
                     @if (User.Identity.Name == Model.UserName)
                     {
-                    <div id="changepassword" class="tab-pane">
-                        @using (Ajax.BeginForm("ChangePassword", "Manage", null, new AjaxOptions { OnSuccess = "ChangePasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post" }, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                            <div class="form-group">
-                                @Html.LabelFor(m => changepassword.OldPassword, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-6">
-                                    @Html.PasswordFor(m => changepassword.OldPassword, new { @class = "form-control" })
+                        <div id="changepassword" class="tab-pane">
+                            @using (Ajax.BeginForm("ChangePassword", "Manage", new { area = "" }, new AjaxOptions { OnSuccess = "ChangePasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post" }, new { @class = "form-horizontal", role = "form" }))
+                            {
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => changepassword.OldPassword, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.PasswordFor(m => changepassword.OldPassword, new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => changepassword.NewPassword, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-6">
-                                    @Html.PasswordFor(m => changepassword.NewPassword, new { @class = "form-control" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => changepassword.NewPassword, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.PasswordFor(m => changepassword.NewPassword, new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => changepassword.ConfirmPassword, new { @class = "col-md-3 control-label" })
-                                <div class="col-md-6">
-                                    @Html.PasswordFor(m => changepassword.ConfirmPassword, new { @class = "form-control" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => changepassword.ConfirmPassword, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.PasswordFor(m => changepassword.ConfirmPassword, new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-3 col-md-6">
-                                    <input type="submit" value="Đổi Mật Khẩu" class="btn btn-success" />
+                                <div class="form-group">
+                                    <div class="col-md-offset-3 col-md-6">
+                                        <input type="submit" value="Đổi Mật Khẩu" class="btn btn-success" />
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    </div>
+                            }
+                        </div>
                     }
-                    @if (User.IsInRole("Admin") && Model.Roles.First().RoleId == "User")
+                    @if (User.IsInRole("Admin") && Model.RoleId != "Admin")
                     {
                         <div id="setpassword" class="tab-pane">
-                            @using (Ajax.BeginForm("SetPassword", "Manage", null, new AjaxOptions { OnSuccess = "SetPasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post" }, new { @class = "form-horizontal", role = "form" }))
+                            @using (Ajax.BeginForm("SetPassword", "Manage", new { area = "" }, new AjaxOptions { OnSuccess = "SetPasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post" }, new { @class = "form-horizontal", role = "form" }))
                             {
                                 <input type="hidden" name="Id" value="@Model.Id" />
                                 @Html.AntiForgeryToken()

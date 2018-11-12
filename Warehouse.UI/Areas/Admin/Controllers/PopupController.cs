@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QLKhachSan.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Mod")]
     public class PopupController : Controller
     {
      

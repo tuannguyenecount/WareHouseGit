@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -37,5 +38,33 @@ namespace Warehouse.Models
         [Display(Name = "Nhập lại mật khẩu mới")]
         [Compare("NewPassword", ErrorMessage = "Nhập lại mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class UpdateInfoViewModel
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "Tài khoản")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Email chưa có giá trị!")]
+        public string Email { get; set; }
+
+        [Display(Name = "Họ tên")]
+        [Required(ErrorMessage = "Bạn chưa nhập họ tên!")]
+        public string FullName { get; set; }
+
+        [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Bạn chưa nhập địa chỉ!")]
+        public string Address { get; set; }
+
+        [Display(Name = "Điện thoại")]
+        [Required(ErrorMessage = "Bạn chưa nhập điện thoại!")]
+        public string PhoneNumber { get; set; }
+
+        public string Avatar { get; set; }
+
+        [Display(Name = "Vai trò")]
+        public string RoleId { get; set; }
     }
 }

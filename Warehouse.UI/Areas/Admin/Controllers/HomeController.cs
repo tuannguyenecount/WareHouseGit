@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Mod")]
     public class HomeController : Controller
     {
         // GET: Admin/Home

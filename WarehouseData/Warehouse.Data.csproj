@@ -75,8 +75,6 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ArticleDal.cs" />
-    <Compile Include="Data\AspNetRoleDal.cs" />
-    <Compile Include="Data\AspNetUserDal.cs" />
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\NewsDal.cs" />
@@ -88,8 +86,6 @@
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
     <Compile Include="Interface\IArticleDal.cs" />
-    <Compile Include="Interface\IAspNetRoleDal.cs" />
-    <Compile Include="Interface\IAspNetUserDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />

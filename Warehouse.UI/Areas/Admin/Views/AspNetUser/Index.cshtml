@@ -81,61 +81,57 @@
             </div>
             <div class="box">
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <form class="form-inline" method="get" action="@Url.Action("Index")">
-                                <div class="form-group">
-                                    <label for="month">Xem theo tháng năm @DateTime.Now.Year:</label>
-                                    <select name="month" id="month" class="form-control input-sm">
-                                        @for (int i = 12; i >= 1; i--)
-                                        {
-                                            <option value="@i">Tháng @i</option>
-                                        }
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-sm btn-default">Lọc</button>
-                            </form>
-                        </div>
-                        <div class="col-md-7">
-                            <form class="form-inline" method="get" action="@Url.Action("Index")">
-                                <div class="form-group">
-                                    <label>Xem từ ngày:</label>
-                                    <input name="daya" type="text" id="daya" class="form-control input-sm datepicker" />
-                                </div>
-                                <div class="form-group">
-                                    <label>đến ngày:</label>
-                                    <input name="dayb" type="text" id="dayb" class="form-control input-sm datepicker" />
-                                </div>
-                                <button type="submit" class="btn btn-sm btn-default">Lọc</button>
-                            </form>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table id="tblAspNetUser" class="table table-bordered table-striped" method="post">
+                                <table id="tblAspNetUser" class="table table-bordered table-striped table-middle" method="post">
                                     <thead>
                                         <tr>
-                                            <th>Thời gian</th>
-                                            <th>Nội dung chi tiêu</th>
-                                            <th>Số tiền chi tiêu</th>
+                                            <th>Hình đại diện</th>
+                                            <th>Họ tên</th>
+                                            <th>Tài khoản</th>
+                                            <th>Email</th>
+                                            <th>Điện thoại</th>
+                                            <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
+                                        @foreach (ApplicationUser applicationUser in Model)
                                         {
-                                            <tr>
-                                                <td>@item.Date</td>
-                                                <td>
-                                                    @item.Content
-                                                </td>
-                                                <td>@item.Amount_Format</td>
-                                                <td class="text-center">
-                                                    <a class="btn bg-blue btn-xs" data-toggle="modal" data-target="#modal-editUser" href="@Url.Action("_EditModal", new { id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
-                                                    <a data-toggle="modal" data-target="#modal-deleteUser" href="@Url.Action("_DeleteModal",new { Id = item.Id })" class="btn btn-default btn-xs"><i class="fa fa-remove"></i> Xóa</a>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <img src="~/Photos/Users/@applicationUser.Avatar" width="60" height="auto" />
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(m => applicationUser.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(m => applicationUser.UserName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(m => applicationUser.Email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(m => applicationUser.PhoneNumber)
+                                            </td>
+                                            <td>
+                                                @if (applicationUser.LockoutEndDateUtc > DateTime.Now)
+                                                {
+                                                    <label class="label label-danger">Bị khóa</label>
+                                                }
+                                                else
+
+                                                {
+                                                    <label class="label label-success">Hoạt động</label>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem</a>
+                                                <a data-target="#modal-deleteUser" href="@Url.Action("_DeleteModal","ApplicationUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -148,7 +144,9 @@
                 @if (Model.Count > 0)
                 {
                     <div class="box-footer clearfix">
-                        <a onclick="return confirm('Xác nhận xuất dữ liệu chi tiêu này ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("Index", new { month = Request.QueryString["month"], daya = Request.QueryString["daya"], dayb = Request.QueryString["dayb"], exportExcel = 1 })" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</a>
+                        <a onclick="return confirm('Xác nhận xuất dữ liệu này ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("Index", new { exportExcel = 1 })" class="btn btn-sm btn-info btn-flat pull-left">
+                            <i class="fa fa fa-file-excel-o"></i> Xuất file Excel
+                        </a>
                     </div>
                 }
             </div>
