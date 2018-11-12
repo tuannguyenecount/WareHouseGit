@@ -1,0 +1,10 @@
+﻿@model ApplicationUser
+<div class="user-panel">
+    <div class="pull-left image">
+        <a href="@Url.Action("ProfileUser","AspNetUser")"><img width="45" height="45" src="~/Photos/Users/@Model.Avatar" class="img-circle" alt="@Model.FullName"/></a>
+    </div>
+    <div class="pull-left info">
+        <p>@Model.FullName</p>
+        <a href="#"><i class="fa fa-circle text-success"></i>@User.Identity.Name</a>
+    </div>
+</div>

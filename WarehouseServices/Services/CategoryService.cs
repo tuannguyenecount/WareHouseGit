@@ -41,7 +41,7 @@ namespace Warehouse.Services.Services
         /// 
         public Category GetById(int Id)
         {
-            return _categoryDal.Get(c=>c.Id == Id);
+            return _categoryDal.GetSingle(c=>c.Id == Id);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Warehouse.Services.Services
         /// <returns></returns>
         public Category GetByAlias(string alias)
         {
-            return _categoryDal.Get(c => c.Alias_SEO == alias);
+            return _categoryDal.GetSingle(c => c.Alias_SEO == alias);
         }
         /// <summary>
         /// Count All Category

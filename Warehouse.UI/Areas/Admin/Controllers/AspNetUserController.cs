@@ -15,134 +15,213 @@ using System.IO;
 using System.Configuration;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Warehouse.Data.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AspNetUserController : Controller
     {
+
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
-        public JsonResult GetNameAndEmailUser(string term)
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        readonly IAspNetUserDal _aspNetUserDal;
+        readonly IAspNetRoleDal _aspNetRoleDal;
+
+        public AspNetUserController()
         {
-            List<string> dsMail = db.AspNetUsers.Where(m => m.Email.ToUpper().Contains(term.ToUpper())).Select(m=>m.Email).ToList();
-            List<string> dsTen = db.AspNetUsers.Where(m => m.FullName.ToUpper().Contains(term.ToUpper())).Select(m => m.FullName).ToList();
-            List<string> result = new List<string>();
-            result.AddRange(dsMail);
-            result.AddRange(dsTen);
-            return Json(result, JsonRequestBehavior.AllowGet);
+           
         }
 
-        public PartialViewResult ShowList(string sort, string sortName, string UserType,string UserType2, int? page, string tukhoa)
+        public AspNetUserController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IAspNetUserDal aspNetUserDal, IAspNetRoleDal aspNetRoleDal)
         {
-            var dsThanhVien = db.AspNetUsers.Include(m => m.AspNetRoles).Include(m=>m.Orders);
-            if (sort == null)
-            {
-                dsThanhVien = dsThanhVien.OrderBy(m => m.DateRegister);
-                ViewBag.sortNext = "GiamDan";
-                ViewBag.sortName = "DateRegister";
-                ViewBag.sortCurrent = sort;
-            }
-            else
-            {
-                if (sort == "GiamDan")
-                {
-                    if (sortName == "DateRegister")
-                    {
-                        dsThanhVien = dsThanhVien.OrderByDescending(m => m.DateRegister);
-
-                    }
-                    else if (sortName == "FullName")
-                    {
-                        dsThanhVien = dsThanhVien.OrderByDescending(m => m.FullName);
-                    }
-                    else if (sortName == "Email")
-                    {
-                        dsThanhVien = dsThanhVien.OrderByDescending(m => m.Email);
-                    }
-                    ViewBag.sortNext = "TangDan";
-
-                }
-                else
-                {
-                    if (sortName == "DateRegister")
-                    {
-                        dsThanhVien = dsThanhVien.OrderBy(m => m.DateRegister);
-
-                    }
-                    else if (sortName == "FullName")
-                    {
-                        dsThanhVien = dsThanhVien.OrderBy(m => m.FullName);
-                    }
-                    else if (sortName == "Email")
-                    {
-                        dsThanhVien = dsThanhVien.OrderBy(m => m.Email);
-                    }
-                    ViewBag.sortNext = "TangDan";
-                    ViewBag.sortNext = "GiamDan";
-                }
-                ViewBag.sortName = sortName;
-                ViewBag.sortCurrent = sort;
-            }
-
-            if (UserType != null)
-            {
-                if (UserType == "Locked")
-                {
-                    dsThanhVien = dsThanhVien.Where(m => m.LockoutEndDateUtc != null && m.LockoutEndDateUtc.Value > DateTime.Now);
-                    ViewBag.ThongTin = "Thành viên bị khóa";
-                }
-                ViewBag.UserType = UserType;
-                
-            }
-
-            if (tukhoa != null)
-            {
-                dsThanhVien = dsThanhVien.Where(m => m.FullName.ToUpper().Contains(tukhoa.ToUpper()) || m.Email.ToUpper().Contains(tukhoa.ToUpper()));
-                ViewBag.tuKhoa = tukhoa;
-            }
-
-            ViewBag.Page = page ?? 1;
-            return PartialView("_ListPartial", dsThanhVien.ToPagedList(page ?? 1, 5));
-        }
-        
-
-        public ActionResult Index()
-        {
-            List<UserType> dsUserType = new List<UserType>() {
-                new UserType(){ Id= "Locked", Name="Bị khóa" }
-            };
-            ViewBag.UserType = new SelectList(dsUserType,"Id", "Name");
-            return View();
+            SignInManager = signInManager;
+            UserManager = userManager;
+            _aspNetUserDal = aspNetUserDal;
+            _aspNetRoleDal = aspNetRoleDal;
         }
 
-        public ActionResult Edit(string id)
+        public string UserId
         {
-            if (id == null)
+            get
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return User.Identity.GetUserId();
             }
-            ApplicationUser aspNetUser = db.AspNetUsers.Find(id);
-            if (aspNetUser == null)
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
             {
-                return Redirect("/pages/404");
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            return View(aspNetUser);
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public PartialViewResult _UserLoggedPartial()
+        {
+            ApplicationUser applicationUser = UserManager.FindById(UserId);
+            IList<string> userRoles = applicationUser.Roles.Select(r => r.RoleId).ToList();
+            ViewBag.UserRole = userRoles.First();
+            return PartialView(applicationUser);
+        }
+
+        public PartialViewResult _UserPanelPartial()
+        {
+            ApplicationUser applicationUser = UserManager.FindById(UserId);
+            return PartialView(applicationUser);
+        }
+
+        public ViewResult ProfileUser(string Id)
+        {
+            if (Id == null)
+            {
+                Id = UserId;
+            }
+            ApplicationUser model = UserManager.FindById(Id);
+            ViewBag.RoleName = UserManager.GetRoles(Id).First();
+            ViewBag.Title = "Thông tin nhân viên";
+            if (Id == UserId)
+            {
+                ViewBag.Title = "Hồ sơ cá nhân";
+            }
+            
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FullName,Phone,Address,Gender")] ApplicationUser model)
+        public ActionResult ProfileUser(ApplicationUser user, string OldRole, string Role)
         {
-            ApplicationUser user = db.AspNetUsers.Find(model.Id);
+            if (User.IsInRole("Admin") == false)
+            {
+                user.Id = UserId;
+            }
+            var model = UserManager.FindById(user.Id);
+            if (ModelState.IsValid)
+            {
+                model.FullName = user.FullName;
+                model.Address = user.Address;
+                model.Email = user.Email;
+                model.PhoneNumber = user.PhoneNumber;
+                if (User.IsInRole("Admin"))
+                {
+                    if (OldRole != Role)
+                    {
+                        model.Roles.Clear();
+                        model.Roles.Add(new IdentityUserRole { RoleId = Role });
+                    }
+                }
+                UserManager.Update(model);
+                return RedirectToAction("ProfileUser", new { Id = user.Id });
+            }
+            ViewBag.RoleName = UserManager.GetRoles(user.Id).First();
+            ViewBag.Title = "Thông tin nhân viên";
+            if (user.Id == UserId)
+            {
+                ViewBag.Title = "Hồ sơ cá nhân";
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeAvatar(string userId, string base64String)
+        {
+            if (User.IsInRole("Admin") == false)
+            {
+                userId = this.UserId;
+            }
+            if (!string.IsNullOrEmpty(base64String))
+            {
+                var model = UserManager.FindById(userId);
+                try
+                {
+                    base64String = base64String.Substring(base64String.IndexOf(',') + 1);
+                    string newAvatar = model.UserName + DateTime.Now.Ticks.ToString() + ".jpg";
+                    Functions.SaveFileFromBase64(Server.MapPath("~/Photos/Users/" + newAvatar), base64String);
+                    model.Avatar = newAvatar;
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("ProfileUser", new { Id = userId });
+                }
+                UserManager.Update(model);
+            }
+
+            return RedirectToAction("ProfileUser", new { Id = userId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(string Id)
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(Id);
+            await UserManager.DeleteAsync(user);
+            return RedirectToAction("Manage");
+
+        }
+
+        public ActionResult Index(int? afterInsert)
+        {
+            List<ApplicationUser> applicationUsers = UserManager.Users.ToList();
+            return View(applicationUsers);
+        }
+
+        public ActionResult _CreateModal()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create()
+        {
+            return RedirectToAction("Index",new { afterInsert = 1 });
+        }
+
+        // GET: Expense/Edit/5
+        public ActionResult _EditModal(string Id)
+        {
+            ApplicationUser applicationUser = UserManager.FindById(Id); 
+            if (applicationUser == null)
+            {
+                return Content("<p>Khách không tồn tại trong hệ thống!</p>");
+            }
+            return PartialView(applicationUser);
+        }
+
+ 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,FullName,PhoneNumber,Address")] ApplicationUser applicationUser)
+        {
+            ApplicationUser user = UserManager.FindById(applicationUser.Id);
             try
-            {           
-                user.FullName = model.FullName;
-                user.Phone = model.Phone;
-                user.Address = model.Address;
-                user.Gender = model.Gender;
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+            {
+                user.FullName = applicationUser.FullName;
+                user.PhoneNumber = applicationUser.PhoneNumber;
+                user.Address = applicationUser.Address;
+                UserManager.Update(user);
                 return RedirectToAction("Index");
             }
             catch
@@ -154,10 +233,10 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangeImage(string id, string base64String)
+        public ActionResult ChangeImage(string Id, string base64String)
         {
-            ApplicationUser user = await db.AspNetUsers.FindAsync(id);
-            if (user == null)
+            ApplicationUser applicationUser = UserManager.FindById(Id);
+            if (applicationUser == null)
             {
                 ModelState.AddModelError("LoiDoiImage", "Thành viên này không tồn tại!");
             }
@@ -169,9 +248,9 @@ namespace Warehouse.Areas.Admin.Controllers
                     try
                     {
                         base64String = base64String.Substring(base64String.IndexOf(',') + 1);
-                        string newAvatar = user.Id + DateTime.Now.Ticks.ToString() + ".jpg";
-                        Functions.SaveFileFromBase64(Server.MapPath("~/Photos/ThanhVien/" + newAvatar), base64String);
-                        user.Avatar = newAvatar;
+                        string newAvatar = applicationUser.Id + DateTime.Now.Ticks.ToString() + ".jpg";
+                        Functions.SaveFileFromBase64(Server.MapPath("~/Photos/Users/" + newAvatar), base64String);
+                        applicationUser.Avatar = newAvatar;
                     }
                     catch (Exception ex)
                     {
@@ -179,9 +258,8 @@ namespace Warehouse.Areas.Admin.Controllers
                     }
                     try
                     {
-                        db.Entry(user).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
-                        return RedirectToAction("Edit", new { id = user.Id });
+                        UserManager.Update(applicationUser);
+                        return RedirectToAction("Edit", new { id = applicationUser.Id });
                     }
                     catch
                     {
@@ -195,27 +273,26 @@ namespace Warehouse.Areas.Admin.Controllers
                     ModelState.AddModelError("LoiDoiImage", "Bạn chưa chọn hình muốn đổi!");
                 }
             }
-           
-            return View("Edit", user);
+
+            return View("Edit", applicationUser);
         }
 
-        public ViewResult Lock(string userId)
+        public ViewResult Lock(string Id)
         {
-            ApplicationUser aspNetUser = db.AspNetUsers.Find(userId);
-           return View(aspNetUser);
+            ApplicationUser aspNetUser = UserManager.FindById(Id);
+            return View(aspNetUser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Lock")]
-        public ActionResult Locked(string userId, string LockoutEndDateUtc)
+        public ActionResult Locked(string Id, string LockoutEndDateUtc)
         {
             try
             {
-                ApplicationUser aspNetUser = db.AspNetUsers.Find(userId);
+                ApplicationUser aspNetUser = UserManager.FindById(Id);
                 aspNetUser.LockoutEndDateUtc = DateTime.Parse(LockoutEndDateUtc);
-                db.Entry(aspNetUser).State = EntityState.Modified;
-                db.SaveChanges();
+                UserManager.Update(aspNetUser);
             }
             catch (FormatException)
             {
@@ -230,15 +307,16 @@ namespace Warehouse.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ViewResult UnLocked(string id)
+        public ViewResult UnLocked(string Id)
         {
-            ApplicationUser aspNetUser = db.AspNetUsers.Find(id);
+            ApplicationUser aspNetUser = UserManager.FindById(Id);
             return View(aspNetUser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UnLocked(ApplicationUser user)
+        [ActionName("UnLocked")]
+        public ActionResult UnLockedConfirmed(string Id)
         {
             if (Session["Revalidate"] == null)
             {
@@ -247,12 +325,11 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             try
             {
-                ApplicationUser aspNetUser = db.AspNetUsers.Find(user.Id);
-                aspNetUser.LockoutEndDateUtc = DateTime.Today;
-                db.Entry(aspNetUser).State = EntityState.Modified;
-                db.SaveChanges();
+                ApplicationUser applicationUser  = UserManager.FindById(Id);
+                applicationUser.LockoutEndDateUtc = DateTime.Today;
+                UserManager.Update(applicationUser);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 object thongbao = "Xảy ra lỗi " + ex.Message;
                 return View("_ThongBaoLoi", thongbao);
@@ -260,37 +337,23 @@ namespace Warehouse.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ViewResult ChangePermission(string id)
+        public ViewResult ChangePermission(string Id)
         {
-            ApplicationUser aspNetUser = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
-             ViewBag.Roles = new SelectList(db.AspNetRoles.ToList(), "Id", "Name", aspNetUser.AspNetRoles.Count > 0 ? aspNetUser.AspNetRoles.First().Id : null);
+            ApplicationUser applicationUser = UserManager.FindById(Id);
+            //ViewBag.Roles = new SelectList(UserManager.Role , "Id", "Name", aspNetUser.AspNetRoles.Count > 0 ? aspNetUser.AspNetRoles.First().Id : null);
 
-            return View(aspNetUser);
+            return View(applicationUser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePermission(string id, string Quyen)
+        public ActionResult ChangePermission(string UserId, string Role)
         {
-            IdentityRole role = db.AspNetRoles.Include(m => m.AspNetUsers).Single(m => m.Id == Quyen);
-            ApplicationUser user = db.AspNetUsers.Include(m=>m.AspNetRoles).Single(m=>m.Id == id);
-            
-            if (user.AspNetRoles.Count > 0)
-            {
-                user.AspNetRoles.Clear();
-            }
-            role.AspNetUsers.Add(user);
-            db.SaveChanges();
+            ApplicationUser user = UserManager.FindById(UserId);
+            UserManager.AddToRole(UserId, Role);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

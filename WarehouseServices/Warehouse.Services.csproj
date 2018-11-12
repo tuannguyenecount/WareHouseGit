@@ -64,6 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IAspNetRoleService.cs" />
+    <Compile Include="Interface\IAspNetUserService.cs" />
     <Compile Include="Interface\IArticleService.cs" />
     <Compile Include="Interface\ICategoryService.cs" />
     <Compile Include="Interface\IInfoShopService.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="Interface\IOrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interface\IProductService.cs" />
+    <Compile Include="Services\AspNetRoleService.cs" />
+    <Compile Include="Services\AspNetUserService.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\InfoShopService.cs" />

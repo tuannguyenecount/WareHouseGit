@@ -36,11 +36,19 @@ namespace Warehouse.Core.DataAccess.EntityFramework
             }
         }
 
-        public virtual TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public virtual TEntity GetFirst(Expression<Func<TEntity, bool>> filter)
         {
             using (var context = new TContext())
             {
-                return filter != null ? context.Set<TEntity>().SingleOrDefault(filter) : context.Set<TEntity>().FirstOrDefault();
+                return filter != null ?  context.Set<TEntity>().FirstOrDefault(filter) : context.Set<TEntity>().FirstOrDefault();
+            }
+        }
+
+        public virtual TEntity GetSingle(Expression<Func<TEntity, bool>> filter)
+        {
+            using (var context = new TContext())
+            {
+                return filter != null ?  context.Set<TEntity>().SingleOrDefault(filter) : context.Set<TEntity>().SingleOrDefault();
             }
         }
 

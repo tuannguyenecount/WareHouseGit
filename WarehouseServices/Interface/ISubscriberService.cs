@@ -12,7 +12,7 @@ namespace Warehouse.Services.Interface
 
         List<Subscriber> GetAll();
 
-        Subscriber GetById(string email);
+        Subscriber GetByEmail(string email);
 
         void Add(Subscriber subscriber);
 

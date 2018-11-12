@@ -22,7 +22,7 @@ namespace Warehouse.Services.Services
 
         public News GetById(int id)
         {
-            return _newsDal.Get(p => p.Id == id);
+            return _newsDal.GetSingle(p => p.Id == id);
         }
 
         public void Update(News news)

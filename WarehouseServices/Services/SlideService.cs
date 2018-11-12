@@ -22,7 +22,7 @@ namespace Warehouse.Services.Services
 
         public Slide GetById(int id)
         {
-            return _slideDal.Get(p => p.Id == id);
+            return _slideDal.GetSingle(p => p.Id == id);
         }
 
         public void Update(Slide slide)

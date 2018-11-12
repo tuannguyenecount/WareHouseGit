@@ -40,6 +40,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -67,7 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ArticleDal.cs" />
+    <Compile Include="Data\AspNetRoleDal.cs" />
+    <Compile Include="Data\AspNetUserDal.cs" />
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\NewsDal.cs" />
@@ -79,6 +88,8 @@
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
     <Compile Include="Interface\IArticleDal.cs" />
+    <Compile Include="Interface\IAspNetRoleDal.cs" />
+    <Compile Include="Interface\IAspNetUserDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />
@@ -103,6 +114,22 @@
     <Compile Include="Migrations\201811110503362_addForeignKeyImagesProduct.cs" />
     <Compile Include="Migrations\201811110503362_addForeignKeyImagesProduct.Designer.cs">
       <DependentUpon>201811110503362_addForeignKeyImagesProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120202193_ExcludeTableIdentity.cs" />
+    <Compile Include="Migrations\201811120202193_ExcludeTableIdentity.Designer.cs">
+      <DependentUpon>201811120202193_ExcludeTableIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120407098_ExcludeTableIdentity2.cs" />
+    <Compile Include="Migrations\201811120407098_ExcludeTableIdentity2.Designer.cs">
+      <DependentUpon>201811120407098_ExcludeTableIdentity2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120408394_ExcludeTableIdentity3.cs" />
+    <Compile Include="Migrations\201811120408394_ExcludeTableIdentity3.Designer.cs">
+      <DependentUpon>201811120408394_ExcludeTableIdentity3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120630510_deleteColumnIdentity2.cs" />
+    <Compile Include="Migrations\201811120630510_deleteColumnIdentity2.Designer.cs">
+      <DependentUpon>201811120630510_deleteColumnIdentity2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,6 +164,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811110503362_addForeignKeyImagesProduct.resx">
       <DependentUpon>201811110503362_addForeignKeyImagesProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120202193_ExcludeTableIdentity.resx">
+      <DependentUpon>201811120202193_ExcludeTableIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120407098_ExcludeTableIdentity2.resx">
+      <DependentUpon>201811120407098_ExcludeTableIdentity2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120408394_ExcludeTableIdentity3.resx">
+      <DependentUpon>201811120408394_ExcludeTableIdentity3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120630510_deleteColumnIdentity2.resx">
+      <DependentUpon>201811120630510_deleteColumnIdentity2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

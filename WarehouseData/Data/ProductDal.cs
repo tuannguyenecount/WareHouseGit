@@ -13,13 +13,18 @@ namespace Warehouse.Data.Data
 {
     public class ProductDal : EntityRepositoryBase<Product, WarehouseContext>, IProductDal
     {
-        public override Product Get(Expression<Func<Product, bool>> filter)
+        public override Product GetFirst(Expression<Func<Product, bool>> filter)
         {
             using (var context = new WarehouseContext())
             {
-                return filter == null
-                    ? context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).FirstOrDefault()
-                    : context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).SingleOrDefault(filter);
+                return context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).FirstOrDefault(filter);
+            }
+        }
+        public override Product GetSingle(Expression<Func<Product, bool>> filter)
+        {
+            using (var context = new WarehouseContext())
+            {
+                return context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).SingleOrDefault(filter);
             }
         }
         public override List<Product> GetList(Expression<Func<Product, bool>> filter = null)

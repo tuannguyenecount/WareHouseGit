@@ -30,12 +30,12 @@ namespace Warehouse.Services.Services
 
         public Article GetByAlias(string alias)
         {
-            return _articleDal.Get(a=>a.Alias == alias);
+            return _articleDal.GetSingle(a=>a.Alias == alias);
         }
 
         public Article GetById(int Id)
         {
-            return _articleDal.Get(a => a.Id == Id);
+            return _articleDal.GetSingle(a => a.Id == Id);
         }
 
     }

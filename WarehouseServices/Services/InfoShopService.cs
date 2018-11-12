@@ -20,7 +20,7 @@ namespace Warehouse.Services.Services
 
         public InfoShop GetFirst()
         {
-            return _infoShopDal.Get();
+            return _infoShopDal.GetFirst();
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Ẩn sản phẩm";
-    ViewBag.Message = "Ẩn sản phẩm";
+﻿@{
+    ViewBag.Title = "Xóa tạm sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -9,7 +7,7 @@
     @using (Html.BeginForm("Delete", "Product", FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h3>Xác nhận tạm ẩn sản phẩm "@ViewBag.Name" ? </h3>
+        <h3>Xác nhận xóa tạm sản phẩm "@ViewBag.Name" ? </h3>
         <input type="hidden" name="Id" value="@ViewBag.Id" />
         <input type="hidden" name="returnURL" value="@(Request.UrlReferrer != null? Request.UrlReferrer.ToString() : Url.Action("Index") )" />
         <div>

@@ -14,6 +14,7 @@ using Warehouse.Models;
 using Facebook;
 using System.IO;
 using System.Data.Entity.Validation;
+using Warehouse.Data.Interface;
 
 namespace Warehouse.Controllers
 {
@@ -23,19 +24,20 @@ namespace Warehouse.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        readonly IAspNetUserDal _aspNetUserDal;
+        readonly IAspNetRoleDal _aspNetRoleDal;
+
         public AccountController()
         {
+
         }
 
-        public AccountController(ApplicationUserManager userManager)
+        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IAspNetUserDal aspNetUserDal, IAspNetRoleDal aspNetRoleDal)
         {
+            SignInManager = signInManager;
             UserManager = userManager;
-        }
-
-        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager)
-        {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _aspNetUserDal = aspNetUserDal;
+            _aspNetRoleDal = aspNetRoleDal;
         }
 
         public ApplicationSignInManager SignInManager
@@ -100,9 +102,7 @@ namespace Warehouse.Controllers
             EditInformationViewModel model = new EditInformationViewModel()
             {
                 Name = user.FullName,
-                Address = user.Address,
-                Phone = user.Phone,
-                Gender = user.Gender
+                Address = user.Address
             };
             return View(model);
         }
@@ -113,9 +113,8 @@ namespace Warehouse.Controllers
         {
             ApplicationUser user = UserManager.FindByName(User.Identity.Name);
             user.FullName = model.Name;
-            user.Phone = model.Phone;
+            user.PhoneNumber = model.Phone;
             user.Address = model.Address;
-            user.Gender = model.Gender;
             UserManager.Update(user);
             return RedirectToAction("Manage");
         }
@@ -180,7 +179,7 @@ namespace Warehouse.Controllers
 
         [AllowAnonymous]
         [Route("AdminLogin")]
-        public ActionResult LoginAdmin()
+        public ActionResult AdminLogin()
         {
             return View();
         }
@@ -188,6 +187,7 @@ namespace Warehouse.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("AdminLogin")]
         public async Task<ActionResult> AdminLogin(AdminLoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -197,16 +197,19 @@ namespace Warehouse.Controllers
 
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, shouldLockout: true);
 
-            if(UserManager.FindByName(model.UserName).Roles == null || UserManager.FindByName(model.UserName).Roles.FirstOrDefault(r=>r.RoleId == "Admin") == null)
+            if(result == SignInStatus.Success)
             {
-                result = SignInStatus.Failure;
+                if (UserManager.FindByName(model.UserName).Roles == null || UserManager.FindByName(model.UserName).Roles.Count == 0)
+                {
+                    result = SignInStatus.Failure;
+                }
             }
 
             switch (result)
             {
                 case SignInStatus.Success:
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        return Redirect("/AdminArea");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -267,7 +270,7 @@ namespace Warehouse.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() {  UserName = model.Email, Email = model.Email, FullName = model.Name, Phone = model.Phone, Address = model.Address, PhoneNumber = model.Phone, Avatar = "user.png",DateRegister = DateTime.Today};
+                var user = new ApplicationUser() {  UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, Avatar = "user.png",DateRegister = DateTime.Today};
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -579,7 +582,7 @@ namespace Warehouse.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FullName = model.Name, Phone = model.Phone, Address = model.Address, EmailConfirmed = true, Avatar = "user.png"};
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, EmailConfirmed = true, Avatar = "user.png"};
                 IdentityResult result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -609,11 +612,14 @@ namespace Warehouse.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOff(int? fromAdminArea)
         {
             AuthenticationManager.SignOut();
             Session["Revalidate"] = null;
- 
+            if(fromAdminArea == 1)
+            {
+                return RedirectToAction("AdminLogin");
+            }
             return RedirectToAction("Index", "Home");
         }
 
