@@ -9,7 +9,7 @@
                     <img data-src="@product.FullUrlImage" src="@product.FullUrlImage" alt="" data-full-size-image-url="@product.ZoomImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true" />
                     @if (product.SecondImage != null)
                     {
-                    <img data-src="@product.FullUrlSecondImage" src="@product.FullUrlSecondImage" alt="" data-full-size-image-url="@product.ZoomSecondImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true" />
+                        <img data-src="@product.FullUrlSecondImage" src="@product.FullUrlSecondImage" alt="" data-full-size-image-url="@product.ZoomSecondImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true" />
                     }
                 </a>
                 <ul class="product-flags">
@@ -43,16 +43,103 @@
                 </div>
 
                 <div class="product-add-cart">
-                    <form action="#" method="post">
-                        <input type="hidden" name="id_product" value="87">
-                        <div class="input-group input-group-add-cart">
-                            <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                    @*<form action=" @Url.Action("MyAction", "MyController")" method="post">
+                            <input type="hidden" name="id_product" value="87">
+                            <div class="input-group input-group-add-cart">
+                                <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
 
-                            <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
-                            </button>
-                        </div>
-                    </form>
+                                <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
+                                    <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
+                                </button>
+                            </div>
+                        </form>*@
+
+                    <input type="submit" value="Thêm vào giỏ" id="btnGioHang" class="btn btn-product-list add-to-cart">
+
+                    <script type="text/javascript">
+
+
+
+                        $("#btnGioHang").click(function () {
+                            debugger;
+
+                            console.log("ádasda");
+                              var param = {
+                                id: @product.Id,
+                                color: @product.FlagColor,
+                                size: 30
+                            };
+                                    var username = $('#UserName').val();
+                                    $.ajax({
+                                    type: "POST",
+                                        url: "@Url.Action("Add", "ShoppingCart")",
+                                        data: param,
+                                        success: function (result) {
+                                            if (result == true) {
+                                                debugger
+                                                SuccessCall(data);
+                                            }
+                                            else {
+                                                alert("error");
+                                            }
+                                        }
+                                    });
+                            });
+
+                            function SuccessCall(data)
+                            {
+                                $.ajax({
+                                     type: "POST",
+                                     url: "@Url.Action("_ShoppingCartViewModal", "ShoppingCart")",
+                                     data: { orderNo: data},
+                                     success: function (data) { }
+                                });
+                            }
+
+
+                    </script>
+
+                    @*<a href="@Url.Action("Add", "ShoppingCart",new {  @id = product.Id, @color = product.FlagColor, @size = 30})" data-toggle="modal" data-target="#quickview-modal1">
+                            <input class="btn btn-product-list add-to-cart" type="button" value="Thêm vào giỏ" />
+
+                        </a>*@
+
+                    <!-- Trigger the modal with a button -->
+                    @*<button type="button" class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" data-toggle="modal" data-target="#quickview-modal1">Thêm vào giỏ</button>*@
+
+                    @*<!-- Modal -->
+                        <div id="quickview" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Thông báo</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Thêm giỏ hàng thành công, hãy kiểm tra giỏ hàng của bạn</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <div class="a1">
+                                            @using (Html.BeginForm("Add", "ShoppingCart", new { @id = product.Id, @color = product.FlagColor, @size = 30, @muangay = false }))
+                                            {
+                                                <input type="submit" value="Tiếp Tục" id="@product.Id" class="btn btn-primary">
+                                            }
+                                        </div>
+                                        <div class="a2">
+                                            @using (Html.BeginForm("Add", "ShoppingCart", new { @id = product.Id, @color = product.FlagColor, @size = 30, @muangay = false }))
+                                            {
+                                                <input type="submit" value="Tới Giỏ Hàng" id="@product.Id" class="btn btn-primary">
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>*@
+
                 </div>
             </div>
         </article>
