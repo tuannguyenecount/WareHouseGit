@@ -15,6 +15,8 @@ namespace Warehouse.Controllers
             _productService = productService;
         }
 
+        #region ShoppingCart
+
         //Get Session["ShoppingCart"]
         public List<CartItem> ShoppingCart
         {
@@ -31,7 +33,13 @@ namespace Warehouse.Controllers
         [Route("gio-hang.html")]
         public ActionResult Index()
         {
-            return View(ShoppingCart);
+            if (Session["ShoppingCart"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<CartItem> lstShoppingCart = GetShoppingCart();
+            //ViewBag.TongTien = TongTien();
+            return View(lstShoppingCart);
         }
 
         /// <summary>
@@ -42,7 +50,7 @@ namespace Warehouse.Controllers
         /// <param name="size"></param>
         /// <param name="muangay"></param>
         /// <returns></returns>
-        public ActionResult Add(int id, string color, string size, bool? muangay)
+        public ActionResult Add(int id, string color, string size)
         {
             Product Product = _productService.GetById(id);
 
@@ -62,12 +70,15 @@ namespace Warehouse.Controllers
                 Property = ""
             };
 
-            if (!string.IsNullOrEmpty(color) || !string.IsNullOrEmpty(size)) {
-                if (!string.IsNullOrEmpty(color)) {
+            if (!string.IsNullOrEmpty(color) || !string.IsNullOrEmpty(size))
+            {
+                if (!string.IsNullOrEmpty(color))
+                {
                     item.Property += "<p>Màu " + color + "<p/>";
                 }
-                if(!string.IsNullOrEmpty(size)) {
-                    item.Property += "<p>Size " + size+"</p>";
+                if (!string.IsNullOrEmpty(size))
+                {
+                    item.Property += "<p>Size " + size + "</p>";
                 }
             }
 
@@ -80,7 +91,24 @@ namespace Warehouse.Controllers
                 ShoppingCart.Add(item);
             }
 
-            return muangay.HasValue ? RedirectToAction("Index") : RedirectToAction("Details", "Product", new { alias = Product.Alias_SEO });
+            Product product = _productService.GetById(id);
+
+            if (product == null)
+                return Content("<p>Sản phẩm không tồn tại!</p>");
+
+            QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
+            {
+                Id = product.Id,
+                Alias = product.Alias_SEO,
+                FlagColor = "#eba53d",
+                ProductFlag = product.Category.Name,
+                Name = product.Name,
+                Image = product.Image,
+                Description = product.Description,
+                Price = (int)(product.PriceNew ?? product.Price)
+            };
+
+            return PartialView(_ShoppingCartViewModal); /*("_ShoppingCartViewModal", "ShoppingCart", new { id = item.Id });*/
         }
 
         // Edit Quantity Item
@@ -88,7 +116,7 @@ namespace Warehouse.Controllers
         public ActionResult Edit(int id, string property, int quantity)
         {
             CartItem itemEdit = ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == property);
-            if(itemEdit != null && quantity > 0)
+            if (itemEdit != null && quantity > 0)
             {
                 itemEdit.Quantity = quantity;
             }
@@ -111,5 +139,79 @@ namespace Warehouse.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+        /// <summary>
+        /// Get ShoppingCart
+        /// </summary>
+        /// <returns></returns>
+        public List<CartItem> GetShoppingCart()
+        {
+            List<CartItem> ShoppingCart = Session["ShoppingCart"] as List<CartItem>;
+            if (ShoppingCart == null)
+            {
+                //Nếu giỏ hàng chưa tồn tại thì tiến hành khởi tao list giỏ hàng (sessionShoppingCart)
+                ShoppingCart = new List<CartItem>();
+                Session["ShoppingCart"] = ShoppingCart;
+            }
+            return ShoppingCart;
+        }
+
+        ////Tính tổng số lượng và tổng tiền
+        ////Tính tổng số lượng
+        //private int TongSoLuong()
+        //{
+        //    int iTongSoLuong = 0;
+        //    List<CartItem> lstShoppingCart = Session["CartItem"] as List<CartItem>;
+        //    if (lstShoppingCart != null)
+        //    {
+        //        iTongSoLuong = lstShoppingCart.Sum(n => n.Quantity);
+        //    }
+        //    return iTongSoLuong;
+        //}
+        ////Tính tổng thành tiền
+        //private decimal TongTien()
+        //{
+        //    decimal dTongTien = 0;
+        //    List<CartItem> lstShoppingCart = Session["CartItem"] as List<CartItem>;
+        //    if (lstShoppingCart != null)
+        //    {
+        //        dTongTien = lstShoppingCart.Sum(n => n.Subtotal);
+        //    }
+        //    return dTongTien;
+        //}
+        //tạo partial giỏ hàng để có thể hiển thị trên tất cả các layout
+        //public ActionResult ShoppingCartPartial()
+        //{
+        //    if (TongSoLuong() == 0)
+        //    {
+        //        return PartialView();
+        //    }
+        //    ViewBag.TongSoLuong = TongSoLuong();
+        //    ViewBag.TongTien = TongTien();
+        //    return PartialView();
+        //}
+
+        //public ActionResult _ShoppingCartViewModal(int Id)
+        //{
+        //    Product product = _productService.GetById(Id);
+        //    if (product == null)
+        //        return Content("<p>Sản phẩm không tồn tại!</p>");
+        //    QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
+        //    {
+        //        Id = product.Id,
+        //        Alias = product.Alias_SEO,
+        //        FlagColor = "#eba53d",
+        //        ProductFlag = product.Category.Name,
+        //        Name = product.Name,
+        //        Image = product.Image,
+        //        Description = product.Description,
+        //        Price = (int)(product.PriceNew ?? product.Price)
+        //    };
+        //    return PartialView(_ShoppingCartViewModal);
+        //}
+
+        #endregion
+
     }
 }

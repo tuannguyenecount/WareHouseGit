@@ -64,56 +64,72 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="cart-item">
-                                    <div class="product-line-grid row align-items-center small-gutters">
-                                        <!--  product left body: description -->
-                                        <div class="product-line-grid-body col-12 col-sm-6 col-md-6">
-                                            <div class="row align-items-center small-gutters">
-                                                <div class="col product-image">
-                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" data-id_customization="0">
-                                                        <img src="https://iqit-commerce.com/ps17/297-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="col col-9">
-                                                    <div class="product-line-info">
-                                                        <a class="label" href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" data-id_customization="0">Leather bag</a>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!--  product left body: description -->
-                                        <div class="col-12 col-sm-6 col-md-6 product-line-grid-right product-line-actions">
-                                            <div class="row align-items-center small-gutters justify-content-end">
-                                                <!--  product unit-->
-                                                <div class="col col-auto col-md unit-price">
-                                                    <span class="value">$30.50</span>
-                                                </div>
-
-                                                <div class="col col-auto col-md qty">
-                                                    <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><input class="js-cart-line-product-quantity form-control" data-down-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50&amp;op=down" data-up-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50&amp;op=up" data-update-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-product-id="89" type="text" value="2" name="product-quantity-spin" min="1" step="1" style="display: block;"><span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span><span class="input-group-btn-vertical"><button class="btn btn-touchspin  js-touchspin js-increase-product-quantity bootstrap-touchspin-up" type="button"><i class="fa fa-angle-up touchspin-up"></i></button><button class="btn btn-touchspin js-decrease-product-quantity bootstrap-touchspin-down" type="button"><i class="fa fa-angle-down touchspin-down"></i></button></span></div>
-                                                </div>
-                                                <div class="col col-auto col-md price">
-                                                    <span class="product-price">
-                                                        <strong>
-                                                            $61.00
-                                                        </strong>
-                                                    </span>
-                                                </div>
-
-                                                <div class="col col-auto">
-                                                    <div class="cart-line-product-actions">
-                                                        <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-id-product="89" data-id-product-attribute="0" data-id-customization="">
-                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                @foreach (var item in Model)
+                                {
+                                    <li class="cart-item">
+                                        <div class="product-line-grid row align-items-center small-gutters">
+                                            <!--  product left body: description -->
+                                            <div class="product-line-grid-body col-12 col-sm-6 col-md-6">
+                                                <div class="row align-items-center small-gutters">
+                                                    <div class="col product-image">
+                                                        <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" data-id_customization="0">
+                                                            <img src="https://iqit-commerce.com/ps17/297-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid">
                                                         </a>
                                                     </div>
+                                                    <div class="col col-9">
+                                                        <div class="product-line-info">
+                                                            <a class="label" href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" data-id_customization="0">@item.Name</a>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--  product left body: description -->
+                                            <div class="col-12 col-sm-6 col-md-6 product-line-grid-right product-line-actions">
+                                                <div class="row align-items-center small-gutters justify-content-end">
+                                                    <!--  product unit-->
+                                                    <div class="col col-auto col-md unit-price">
+                                                        <span class="value"> @String.Format("{0:0,0}", item.Price) VNĐ </span>
+                                                    </div>
+
+                                                    <div class="col col-auto col-md qty">
+                                                        <div class="input-group bootstrap-touchspin">
+                                                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                                                            <input class="js-cart-line-product-quantity form-control" type="text" value="2" name="product-quantity-spin" min="1" step="1">
+                                                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;">
+                                                            </span>
+                                                            <span class="input-group-btn-vertical">
+                                                                <button class="btn btn-touchspin  js-touchspin js-increase-product-quantity bootstrap-touchspin-up" type="button">
+                                                                    <i class="fa fa-angle-up touchspin-up"></i>
+                                                                </button>
+                                                                <button class="btn btn-touchspin js-decrease-product-quantity bootstrap-touchspin-down" type="button">
+                                                                    <i class="fa fa-angle-down touchspin-down"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col col-auto col-md price">
+                                                        <span class="product-price">
+                                                            <strong>
+                                                                @String.Format("{0:0,0}", item.Subtotal) VNĐ
+                                                            </strong>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="col col-auto">
+                                                        <div class="cart-line-product-actions">
+                                                            <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-id-product="89" data-id-product-attribute="0" data-id-customization="">
+                                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                }
                                 <li class="cart-item">
                                     <div class="product-line-grid row align-items-center small-gutters">
                                         <!--  product left body: description -->
@@ -236,6 +252,7 @@
                                     <div><small class="value"></small></div>
                                 </div>
                             </div>
+
                             <hr>
                             <div class="block-promo">
                                 <div class="cart-voucher">

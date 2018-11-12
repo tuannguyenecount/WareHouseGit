@@ -9,7 +9,7 @@
                     <img data-src="@product.FullUrlImage" src="@product.FullUrlImage" alt="" data-full-size-image-url="@product.ZoomImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true" />
                     @if (product.SecondImage != null)
                     {
-                    <img data-src="@product.FullUrlSecondImage" src="@product.FullUrlSecondImage" alt="" data-full-size-image-url="@product.ZoomSecondImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true" />
+                        <img data-src="@product.FullUrlSecondImage" src="@product.FullUrlSecondImage" alt="" data-full-size-image-url="@product.ZoomSecondImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true" />
                     }
                 </a>
                 <ul class="product-flags">
@@ -43,16 +43,9 @@
                 </div>
 
                 <div class="product-add-cart">
-                    <form action="#" method="post">
-                        <input type="hidden" name="id_product" value="87">
-                        <div class="input-group input-group-add-cart">
-                            <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-
-                            <button class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal" type="button">
-                                <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
-                            </button>
-                        </div>
-                    </form>
+                    <a class="btn btn-product-list add-to-cart" href="@Url.Action("Add","ShoppingCart",new { Id = product.Id, color = @product.FlagColor, size = "30" })" data-toggle="modal" data-target="#quickview-modal">
+                        Thêm vào giỏ
+                    </a>
                 </div>
             </div>
         </article>
