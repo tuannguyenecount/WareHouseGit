@@ -303,7 +303,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AspNetUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PopupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -315,6 +318,14 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120618005_deleteColumnIdentity.cs" />
+    <Compile Include="Migrations\201811120618005_deleteColumnIdentity.Designer.cs">
+      <DependentUpon>201811120618005_deleteColumnIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811120635212_deletecolumnGenderAndPhone.cs" />
+    <Compile Include="Migrations\201811120635212_deletecolumnGenderAndPhone.Designer.cs">
+      <DependentUpon>201811120635212_deletecolumnGenderAndPhone.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -696,6 +707,18 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ReValidatePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ThongBaoLoi.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SidebarPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\_UserLoggedPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\_UserPanelPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\ProfileUser.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Hide.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\_CreateModal.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\_EditModal.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -884,6 +907,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811120618005_deleteColumnIdentity.resx">
+      <DependentUpon>201811120618005_deleteColumnIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811120635212_deletecolumnGenderAndPhone.resx">
+      <DependentUpon>201811120635212_deletecolumnGenderAndPhone.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

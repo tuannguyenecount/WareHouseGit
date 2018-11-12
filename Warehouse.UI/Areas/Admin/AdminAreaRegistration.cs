@@ -16,8 +16,8 @@ namespace FStore.Areas.Admin
         {
             context.MapRoute(
                 "Admin_default",
-                "quantrishop/{controller}/{action}/{id}",
-                new { area="Admin", controller = "Statistical", action = "Index", id = UrlParameter.Optional},
+                "AdminArea/{controller}/{action}/{id}",
+                new { area="Admin", controller = "AspNetUser", action = "ProfileUser", id = UrlParameter.Optional},
                 new [] { "Warehouse.Areas.Admin.Controllers" }
 
             );

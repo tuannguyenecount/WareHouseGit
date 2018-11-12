@@ -1,11 +1,18 @@
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 using System.Web.Mvc;
 using Unity;
+using Unity.Injection;
+using Unity.Lifetime;
 using Unity.Mvc5;
+using Warehouse.Areas.Admin.Controllers;
+using Warehouse.Controllers;
 using Warehouse.Data.Data;
 using Warehouse.Data.Interface;
 using Warehouse.Entities;
+using Warehouse.Models;
 using Warehouse.Services.Interface;
 using Warehouse.Services.Services;
 
@@ -42,8 +49,12 @@ namespace Warehouse
             container.RegisterType<IArticleService, ArticleService>();
             container.RegisterType<IArticleDal, ArticleDal>();
 
-            container.RegisterType<ApplicationSignInManager, ApplicationSignInManager>();
-            container.RegisterType<ApplicationUserManager, ApplicationUserManager>();
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<AspNetUserController>(new InjectionConstructor());
+
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

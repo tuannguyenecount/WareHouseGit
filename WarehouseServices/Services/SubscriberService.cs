@@ -20,9 +20,9 @@ namespace Warehouse.Services.Services
             return _subscriberDal.GetList();
         }
 
-        public Subscriber GetById(string email)
+        public Subscriber GetByEmail(string email)
         {
-            return _subscriberDal.Get(p => p.Email == email);
+            return _subscriberDal.GetFirst(p => p.Email == email);
         }
 
         public void Update(Subscriber email)

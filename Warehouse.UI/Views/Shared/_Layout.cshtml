@@ -172,7 +172,7 @@
 
     </main>
     <script src="~/Content/ps17/themes/warehouse/assets/cache/main-custom.js"></script>
-   
+
     <div id="iqitwishlist-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -234,9 +234,7 @@
             </div>
         </div>
     </div>
-    <button id="back-to-top">
-        <i class="fa fa-angle-up"></i>
-    </button>
+
     @*<div id="iqitpopup" class="" style="transform: translate(-50%, -50%) scale(0.88);">
                 <div class="iqitpopup-close">
                     <div class="iqit-close-checkbox">
@@ -276,7 +274,7 @@
             <button class="btn btn-primary" id="iqitcookielaw-accept">Accept</button>
         </div>*@
 
-    <button id="back-to-top2" class="-back-to-top-visible">
+    <button id="back-to-top" class="-back-to-top-visible">
         <i class="fa fa-angle-up" aria-hidden="true"></i>
     </button>
 
@@ -290,6 +288,51 @@
         </div>
     </div>
 
+    <div id="blockcart-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title"><i class="fa fa-check rtl-no-flip" aria-hidden="true"></i> Product successfully added to your shopping cart</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5 divide-right mb-1">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-6 text-center">
+                                    <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html"><img src="https://iqit-commerce.com/ps17/325-medium_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid"></a>
+                                </div>
+                                <div class="col col-info">
+                                    <div class="pb-1">
+                                        <span class="product-name"><a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html">Leather bag</a></span>
+                                    </div>
+                                    <span class="text-muted">1 x</span> <span>$30.50</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="cart-content pt-3">
+                                <p class="cart-products-count">There are 4 items in your cart.</p>
+                                <p>
+                                    <strong>Total products:</strong>&nbsp;$112.00
+                                </p>
+                                <div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
+                                    <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$388.00</span> more to get free shipping!</strong></div>
+                                    IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
+                                </div>
+                                <div class="cart-content-btn">
+                                    <a href="//iqit-commerce.com/ps17/en/cart?action=show" class="btn btn-primary btn-block btn-lg mb-2">Proceed to checkout</a>
+                                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Continue shopping</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @RenderSection("scripts", required: false)
 

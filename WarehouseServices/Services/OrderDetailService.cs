@@ -22,7 +22,7 @@ namespace Warehouse.Services.Services
 
         public OrderDetail GetById(int id)
         {
-            return _orderdetailDal.Get(p => p.Id == id);
+            return _orderdetailDal.GetSingle(p => p.Id == id);
         }
 
         public void Update(OrderDetail orderdetail)

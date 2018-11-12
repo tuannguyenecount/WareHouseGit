@@ -61,7 +61,7 @@ namespace Warehouse.Controllers
                 ApplicationUser user = UserManager.FindByName(User.Identity.Name);
                 model.UserId = user.Id;
                 model.Name = user.FullName;
-                model.Phone = user.Phone;
+                model.Phone = user.PhoneNumber;
                 model.Email = user.Email;
                 model.Address = user.Address;
             }
@@ -185,7 +185,7 @@ namespace Warehouse.Controllers
                     {
                         fullname = user.FullName,
                         email = user.Email,
-                        phone = user.Phone,
+                        phone = user.PhoneNumber,
                         date_trans = DateTime.Now,
                         price = price,
                         order_code = order_code,

@@ -22,7 +22,7 @@ namespace Warehouse.Services.Services
 
         public Province GetById(int id)
         {
-            return _provinceDal.Get(p => p.Id == id);
+            return _provinceDal.GetSingle(p => p.Id == id);
         }
 
         public void Update(Province province)

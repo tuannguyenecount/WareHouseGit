@@ -11,13 +11,14 @@ namespace Warehouse.Data.Data
 {
     public class NewsDal : EntityRepositoryBase<News, WarehouseContext>, INewsDal
     {
-        public List<News> GetList()
+        public override List<News> GetList(Expression<Func<News, bool>> filter = null)
         {
             using (var context = new WarehouseContext())
             {
-                return context.Set<News>().Include(n => n.AspNetUser).ToList();
+                return context.Set<News>().Include(n => n.AspNetUser).Where(filter).ToList();
             }
         }
+
         public List<News> GetNews(int take = 8)
         {
             using (var context = new WarehouseContext())

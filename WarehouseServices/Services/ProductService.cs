@@ -27,6 +27,11 @@ namespace Warehouse.Services.Services
         {
             switch (sortName)
             {
+                case "id":
+                    {
+                        products = _productDal.SortList(products, p => p.Id, sortType);
+                        break;
+                    }
                 case "price":
                     {
                         products = _productDal.SortList(products, p => p.Price, sortType);
@@ -53,12 +58,12 @@ namespace Warehouse.Services.Services
 
         public Product GetById(int productId)
         {
-            return _productDal.Get(p => p.Id == productId);
+            return _productDal.GetSingle(p => p.Id == productId);
         }
 
         public Product GetByAlias(string alias)
         {
-            return _productDal.Get(p => p.Alias_SEO == alias);
+            return _productDal.GetSingle(p => p.Alias_SEO == alias);
         }
 
         public void Update(Product product)
@@ -94,6 +99,11 @@ namespace Warehouse.Services.Services
         public int CountAll()
         {
             return _productDal.Count();
+        }
+
+        public List<Product> Search(string keyword)
+        {
+            return _productDal.GetList(p => p.Name.ToUpper().Contains(keyword.ToUpper()) || true);
         }
     }
 }
