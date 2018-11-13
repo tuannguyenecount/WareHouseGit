@@ -292,43 +292,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="modal-title"><i class="fa fa-check rtl-no-flip" aria-hidden="true"></i> Product successfully added to your shopping cart</span>
+                    <span class="modal-title"><i class="fa fa-check rtl-no-flip" aria-hidden="true"></i> Thêm sản phẩm vào giỏ hàng thành công</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-5 divide-right mb-1">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-6 text-center">
-                                    <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html"><img src="https://iqit-commerce.com/ps17/325-medium_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid"></a>
-                                </div>
-                                <div class="col col-info">
-                                    <div class="pb-1">
-                                        <span class="product-name"><a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html">Leather bag</a></span>
-                                    </div>
-                                    <span class="text-muted">1 x</span> <span>$30.50</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="cart-content pt-3">
-                                <p class="cart-products-count">There are 4 items in your cart.</p>
-                                <p>
-                                    <strong>Total products:</strong>&nbsp;$112.00
-                                </p>
-                                <div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
-                                    <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$388.00</span> more to get free shipping!</strong></div>
-                                    IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
-                                </div>
-                                <div class="cart-content-btn">
-                                    <a href="//iqit-commerce.com/ps17/en/cart?action=show" class="btn btn-primary btn-block btn-lg mb-2">Proceed to checkout</a>
-                                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Continue shopping</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -356,6 +326,10 @@
                 $(this).find(".modal-body").load(link.attr("href"));
             });
 
+            $("#blockcart-modal").on("show.bs.modal", function (e) {
+                var link = $(e.relatedTarget);
+                $(this).find(".modal-body").load(link.attr("href"));
+            });
 
         });
     </script>

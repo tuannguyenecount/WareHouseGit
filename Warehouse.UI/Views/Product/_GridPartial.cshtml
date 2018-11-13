@@ -50,14 +50,12 @@
                             </div>
 
                             <div class="product-add-cart">
-                                <form action="https://iqit-commerce.com/ps17/en/cart?add=1&amp;id_product=87&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" method="post">
-                                    <div class="input-group input-group-add-cart">
-                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
-                                        <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
-                                        </button>
-                                    </div>
-                                </form>
+                                <div class="input-group input-group-add-cart">
+                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                                    <a href="@Url.Action("Add","ShoppingCart",new { Id = product.Id })" class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal">
+                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </article>

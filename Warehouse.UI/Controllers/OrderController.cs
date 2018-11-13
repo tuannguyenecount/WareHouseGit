@@ -49,7 +49,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Checkout([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)
+        public ActionResult Checkout([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
             model.DateOrder = DateTime.Now;
@@ -162,7 +162,7 @@ namespace Warehouse.Controllers
           
         }
         
-        public async Task<ActionResult> Confirm(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
+        public ActionResult Confirm(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
         {
             if (error_text == "")
             {

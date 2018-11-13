@@ -1,71 +1,38 @@
-﻿
-@model QuickViewProductViewModel
+﻿@model CartItem
 
-<div class="modal-header">
-    <span class="modal-title"><i class="fa fa-check rtl-no-flip" aria-hidden="true"></i> Product successfully added to your shopping cart</span>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">×</span>
-    </button>
-</div>
-<div class="modal-body">
-    <div class="row">
-        <div class="col-md-5 divide-right mb-1">
-            <div class="row no-gutters align-items-center">
-                <div class="col-6 text-center">
-                    <img src="@Model.FullUrlImage" data-image-large-src="@Model.FullZoomUrlImage" alt="" title="" itemprop="image" content="@Model.FullUrlImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid">
-                </div>
-                <div class="col col-info">
-                    <div class="pb-1">
-                        <span class="product-name"><a href="@Url.Action("Details","Product",new { alias = Model.Alias })">@Model.Name</a></span>
-                    </div>
-                    <span class="text-muted">1 x</span> <span>@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))</span>
-                </div>
+
+<div class="row">
+    <div class="col-md-5 divide-right mb-1">
+        <div class="row no-gutters align-items-center">
+            <div class="col-6 text-center">
+                <img src="@Model.FullUrlImage" data-image-large-src="@Model.FullUrlZoomImage" alt="" title="" itemprop="image" content="@Model.FullUrlImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid">
             </div>
-        </div>
-        <div class="col-md-7">
-            <div class="cart-content pt-3">
-                <p class="cart-products-count">There are 2 items in your cart.</p>
-                <p>
-                    <strong>Total products:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))
-                </p>
-
-
-
-                <div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
-                    <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$439.00</span> more to get free shipping!</strong></div>
-                    IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
+            <div class="col col-info">
+                <div class="pb-1">
+                    <span class="product-name"><a href="@Url.Action("Details","Product",new { alias = Model.Alias })">@Model.Name</a></span>
                 </div>
-
-                <div class="cart-content-btn">
-                    <a href="//iqit-commerce.com/ps17/en/cart?action=show" class="btn btn-primary btn-block btn-lg mb-2">Proceed to checkout</a>
-                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Continue shopping</button>
-                </div>
+                <span class="text-muted">1 x</span> <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Price))</span>
             </div>
         </div>
     </div>
-</div>
+    <div class="col-md-7">
+        <div class="cart-content pt-3">
+            <p class="cart-products-count">Giỏ hàng đang có @((Session["ShoppingCart"] as List<CartItem>).Count) sản phẩm.</p>
+            <p>
+                <strong>Tổng thành tiền:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Price))
+            </p>
 
 
 
+            @*<div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
+                    <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$439.00</span> more to get free shipping!</strong></div>
+                    IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
+                </div>*@
 
-
-
-<div id="blockcart-notification" class="ns-box  ns-effect-thumbslider">
-    <div class="ns-box-inner row align-items-center no-gutters">
-        <div class="ns-thumb col-3">
-            <img src="https://iqit-commerce.com/ps17/289-small_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid">
-        </div>
-        <div class="ns-content col-9">
-            <span class="ns-title"><i class="fa fa-check" aria-hidden="true"></i> <strong>Leather bag</strong> is added to your shopping cart</span>
-        </div>
-        <div class="ns-delivery col-12 mt-4">
-
-
-            <div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
-                <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$439.00</span> more to get free shipping!</strong></div>
-                IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
+            <div class="cart-content-btn">
+                <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-block btn-lg mb-2">Tiến hành đặt hàng</a>
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Tiếp tục mua</button>
             </div>
         </div>
-
     </div>
 </div>

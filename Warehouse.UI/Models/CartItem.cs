@@ -41,21 +41,22 @@ namespace Warehouse.Models
         }
 
         // Image FullUrl
-        public string ImageCustom
+        public string FullUrlImage
         {
             get
             {
-                if(ConfigurationManager.AppSettings["BaseUrl"] != null)
-                {
-                    return ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Product/" + this.Image;
-                }
-                else
-                {
-                    return "/Photos/Product/" + this.Image;
-                }
+               return ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Products/" + this.Image;
             }
         }
-       
+
+        public string FullUrlZoomImage
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Products/l/" + this.Image;
+            }
+        }
+
     }
 
 }

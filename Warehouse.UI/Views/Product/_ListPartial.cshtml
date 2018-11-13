@@ -36,14 +36,12 @@
                                     <span itemprop="price" class="product-price">@(Warehouse.Common.Format.FormatCurrencyVND(product.Price))</span>
                                 </div>
                                 <div class="product-add-cart">
-                                    <form action="#" method="post">
-                                        <div class="input-group input-group-add-cart">
-                                            <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1" />
-                                            <button class="btn btn-product-list add-to-cart" data-button-action="add-to-cart" type="submit">
-                                                <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
-                                            </button>
-                                        </div>
-                                    </form>
+                                    <div class="input-group input-group-add-cart">
+                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1" />
+                                        <a href="@Url.Action("Add","ShoppingCart",new { Id = product.Id })" class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="product-functional-buttons product-functional-buttons-bottom">
                                     <div class="product-functional-buttons-links">

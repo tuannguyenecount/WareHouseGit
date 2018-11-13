@@ -10,6 +10,7 @@ namespace Warehouse.Controllers
     public class ShoppingCartController : Controller
     {
         IProductService _productService;
+
         public ShoppingCartController(IProductService productService)
         {
             _productService = productService;
@@ -52,21 +53,21 @@ namespace Warehouse.Controllers
         /// <returns></returns>
         public ActionResult Add(int id, string color, string size)
         {
-            Product Product = _productService.GetById(id);
+            Product product = _productService.GetById(id);
 
-            if (Product == null)
+            if (product == null)
             {
                 return Redirect("/pages/404");
             }
 
-            CartItem item = new CartItem()
+            CartItem cartItem = new CartItem()
             {
-                Price = Product.PriceNew ?? Product.Price,
+                Price = product.PriceNew ?? product.Price,
                 Quantity = 1,
                 Id = id,
-                Name = Product.Name,
-                Image = Product.Image,
-                Alias = Product.Alias_SEO,
+                Name = product.Name,
+                Image = product.Image,
+                Alias = product.Alias_SEO,
                 Property = ""
             };
 
@@ -74,41 +75,24 @@ namespace Warehouse.Controllers
             {
                 if (!string.IsNullOrEmpty(color))
                 {
-                    item.Property += "<p>Màu " + color + "<p/>";
+                    cartItem.Property += "<p>Màu " + color + "<p/>";
                 }
                 if (!string.IsNullOrEmpty(size))
                 {
-                    item.Property += "<p>Size " + size + "</p>";
+                    cartItem.Property += "<p>Size " + size + "</p>";
                 }
             }
 
-            if (ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == item.Property) != null)
+            if (ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == cartItem.Property) != null)
             {
-                ShoppingCart.Single(m => m.Id == id && m.Property == item.Property).Quantity += 1;
+                ShoppingCart.Single(m => m.Id == id && m.Property == cartItem.Property).Quantity += 1;
             }
             else
             {
-                ShoppingCart.Add(item);
+                ShoppingCart.Add(cartItem);
             }
 
-            Product product = _productService.GetById(id);
-
-            if (product == null)
-                return Content("<p>Sản phẩm không tồn tại!</p>");
-
-            QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
-            {
-                Id = product.Id,
-                Alias = product.Alias_SEO,
-                FlagColor = "#eba53d",
-                ProductFlag = product.Category.Name,
-                Name = product.Name,
-                Image = product.Image,
-                Description = product.Description,
-                Price = (int)(product.PriceNew ?? product.Price)
-            };
-
-            return PartialView(_ShoppingCartViewModal); /*("_ShoppingCartViewModal", "ShoppingCart", new { id = item.Id });*/
+            return PartialView(cartItem); /*("_ShoppingCartViewModal", "ShoppingCart", new { id = item.Id });*/
         }
 
         // Edit Quantity Item

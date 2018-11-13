@@ -27,8 +27,6 @@
                 <h1 class="h1"><a href="@Url.Action("Details","Product",new { alias = Model.Alias })">@Model.Name</a></h1>
                 <div class="product-prices">
                     <div class="" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
-                        <link itemprop="availability" href="https://schema.org/PreOrder">
-                        <meta itemprop="priceCurrency" content="USD">
                         <div>
                             <span itemprop="price" class="product-price">@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))</span>
                         </div>
@@ -65,11 +63,11 @@
                             </div>
                             <div class="col col-12 col-sm-auto">
                                 <div class="add">
-                                    <button class="btn btn-primary btn-lg add-to-cart" data-button-action="add-to-cart" type="submit">
+                                    <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart"  >
                                         <i class="fa fa-shopping-bag fa-fw bag-icon" aria-hidden="true"></i>
                                         <i class="fa fa-circle-o-notch fa-spin fa-fw spinner-icon" aria-hidden="true"></i>
                                         Thêm vào giỏ
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col col-sm-auto">
