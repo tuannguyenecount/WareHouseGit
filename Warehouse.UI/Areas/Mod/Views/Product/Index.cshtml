@@ -1,0 +1,223 @@
+﻿@model List<Product>
+@{
+
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('#tblData').DataTable();
+            $("#tblData thead th:first").click();
+            $("#checkall").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#tblData tbody input[type=checkbox]").attr("checked", "checked");
+                }
+                else {
+                    $("#tblData tbody input[type=checkbox]").removeAttr("checked");
+                }
+            });
+
+        });
+    </script>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+
+                            <li class="active"><a href="#tab_1" data-toggle="tab">Đang Hiển Thị <label class="label label-success">@Model.Count(m => m.Display == true)</label></a></li>
+                            <li><a href="#tab_2" data-toggle="tab">Đang Ẩn <label class="label label-info">@Model.Count(m => m.Display == false)</label></a></li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                                @using (Ajax.BeginForm("Delete", new AjaxOptions { HttpMethod = "Post", OnFailure = "ShowPopUpError('Lỗi ajax!')", OnSuccess = "OnSuccessAjax1" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="table-responsive">
+                                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hình ảnh</th>
+                                                    <th>Mã số</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Phân loại</th>
+                                                    <th>Giá bán</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Thao tác</th>
+                                                    @if (User.IsInRole("Admin"))
+                                                    {
+                                                        <th class="text-center sorting_asc_disable">
+                                                            <input type="checkbox" id="checkall" />
+                                                        </th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (Product item in Model.Where(m => m.Display == true))
+                                                {
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <img src="~/Photos/Products/@item.Image" width="90" height="auto" />
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(p => item.Id)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(p => item.Name)
+                                                        </td>
+                                                        <td>
+                                                            @item.Category.Name
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatCurrencyVND((int)(item.PriceNew ?? item.Price))
+                                                        </td>
+                                                        <td>
+                                                            @if (item.Status)
+                                                            {
+                                                                <label class="label label-success">Còn hàng</label>
+                                                            }
+                                                            else
+                                                            {
+                                                                <label class="label label-warning">Hết hàng</label>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatDateTime(item.DateCreated)
+                                                            
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
+                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
+                                                        </td>
+                                                        @if (User.IsInRole("Admin"))
+                                                        {
+                                                            <td class="text-center">
+                                                                <input type="checkbox" name="checkedDelete" value="@item.Id" />
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                }
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="tab_2">
+                                @using (Ajax.BeginForm("Delete", new AjaxOptions { HttpMethod = "Post", OnFailure = "ShowPopUpError('Lỗi ajax!')", OnSuccess = "OnSuccessAjax1" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="table-responsive">
+                                        <table id="tblData" class="table table-bordered" method="post">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hình ảnh</th>
+                                                    <th>Mã số</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th>Phân loại</th>
+                                                    <th>Giá bán</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Thao tác</th>
+                                                    @if (User.IsInRole("Admin"))
+                                                    {
+                                                        <th class="text-center sorting_asc_disable">
+                                                            <input type="checkbox" id="checkall" />
+                                                        </th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (Product item in Model.Where(m => m.Display == false))
+                                                {
+                                                    <tr class="bg-warning">
+                                                        <td class="text-center">
+                                                            <img src="~/Photos/Products/@item.Image" width="90" height="auto" />
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(p => item.Id)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(p => item.Name)
+                                                        </td>
+                                                        <td>
+                                                            @item.Category.Name
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatCurrencyVND((int)(item.PriceNew ?? item.Price))
+                                                        </td>
+                                                        <td>
+                                                            @if (item.Status)
+                                                            {
+                                                                <label class="label label-success">Còn hàng</label>
+                                                            }
+                                                            else
+                                                            {
+                                                                <label class="label label-warning">Hết hàng</label>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatDateTime(item.DateCreated)
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
+                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
+                                                        </td>
+                                                        @if (User.IsInRole("Admin"))
+                                                        {
+                                                            <td class="text-center">
+                                                                <input type="checkbox" name="checkedDelete" value="@item.Id" />
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                }
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a onclick="return confirm('Xác nhận xuất dữ liệu ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("ExportToExcel")" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+

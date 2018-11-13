@@ -35,6 +35,8 @@ namespace Warehouse.Services.Interface
 
         List<Product> GetRelatedProducts(int? categoryId, int productMainId);
 
+        List<Product> GetByUser(string UserName);
+
         int CountAll();
     }
 }

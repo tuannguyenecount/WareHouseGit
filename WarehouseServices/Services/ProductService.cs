@@ -105,5 +105,10 @@ namespace Warehouse.Services.Services
         {
             return _productDal.GetList(p => p.Name.ToUpper().Contains(keyword.ToUpper()) || true);
         }
+
+        public List<Product> GetByUser(string UserName)
+        {
+            return _productDal.GetList(p => p.UserCreated == UserName).ToList();
+        }
     }
 }

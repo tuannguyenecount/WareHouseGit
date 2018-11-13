@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Xóa tạm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-12 text-center">
+    @using (Html.BeginForm("Delete", "Product", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h3>Xác nhận xóa tạm sản phẩm "@ViewBag.Name" ? </h3>
+        <input type="hidden" name="Id" value="@ViewBag.Id" />
+        <input type="hidden" name="returnURL" value="@(Request.UrlReferrer != null? Request.UrlReferrer.ToString() : Url.Action("Index") )" />
+        <div>
+            <button type="submit" class="btn btn-danger btn-sm">Đồng ý</button>
+            <a href="@Url.Action("Index",new {page = Request.QueryString["page"] })" class="btn btn-default btn-sm">Trở về</a>
+        </div>
+    }
+</div>
+
+@Html.Partial("_ReValidatePartial")
