@@ -1,5 +1,7 @@
 ﻿@model CartItem
-
+@{ 
+    List<CartItem> ShoppingCart = Session["ShoppingCart"] as List<CartItem>;
+}
 
 <div class="row">
     <div class="col-md-5 divide-right mb-1">
@@ -11,15 +13,15 @@
                 <div class="pb-1">
                     <span class="product-name"><a href="@Url.Action("Details","Product",new { alias = Model.Alias })">@Model.Name</a></span>
                 </div>
-                <span class="text-muted">1 x</span> <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Price))</span>
+                <span class="text-muted">@Model.Quantity x</span> <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Price))</span>
             </div>
         </div>
     </div>
     <div class="col-md-7">
         <div class="cart-content pt-3">
-            <p class="cart-products-count">Giỏ hàng đang có @((Session["ShoppingCart"] as List<CartItem>).Count) sản phẩm.</p>
+            <p class="cart-products-count">Giỏ hàng đang có @(ShoppingCart.Sum(c => c.Quantity)) sản phẩm.</p>
             <p>
-                <strong>Tổng thành tiền:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Price))
+                <strong>Tổng thành tiền:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c=>c.Subtotal)))
             </p>
 
 
@@ -36,3 +38,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $.post("@Url.Action("UpdateShoppingCartPartial")", function (data) {
+        $("#ps-shoppingcart-wrapper").html(data);
+    });
+</script>

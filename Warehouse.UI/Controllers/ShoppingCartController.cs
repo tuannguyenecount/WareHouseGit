@@ -23,7 +23,7 @@ namespace Warehouse.Controllers
         {
             get
             {
-                return Session["ShoppingCart"] as List<CartItem>;
+                return (Session["ShoppingCart"] as List<CartItem>) ?? new List<CartItem>();
             }
         }
 
@@ -34,13 +34,7 @@ namespace Warehouse.Controllers
         [Route("gio-hang.html")]
         public ActionResult Index()
         {
-            if (Session["ShoppingCart"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            List<CartItem> lstShoppingCart = GetShoppingCart();
-            //ViewBag.TongTien = TongTien();
-            return View(lstShoppingCart);
+            return View(ShoppingCart);
         }
 
         /// <summary>
@@ -124,23 +118,10 @@ namespace Warehouse.Controllers
             return RedirectToAction("Index");
         }
 
-
-        /// <summary>
-        /// Get ShoppingCart
-        /// </summary>
-        /// <returns></returns>
-        public List<CartItem> GetShoppingCart()
+        public PartialViewResult UpdateShoppingCartPartial()
         {
-            List<CartItem> ShoppingCart = Session["ShoppingCart"] as List<CartItem>;
-            if (ShoppingCart == null)
-            {
-                //Nếu giỏ hàng chưa tồn tại thì tiến hành khởi tao list giỏ hàng (sessionShoppingCart)
-                ShoppingCart = new List<CartItem>();
-                Session["ShoppingCart"] = ShoppingCart;
-            }
-            return ShoppingCart;
+            return PartialView();
         }
-
         ////Tính tổng số lượng và tổng tiền
         ////Tính tổng số lượng
         //private int TongSoLuong()

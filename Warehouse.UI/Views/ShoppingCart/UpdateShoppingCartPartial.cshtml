@@ -1,0 +1,83 @@
+﻿@{
+    List<CartItem> ShoppingCart = Session["ShoppingCart"] as List<CartItem>;
+}
+
+<div id="ps-shoppingcart" class="header-btn-w header-cart-btn-w ps-shoppingcart side-cart">
+    <div id="blockcart" class="blockcart cart-preview">
+        <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn" data-toggle="dropdown">
+            <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">@(ShoppingCart.Sum(c => c.Quantity))</span></i>
+            <span class="info-wrapper">
+                <span class="title">Giỏ hàng</span>
+                <span class="cart-toggle-details">
+                    <span class="text-faded cart-separator"> / </span>
+                    <span class="cart-products-count">(@(ShoppingCart.Sum(c => c.Quantity)))</span>
+                    <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c => c.Subtotal)))</span>
+                </span>
+            </span>
+        </a>
+        <div id="_desktop_blockcart-content">
+            <div id="blockcart-content" class="blockcart-content">
+                <div class="cart-title">
+                    <span class="modal-title">Giỏ hàng</span>
+                    <button type="button" id="js-cart-close" class="close">
+                        <span>×</span>
+                    </button>
+                    <hr>
+                </div>
+                <ul class="cart-products">
+                    @foreach (CartItem cartItem in ShoppingCart)
+                    {
+                        <li>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-3">
+                                    <span class="product-image media-middle">
+                                        <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })">
+                                            <img src="@cartItem.FullUrlImage" alt="@cartItem.Name" class="img-fluid">
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="col col-info">
+                                    <div class="pb-1">
+                                        <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })">@cartItem.Name</a>
+                                    </div>
+
+                                    @*<div class="product-attributes text-muted pb-1">
+                                            <div class="product-line-info">
+                                                <span class="label">Size:</span>
+                                                <span class="value">S</span>
+                                            </div>
+                                            <div class="product-line-info">
+                                                <span class="label">Color:</span>
+                                                <span class="value">Yellow</span>
+                                            </div>
+                                        </div>*@
+
+                                    <span class="text-muted">@cartItem.Quantity x</span>
+                                    <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)cartItem.Subtotal))</span>
+                                </div>
+                                <div class="col col-auto">
+                                    <a class="remove-from-cart" rel="nofollow" href="@Url.Action("Delete","ShoppingCart",new { Id = cartItem.Id })" title="Xóa sản phẩm này khỏi giỏ">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </li>
+                    }
+                </ul>
+                <div class="cart-subtotals">
+                    <div class="products clearfix">
+                        <span class="label">Tổng tiền</span>
+                        <span class="value float-right">@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c => c.Subtotal)))</span>
+                    </div>
+                </div>
+
+                <div class="cart-buttons text-center">
+                    <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-block btn-lg mb-2">Đặt hàng ngay</a>
+                    <a rel="nofollow" class="btn btn-secondary btn-block" href="@Url.Action("Index","ShoppingCart")">Xem giỏ hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

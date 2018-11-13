@@ -1,14 +1,17 @@
-﻿<div id="ps-shoppingcart-wrapper" class="col col-auto">
+﻿@{ 
+    List<CartItem> ShoppingCart = Session["ShoppingCart"] as List<CartItem>;
+}
+<div id="ps-shoppingcart-wrapper" class="col col-auto">
     <div id="ps-shoppingcart" class="header-btn-w header-cart-btn-w ps-shoppingcart side-cart">
-        <div id="blockcart" class="blockcart cart-preview" data-refresh-url="//iqit-commerce.com/ps17/en/module/ps_shoppingcart/ajax">
+        <div id="blockcart" class="blockcart cart-preview" >
             <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn" data-toggle="dropdown">
-                <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">3</span></i>
+                <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">@(ShoppingCart.Sum(c => c.Quantity))</span></i>
                 <span class="info-wrapper">
                     <span class="title">Giỏ hàng</span>
                     <span class="cart-toggle-details">
                         <span class="text-faded cart-separator"> / </span>
-                        <span class="cart-products-count">(@((Session["ShoppingCart"] as List<CartItem>).Count))</span>
-                        <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((Session["ShoppingCart"] as List<CartItem>).Count))</span>
+                        <span class="cart-products-count">(@(ShoppingCart.Sum(c=>c.Quantity)))</span>
+                        <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c=>c.Subtotal)))</span>
                     </span>
                 </span>
             </a>
@@ -22,19 +25,23 @@
                         <hr>
                     </div>
                     <ul class="cart-products">
+                        @foreach (CartItem cartItem in ShoppingCart)
+                        {
                         <li>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-3">
                                     <span class="product-image media-middle">
-                                        <a href="https://iqit-commerce.com/ps17/en/shoes/133-363-printed-chiffon-dress.html#/1-size-s/16-color-yellow"><img src="https://iqit-commerce.com/ps17/451-cart_default/printed-chiffon-dress.jpg" alt="Printed Chiffon Dress" class="img-fluid"></a>
+                                        <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })">
+                                            <img src="@cartItem.FullUrlImage" alt="@cartItem.Name" class="img-fluid">
+                                        </a>
                                     </span>
                                 </div>
                                 <div class="col col-info">
                                     <div class="pb-1">
-                                        <a href="https://iqit-commerce.com/ps17/en/shoes/133-363-printed-chiffon-dress.html#/1-size-s/16-color-yellow">Printed Chiffon Dress</a>
+                                        <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })">@cartItem.Name</a>
                                     </div>
 
-                                    <div class="product-attributes text-muted pb-1">
+                                    @*<div class="product-attributes text-muted pb-1">
                                         <div class="product-line-info">
                                             <span class="label">Size:</span>
                                             <span class="value">S</span>
@@ -43,13 +50,13 @@
                                             <span class="label">Color:</span>
                                             <span class="value">Yellow</span>
                                         </div>
-                                    </div>
+                                    </div>*@
 
-                                    <span class="text-muted">1 x</span>
-                                    <span>$20.50</span>
+                                    <span class="text-muted">@cartItem.Quantity x</span>
+                                    <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)cartItem.Subtotal))</span>
                                 </div>
                                 <div class="col col-auto">
-                                    <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=133&amp;id_product_attribute=363&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-link-place="cart-preview" data-id-product="133" data-id-product-attribute="363" data-id-customization="" title="remove from cart">
+                                    <a class="remove-from-cart" rel="nofollow" href="@Url.Action("Delete","ShoppingCart",new { Id = cartItem.Id })" title="Xóa sản phẩm này khỏi giỏ">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -57,61 +64,12 @@
 
 
                         </li>
-                        <li>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-3">
-                                    <span class="product-image media-middle">
-                                        <a href="https://iqit-commerce.com/ps17/en/blouses/116-printed-summer-dress.html"><img src="https://iqit-commerce.com/ps17/395-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid"></a>
-                                    </span>
-                                </div>
-                                <div class="col col-info">
-                                    <div class="pb-1">
-                                        <a href="https://iqit-commerce.com/ps17/en/blouses/116-printed-summer-dress.html">Leather bag</a>
-                                    </div>
-
-
-                                    <span class="text-muted">1 x</span>
-                                    <span>$30.50</span>
-                                </div>
-                                <div class="col col-auto">
-                                    <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=116&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-link-place="cart-preview" data-id-product="116" data-id-product-attribute="0" data-id-customization="" title="remove from cart">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                        </li>
-                        <li>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-3">
-                                    <span class="product-image media-middle">
-                                        <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html"><img src="https://iqit-commerce.com/ps17/289-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid"></a>
-                                    </span>
-                                </div>
-                                <div class="col col-info">
-                                    <div class="pb-1">
-                                        <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html">Leather bag</a>
-                                    </div>
-
-
-                                    <span class="text-muted">1 x</span>
-                                    <span>$30.50</span>
-                                </div>
-                                <div class="col col-auto">
-                                    <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=87&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-link-place="cart-preview" data-id-product="87" data-id-product-attribute="0" data-id-customization="" title="remove from cart">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                        </li>
+                        }
                     </ul>
                     <div class="cart-subtotals">
                         <div class="products clearfix">
                             <span class="label">Tổng tiền</span>
-                            <span class="value float-right">@(Warehouse.Common.Format.FormatCurrencyVND((int)(Session["ShoppingCart"] as List<CartItem>).Sum(c => c.Subtotal)))</span>
+                            <span class="value float-right">@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c => c.Subtotal)))</span>
                         </div>
                     </div>
 

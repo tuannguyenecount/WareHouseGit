@@ -25,12 +25,15 @@
 
 
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/">
-                            <span itemprop="name">Home</span>
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Trang chủ</span>
                         </a>
-                        <meta itemprop="position" content="1">
                     </li>
-
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="@Url.Action("Index","ShoppingCart")">
+                            <span itemprop="name">@ViewBag.Title</span>
+                        </a>
+                    </li>
 
                 </ol>
             </div>
@@ -43,22 +46,23 @@
     <aside id="notifications"></aside>
     <div id="content-wrapper">
         <section id="main">
-            <h1 class="h1 page-title"><span>Shopping Cart</span></h1>
+            <h1 class="h1 page-title"><span>Giỏ hàng </span></h1>
             <div class="cart-grid row">
                 <!-- Left Block: cart product informations & shpping -->
                 <div class="cart-grid-body col-12 col-lg-8">
                     <!-- cart products detailed -->
                     <div class="cart-container">
-                        <div class="cart-overview js-cart" data-refresh-url="//iqit-commerce.com/ps17/en/cart?ajax=1&amp;action=refresh">
+                        <div class="cart-overview js-cart" >
                             <ul class="cart-items">
                                 <li class="cart-item-header hidden-sm-down">
                                     <div class="row small-gutters">
-                                        <div class="col-6">Product</div>
+ 
+                                        <div class="col-6 text-center">Sản phẩm</div>
                                         <div class="col-6">
                                             <div class="row small-gutters">
-                                                <div class="col">Price</div>
-                                                <div class="col">Qty</div>
-                                                <div class="col">Total</div>
+                                                <div class="col">Giá bán</div>
+                                                <div class="col">Số lượng</div>
+                                                <div class="col">Thành tiền</div>
                                                 <div class="col col-auto"><i class="fa fa-trash-o invisible" aria-hidden="true"></i></div>
                                             </div>
                                         </div>
@@ -72,13 +76,13 @@
                                             <div class="product-line-grid-body col-12 col-sm-6 col-md-6">
                                                 <div class="row align-items-center small-gutters">
                                                     <div class="col product-image">
-                                                        <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" data-id_customization="0">
-                                                            <img src="https://iqit-commerce.com/ps17/297-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid">
+                                                        <a href="@Url.Action("Details","Product",new { alias = item.Alias })" >
+                                                            <img src="@item.FullUrlImage" alt="@item.Name" class="img-fluid">
                                                         </a>
                                                     </div>
                                                     <div class="col col-9">
                                                         <div class="product-line-info">
-                                                            <a class="label" href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" data-id_customization="0">@item.Name</a>
+                                                            <b><a class="label" href="@Url.Action("Details","Product",new { alias = item.Alias })">@item.Name</a></b>
                                                         </div>
 
 
@@ -91,36 +95,23 @@
                                                 <div class="row align-items-center small-gutters justify-content-end">
                                                     <!--  product unit-->
                                                     <div class="col col-auto col-md unit-price">
-                                                        <span class="value"> @String.Format("{0:0,0}", item.Price) VNĐ </span>
+                                                        <span class="value"> @(Warehouse.Common.Format.FormatCurrencyVND((int)item.Price)) </span>
                                                     </div>
 
-                                                    <div class="col col-auto col-md qty">
-                                                        <div class="input-group bootstrap-touchspin">
-                                                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
-                                                            <input class="js-cart-line-product-quantity form-control" type="text" value="2" name="product-quantity-spin" min="1" step="1">
-                                                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;">
-                                                            </span>
-                                                            <span class="input-group-btn-vertical">
-                                                                <button class="btn btn-touchspin  js-touchspin js-increase-product-quantity bootstrap-touchspin-up" type="button">
-                                                                    <i class="fa fa-angle-up touchspin-up"></i>
-                                                                </button>
-                                                                <button class="btn btn-touchspin js-decrease-product-quantity bootstrap-touchspin-down" type="button">
-                                                                    <i class="fa fa-angle-down touchspin-down"></i>
-                                                                </button>
-                                                            </span>
-                                                        </div>
+                                                    <div class="col col-auto col-md">
+                                                        <input class="form-control" type="number" value="@item.Quantity" name="product-quantity-spin" min="1" step="1">
                                                     </div>
                                                     <div class="col col-auto col-md price">
                                                         <span class="product-price">
                                                             <strong>
-                                                                @String.Format("{0:0,0}", item.Subtotal) VNĐ
+                                                                @(Warehouse.Common.Format.FormatCurrencyVND((int)item.Subtotal))
                                                             </strong>
                                                         </span>
                                                     </div>
 
                                                     <div class="col col-auto">
                                                         <div class="cart-line-product-actions">
-                                                            <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=89&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-id-product="89" data-id-product-attribute="0" data-id-customization="">
+                                                            <a class="remove-from-cart" rel="nofollow"  href="@Url.Action("Delete",new { Id = item.Id })" onclick="return confirm('Xác nhận xóa sản phẩm này khỏi giỏ?')">
                                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                             </a>
                                                         </div>
@@ -130,105 +121,11 @@
                                         </div>
                                     </li>
                                 }
-                                <li class="cart-item">
-                                    <div class="product-line-grid row align-items-center small-gutters">
-                                        <!--  product left body: description -->
-                                        <div class="product-line-grid-body col-12 col-sm-6 col-md-6">
-                                            <div class="row align-items-center small-gutters">
-                                                <div class="col product-image">
-                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html" data-id_customization="0">
-                                                        <img src="https://iqit-commerce.com/ps17/325-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="col col-9">
-                                                    <div class="product-line-info">
-                                                        <a class="label" href="https://iqit-commerce.com/ps17/en/accessories/93-printed-summer-dress.html" data-id_customization="0">Leather bag</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--  product left body: description -->
-                                        <div class="col-12 col-sm-6 col-md-6 product-line-grid-right product-line-actions">
-                                            <div class="row align-items-center small-gutters justify-content-end">
-                                                <!--  product unit-->
-                                                <div class="col col-auto col-md unit-price">
-                                                    <span class="value">$30.50</span>
-                                                </div>
-
-                                                <div class="col col-auto col-md qty">
-                                                    <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><input class="js-cart-line-product-quantity form-control" data-down-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=93&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50&amp;op=down" data-up-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=93&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50&amp;op=up" data-update-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=93&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-product-id="93" type="text" value="1" name="product-quantity-spin" min="1" step="1" style="display: block;"><span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span><span class="input-group-btn-vertical"><button class="btn btn-touchspin  js-touchspin js-increase-product-quantity bootstrap-touchspin-up" type="button"><i class="fa fa-angle-up touchspin-up"></i></button><button class="btn btn-touchspin js-decrease-product-quantity bootstrap-touchspin-down" type="button"><i class="fa fa-angle-down touchspin-down"></i></button></span></div>
-                                                </div>
-                                                <div class="col col-auto col-md price">
-                                                    <span class="product-price">
-                                                        <strong>
-                                                            $30.50
-                                                        </strong>
-                                                    </span>
-                                                </div>
-
-                                                <div class="col col-auto">
-                                                    <div class="cart-line-product-actions">
-                                                        <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=93&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-id-product="93" data-id-product-attribute="0" data-id-customization="">
-                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="cart-item">
-                                    <div class="product-line-grid row align-items-center small-gutters">
-                                        <!--  product left body: description -->
-                                        <div class="product-line-grid-body col-12 col-sm-6 col-md-6">
-                                            <div class="row align-items-center small-gutters">
-                                                <div class="col product-image">
-                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/94-printed-summer-dress.html" data-id_customization="0">
-                                                        <img src="https://iqit-commerce.com/ps17/333-cart_default/printed-summer-dress.jpg" alt="Leather bag" class="img-fluid">
-                                                    </a>
-                                                </div>
-                                                <div class="col col-9">
-                                                    <div class="product-line-info">
-                                                        <a class="label" href="https://iqit-commerce.com/ps17/en/accessories/94-printed-summer-dress.html" data-id_customization="0">Leather bag</a>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--  product left body: description -->
-                                        <div class="col-12 col-sm-6 col-md-6 product-line-grid-right product-line-actions">
-                                            <div class="row align-items-center small-gutters justify-content-end">
-                                                <!--  product unit-->
-                                                <div class="col col-auto col-md unit-price">
-                                                    <span class="value">$30.50</span>
-                                                </div>
-                                                <div class="col col-auto col-md qty">
-                                                    <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><input class="js-cart-line-product-quantity form-control" data-down-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=94&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50&amp;op=down" data-up-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=94&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50&amp;op=up" data-update-url="https://iqit-commerce.com/ps17/en/cart?update=1&amp;id_product=94&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-product-id="94" type="text" value="1" name="product-quantity-spin" min="1" step="1" style="display: block;"><span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span><span class="input-group-btn-vertical"><button class="btn btn-touchspin  js-touchspin js-increase-product-quantity bootstrap-touchspin-up" type="button"><i class="fa fa-angle-up touchspin-up"></i></button><button class="btn btn-touchspin js-decrease-product-quantity bootstrap-touchspin-down" type="button"><i class="fa fa-angle-down touchspin-down"></i></button></span></div>
-                                                </div>
-                                                <div class="col col-auto col-md price">
-                                                    <span class="product-price">
-                                                        <strong>
-                                                            $30.50
-                                                        </strong>
-                                                    </span>
-                                                </div>
-                                                <div class="col col-auto">
-                                                    <div class="cart-line-product-actions">
-                                                        <a class="remove-from-cart" rel="nofollow" href="https://iqit-commerce.com/ps17/en/cart?delete=1&amp;id_product=94&amp;id_product_attribute=0&amp;token=3e8cee7ca4392af7040793adb7288b50" data-link-action="delete-from-cart" data-id-product="94" data-id-product-attribute="0" data-id-customization="">
-                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
-                    <a class="btn btn-secondary mt-3 mb-3" href="https://iqit-commerce.com/ps17/en/">
-                        <i class="fa fa-angle-left" aria-hidden="true"></i> Continue shopping
+                    <a class="btn btn-secondary mt-3 mb-3" href="/">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i> Tiếp tục mua
                     </a>
                     <!-- shipping informations -->
                 </div>
@@ -240,21 +137,21 @@
                             <div class="card-block">
                                 <div class="cart-summary-line" id="cart-subtotal-products">
                                     <span class="label js-subtotal">
-                                        4 items
+                                        @(Model.Sum(c => c.Quantity)) sản phẩm
                                     </span>
-                                    <span class="value">$122.00</span>
+                                   @* <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Sum(s=>s.Subtotal)))</span>*@
                                 </div>
-                                <div class="cart-summary-line" id="cart-subtotal-shipping">
+                                @*<div class="cart-summary-line" id="cart-subtotal-shipping">
                                     <span class="label">
                                         Shipping
                                     </span>
                                     <span class="value">$7.00</span>
                                     <div><small class="value"></small></div>
-                                </div>
+                                </div>*@
                             </div>
 
                             <hr>
-                            <div class="block-promo">
+                            @*<div class="block-promo">
                                 <div class="cart-voucher">
                                     <div class="cart-voucher-area">
                                         <div class="promo-code" id="promo-code">
@@ -275,27 +172,27 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
+                            </div>*@
+                            @*<hr>*@
                             <div class="card-block">
                                 <div class="cart-summary-line cart-total">
-                                    <span class="label">Total (tax incl.)</span>
-                                    <span class="value">$129.00</span>
+                                    <span class="label">Tổng thành tiền</span>
+                                    <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Sum(s => s.Subtotal)))</span>
                                 </div>
                                 <div class="cart-summary-line">
                                     <small class="label"></small>
                                     <small class="value"></small>
                                 </div>
-                                <div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
+                                @*<div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
                                     <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$378.00</span> more to get free shipping!</strong></div>
                                     IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
-                                </div>
+                                </div>*@
                             </div>
                             <hr>
                         </div>
                         <div class="checkout cart-detailed-actions card-block">
                             <div class="text-xs-center">
-                                <a href="https://iqit-commerce.com/ps17/en/cart?action=show&amp;checkout" class="btn btn-primary btn-lg btn-block">Proceed to checkout</a>
+                                <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-lg btn-block">Tiến hành đặt hàng</a>
 
                             </div>
                         </div>
