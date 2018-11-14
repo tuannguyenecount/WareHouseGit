@@ -24,15 +24,8 @@
                 <strong>Tổng thành tiền:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c=>c.Subtotal)))
             </p>
 
-
-
-            @*<div class="alert alert-info iqitfreedeliverycount p-2 " role="alert">
-                    <div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$439.00</span> more to get free shipping!</strong></div>
-                    IQITFREEDELIVERYCOUNT - module, you can put own text in configuration
-                </div>*@
-
             <div class="cart-content-btn">
-                <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-block btn-lg mb-2">Tiến hành đặt hàng</a>
+                <a href="@Url.Action("Index","ShoppingCart")" class="btn btn-primary btn-block btn-lg mb-2">Tới giỏ hàng</a>
                 <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Tiếp tục mua</button>
             </div>
         </div>

@@ -41,11 +41,8 @@ namespace Warehouse.Controllers
         /// Add product to Cart
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="color"></param>
-        /// <param name="size"></param>
-        /// <param name="muangay"></param>
         /// <returns></returns>
-        public ActionResult Add(int id, string color, string size)
+        public ActionResult Add(int id)
         {
             Product product = _productService.GetById(id);
 
@@ -65,18 +62,6 @@ namespace Warehouse.Controllers
                 Property = ""
             };
 
-            if (!string.IsNullOrEmpty(color) || !string.IsNullOrEmpty(size))
-            {
-                if (!string.IsNullOrEmpty(color))
-                {
-                    cartItem.Property += "<p>Màu " + color + "<p/>";
-                }
-                if (!string.IsNullOrEmpty(size))
-                {
-                    cartItem.Property += "<p>Size " + size + "</p>";
-                }
-            }
-
             if (ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == cartItem.Property) != null)
             {
                 ShoppingCart.Single(m => m.Id == id && m.Property == cartItem.Property).Quantity += 1;
@@ -86,14 +71,14 @@ namespace Warehouse.Controllers
                 ShoppingCart.Add(cartItem);
             }
 
-            return PartialView(cartItem); /*("_ShoppingCartViewModal", "ShoppingCart", new { id = item.Id });*/
+            return PartialView(cartItem);
         }
 
         // Edit Quantity Item
         [HttpPost]
-        public ActionResult Edit(int id, string property, int quantity)
+        public ActionResult Edit(int id, int quantity)
         {
-            CartItem itemEdit = ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == property);
+            CartItem itemEdit = ShoppingCart.SingleOrDefault(m => m.Id == id);
             if (itemEdit != null && quantity > 0)
             {
                 itemEdit.Quantity = quantity;
@@ -105,12 +90,10 @@ namespace Warehouse.Controllers
         ///  Delete item in Cart
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="property"></param>
         /// <returns></returns>
-        [HttpPost]
-        public RedirectToRouteResult Delete(int id, string property)
+        public ActionResult Delete(int id)
         {
-            CartItem item = ShoppingCart.SingleOrDefault(m => m.Id == id && m.Property == property);
+            CartItem item = ShoppingCart.SingleOrDefault(m => m.Id == id);
             if (item != null)
             {
                 ShoppingCart.Remove(item);
