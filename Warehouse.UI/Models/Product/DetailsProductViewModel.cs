@@ -34,6 +34,10 @@ namespace Warehouse.Models
         /// </summary>
         public string Image { get; set; }
 
+        /// <summary>
+        /// Mô tả sản phẩm
+        /// </summary>
+        public string Description { get; set; }
 
         /// <summary>
         /// Hình fullURL

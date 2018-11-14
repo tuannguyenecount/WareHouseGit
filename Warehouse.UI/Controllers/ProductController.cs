@@ -85,7 +85,7 @@ namespace Warehouse.Controllers
         [Route("{alias}.html")]
         public ActionResult Details(string alias)
         {
-            Product product = _productService.GetByAlias(alias);
+            var product = _productService.GetByAlias(alias);
             if (product == null)
             {
                 return Redirect("/pages/404");
@@ -97,7 +97,20 @@ namespace Warehouse.Controllers
             int skip = count - 10 > 0 ? r.Next(0, count - 10) : 0;
             ViewBag.productsRelated = productsRelated.Skip(skip).Take(10).ToList();
 
-            return View(product);
+            DetailsProductViewModel _detail = new DetailsProductViewModel()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Alias = product.Alias_SEO,
+                Image = product.Image,
+                imagesProducts = product.ImagesProducts.ToList(),
+                Price = (int)(product.PriceNew ?? product.Price),
+                FlagColor = "#eba53d",
+                Description = product.Description,
+                ProductFlag = product.Category.Name
+            };
+
+            return View(_detail);
         }
 
         public ActionResult _ContentQuickViewModal(int Id)
