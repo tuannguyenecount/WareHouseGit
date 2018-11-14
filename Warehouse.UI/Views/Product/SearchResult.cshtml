@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Tìm kiếm sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<GridProductViewModel>
+
+
+<div class="container">
+    <nav data-depth="3" class="breadcrumb">
+        <div class="row align-items-center">
+            <div class="col">
+                <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Trang chủ</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="#">
+                            <span itemprop="name">@ViewBag.Title</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                    </li>
+                </ol>
+            </div>
+            <div class="col col-auto"> </div>
+        </div>
+    </nav>
+</div>
+
+<div id="inner-wrapper" class="container">
+    <aside id="notifications"></aside>
+    <div id="content-wrapper">
+        <section id="main">
+            <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1>
+            <div id="js-product-list-bottom">
+                <div id="js-product-list-bottom"></div>
+            </div>
+            @if (Model.Count == 0)
+            {
+                <div class="alert alert-warning" role="alert">
+                    <strong>không có sản phẩm nào.</strong>
+                </div>
+            }
+            else
+            {
+                <section id="products">
+                    <div>
+                        <div id="facets-loader-icon"><i class="fa fa-circle-o-notch fa-spin"></i></div>
+                        <div id="js-product-list">
+                            <div class="products row products-grid">
+                                @foreach (var product in Model)
+                                {
+                                    <div class="js-product-miniature-wrapper col-6 col-md-4 col-lg-3 col-xl-15">
+                                        <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature" itemscope="" itemtype="http://schema.org/Product">
+                                            <div class="thumbnail-container">
+                                                <a href="@Url.Action("Details", "Product", new { alias = product.Alias })" class="thumbnail product-thumbnail">
+                                                    <img data-src="@product.FullUrlImage" src="@product.FullUrlImage" alt="" data-full-size-image-url="@product.ZoomImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-first loaded" data-was-processed="true" />
+                                                    @if (product.SecondImage != null)
+                                                    {
+                                                        <img data-src="@product.FullUrlSecondImage" src="@product.FullUrlSecondImage" alt="" data-full-size-image-url="@product.ZoomSecondImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid js-lazy-product-image product-thumbnail-second loaded" data-was-processed="true" />
+                                                    }
+                                                </a>
+                                                <ul class="product-flags">
+                                                    <li class="product-flag" style="background:@product.FlagColor">
+                                                        @product.ProductFlag
+                                                    </li>
+                                                </ul>
+                                                <div class="product-functional-buttons product-functional-buttons-bottom">
+                                                    <div class="product-functional-buttons-links">
+                                                        <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                                                            <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
+                                                            <i class="fa fa-random" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="@Url.Action("_ContentQuickViewModal", "Product", new { Id = product.Id })" data-toggle="modal" data-target="#quickview-modal">
+                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-description">
+                                                <div class="product-category-name">@ViewBag.Name</div>
+                                                <h3 class="h3 product-title" itemprop="name">
+                                                    <a href="@Url.Action("Details", "Product", new { alias = product.Alias })">@product.Name</a>
+                                                </h3>
+
+                                                <div class="product-price-and-shipping" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                                    <span itemprop="price" class="product-price">@(Warehouse.Common.Format.FormatCurrencyVND(product.Price))</span>
+                                                </div>
+
+                                                <div class="product-add-cart">
+                                                    <div class="input-group input-group-add-cart">
+                                                        <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
+                                                        <a href="@Url.Action("Add", "ShoppingCart", new { Id = product.Id })" class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal">
+                                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                }
+                            </div>
+                            <nav class="pagination">
+
+
+                                @Html.PagedListPager(Model, page => Url.Action("SearchResult",
+                             new { page, keyword = ViewBag.keyword}),
+                             new PagedListRenderOptions()
+                             {
+                                 ContainerDivClasses = new string[] { "pagination" },
+                                 UlElementClasses = new string[] { "page-list clearfix text-center" },
+                                 LiElementClasses = new string[] { "page-list clearfix text-center" },
+
+                                 Display = PagedListDisplayMode.Always,
+                                 DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                                 DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                                 DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+                                 DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded
+                             })
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div id="infinity-loader-icon" style="text-align:center;display:none">
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                    </div>
+                </section>
+            }
+        </section>
+    </div>
+</div>
+
+
+

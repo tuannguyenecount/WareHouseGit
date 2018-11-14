@@ -253,12 +253,12 @@
                                 </a>
                                 <div class="dropdown-content modal-backdrop fullscreen-search">
                                     <!-- Block search module TOP -->
-                                    <div id="search_widget" class="search-widget" data-search-controller-url="//iqit-commerce.com/ps17/en/search?order=product.position.desc">
-                                        <form method="get" action="//iqit-commerce.com/ps17/en/search?order=product.position.desc">
-                                            <input type="hidden" name="controller" value="search">
+                                    <div id="search_widget" class="search-widget"> @*data-search-controller-url="//iqit-commerce.com/ps17/en/search?order=product.position.desc">*@
+                                        <form method="get" action="/Product/SearchResult?keyword=controller">
+                                            @*<input type="hidden" name="controller" value="">*@
                                             <div class="input-group">
-                                                <input type="hidden" name="order" value="product.position.desc">
-                                                <input type="text" name="s" value="" data-all-text="Show all results" placeholder="Search our catalog" class="form-control form-search-control" autocomplete="off">
+                                                @*<input type="hidden" name="order" value="">*@
+                                                <input type="text" name="keyword" data-all-text="Show all results" placeholder="Search our catalog" class="form-control form-search-control" autocomplete="off">
                                                 <button type="submit" class="search-btn">
                                                     <i class="fa fa-search"></i>
                                                 </button>

@@ -74,7 +74,12 @@ namespace Warehouse.Controllers
             return PartialView(cartItem);
         }
 
-        // Edit Quantity Item
+        /// <summary>
+        /// Edit Quantity Item
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(int id, int quantity)
         {
@@ -105,59 +110,6 @@ namespace Warehouse.Controllers
         {
             return PartialView();
         }
-        ////Tính tổng số lượng và tổng tiền
-        ////Tính tổng số lượng
-        //private int TongSoLuong()
-        //{
-        //    int iTongSoLuong = 0;
-        //    List<CartItem> lstShoppingCart = Session["CartItem"] as List<CartItem>;
-        //    if (lstShoppingCart != null)
-        //    {
-        //        iTongSoLuong = lstShoppingCart.Sum(n => n.Quantity);
-        //    }
-        //    return iTongSoLuong;
-        //}
-        ////Tính tổng thành tiền
-        //private decimal TongTien()
-        //{
-        //    decimal dTongTien = 0;
-        //    List<CartItem> lstShoppingCart = Session["CartItem"] as List<CartItem>;
-        //    if (lstShoppingCart != null)
-        //    {
-        //        dTongTien = lstShoppingCart.Sum(n => n.Subtotal);
-        //    }
-        //    return dTongTien;
-        //}
-        //tạo partial giỏ hàng để có thể hiển thị trên tất cả các layout
-        //public ActionResult ShoppingCartPartial()
-        //{
-        //    if (TongSoLuong() == 0)
-        //    {
-        //        return PartialView();
-        //    }
-        //    ViewBag.TongSoLuong = TongSoLuong();
-        //    ViewBag.TongTien = TongTien();
-        //    return PartialView();
-        //}
-
-        //public ActionResult _ShoppingCartViewModal(int Id)
-        //{
-        //    Product product = _productService.GetById(Id);
-        //    if (product == null)
-        //        return Content("<p>Sản phẩm không tồn tại!</p>");
-        //    QuickViewProductViewModel _ShoppingCartViewModal = new QuickViewProductViewModel()
-        //    {
-        //        Id = product.Id,
-        //        Alias = product.Alias_SEO,
-        //        FlagColor = "#eba53d",
-        //        ProductFlag = product.Category.Name,
-        //        Name = product.Name,
-        //        Image = product.Image,
-        //        Description = product.Description,
-        //        Price = (int)(product.PriceNew ?? product.Price)
-        //    };
-        //    return PartialView(_ShoppingCartViewModal);
-        //}
 
         #endregion
 

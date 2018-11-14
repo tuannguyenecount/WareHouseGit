@@ -885,6 +885,7 @@
     <Content Include="Views\Account\AdminLogin.cshtml" />
     <Content Include="Views\Account\ModLogin.cshtml" />
     <Content Include="Views\ShoppingCart\UpdateShoppingCartPartial.cshtml" />
+    <Content Include="Views\Product\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

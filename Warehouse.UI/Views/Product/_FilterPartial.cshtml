@@ -9,10 +9,15 @@
             <div class="col view-switcher hidden-sm-down">
 
                 @using (Ajax.BeginForm("Index", "Product", null,
-                    new AjaxOptions() { AllowCache = true, HttpMethod = "Get",
-                                        LoadingElementId = "infinity-loader-icon",
-                                        InsertionMode = InsertionMode.Replace,
-                                        UpdateTargetId = "products", LoadingElementDuration = 2000 },
+                    new AjaxOptions()
+                    {
+                        AllowCache = true,
+                        HttpMethod = "Get",
+                        LoadingElementId = "infinity-loader-icon",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "products",
+                        LoadingElementDuration = 2000
+                    },
                                         new { style = "display:none" }))
                 {
                     <input type="hidden" name="productListView" value="grid" />
@@ -24,10 +29,15 @@
                 }
 
                 @using (Ajax.BeginForm("Index", "Product", null,
-                    new AjaxOptions() { AllowCache = true, HttpMethod = "Get",
+                    new AjaxOptions()
+                    {
+                        AllowCache = true,
+                        HttpMethod = "Get",
                         LoadingElementId = "infinity-loader-icon",
                         InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "products", LoadingElementDuration = 3000 }, new { style = "display:none" }))
+                        UpdateTargetId = "products",
+                        LoadingElementDuration = 3000
+                    }, new { style = "display:none" }))
                 {
                     <input type="hidden" name="productListView" value="list" />
                     <input type="hidden" name="sortName" value="@Request.QueryString["aliasCategory"]" />
@@ -38,9 +48,6 @@
                 }
                 <a href="javascript:$('#btnsubmit-Grid').click()" class="current"><i class="fa fa-th" aria-hidden="true"></i></a>
                 <a href="javascript:$('#btnsubmit-List').click()" class="current"><i class="fa fa-th-list" aria-hidden="true"></i></a>
-
-                @*     <a href="?productListView=grid" class="current js-search-link" data-button-action="change-list-view" data-view="grid"><i class="fa fa-th" aria-hidden="true"></i></a>*@
-                @*   <a href="?productListView=list" class=" js-search-link" data-button-action="change-list-view" data-view="list"><i class="fa fa-th-list" aria-hidden="true"></i></a>*@
             </div>
             <div class="col col-auto">
                 <span class="showing hidden-sm-down">
@@ -59,8 +66,8 @@
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
                                                productListView = Request.QueryString["productListView"],
                                                sortName = "name",
-                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending) 
-                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending 
+                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending)
+                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"] })" class="select-list dropdown-item sort">
                             Tên, A đến Z
@@ -69,8 +76,8 @@
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
                                                productListView = Request.QueryString["productListView"],
                                                sortName = "name",
-                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending) 
-                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending 
+                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending)
+                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"]})" class="select-list dropdown-item sort">
                             Tên, Z về A
@@ -79,8 +86,8 @@
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
                                                productListView = Request.QueryString["productListView"],
                                                sortName = "price",
-                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending) 
-                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending 
+                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending)
+                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"]})" class="select-list dropdown-item sort">
                             Giá, tăng dần
@@ -89,8 +96,8 @@
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
                                                productListView = Request.QueryString["productListView"],
                                                sortName = "price",
-                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending) 
-                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending 
+                                               sortType = (ViewBag.SortType == null || ViewBag.SortType == Warehouse.Common.ENUM.SORT_TYPE.Ascending)
+                                                ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"]})" class="select-list dropdown-item sort">
                             Giá, giảm dần
