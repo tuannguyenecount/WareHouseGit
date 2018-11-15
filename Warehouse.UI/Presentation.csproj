@@ -330,6 +330,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
     <Compile Include="Models\CaptchaImageResult.cs" />
     <Compile Include="Models\Category\CategoryAddModel.cs" />
     <Compile Include="Models\Category\CategoryUpdateModel.cs" />

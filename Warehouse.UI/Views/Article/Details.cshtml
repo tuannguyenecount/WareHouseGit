@@ -1,5 +1,7 @@
-﻿
+﻿@model ArticleDetailsViewModel
+
 @{
+    ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "cms";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-cms tax-display-disabled cms-id-4 body-desktop-header-style-w-4";
@@ -20,11 +22,9 @@
                         <a itemprop="item" href="/">
                             <span itemprop="name">Trang chủ</span>
                         </a>
-                        <meta itemprop="position" content="1">
                     </li>
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="@Request.Url"><span itemprop="name">@ViewBag.Title</span></a>
-                        <meta itemprop="position" content="2">
                     </li>
                 </ol>
             </div>
@@ -32,6 +32,7 @@
         </div>
     </nav>
 </div>
+
 <div id="inner-wrapper" class="container">
     <aside id="notifications"></aside><div id="content-wrapper">
         <section id="main">
@@ -44,9 +45,9 @@
             </header>
             <section id="content" class="page-content page-cms page-cms-4">
                 <div class="rte-content">
-                    <h1 class="page-heading bottom-indent">@ViewBag.Title</h1><div class="row">
+                    <div class="row">
                         <div class="col-sm-12">
-                            @Html.Raw(Model)
+                            @Html.Raw(Model.Content)
                         </div>
                     </div>
                 </div>

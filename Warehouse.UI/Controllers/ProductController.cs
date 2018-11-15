@@ -141,7 +141,7 @@ namespace Warehouse.Controllers
         //[OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Server, VaryByParam = "keyword")]
         public ActionResult SearchResult(string keyword, int? page)
         {
-            var dsProduct = _productService.GetAll().Where(m => m.Display == true && m.Name.Contains(keyword)).ToList();
+            var dsProduct = _productService.Search(keyword);
             ViewBag.keyword = keyword;
             IPagedList<GridProductViewModel> model = dsProduct.Select(p =>
                             new GridProductViewModel()

@@ -145,9 +145,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
+                                                </div>
                                             </li>
                                             <li class="cbp-hrmenu-tab cbp-has-submeu">
                                                 <a href="javascript:void(0)" class="nav-link">
@@ -155,7 +155,7 @@
                                                         Thông tin shop <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
                                                     </span>
                                                 </a>
-                                                <div class="cbp-hrsub col-3 cbp-show">
+                                                <div class="cbp-hrsub col-4 cbp-show">
                                                     <div class="cbp-hrsub-inner">
                                                         <div class="container iqitmegamenu-submenu-container">
                                                             <div class="row menu_row menu-element  first_rows menu-element-id-1">
@@ -166,10 +166,8 @@
                                                                                 <div class="cbp-category-link-w">
                                                                                     @foreach (Article article in ViewBag.Articles)
                                                                                     {
-                                                                                        <a href="@Url.Action("Details", "Article", new { aliasCategory = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
-
+                                                                                        <a href="@Url.Action("Details", "Article", new { alias = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
                                                                                     }
-
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -234,7 +232,7 @@
                                 @foreach (Article article in ViewBag.Articles)
                                 {
                                     <li>
-                                        <a href="@Url.Action("Details", "Article", new { area = "", alias = article.Alias })">@article.Title</a>
+                                        <a href="@Url.Action("Details", "Article", new { alias = article.Alias })">@article.Title</a>
                                     </li>
                                 }
                                 <li>
@@ -253,11 +251,9 @@
                                 </a>
                                 <div class="dropdown-content modal-backdrop fullscreen-search">
                                     <!-- Block search module TOP -->
-                                    <div id="search_widget" class="search-widget"> @*data-search-controller-url="//iqit-commerce.com/ps17/en/search?order=product.position.desc">*@
+                                    <div id="search_widget" class="search-widget"> 
                                         <form method="get" action="/Product/SearchResult?keyword=controller">
-                                            @*<input type="hidden" name="controller" value="">*@
                                             <div class="input-group">
-                                                @*<input type="hidden" name="order" value="">*@
                                                 <input type="text" name="keyword" data-all-text="Show all results" placeholder="Search our catalog" class="form-control form-search-control" autocomplete="off">
                                                 <button type="submit" class="search-btn">
                                                     <i class="fa fa-search"></i>
@@ -293,20 +289,18 @@
                 <div class="mobile-main-bar">
                     <div class="row no-gutters align-items-center row-mobile-header">
                         <div class="col col-mobile-logo">
-                            <a href="https://iqit-commerce.com/ps17/">
+                            <a href="/">
                                 <img class="logo img-fluid" src="/Content/ps17/img/warehouse-for-prestashop-17-logo-1496957294.jpg" alt="Warehouse for Prestashop 1.7">
                             </a>
                         </div>
                         <div id="mobile-btn-search" class="col col-auto col-mobile-btn col-mobile-btn-search">
                             <a class="m-nav-btn" data-toggle="dropdown">
                                 <i class="fa fa-search" aria-hidden="true"></i>
-                                <span>Search</span>
+                                <span>Tìm kiếm</span>
                             </a>
                             <div id="search-widget-mobile" class="dropdown-content dropdown-menu dropdown-mobile search-widget">
-                                <form method="get" action="https://iqit-commerce.com/ps17/en/search">
-                                    <input type="hidden" name="controller" value="search">
+                                <form method="get" action="#">
                                     <div class="input-group">
-                                        <input type="text" name="s" value="" placeholder="Search" data-all-text="Show all results" class="form-control form-search-control" autocomplete="off">
                                         <button type="submit" class="search-btn">
                                             <i class="fa fa-search"></i>
                                         </button>
@@ -324,8 +318,10 @@
                         <div class="col col-auto col-mobile-btn col-mobile-btn-cart ps-shoppingcart side-cart">
                             <div id="mobile-cart-wrapper">
                                 <a id="mobile-cart-toogle" class="m-nav-btn" data-toggle="dropdown">
-                                    <i class="fa fa-shopping-bag mobile-bag-icon" aria-hidden="true"><span id="mobile-cart-products-count" class="cart-products-count cart-products-count-btn">0</span></i>
-                                    <span>Cart</span>
+                                    <i class="fa fa-shopping-bag mobile-bag-icon" aria-hidden="true">
+                                        <span id="mobile-cart-products-count" class="cart-products-count cart-products-count-btn">@((Session["ShoppingCart"] as List<CartItem>).Sum(c=>c.Quantity))</span>
+                                    </i>
+                                    <span>Giỏ hàng</span>
                                 </a>
                                 <div id="_mobile_blockcart-content"></div>
                             </div>

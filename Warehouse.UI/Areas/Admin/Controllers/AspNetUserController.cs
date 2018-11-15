@@ -40,7 +40,7 @@ namespace Warehouse.Areas.Admin.Controllers
             SignInManager = signInManager;
             UserManager = userManager;
         }
-
+        
         public string UserId
         {
             get
@@ -82,7 +82,7 @@ namespace Warehouse.Areas.Admin.Controllers
             return PartialView(applicationUser);
         }
 
-        [Authorize(Roles = "Admin,Mod")]
+        [Authorize(Roles = "Admin")]
         public PartialViewResult _UserPanelPartial()
         {
             ApplicationUser applicationUser = UserManager.FindById(UserId);

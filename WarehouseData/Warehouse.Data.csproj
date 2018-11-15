@@ -127,6 +127,14 @@
     <Compile Include="Migrations\201811120630510_deleteColumnIdentity2.Designer.cs">
       <DependentUpon>201811120630510_deleteColumnIdentity2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811150458010_addColumnAliasTableArticle.cs" />
+    <Compile Include="Migrations\201811150458010_addColumnAliasTableArticle.Designer.cs">
+      <DependentUpon>201811150458010_addColumnAliasTableArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811150527072_updateColumnAliasTableArticle.cs" />
+    <Compile Include="Migrations\201811150527072_updateColumnAliasTableArticle.Designer.cs">
+      <DependentUpon>201811150527072_updateColumnAliasTableArticle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -172,6 +180,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811120630510_deleteColumnIdentity2.resx">
       <DependentUpon>201811120630510_deleteColumnIdentity2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811150458010_addColumnAliasTableArticle.resx">
+      <DependentUpon>201811150458010_addColumnAliasTableArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811150527072_updateColumnAliasTableArticle.resx">
+      <DependentUpon>201811150527072_updateColumnAliasTableArticle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

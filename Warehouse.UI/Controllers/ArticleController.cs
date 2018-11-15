@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Warehouse.Entities;
 using Warehouse.Services.Interface;
-
+using Warehouse.Models;
 namespace Warehouse.Controllers
 {
     [RoutePrefix("bai-viet")]
@@ -22,10 +22,17 @@ namespace Warehouse.Controllers
         public ActionResult Details(string alias)
         {
             Article article = _articleService.GetByAlias(alias);
+
             if (article == null)
                 return Redirect("/pages/404");
 
-            return View("Article", article);
+            ArticleDetailsViewModel articleDetailsViewModel = new ArticleDetailsViewModel()
+            {
+                Content = article.Content,
+                Title = article.Title
+            };
+
+            return View(articleDetailsViewModel);
         }
 
 

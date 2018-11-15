@@ -13,8 +13,6 @@ namespace Warehouse.Data.Data
         {
         }
 
-        //public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        //public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<District> Districts { get; set; }

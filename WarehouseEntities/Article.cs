@@ -28,6 +28,6 @@ namespace Warehouse.Entities
 
         [StringLength(256)]
         [Required]
-        public string Alias { get; }
+        public string Alias { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Warehouse.Controllers
             return View();
         }
         [Route("xem-tin/{alias}.html")]
-        public async Task<ActionResult> Details(string alias)
+        public ActionResult Details(string alias)
         {
             return View();
         }
