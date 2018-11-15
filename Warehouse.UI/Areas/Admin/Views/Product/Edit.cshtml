@@ -237,7 +237,6 @@
             right: -230px;
             top: 0;
             width: 200px;
-            border: 1px #ddd solid;
             height: 460px;
             padding: 4px;
             box-shadow: 0px 0px 12px #ddd;
@@ -248,7 +247,6 @@
             position: relative;
             height: @(int.Parse(Context.Application["HeightImageProduct"].ToString()) + 100)px;
             width: @(int.Parse(Context.Application["WidthImageProduct"].ToString()) * 1.5)px;
-            border: 1px solid #aaa;
             background: #fff;
             overflow: hidden;
             background-repeat: no-repeat;
@@ -257,14 +255,13 @@
         }
 
             .imageBox .thumbBox {
-                 position: relative;
-
+                 
                 width: @(Context.Application["WidthImageProduct"])px;
                 height: @(Context.Application["HeightImageProduct"])px;
                 margin-left: -@((int.Parse(Context.Application["WidthImageProduct"].ToString()) / 2).ToString())px;
                 margin-top: -@((int.Parse(Context.Application["HeightImageProduct"].ToString()) / 2).ToString())px;
                 box-sizing: border-box;
-                border: 1px solid rgb(102, 102, 102);
+                border:none;
                 box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
                 background: none repeat scroll 0% 0% transparent;
             }

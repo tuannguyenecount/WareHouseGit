@@ -324,11 +324,13 @@ namespace Warehouse.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Count Product
         [ChildActionOnly]
         public ContentResult CountAll()
         {
             return Content(_productService.CountAll().ToString());
         }
-       
+        #endregion
+
     }
 }
