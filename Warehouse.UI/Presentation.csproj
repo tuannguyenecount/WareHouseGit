@@ -735,6 +735,8 @@
     <Content Include="Areas\Admin\Views\Product\Hide.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\_CreateModal.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\_EditModal.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />

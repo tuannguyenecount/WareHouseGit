@@ -110,5 +110,15 @@ namespace Warehouse.Services.Services
         {
             return _productDal.GetList(p => p.UserCreated == UserName).ToList();
         }
+
+        public bool CheckUniqueName(string Name)
+        {
+            return _productDal.GetSingle(p => p.Name == Name) != null;
+        }
+
+        public bool CheckUniqueAlias(string Alias)
+        {
+            return _productDal.GetSingle(p => p.Alias_SEO == Alias) != null;
+        }
     }
 }

@@ -17,17 +17,10 @@
     <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(function () {
-            $('#tblData').DataTable();
-            $("#tblData thead th:first").click();
-            $("#checkall").change(function () {
-                if ($(this).is(":checked")) {
-                    $("#tblData tbody input[type=checkbox]").attr("checked", "checked");
-                }
-                else {
-                    $("#tblData tbody input[type=checkbox]").removeAttr("checked");
-                }
+            $('#tblData').DataTable({
+                columnDefs: [{ orderable: false, targets: [0,7] }],
+                order: [[1, 'asc']],
             });
-
         });
     </script>
 }
@@ -51,7 +44,7 @@
                         <ul class="nav nav-tabs">
 
                             <li class="active"><a href="#tab_1" data-toggle="tab">Đang Hiển Thị <label class="label label-success">@Model.Count(m => m.Display == true)</label></a></li>
-                            <li><a href="#tab_2" data-toggle="tab">Đang Ẩn <label class="label label-info">@Model.Count(m => m.Display == false)</label></a></li>
+                            <li><a href="#tab_2" data-toggle="tab">Đang Ẩn <label class="label label-warning">@Model.Count(m => m.Display == false)</label></a></li>
 
                         </ul>
                         <div class="tab-content">
@@ -71,12 +64,7 @@
                                                     <th>Trạng thái</th>
                                                     <th>Ngày tạo</th>
                                                     <th>Thao tác</th>
-                                                    @if (User.IsInRole("Admin"))
-                                                    {
-                                                        <th class="text-center sorting_asc_disable">
-                                                            <input type="checkbox" id="checkall" />
-                                                        </th>
-                                                    }
+                                                  
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -116,12 +104,7 @@
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
                                                         </td>
-                                                        @if (User.IsInRole("Admin"))
-                                                        {
-                                                            <td class="text-center">
-                                                                <input type="checkbox" name="checkedDelete" value="@item.Id" />
-                                                            </td>
-                                                        }
+                                                       
                                                     </tr>
                                                 }
                                             </tbody>
@@ -147,12 +130,7 @@
                                                     <th>Trạng thái</th>
                                                     <th>Ngày tạo</th>
                                                     <th>Thao tác</th>
-                                                    @if (User.IsInRole("Admin"))
-                                                    {
-                                                        <th class="text-center sorting_asc_disable">
-                                                            <input type="checkbox" id="checkall" />
-                                                        </th>
-                                                    }
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -191,12 +169,7 @@
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
                                                         </td>
-                                                        @if (User.IsInRole("Admin"))
-                                                        {
-                                                            <td class="text-center">
-                                                                <input type="checkbox" name="checkedDelete" value="@item.Id" />
-                                                            </td>
-                                                        }
+                                                       
                                                     </tr>
                                                 }
                                             </tbody>

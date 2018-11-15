@@ -17,7 +17,7 @@ namespace FStore.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "AdminArea/{controller}/{action}/{id}",
-                new { area="Admin", controller = "AspNetUser", action = "ProfileUser", id = UrlParameter.Optional},
+                new { area="Admin", controller = "Product", action = "Index", id = UrlParameter.Optional},
                 new [] { "Warehouse.Areas.Admin.Controllers" }
 
             );

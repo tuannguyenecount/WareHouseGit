@@ -67,6 +67,10 @@ namespace Warehouse.Services.Services
             return _categoryDal.GetList(c => c.ParentId == null).OrderBy(c => c.OrderNum).ToList();
         }
 
+        public List<Category> GetChilds(int Id)
+        {
+            return _categoryDal.GetList(c => c.ParentId == Id).OrderBy(c => c.OrderNum).ToList();
+        }
         #endregion
     }
 }

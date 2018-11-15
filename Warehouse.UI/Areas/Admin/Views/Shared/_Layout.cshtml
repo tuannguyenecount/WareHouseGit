@@ -48,6 +48,12 @@
         .modal-body{
             overflow:auto;
         }
+        .table-info tr td:first-child{
+            text-align:right;
+        }
+        .table-info tr td:nth-child(2) {
+            font-weight:bold;
+        }
     </style>
     <!-- jQuery 3 -->
     <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
@@ -344,5 +350,6 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
     @RenderSection("scripts", false)
+    
 </body>
 </html>

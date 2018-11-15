@@ -37,6 +37,10 @@ namespace Warehouse.Services.Interface
 
         List<Product> GetByUser(string UserName);
 
+        bool CheckUniqueName(string Name);
+
+        bool CheckUniqueAlias(string Alias);
+
         int CountAll();
     }
 }

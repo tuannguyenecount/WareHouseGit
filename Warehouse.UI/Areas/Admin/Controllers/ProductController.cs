@@ -32,6 +32,10 @@ namespace Warehouse.Areas.Admin.Controllers
         private ICategoryService _categoryService;
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
+        #endregion
+
+        #region Constructor
+
         public ProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
@@ -40,100 +44,11 @@ namespace Warehouse.Areas.Admin.Controllers
             this.HeightResize = int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]);
 
         }
-        #endregion
 
-        #region Constructor
 
-        #endregion
-
-        #region Show List Product
-        public PartialViewResult ShowList(int? Category, bool? Display, int? Page,  string sortName, Common.ENUM.SORT_TYPE sortType)
-        {
-            ViewBag.Category = Category;
-            ViewBag.sortType = sortType;
-            ViewBag.sortName = sortName;
-            ViewBag.Page = Page ?? 1;
-            var products = _productService.Sorting(_productService.GetAll().AsQueryable(), "id", Common.ENUM.SORT_TYPE.Descending);
-
-            if (Category != null && Category.Value != 0)
-            {
-                products = products.Where(m => m.CategoryId == Category);
-            }
-
-            if(Display != null)
-            {
-                products = products.Where(p => p.Display == Display.Value);
-            }
-
-            products = _productService.Sorting(_productService.GetAll().AsQueryable(), sortName, sortType);
-
-            ViewBag.Page = Page;
-            return PartialView("_ListPartial", products.ToPagedList(Page ?? 1, 10));
-        }
-        #endregion
-
-        #region Count Products
-        public int CountAll(bool? Display)
-        {
-            return _productService.CountAll();
-        }
-        #endregion
-
-        #region Search By Name 
-        public PartialViewResult Search(string keyword)
-        {
-            List<Product> products = _productService.Search(keyword); 
-            return PartialView("_SearchPartial", products);
-        }
         #endregion
 
         #region Export Data
-
-        [NonAction]
-        void WriteHtmlTable<T>(IEnumerable<T> data, TextWriter output)
-        {
-            //Writes markup characters and text to an ASP.NET server control output stream. This class provides formatting capabilities that ASP.NET server controls use when rendering markup to clients.
-            using (StringWriter sw = new StringWriter())
-            {
-                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
-                {
-
-                    //  Create a form to contain the List
-                    Table table = new Table();
-                    TableRow row = new TableRow();
-                    PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
-                    foreach (PropertyDescriptor prop in props)
-                    {
-                        TableHeaderCell hcell = new TableHeaderCell();
-                        hcell.Text = prop.Name;
-                        hcell.BackColor = System.Drawing.Color.Yellow;
-                        row.Cells.Add(hcell);
-                    }
-
-                    table.Rows.Add(row);
-
-                    //  add each of the data item to the table
-                    foreach (T item in data)
-                    {
-                        row = new TableRow();
-                        foreach (PropertyDescriptor prop in props)
-                        {
-                            TableCell cell = new TableCell();
-                            cell.Text = prop.Converter.ConvertToString(prop.GetValue(item));
-                            row.Cells.Add(cell);
-                        }
-                        table.Rows.Add(row);
-                    }
-
-                    //  render the table into the htmlwriter
-                    table.RenderControl(htw);
-
-                    //  render the htmlwriter into the response
-                    output.Write(sw.ToString());
-                }
-            }
-
-        }
 
 
         public ActionResult ExportToExcel()
@@ -142,25 +57,20 @@ namespace Warehouse.Areas.Admin.Controllers
             Response.ClearContent();
             Response.AddHeader("content-disposition", "attachment;filename=products.xls");
             Response.AddHeader("Content-Type", "application/vnd.ms-excel");
-            WriteHtmlTable(data, Response.Output);
+            Warehouse.Common.File.WriteHtmlTable(data, Response.Output);
             Response.End();
             return Redirect(Request.UrlReferrer.ToString());
         }
         #endregion
 
         #region CRUD
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
-            var categories = _categoryService.GetAll();
-            categories.Add(new Category() { Id = 0, Name = "Tất cả" });
-            categories = categories.OrderBy(m => m.Id).ToList();
-            ViewBag.Category = new SelectList(categories, "Id", "Name", 0);
-            ViewBag.Message = "Quản lý sản phẩm";
             List<Product> products = _productService.GetAll();
             return View(products);
         }
 
-        public ActionResult Details(int? id, int? page)
+        public ActionResult Details(int? id)
         {
             if(id == null)
             {
@@ -170,10 +80,7 @@ namespace Warehouse.Areas.Admin.Controllers
             if(product == null)
             {
                 return Redirect("/pages/404");
-            }
-            ViewBag.Message = "Chi tiết sản phẩm";
-           
-            
+            }            
             return View(product);
         }
 
@@ -251,23 +158,34 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return Redirect("/pages/404");
             }
-            ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name", product.CategoryId);
+            ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
+            ViewBag.Categories1 = new Dictionary<int, List<Category>>();
+            foreach (Category category in ViewBag.Categories)
+            {
+                (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
+            }
             return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(Product product, string returnURL, string OldName, string OldAlias, string base64String)
+        public ActionResult Edit(Product product, string OldName, string OldAlias, string base64String)
         {
-           
+            product.DateUpdated = DateTime.Now;
             if(OldName != product.Name)
             {
-               
+               if(_productService.CheckUniqueName(product.Name) == false)
+               {
+                    ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại tên.");
+               }
             }
             if (OldAlias != product.Alias_SEO)
             {
-               
+                if (_productService.CheckUniqueAlias(product.Alias_SEO) == false)
+                {
+                    ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại tên.");
+                }
             }
             if (!string.IsNullOrEmpty(base64String))
             {
@@ -285,6 +203,7 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
+
                 try
                 {
                     _productService.Update(product);
@@ -293,9 +212,14 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("CustomError",ex.Message);
                 }
-                return Redirect(returnURL);
+                return RedirectToAction("Details", new { Id = product.Id });
             }
-            ViewBag.CategoryId = new SelectList(_categoryService.GetAll(), "Id", "Name", product.CategoryId);
+            ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
+            ViewBag.Categories1 = new Dictionary<int, List<Category>>();
+            foreach (Category category in ViewBag.Categories)
+            {
+                (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
+            }
             return View(product);
         }
 
@@ -351,7 +275,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         #region Change Image Product
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult ChangeImage(int? id, string base64String)
         {
             if (id == null)
@@ -361,7 +284,7 @@ namespace Warehouse.Areas.Admin.Controllers
             Product product = _productService.GetById(id.Value);
             if (product == null)
             {
-                ModelState.AddModelError("LoiDoiImage", "Sản phẩm này không tồn tại!");
+                ModelState.AddModelError("", "Sản phẩm này không tồn tại!");
             }
             else
             {
@@ -377,7 +300,7 @@ namespace Warehouse.Areas.Admin.Controllers
                     }
                     catch (Exception ex)
                     {
-                        ModelState.AddModelError("LoiDoiImage", "Lỗi khi lưu hình từ chuỗi base64 " + ex.Message);
+                        ModelState.AddModelError("", "Lỗi khi lưu hình từ chuỗi base64 " + ex.Message);
                     }
                     try
                     {
@@ -386,7 +309,7 @@ namespace Warehouse.Areas.Admin.Controllers
                     }
                     catch
                     {
-                        ModelState.AddModelError("LoiDoiImage", "Xảy ra lỗi khi lưu dữ liệu!");
+                        ModelState.AddModelError("", "Xảy ra lỗi khi lưu dữ liệu!");
                     }
 
                 }
@@ -401,6 +324,11 @@ namespace Warehouse.Areas.Admin.Controllers
         }
         #endregion
 
+        [ChildActionOnly]
+        public ContentResult CountAll()
+        {
+            return Content(_productService.CountAll().ToString());
+        }
        
     }
 }

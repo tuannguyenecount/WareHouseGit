@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -19,42 +19,51 @@ namespace Warehouse.Entities
 
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        [Required(ErrorMessage = "Tên sản phẩm không được để trống!")]
+        [StringLength(256,ErrorMessage = "Tên sản phẩm không được vượt quá 256 ký tự")]
+        [Display(Name = "Tên sản phẩm")]
         public string Name { get; set; }
 
+        [Display(Name = "Phân loại")]
         public int? CategoryId { get; set; }
 
         [Column(TypeName = "money")]
+        [Display(Name = "Giá bán")]
         public decimal Price { get; set; }
 
         [Column(TypeName = "money")]
+        [Display(Name = "Giá bán mới")]
         public decimal? PriceNew { get; set; }
 
-        [StringLength(300)]
+        [StringLength(300, ErrorMessage = "Hình ảnh không được vượt quá 300 ký tự!")]
+        [Display(Name = "Hình ảnh")]
         public string Image { get; set; }
 
-        [StringLength(500)]
+        [StringLength(500, ErrorMessage = "Mô tả không được vượt quá 500 ký tự!")]
+        [Display(Name = "Mô tả")]
         public string Description { get; set; }
 
+        [Display(Name = "Nội dung")]
         public string Content { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        [Required(ErrorMessage = "Bí danh không được bỏ trống")]
+        [StringLength(256, ErrorMessage = "Bí danh không được vượt quá 256 ký tự!")]
         public string Alias_SEO { get; set; }
 
+        [Display(Name = "Tình trạng")]
         public bool Status { get; set; }
 
+        [Display(Name = "Hiển thị")]
         public bool Display { get; set; }
 
         [StringLength(256)]
+        [Display(Name = "Thành viên tạo")]
         public string UserCreated { get; set; }
 
+        [Display(Name = "Ngày tạo")]
         public DateTime DateCreated { get; set; }
 
-        [StringLength(256)]
-        public string UserUpdated { get; set; }
-
+        [Display(Name = "Ngày sửa")]
         public DateTime? DateUpdated { get; set; }
 
         public virtual Category Category { get; set; }
