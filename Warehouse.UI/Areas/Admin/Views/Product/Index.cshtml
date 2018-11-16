@@ -19,7 +19,7 @@
         $(function () {
             $('#tblData').DataTable({
                 columnDefs: [{ orderable: false, targets: [0,7] }],
-                order: [[1, 'asc']],
+                order: [[1, 'desc']],
             });
             @if(Request.QueryString["tabActive"] != null)
             { 
