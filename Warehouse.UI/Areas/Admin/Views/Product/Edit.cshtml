@@ -90,19 +90,31 @@
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Name)</td>
-                                    <td>@Html.TextBoxFor(model => model.Name, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Name, "",new { @class="text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Price)</td>
-                                    <td>@Html.TextBoxFor(model => model.Price, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.PriceNew)</td>
-                                    <td>@Html.TextBoxFor(model => model.PriceNew, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.PriceNew, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PriceNew, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
-                                    <td>@Html.TextBoxFor(model => model.Alias_SEO, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Alias_SEO, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Alias_SEO, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Status)</td>
@@ -111,6 +123,7 @@
                                             <option value="true" selected>Còn hàng</option>
                                             <option value="false">Hết hàng</option>
                                         </select>
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
                                 <tr>
@@ -120,6 +133,7 @@
                                             <option value="true" selected>Hiển thị</option>
                                             <option value="false">Ẩn</option>
                                         </select>
+                                        @Html.ValidationMessageFor(model => model.Display, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
                             </table>
@@ -129,7 +143,10 @@
                             <table class="table table-hover table-info table-border-none">
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Description)</td>
-                                    <td>@Html.TextAreaFor(model => model.Description, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Content)</td>
@@ -157,6 +174,8 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
+                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,7 +192,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix text-right">
-                        <a href="@Url.Action("Edit", new { Id = Model.Id })" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                        <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> Sửa</button>
                         @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
                     </div>
                 </div>

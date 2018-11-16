@@ -64,6 +64,7 @@ namespace Warehouse.Areas.Admin.Controllers
         #endregion
 
         #region CRUD
+
         public ActionResult Index()
         {
             List<Product> products = _productService.GetAll();
@@ -186,6 +187,14 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại tên.");
                 }
+            }
+            if(product.Price < 0 )
+            {
+                ModelState.AddModelError("Price", "Giá phải >= 0.");
+            }
+            if (product.PriceNew != null && product.PriceNew.Value < 0)
+            {
+                ModelState.AddModelError("PriceNew", "Giá mới phải >= 0.");
             }
             if (!string.IsNullOrEmpty(base64String))
             {
