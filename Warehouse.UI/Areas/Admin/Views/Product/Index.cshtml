@@ -48,12 +48,10 @@
 
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tab_1">
-                                @using (Ajax.BeginForm("Delete", new AjaxOptions { HttpMethod = "Post", OnFailure = "ShowPopUpError('Lỗi ajax!')", OnSuccess = "OnSuccessAjax1" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <div class="table-responsive">
-                                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                           
+                            <div class="tab-pane active" id="tab_1">         
+                                 <div class="table-responsive">
+                                       <table id="tblData" class="table table-bordered table-middle" method="post">
                                             <thead>
                                                 <tr>
                                                     <th>Hình ảnh</th>
@@ -63,8 +61,7 @@
                                                     <th>Giá bán</th>
                                                     <th>Trạng thái</th>
                                                     <th>Ngày tạo</th>
-                                                    <th>Thao tác</th>
-                                                  
+                                                    <th>Thao tác</th>                                                 
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -103,6 +100,11 @@
                                                         <td class="text-center">
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
+                                                            <form id="frmTab1Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
+                                                                @Html.AntiForgeryToken()
+
+                                                            </form>
+                                                            <button class="btn bg-danger btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab1Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
                                                         </td>
                                                        
                                                     </tr>
@@ -110,82 +112,83 @@
                                             </tbody>
 
                                         </table>
-                                    </div>
-                                }
+                                 </div>        
                             </div>
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="tab_2">
-                                @using (Ajax.BeginForm("Delete", new AjaxOptions { HttpMethod = "Post", OnFailure = "ShowPopUpError('Lỗi ajax!')", OnSuccess = "OnSuccessAjax1" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <div class="table-responsive">
+                                   <div class="table-responsive">
                                         <table id="tblData" class="table table-bordered" method="post">
-                                            <thead>
-                                                <tr>
-                                                    <th>Hình ảnh</th>
-                                                    <th>Mã số</th>
-                                                    <th>Tên sản phẩm</th>
-                                                    <th>Phân loại</th>
-                                                    <th>Giá bán</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Ngày tạo</th>
-                                                    <th>Thao tác</th>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Hình ảnh</th>
+                                                        <th>Mã số</th>
+                                                        <th>Tên sản phẩm</th>
+                                                        <th>Phân loại</th>
+                                                        <th>Giá bán</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Ngày tạo</th>
+                                                        <th>Thao tác</th>
                                                     
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (Product item in Model.Where(m => m.Display == false))
-                                                {
-                                                    <tr class="bg-warning">
-                                                        <td class="text-center">
-                                                            <img src="~/Photos/Products/@item.Image" width="90" height="auto" />
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(p => item.Id)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(p => item.Name)
-                                                        </td>
-                                                        <td>
-                                                            @item.Category.Name
-                                                        </td>
-                                                        <td>
-                                                            @Warehouse.Common.Format.FormatCurrencyVND((int)(item.PriceNew ?? item.Price))
-                                                        </td>
-                                                        <td>
-                                                            @if (item.Status)
-                                                            {
-                                                                <label class="label label-success">Còn hàng</label>
-                                                            }
-                                                            else
-                                                            {
-                                                                <label class="label label-warning">Hết hàng</label>
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            @Warehouse.Common.Format.FormatDateTime(item.DateCreated)
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
-                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
-                                                        </td>
-                                                       
                                                     </tr>
-                                                }
-                                            </tbody>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (Product item in Model.Where(m => m.Display == false))
+                                                    {
+                                                        <tr class="bg-warning">
+                                                            <td class="text-center">
+                                                                <img src="~/Photos/Products/@item.Image" width="90" height="auto" />
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(p => item.Id)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(p => item.Name)
+                                                            </td>
+                                                            <td>
+                                                                @item.Category.Name
+                                                            </td>
+                                                            <td>
+                                                                @Warehouse.Common.Format.FormatCurrencyVND((int)(item.PriceNew ?? item.Price))
+                                                            </td>
+                                                            <td>
+                                                                @if (item.Status)
+                                                                {
+                                                                    <label class="label label-success">Còn hàng</label>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <label class="label label-warning">Hết hàng</label>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @Warehouse.Common.Format.FormatDateTime(item.DateCreated)
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
+                                                                <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
+                                                                <form id="frmTab2Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
+                                                                    @Html.AntiForgeryToken()
 
-                                        </table>
-                                    </div>
-                                }
+                                                                </form>
+                                                                <button class="btn bg-danger btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab2Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                                            </td>
+                                                       
+                                                        </tr>
+                                                    }
+                                                </tbody>
+
+                                            </table>
+                                   </div>                               
                             </div>
                             <!-- /.tab-pane -->
+                            
                         </div>
                         <!-- /.tab-content -->
                     </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a onclick="return confirm('Xác nhận xuất dữ liệu khách hàng ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("ExportToExcel")" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</a>
+                    <a onclick="return confirm('Xác nhận xuất dữ liệu ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("ExportToExcel")" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</a>
                 </div>
             </div>
         </div>

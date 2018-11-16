@@ -617,6 +617,14 @@
     <Content Include="Photos\Products\Hot-bag-1.jpg" />
     <Content Include="Photos\Products\Hot-bag-2.jpg" />
     <Content Include="Photos\Products\Hot-bag.jpg" />
+    <Content Include="Photos\Products\keather-bag636779128904951180.jpg" />
+    <Content Include="Photos\Products\keather-bag636779129041919014.jpg" />
+    <Content Include="Photos\Products\keather-bag636779132559820227.jpg" />
+    <Content Include="Photos\Products\keather-bag636779132620533699.jpg" />
+    <Content Include="Photos\Products\keather-bag636779137937717825.jpg" />
+    <Content Include="Photos\Products\keather-bag636779138043943900.jpg" />
+    <Content Include="Photos\Products\keather-bag636779138244585376.jpg" />
+    <Content Include="Photos\Products\leather-bag-3.jpg" />
     <Content Include="Photos\Products\l\Black-bag.jpg" />
     <Content Include="Photos\Products\l\Hot-bag.jpg" />
     <Content Include="Photos\Products\l\printed-summer-dress.jpg" />
@@ -633,6 +641,9 @@
     <Content Include="Photos\Products\printed-summer-dress-2.jpg" />
     <Content Include="Photos\Products\printed-summer-dress-3.jpg" />
     <Content Include="Photos\Products\printed-summer-dress.jpg" />
+    <Content Include="Photos\Products\slide\leather-bag-3-1.jpg" />
+    <Content Include="Photos\Products\slide\leather-bag-3-2.jpg" />
+    <Content Include="Photos\Products\slide\leather-bag-3-3.jpg" />
     <Content Include="Photos\temp\31.jpg" />
     <Content Include="Photos\temp\32.jpg" />
     <Content Include="Photos\temp\33.jpg" />
@@ -737,6 +748,7 @@
     <Content Include="Areas\Admin\Views\AspNetUser\_EditModal.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
