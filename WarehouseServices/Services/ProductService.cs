@@ -113,12 +113,12 @@ namespace Warehouse.Services.Services
 
         public bool CheckUniqueName(string Name)
         {
-            return _productDal.Count(p => p.Name == Name) <= 1;
+            return _productDal.GetSingle(p => p.Name == Name) != null;
         }
 
         public bool CheckUniqueAlias(string Alias)
         {
-            return _productDal.Count(p => p.Alias_SEO == Alias) <= 1;
+            return _productDal.GetSingle(p => p.Alias_SEO == Alias) != null;
         }
     }
 }

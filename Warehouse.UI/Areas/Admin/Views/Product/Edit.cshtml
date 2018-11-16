@@ -21,7 +21,7 @@
             {
                 <div class="box">
                     <div class="box-body">
-                        <div class="col-md-2 text-center">
+                        <div class="col-md-3 text-center">
                             <p>
                                 <img src="~/Photos/Products/@Model.Image" width="@(int.Parse(Context.Application["WidthImageProduct"].ToString()) / 2 )" height="@(int.Parse(Context.Application["HeightImageProduct"].ToString()) / 2 )" />
                             </p>
@@ -29,12 +29,12 @@
                                 <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Đổi hình</button>
                             </p>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(m => m.UserCreated)
                             @Html.HiddenFor(m => m.DateCreated)
                             @Html.HiddenFor(m => m.Image)
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <input type="hidden" name="OldName" value="@Model.Name" />
                             <input type="hidden" name="OldAlias" value="@Model.Alias_SEO" />
                             <table class="table table-info table-border-none">
@@ -107,19 +107,25 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Status)</td>
                                     <td>
-                                        @Html.CheckBoxFor(model => model.Status)
+                                        <select name="Status" class="form-control">
+                                            <option value="true" selected>Còn hàng</option>
+                                            <option value="false">Hết hàng</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Display)</td>
                                     <td>
-                                        @Html.CheckBoxFor(model => model.Display)
+                                        <select name="Display" class="form-control">
+                                            <option value="true" selected>Hiển thị</option>
+                                            <option value="false">Ẩn</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </table>
 
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <table class="table table-hover table-info table-border-none">
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Description)</td>
@@ -167,7 +173,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix text-right">
-                        <a href="@Url.Action("Edit", new { Id = Model.Id })" class="btn bg-green btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                        <a href="@Url.Action("Edit", new { Id = Model.Id })" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> Sửa</a>
                         @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
                     </div>
                 </div>
@@ -272,7 +278,6 @@
             }
     </style>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/dist/js/jquery.canvasCrop.js"></script>

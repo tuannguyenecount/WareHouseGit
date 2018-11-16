@@ -64,8 +64,7 @@ namespace Warehouse.Areas.Admin.Controllers
         #endregion
 
         #region CRUD
-
-        public ActionResult Index(string tabActive)
+        public ActionResult Index()
         {
             List<Product> products = _productService.GetAll();
             return View(products);
@@ -87,39 +86,25 @@ namespace Warehouse.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
-            ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
-            ViewBag.Categories1 = new Dictionary<int, List<Category>>();
-            foreach (Category category in ViewBag.Categories)
-            {
-                (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
-            }
-            return View(new Product());
+            ViewBag.CategoryID = new SelectList(_categoryService.GetAll(), "Id", "Name");
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Exclude = "Image,DateCreated,UserCreated,DateUpdated")] Product model, IEnumerable<HttpPostedFileBase> files, string base64String)
+        public ActionResult Create([Bind(Exclude = "Image")] Product model, IEnumerable<HttpPostedFileBase> ImagesProducts, string base64String)
         {
             model.DateCreated = DateTime.Now;
             model.UserCreated = User.Identity.Name;
             model.DateUpdated = null;
-            if(_productService.CheckUniqueName(model.Name) == false)
-            {
-                ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
-
-            }
-            if (_productService.CheckUniqueAlias(model.Alias_SEO) == false)
-            {
-                ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
-            }
             #region Save File From String Base64
             if (!string.IsNullOrEmpty(base64String))
             {
                 try
                 {
                     base64String = base64String.Substring(base64String.IndexOf(',') + 1);
-                    string newAvatar = model.Alias_SEO + ".jpg";
+                    string newAvatar = model.Alias_SEO + DateTime.Now.Ticks.ToString() + ".jpg";
                     Functions.SaveFileFromBase64(Server.MapPath("~/Photos/Products/" + newAvatar), base64String);
                     model.Image = newAvatar;
                 }
@@ -128,36 +113,10 @@ namespace Warehouse.Areas.Admin.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
-            if(files != null && files.Count() > 0 && files.ElementAt(0) != null)
-            {
-                int i = 1;
-                foreach(HttpPostedFileBase httpPostedFileBase in files)
-                {
-                    string extend = System.IO.Path.GetExtension(httpPostedFileBase.FileName);
-                    if(ImageExtensions.Contains(extend.ToUpper()))
-                    {
-                        string image = model.Alias_SEO + "-" + i.ToString() + extend;
-                        model.ImagesProducts = new List<ImagesProduct>();
-                        model.ImagesProducts.Add(new ImagesProduct()
-                        {
-                            Image = image,
-                            OrderNum = i
-                        });
-                        try
-                        {
-                            httpPostedFileBase.SaveAs(Server.MapPath("~/Photos/Products/slide/" + image));
-                            i++;
-                        }
-                        catch(Exception ex)
-                        {
-                            ModelState.AddModelError("files", ex.Message);
-                        }
-                    }
-                }
-            }
             #endregion
             try
-            {              
+            {
+               
                 if (ModelState.IsValid)
                 {
                     _productService.Add(model);   
@@ -176,25 +135,15 @@ namespace Warehouse.Areas.Admin.Controllers
                         raise = new InvalidOperationException(message, raise);
                     }
                 }
-                ModelState.AddModelError("", raise.Message);
-                ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
-                ViewBag.Categories1 = new Dictionary<int, List<Category>>();
-                foreach (Category category in ViewBag.Categories)
-                {
-                    (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
-                }
+                ModelState.AddModelError("CustomError", raise.Message);
+                ViewBag.CategoryID = new SelectList(_categoryService.GetAll(), "Id", "Name", model.CategoryId);
                 return View(model);
             }
             catch(Exception ex)
             {
-                ModelState.AddModelError("", "Xảy ra lỗi khi thêm sản phẩm. Chi tiết: " + ex.Message);
+                ModelState.AddModelError("CustomError", "Xảy ra lỗi khi thêm sản phẩm. Chi tiết: " + ex.Message);
             }
-            ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
-            ViewBag.Categories1 = new Dictionary<int, List<Category>>();
-            foreach (Category category in ViewBag.Categories)
-            {
-                (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
-            }
+            ViewBag.CategoryID = new SelectList(_categoryService.GetAll(), "Id", "Name", model.CategoryId);
             return View(model);
         }
 
@@ -228,23 +177,15 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                if(_productService.CheckUniqueName(product.Name) == false)
                {
-                    ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
+                    ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại tên.");
                }
             }
             if (OldAlias != product.Alias_SEO)
             {
                 if (_productService.CheckUniqueAlias(product.Alias_SEO) == false)
                 {
-                    ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
+                    ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại tên.");
                 }
-            }
-            if(product.Price < 0 )
-            {
-                ModelState.AddModelError("Price", "Giá phải >= 0.");
-            }
-            if (product.PriceNew != null && product.PriceNew.Value < 0)
-            {
-                ModelState.AddModelError("PriceNew", "Giá mới phải >= 0.");
             }
             if (!string.IsNullOrEmpty(base64String))
             {
@@ -280,16 +221,6 @@ namespace Warehouse.Areas.Admin.Controllers
                 (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
             }
             return View(product);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int Id, string tabActive)
-        {
-            Product product = _productService.GetById(Id);
-            if (product != null)
-                _productService.Delete(Id);
-            return RedirectToAction("Index", new { tabActive = tabActive });
         }
 
         #endregion
