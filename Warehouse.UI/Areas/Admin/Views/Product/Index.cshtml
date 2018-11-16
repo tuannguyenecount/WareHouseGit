@@ -21,6 +21,11 @@
                 columnDefs: [{ orderable: false, targets: [0,7] }],
                 order: [[1, 'asc']],
             });
+            @if(Request.QueryString["tabActive"] != null)
+            { 
+                WriteLiteral("$('#" + (Request.QueryString["tabActive"]) + "').addClass('active');"
+                        + " $('a[href=\"#"+ (Request.QueryString["tabActive"]) + "\"]').parent().addClass('active');");
+            }
         });
     </script>
 }
@@ -43,13 +48,13 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
 
-                            <li class="active"><a href="#tab_1" data-toggle="tab">Đang Hiển Thị <label class="label label-success">@Model.Count(m => m.Display == true)</label></a></li>
+                            <li @(Request.QueryString["tabActive"] == null ? "class='active'" : "")><a href="#tab_1" data-toggle="tab">Đang Hiển Thị <label class="label label-success">@Model.Count(m => m.Display == true)</label></a></li>
                             <li><a href="#tab_2" data-toggle="tab">Đang Ẩn <label class="label label-warning">@Model.Count(m => m.Display == false)</label></a></li>
 
                         </ul>
                         <div class="tab-content">
                            
-                            <div class="tab-pane active" id="tab_1">         
+                            <div class="tab-pane @(Request.QueryString["tabActive"] == null ? "active" : "")" id="tab_1">         
                                  <div class="table-responsive">
                                        <table id="tblData" class="table table-bordered table-middle" method="post">
                                             <thead>
@@ -100,11 +105,11 @@
                                                         <td class="text-center">
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
-                                                            <form id="frmTab1Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
+                                                            <form class="hidden" id="frmTab1Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                                 @Html.AntiForgeryToken()
-
+                                                                <input name="tabActive" value="tab_1" />
                                                             </form>
-                                                            <button class="btn bg-danger btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab1Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab1Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
                                                         </td>
                                                        
                                                     </tr>
@@ -166,11 +171,11 @@
                                                             <td class="text-center">
                                                                 <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
                                                                 <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
-                                                                <form id="frmTab2Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
+                                                                <form class="hidden" id="frmTab2Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                                     @Html.AntiForgeryToken()
-
+                                                                    <input name="tabActive" value="tab_2" />
                                                                 </form>
-                                                                <button class="btn bg-danger btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab2Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                                                <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab2Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
                                                             </td>
                                                        
                                                         </tr>

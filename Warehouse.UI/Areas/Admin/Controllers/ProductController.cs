@@ -65,7 +65,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
         #region CRUD
 
-        public ActionResult Index()
+        public ActionResult Index(string tabActive)
         {
             List<Product> products = _productService.GetAll();
             return View(products);
@@ -284,9 +284,12 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(int Id, string tabActive)
         {
-
+            Product product = _productService.GetById(Id);
+            if (product != null)
+                _productService.Delete(Id);
+            return RedirectToAction("Index", new { tabActive = tabActive });
         }
 
         #endregion
