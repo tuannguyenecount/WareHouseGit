@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201811150745437_deleteColumnUserUpdated.Designer.cs">
       <DependentUpon>201811150745437_deleteColumnUserUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811170407119_alterColumnPricePriceNew.cs" />
+    <Compile Include="Migrations\201811170407119_alterColumnPricePriceNew.Designer.cs">
+      <DependentUpon>201811170407119_alterColumnPricePriceNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811150745437_deleteColumnUserUpdated.resx">
       <DependentUpon>201811150745437_deleteColumnUserUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811170407119_alterColumnPricePriceNew.resx">
+      <DependentUpon>201811170407119_alterColumnPricePriceNew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

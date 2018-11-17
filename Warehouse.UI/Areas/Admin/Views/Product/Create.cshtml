@@ -17,14 +17,13 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-            @using (Html.BeginForm("Create","Product", FormMethod.Post,new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="box">
                     <div class="box-body">
-                        
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
                         <div class="col-md-6">
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
                             <table class="table table-info table-border-none">
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.CategoryId)</td>
@@ -73,31 +72,30 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
-
+                                        @Html.ValidationMessageFor(model=>model.CategoryId,"",new { @class="text-danger" })
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Name)</td>
-                                    <td>@Html.TextBoxFor(model => model.Name, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Price)</td>
-                                    <td>@Html.TextBoxFor(model => model.Price, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Price, new { type = "text", @class = "divide form-control" })
+                                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.PriceNew)</td>
-                                    <td>@Html.TextBoxFor(model => model.PriceNew, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.PriceNew, new { type = "text", @class = "divide form-control" })
+                                        @Html.ValidationMessageFor(model => model.PriceNew, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
-                                    <td>@Html.TextBoxFor(model => model.Alias_SEO, new { @class = "form-control" })</td>
-                                </tr>
-                            </table>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <table class="table table-hover table-info table-border-none">
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Image)</td>
                                     <td>
@@ -139,6 +137,8 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
+                                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -150,8 +150,16 @@
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Description)</td>
-                                    <td>@Html.TextAreaFor(model => model.Description, new { @class = "form-control" })</td>
+                                    <td>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </td>
                                 </tr>
+                            </table>
+
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-hover table-info table-border-none">
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Content)</td>
                                     <td>
@@ -178,12 +186,23 @@
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
+                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Alias_SEO, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Alias_SEO, "", new { @class = "text-danger" })
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Status)</td>
                                     <td>
                                         @Html.CheckBoxFor(model => model.Status)
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+
                                     </td>
 
                                 </tr>
@@ -191,11 +210,12 @@
                                     <td>@Html.DisplayNameFor(model => model.Display)</td>
                                     <td>
                                         @Html.CheckBoxFor(model => model.Display)
+                                        @Html.ValidationMessageFor(model => model.Display, "", new { @class = "text-danger" })
+
                                     </td>
                                 </tr>
                             </table>
                         </div>
-
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix text-right">

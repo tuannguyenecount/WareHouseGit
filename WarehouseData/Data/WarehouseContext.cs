@@ -115,13 +115,6 @@ namespace Warehouse.Data.Data
                 .Property(e => e.Money)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Price)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<Product>()
-                .Property(e => e.PriceNew)
-                .HasPrecision(19, 4);
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Image)

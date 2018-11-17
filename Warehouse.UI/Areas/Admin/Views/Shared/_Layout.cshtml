@@ -59,7 +59,7 @@
     <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper"  style="overflow-y:hidden">
+    <div class="wrapper" style="overflow-y:hidden">
         <header class="main-header">
             <!-- Logo -->
             <a href="/" class="logo">
@@ -91,7 +91,7 @@
             <!-- /.sidebar -->
         </aside>
         <!-- Content Wrapper. Contains page content -->
-       
+
         <div class="content-wrapper">
             @RenderBody()
             <button type="button" class="btn btn-success hide" data-toggle="modal" data-target="#modal-success"></button>
@@ -140,7 +140,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-         
+
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
@@ -340,7 +340,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @*<script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>*@
     @*<script src="~/signalr/hubs"></script>*@
-    
+
     <!-- Slimscroll -->
     <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -349,7 +349,17 @@
     <script src="~/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
+    <script>
+        $('.divide').divide({
+            delimiter: '.',
+            divideThousand: true, // 1,000..9,999
+            delimiterRegExp: /[\.\,\s]/g
+        }).keypress(function (key) {
+            if (key.charCode < 48 || key.charCode > 57) return false;
+        });
+    </script>
+
     @RenderSection("scripts", false)
-    
+
 </body>
 </html>

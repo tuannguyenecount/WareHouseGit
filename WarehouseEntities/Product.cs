@@ -29,11 +29,11 @@
 
         [Column(TypeName = "money")]
         [Display(Name = "Giá bán")]
-        public decimal Price { get; set; }
+        public int Price { get; set; }
 
         [Column(TypeName = "money")]
         [Display(Name = "Giá bán mới")]
-        public decimal? PriceNew { get; set; }
+        public int? PriceNew { get; set; }
 
         [StringLength(300, ErrorMessage = "Hình ảnh không được vượt quá 300 ký tự!")]
         [Display(Name = "Hình ảnh")]
@@ -48,6 +48,7 @@
 
         [Required(ErrorMessage = "Bí danh không được bỏ trống")]
         [StringLength(256, ErrorMessage = "Bí danh không được vượt quá 256 ký tự!")]
+        [Display(Name = "Bí danh SEO")]
         public string Alias_SEO { get; set; }
 
         [Display(Name = "Tình trạng")]

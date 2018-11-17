@@ -20,7 +20,7 @@ using Warehouse.Data.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Mod")]
     public class AspNetUserController : Controller
     {
 

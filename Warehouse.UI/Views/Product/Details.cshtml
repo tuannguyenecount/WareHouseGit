@@ -120,13 +120,7 @@
                     </div>
                     <div class="col-md-6 col-product-info">
                         <div class="product_header_container clearfix">
-                            <meta itemprop="brand" content="Antara">
-                            <div class="product-manufacturer product-manufacturer-next float-right">
-                                <a href="/ps17/en/30_antara">
-                                    <img src="/Content/ps17/img/m/30.jpg"
-                                         class="img-fluid  manufacturer-logo" />
-                                </a>
-                            </div>
+                            
                             <h1 class="h1"><a href="@Url.Action("Details","Product",new { alias = Model.Alias })">@Model.Name</a></h1>
                             <div class="product-prices">
                                 <div class=""
@@ -137,8 +131,6 @@
                                     <div>
                                         <span itemprop="price" class="product-price">@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))</span>
                                     </div>
-                                </div>
-                                <div class="tax-shipping-delivery-label text-muted">
                                 </div>
                             </div>
                         </div>
