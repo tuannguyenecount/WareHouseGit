@@ -1,4 +1,7 @@
-﻿
+﻿@{ 
+    string countProductsDisplay = Html.Action("CountDisplay", "Product").ToString();
+    string countProductsHide = Html.Action("CountHide", "Product").ToString();
+}
 <section class="sidebar">
     <!-- Sidebar user panel -->
     @Html.Action("_UserPanelPartial", "AspNetUser")
@@ -37,7 +40,8 @@
                 <i class="fa fa-users"></i>
                 <span>Sản Phẩm</span>
                 <span class="pull-right-container">
-                    <span title="@Html.Action("CountAll","Product") sản phẩm" class="label label-primary pull-right">@Html.Action("CountAll", "Product")</span>
+                    <span title="@countProductsHide sản phẩm đang ẩn" class="label label-warning pull-right">@countProductsHide</span>
+                    <span title="@countProductsDisplay sản phẩm đang hiển thị" class="label label-success pull-right">@countProductsDisplay</span>
                 </span>
             </a>
         </li>

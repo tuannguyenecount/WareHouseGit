@@ -67,6 +67,7 @@
     <Compile Include="Interface\IAspNetRoleService.cs" />
     <Compile Include="Interface\IArticleService.cs" />
     <Compile Include="Interface\ICategoryService.cs" />
+    <Compile Include="Interface\IImagesProductService.cs" />
     <Compile Include="Interface\IInfoShopService.cs" />
     <Compile Include="Interface\IOrderDetailService.cs" />
     <Compile Include="Interface\INewsService.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Interface\IProductService.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\ImagesProductService.cs" />
     <Compile Include="Services\InfoShopService.cs" />
     <Compile Include="Services\OrderDetailService.cs" />
     <Compile Include="Services\NewsService.cs" />

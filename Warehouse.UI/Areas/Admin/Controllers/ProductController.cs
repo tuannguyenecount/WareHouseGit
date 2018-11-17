@@ -19,23 +19,18 @@ namespace Warehouse.Areas.Admin.Controllers
         int WidthResize, HeightResize;
         private IProductService _productService;
         private ICategoryService _categoryService;
+        private IImagesProductService _imagesProductService;
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
-
         #endregion
 
-        #region Constructor
-
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(IProductService productService, ICategoryService categoryService, IImagesProductService imagesProductService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _imagesProductService = imagesProductService;
             this.WidthResize = int.Parse(ConfigurationManager.AppSettings["WidthImageProduct"]);
             this.HeightResize = int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]);
-
         }
-
-
-        #endregion
 
         #region Export Data
 
@@ -90,10 +85,17 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Create([Bind(Exclude = "Image,DateCreated,UserCreated,DateUpdated")] Product model, IEnumerable<HttpPostedFileBase> files, string base64String)
         {
+            #region Set default value
             model.DateCreated = DateTime.Now;
             model.UserCreated = User.Identity.Name;
             model.DateUpdated = null;
-            if(_productService.CheckUniqueName(model.Name) == false)
+            #endregion
+            #region Check validation
+            if(model.CategoryId == 0)
+            {
+                ModelState.AddModelError("", "Bạn chưa chọn phân loại cho sản phẩm!");
+            }
+            if (_productService.CheckUniqueName(model.Name) == false)
             {
                 ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
 
@@ -110,9 +112,10 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 if (model.PriceNew.Value < 0)
                     ModelState.AddModelError("PriceNew", "Giá mới phải >= 0.");
-                else if (model.PriceNew.Value < model.Price)
-                    ModelState.AddModelError("PriceNew", "Giá mới phải >= giá cũ.");
+                else if (model.PriceNew.Value >= model.Price)
+                    ModelState.AddModelError("PriceNew", "Giá mới phải < giá cũ.");
             }
+            #endregion 
             #region Save File From String Base64
             if (!string.IsNullOrEmpty(base64String))
             {
@@ -127,6 +130,10 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("", ex.Message);
                 }
+            }
+            else
+            {
+                model.Image = "no_photo.gif";
             }
             if(files != null && files.Count() > 0 && files.ElementAt(0) != null)
             {
@@ -160,7 +167,25 @@ namespace Warehouse.Areas.Admin.Controllers
             {              
                 if (ModelState.IsValid)
                 {
-                    _productService.Add(model);   
+                    _productService.Add(model);
+                    if (files != null && files.Count() > 0 && files.ElementAt(0) != null)
+                    {
+                        int i = 1;
+                        foreach (HttpPostedFileBase file in files)
+                        {
+                            string extend = System.IO.Path.GetExtension(file.FileName);
+                            if (ImageExtensions.Contains(extend.ToUpper()))
+                            {
+                                _imagesProductService.AddImage(new ImagesProduct()
+                                {
+                                    ProductId = model.Id,
+                                    OrderNum = i,
+                                    Image = model.Alias_SEO + "-" + i.ToString() + extend
+                                });
+                                i++;
+                            }
+                        }
+                    }
                     return RedirectToAction("Index");
                 }
             }
@@ -189,12 +214,14 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Xảy ra lỗi khi thêm sản phẩm. Chi tiết: " + ex.Message);
             }
+            #region Response view and error message
             ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
             ViewBag.Categories1 = new Dictionary<int, List<Category>>();
             foreach (Category category in ViewBag.Categories)
             {
                 (ViewBag.Categories1 as Dictionary<int, List<Category>>).Add(category.Id, _categoryService.GetChilds(category.Id));
             }
+            #endregion
             return View(model);
         }
 
@@ -224,7 +251,11 @@ namespace Warehouse.Areas.Admin.Controllers
         public ActionResult Edit(Product product, string OldName, string OldAlias, string base64String)
         {
             product.DateUpdated = DateTime.Now;
-            if(OldName != product.Name)
+            if (product.CategoryId == 0)
+            {
+                ModelState.AddModelError("", "Bạn chưa chọn phân loại cho sản phẩm!");
+            }
+            if (OldName != product.Name)
             {
                if(_productService.CheckUniqueName(product.Name) == false)
                {
@@ -246,8 +277,8 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 if(product.PriceNew.Value < 0)
                     ModelState.AddModelError("PriceNew", "Giá mới phải >= 0.");
-                else if(product.PriceNew.Value < product.Price)
-                    ModelState.AddModelError("PriceNew", "Giá mới phải >= giá cũ.");
+                else if(product.PriceNew.Value >= product.Price)
+                    ModelState.AddModelError("PriceNew", "Giá mới phải < giá cũ.");
             }
             if (!string.IsNullOrEmpty(base64String))
             {
@@ -271,10 +302,12 @@ namespace Warehouse.Areas.Admin.Controllers
                 }
                 catch(Exception ex)
                 {
-                    ModelState.AddModelError("CustomError",ex.Message);
+                    ModelState.AddModelError("",ex.Message);
                 }
                 return RedirectToAction("Details", new { Id = product.Id });
             }
+
+            product.ImagesProducts = _productService.GetById(product.Id).ImagesProducts;
             ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
             ViewBag.Categories1 = new Dictionary<int, List<Category>>();
             foreach (Category category in ViewBag.Categories)
@@ -387,7 +420,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 #endregion
                 else
                 {
-                    ModelState.AddModelError("LoiDoiImage", "Bạn chưa chọn hình muốn đổi!");
+                    ModelState.AddModelError("", "Bạn chưa chọn hình muốn đổi!");
                 }
             }
 
@@ -397,11 +430,19 @@ namespace Warehouse.Areas.Admin.Controllers
 
         #region Count Product
         [ChildActionOnly]
-        public ContentResult CountAll()
+        public ContentResult CountDisplay()
         {
-            return Content(_productService.CountAll().ToString());
+            return Content(_productService.CountDisplay().ToString());
+        }
+
+        [ChildActionOnly]
+        public ContentResult CountHide()
+        {
+            return Content(_productService.CountHide().ToString());
         }
         #endregion
+
+        #region Processing List Images
 
         [HttpPost]
         public ActionResult AddImages(int Id, HttpPostedFileBase[] files)
@@ -412,48 +453,33 @@ namespace Warehouse.Areas.Admin.Controllers
                 if (product != null)
                 {
                     int i = 1;
-                    if (product.ImagesProducts == null)
-                        product.ImagesProducts = new List<ImagesProduct>();
-                    List<ImagesProduct> imagesProducts = product.ImagesProducts.ToList();
-
                     foreach (HttpPostedFileBase file in files)
                     {
                         string extend = System.IO.Path.GetExtension(file.FileName);
                         if (ImageExtensions.Contains(extend.ToUpper()))
                         {
-
-                            imagesProducts.Add(new ImagesProduct()
+                            string Image = product.Alias_SEO + "-" + DateTime.Now.Ticks.ToString() + extend;
+                            file.SaveAs(Server.MapPath("~/Photos/Products/slide/" + Image));
+                            _imagesProductService.AddImage(new ImagesProduct()
                             {
                                 ProductId = Id,
                                 OrderNum = i,
-                                Image = product.Alias_SEO + "-" + DateTime.Now.Ticks.ToString() + extend
+                                Image = Image
                             });
                             i++;
                         }
-                        
                     }
-                    product.ImagesProducts = imagesProducts;
-                    _productService.Update(product);
                 }
             }
             return RedirectToAction("Edit", new { Id = Id });
         }
 
         [HttpPost]
-        public ActionResult DeleteImage(int Id, int IdImage)
+        public ActionResult DeleteImage(int ProductId, int ImageId)
         {
-            Product product = _productService.GetById(Id);
-            if(product != null)
-            {
-                ImagesProduct imagesProduct = product.ImagesProducts.FirstOrDefault(p => p.Id == IdImage);
-                if(imagesProduct != null)
-                {
-                    product.ImagesProducts.Remove(imagesProduct);
-                }
-                _productService.Update(product);
-            }
-            return RedirectToAction("Details", new { Id = Id });
+            _imagesProductService.DeleteImage(ImageId);
+            return RedirectToAction("Edit", new { Id = ProductId });
         }
-
+        #endregion
     }
 }

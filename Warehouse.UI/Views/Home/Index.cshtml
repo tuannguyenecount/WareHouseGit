@@ -2007,7 +2007,43 @@
                                 </div>
                             </div>
                             <!-- End New Products-->
+                            <!-- Start Sale Products -->
+                            <div class="elementor-section elementor-element elementor-element-5w81tvp elementor-top-section elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-element_type="section">
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-row">
+                                        <div class="elementor-column elementor-element elementor-element-d5guyh5 elementor-col-100 elementor-top-column animated fadeIn" data-animation="fadeIn" data-element_type="column">
+                                            <div class="elementor-column-wrap elementor-element-populated">
+                                                <div class="elementor-widget-wrap">
+                                                    <div class="elementor-widget elementor-element elementor-element-vzz5uq0 elementor-widget-heading" data-element_type="heading">
+                                                        <div class="elementor-widget-container">
+                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>Sản Phẩm Giảm Giá</span></h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="elementor-widget elementor-element elementor-element-1ax7n11 elementor-widget-divider" data-element_type="divider">
+                                                        <div class="elementor-widget-container">
+                                                            <div class="elementor-divider">
+                                                                <span class="elementor-divider-separator"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="elementor-widget elementor-element elementor-element-co0tw3y elementor-widget-prestashop-widget-ProductsList" data-element_type="prestashop-widget-ProductsList">
+                                                        <div class="elementor-widget-container">
+                                                            <section class="elementor-products">
+                                                                <div class="products row products-grid ">
+                                                                    @Html.Partial("_GridProductPartial", ViewBag.SaleProduct as List<GridProductViewModel>)
+                                                                </div>
+                                                            </section>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Sale Products-->
                             @Html.Action("_StatisticalPartial", "Home")
                             @Html.Partial("_CustomersTestimonialsPartial")
                             @Html.Action("_GoogleMapPartial", "Home")

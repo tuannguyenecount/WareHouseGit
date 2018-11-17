@@ -96,9 +96,14 @@ namespace Warehouse.Services.Services
             return _productDal.GetHotProductsInWeek();
         }
 
-        public int CountAll()
+        public int CountDisplay()
         {
-            return _productDal.Count();
+            return _productDal.Count(p=>p.Display == true);
+        }
+
+        public int CountHide()
+        {
+            return _productDal.Count(p => p.Display == false);
         }
 
         public List<Product> Search(string keyword)
@@ -113,12 +118,14 @@ namespace Warehouse.Services.Services
 
         public bool CheckUniqueName(string Name)
         {
-            return _productDal.Count(p => p.Name == Name) <= 1;
+            return _productDal.GetFirst(p => p.Name == Name) == null;
         }
 
         public bool CheckUniqueAlias(string Alias)
         {
-            return _productDal.Count(p => p.Alias_SEO == Alias) <= 1;
+            return _productDal.GetFirst(p => p.Alias_SEO == Alias) == null;
         }
+
+       
     }
 }

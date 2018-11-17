@@ -83,7 +83,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
         <h1>Đăng Nhập</h1>
         <hr />
         <p class="text-center white">Để truy cập trang quản trị</p>
-        @using (Html.BeginForm("AdminLogin", "Account", FormMethod.Post, null))
+        @using (Html.BeginForm("AdminLogin", "Account", new { returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : "/AdminArea"  }, FormMethod.Post, null))
         {
             @Html.AntiForgeryToken()
             @Html.TextBoxFor(m => m.UserName, new { placeholder = "Tài khoản" })

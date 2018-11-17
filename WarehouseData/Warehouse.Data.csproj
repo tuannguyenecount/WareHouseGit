@@ -78,6 +78,7 @@
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\NewsDal.cs" />
+    <Compile Include="Data\ImagesProductDal.cs" />
     <Compile Include="Data\SubscriberDal.cs" />
     <Compile Include="Data\SlideDal.cs" />
     <Compile Include="Data\ProvinceDal.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Data\WarehouseContext.cs" />
     <Compile Include="Interface\IArticleDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
+    <Compile Include="Interface\IImagesProductDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />
     <Compile Include="Interface\ISubscriberDal.cs" />
@@ -142,6 +144,10 @@
     <Compile Include="Migrations\201811170407119_alterColumnPricePriceNew.cs" />
     <Compile Include="Migrations\201811170407119_alterColumnPricePriceNew.Designer.cs">
       <DependentUpon>201811170407119_alterColumnPricePriceNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811171359353_addRequiredCategoryId.cs" />
+    <Compile Include="Migrations\201811171359353_addRequiredCategoryId.Designer.cs">
+      <DependentUpon>201811171359353_addRequiredCategoryId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811170407119_alterColumnPricePriceNew.resx">
       <DependentUpon>201811170407119_alterColumnPricePriceNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811171359353_addRequiredCategoryId.resx">
+      <DependentUpon>201811171359353_addRequiredCategoryId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

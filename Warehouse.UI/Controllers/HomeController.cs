@@ -56,6 +56,19 @@ namespace Warehouse.Controllers
                     ProductFlag = "hot"
                 }).ToList(); ;
 
+            ViewBag.SaleProduct = _productService.GetAll().Where(p=> p.Display == true && p.PriceNew != null).OrderByDescending(p=>p.Id).Select(
+                p => new GridProductViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Alias = p.Alias_SEO,
+                    Image = p.Image,
+                    SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
+                    Price = p.PriceNew.Value,
+                    FlagColor = "#ad1f00",
+                    ProductFlag = "<span style='text-decoration:line-through'>" + Warehouse.Common.Format.FormatCurrencyVND(p.Price) + "</span>"
+                }).ToList();
+
 
             ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true).OrderBy(s => s.Order);
 
@@ -74,9 +87,9 @@ namespace Warehouse.Controllers
         [OutputCache(Duration = 86400)]
         public PartialViewResult _StatisticalPartial()
         {
-            ViewBag.CountAllProduct = _productService.CountAll();
-            ViewBag.CountAllCategory = _categoryService.CountAll();
-            ViewBag.CountAllOrder = _orderService.CountAll();
+            //ViewBag.CountAllProduct = _productService.CountAll();
+            //ViewBag.CountAllCategory = _categoryService.CountAll();
+            //ViewBag.CountAllOrder = _orderService.CountAll();
             return PartialView();
         }
 

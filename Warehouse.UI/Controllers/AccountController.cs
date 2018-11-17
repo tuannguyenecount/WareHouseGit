@@ -182,7 +182,7 @@ namespace Warehouse.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("AdminLogin")]
-        public async Task<ActionResult> AdminLogin(AdminLoginViewModel model)
+        public async Task<ActionResult> AdminLogin(AdminLoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -203,7 +203,7 @@ namespace Warehouse.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        return Redirect("/AdminArea");
+                        return Redirect(returnUrl);
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");

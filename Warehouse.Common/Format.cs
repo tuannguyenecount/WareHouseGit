@@ -10,7 +10,7 @@ namespace Warehouse.Common
     {
         public static string FormatCurrencyVND(int? price)
         {
-            return (price ?? 0).ToString("#,##0").Replace(',', '.') + " VNĐ";
+            return price != null ? price.Value.ToString("#,##0").Replace(',', '.') + " VNĐ" : "";
         }
         public static string FormatDateTime(DateTime dateTime)
         {

@@ -41,6 +41,8 @@ namespace Warehouse.Services.Interface
 
         bool CheckUniqueAlias(string Alias);
 
-        int CountAll();
+        int CountDisplay();
+
+        int CountHide();
     }
 }

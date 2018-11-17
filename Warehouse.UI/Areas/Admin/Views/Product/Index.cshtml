@@ -83,7 +83,7 @@
                                                             @Html.DisplayFor(p => item.Name)
                                                         </td>
                                                         <td>
-                                                            @item.Category.Name
+                                                            @(item.Category != null ? item.Category.Name : "")
                                                         </td>
                                                         <td>
                                                             @Warehouse.Common.Format.FormatCurrencyVND((int)(item.PriceNew ?? item.Price))

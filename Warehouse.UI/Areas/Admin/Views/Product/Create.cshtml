@@ -22,7 +22,7 @@
                 <div class="box">
                     <div class="box-body">
                         @Html.AntiForgeryToken()
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true,"", new { @class = "text-danger" })
                         <div class="col-md-6">
                             <table class="table table-info table-border-none">
                                 <tr>
@@ -53,7 +53,8 @@
                                                                                 @foreach (Category subCategory in (ViewBag.Categories1 as Dictionary<int, List<Category>>)[category.Id])
                                                                                 {
                                                                                     <li>
-                                                                                        <input type="radio" @(Model.CategoryId != null && Model.CategoryId == subCategory.Id ? "checked" : "") name="CategoryId" value="@subCategory.Id" /> @subCategory.Name
+                                                                                    
+                                                                                        <input type="radio" @(Model.CategoryId == subCategory.Id ? "checked" : "") name="CategoryId" value="@subCategory.Id" /> @subCategory.Name
                                                                                     </li>
                                                                                 }
                                                                             </ul>
@@ -256,6 +257,8 @@
             width: @(int.Parse(Context.Application["WidthImageProduct"].ToString()) * 1.5)px;
             background: #fff;
             overflow: hidden;
+            margin-left:auto;
+            margin-right:auto;
             background-repeat: no-repeat;
             cursor: move;
             box-shadow: 4px 4px 12px #B0B0B0;

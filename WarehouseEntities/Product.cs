@@ -25,7 +25,8 @@
         public string Name { get; set; }
 
         [Display(Name = "Phân loại")]
-        public int? CategoryId { get; set; }
+        [Required(ErrorMessage = "Bạn chưa chọn phân loại cho sản phẩm!")]
+        public int CategoryId { get; set; }
 
         [Column(TypeName = "money")]
         [Display(Name = "Giá bán")]

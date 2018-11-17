@@ -57,6 +57,9 @@ namespace Warehouse
             container.RegisterType<AspNetUserController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
 
+            container.RegisterType<IImagesProductService, ImagesProductService>();
+            container.RegisterType<IImagesProductDal, ImagesProductDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
