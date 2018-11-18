@@ -6,22 +6,7 @@
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-authentication tax-display-disabled page-customer-account body-desktop-header-style-w-4";
 }
 
-<div class="container">
-    <nav class="breadcrumb">
-        <div class="row align-items-center">
-            <div class="col">
-                <ol>
-                    <li>
-                        <a href="/">
-                            <span>Trang chủ</span>
-                        </a>
-                    </li>
-                </ol>
-            </div>
-            <div class="col col-auto"> </div>
-        </div>
-    </nav>
-</div>
+<div>&nbsp;</div>
 <div id="inner-wrapper" class="container">
     <aside id="notifications"></aside>
     <div id="content-wrapper">
@@ -34,9 +19,9 @@
                 </h1>
             </header>
             <section id="content" class="page-content">
-                <section class="register-form">
-                    <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> Bạn đã có tài khoản ở shop ? <a href="@Url.Action("Login")"><u>Đăng nhập ngay!</u></a></p>
-                    <form action="@Url.Action("Register")" class="js-customer-form" method="post">
+                <section>
+                    <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> Bạn đã có tài khoản ở shop ? <a href="@Url.Action("Login")" class="text-danger"><u>Đăng nhập ngay!</u></a></p>
+                    <form action="@Url.Action("Register")"  method="post">
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary("", new { @class = "text-danger" })
                         <section>
@@ -47,6 +32,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "" })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-2 form-control-comment">
 
@@ -59,6 +45,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "" })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-2 form-control-comment">
                                 </div>
@@ -76,6 +63,8 @@
                                             </button>
                                         </span>
                                     </div>
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
                                 </div>
                                 <div class="col-md-2 form-control-comment">
                                 </div>
@@ -93,8 +82,26 @@
                                             </button>
                                         </span>
                                     </div>
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
                                 </div>
                                 <div class="col-md-2 form-control-comment">
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label">
+                                    Điện thoại
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+
+                                    <span class="form-control-comment">
+                                        
+                                    </span>
+                                </div>
+                                <div class="col-md-2 form-control-comment">
+                                    Nhập số điện thoại bạn đang dùng
                                 </div>
                             </div>
                             <div class="form-group row align-items-center ">
@@ -103,6 +110,8 @@
                                 </label>
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
                                     <span class="form-control-comment">
                                         Số nhà/Khu phố/Đường
                                     </span>
@@ -116,11 +125,8 @@
                                     Tỉnh/Thành
                                 </label>
                                 <div class="col-md-8">
-                                    @using (Ajax.BeginForm("_GetDistrictByProvince", new AjaxOptions { AllowCache = true, UpdateTargetId = "Districts", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
-                                    {
-                                        <button type="submit" class="hidden"></button>
-                                        @Html.DropDownList("ProvinceId", null, new { @class = "form-control", onchange = "this.parentNode.submit()" })
-                                    }
+                                    @Html.DropDownList("ProvinceId", null, new { @class = "form-control", required = "" })
+                                    @Html.ValidationMessage("ProvinceId", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group row align-items-center ">
@@ -128,6 +134,8 @@
                                     Quận/Huyện
                                 </label>
                                 <div class="col-md-8" id="Districts">
+                                    @Html.DropDownList("DistrictId", null, new { @class = "form-control", required = "" })
+                                    @Html.ValidationMessage("DistrictId", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group row align-items-center ">
@@ -135,13 +143,13 @@
                                     Phường/Xã
                                 </label>
                                 <div class="col-md-8" id="Wards">
+                                    @Html.DropDownList("WardId", null, new { @class = "form-control", required = "" })
+                                    @Html.ValidationMessage("WardId", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </section>
                         <footer class="form-footer text-center clearfix">
-                            <input type="hidden" name="submitCreate" value="1">
-
-                            <button class="btn btn-primary form-control-submit" data-link-action="save-customer" type="submit">
+                            <button class="btn btn-primary" type="submit">
                                 Hoàn Thành
                             </button>
 
@@ -157,5 +165,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+   
 }

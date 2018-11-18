@@ -87,9 +87,9 @@ namespace Warehouse.Controllers
         [OutputCache(Duration = 86400)]
         public PartialViewResult _StatisticalPartial()
         {
-            //ViewBag.CountAllProduct = _productService.CountAll();
-            //ViewBag.CountAllCategory = _categoryService.CountAll();
-            //ViewBag.CountAllOrder = _orderService.CountAll();
+            ViewBag.CountAllProduct = _productService.CountDisplay();
+            ViewBag.CountAllCategory = _categoryService.CountAll();
+            ViewBag.CountAllOrder = _orderService.CountAll();
             return PartialView();
         }
 

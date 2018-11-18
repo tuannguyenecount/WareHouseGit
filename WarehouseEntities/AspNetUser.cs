@@ -56,6 +56,10 @@ namespace Warehouse.Entities
 
         public DateTime DateRegister { get; set; }
 
+        public int? ProvinceId { get; set; }
+        public int? DistrictId { get; set; }
+        public int? WardId { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
@@ -65,5 +69,11 @@ namespace Warehouse.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+
+        public virtual Province Province { get; set; }
+
+        public virtual District District { get; set; }
+
+        public virtual Ward Ward { get; set; }
     }
 }

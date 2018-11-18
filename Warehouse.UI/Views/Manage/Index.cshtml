@@ -1,9 +1,8 @@
-﻿@model IndexViewModel
-@{
-    ViewBag.Title = "Trang cá nhân " + User.Identity.Name;
+﻿@{
+    ViewBag.Title = "Trang cá nhân ";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-my-account tax-display-disabled body-desktop-header-style-w-4";
     ViewBag.BodyId = "my-account";
-    UpdateInfoViewModel updateInfoViewModel = new UpdateInfoViewModel();
+    UpdateInfoViewModel updateInfoViewModel = ViewBag.UpdateInfoViewModel as UpdateInfoViewModel;
 }
 <div id="inner-wrapper" class="container">
     <div id="content-wrapper">
@@ -13,40 +12,17 @@
             </header>
             <section id="content" class="page-content my-account-page-content-wrapper">
                 <div class="row">
-                    <div class="my-account-side-links col-sm-3">
-                        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="identity-link" href="@Url.Action("Index")">
-                            <span class="link-item">
-                                <i class="fa fa-user fa-fw" aria-hidden="true"></i>Thông tin cá nhân
-                            </span>
-                        </a>
-                        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="history-link" href="@Url.Action("OrderHistory")">
-                            <span class="link-item">
-                                <i class="fa fa-history fa-fw" aria-hidden="true"></i>Lịch sử đặt hàng
-                            </span>
-                        </a>
-                        
-                        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="iqitwishlist" href="@Url.Action("MyWishlist")" title="Sản phẩm yêu thích">
-                            <span class="link-item">
-                                <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i>Sản phẩm yêu thích
-                            </span>
-                        </a>
-                        <form id="frmLogoff" action="@Url.Action("LogOff","Account")" method="post">
-                            @Html.AntiForgeryToken()
-                        </form>
-                        <a  class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  href="javascript:document.getElementById('frmLogoff').submit()" title="Đăng xuất tài khoản" rel="nofollow" >
-                            <span class="link-item">
-                                <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Đăng xuất
-                            </span>
-                        </a>
-                       
-                    </div>
+                    @Html.Action("_SidebarManage")
                     <div class="my-account-page-content col-sm-9">
                         <aside id="notifications">
-                            <p class="text-success">@ViewBag.StatusMessage</p>
+                            @if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+                            {
+                                <p class="alert alert-success">@ViewBag.StatusMessage</p>
+                            }
                         </aside>
                         <form action="@Url.Action("EditInformation")"  class="js-customer-form" method="post">
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("",new { @class="text-danger" })
+                            @Html.ValidationSummary(true,"",new { @class="text-danger" })
                             <section>
 
                                 <div class="form-group row align-items-center ">
@@ -55,6 +31,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(m => updateInfoViewModel.FullName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => updateInfoViewModel.FullName, "", new { @class="text-danger" })
                                     </div>
                                     <div class="col-md-2 form-control-comment"></div>
                                 </div>
@@ -65,23 +42,27 @@
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(m => updateInfoViewModel.Email, new { type = "email", @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => updateInfoViewModel.Email, "", new { @class = "text-danger" })
+
                                     </div>
                                     <div class="col-md-2 form-control-comment"></div>
                                 </div>
+
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
                                         Điện thoại
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(model => updateInfoViewModel.PhoneNumber, new { @class = "form-control" })
-                                        <span class="form-control-comment">
-                                            Số nhà/Khu phố/Đường
-                                        </span>
+                                     
+                                        @Html.ValidationMessageFor(m => updateInfoViewModel.PhoneNumber, "", new { @class = "text-danger" })
+
                                     </div>
                                     <div class="col-md-2 form-control-comment">
                                         Nhập chính xác điện thoại bạn đang dùng để shop dễ liên lạc
                                     </div>
                                 </div>
+
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
                                         Địa chỉ
@@ -91,6 +72,8 @@
                                         <span class="form-control-comment">
                                             Số nhà/Khu phố/Đường
                                         </span>
+                                        @Html.ValidationMessageFor(m => updateInfoViewModel.Address, "", new { @class = "text-danger" })
+
                                     </div>
                                     <div class="col-md-2 form-control-comment">
                                         Nhập chính xác để chúng tôi dễ dàng giao hàng cho bạn
@@ -102,52 +85,32 @@
                                         Tỉnh/Thành
                                     </label>
                                     <div class="col-md-8">
-                                        @using (Ajax.BeginForm("_GetDistrictByProvince", new AjaxOptions { AllowCache = true, UpdateTargetId = "Districts", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
-                                        {
-                                            <button type="submit" class="hidden"></button>
-                                            @Html.DropDownList("ProvinceId", null, new { @class = "form-control", onchange = "this.parentNode.submit()" })
-                                        }
+                                        @Html.DropDownList("ProvinceId", null, new { @class = "form-control", required = "" })
+                                        @Html.ValidationMessage("ProvinceId", new { @class = "text-danger"})
+
                                     </div>
                                 </div>
+
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
                                         Quận/Huyện
                                     </label>
                                     <div class="col-md-8" id="Districts">
+                                        @Html.DropDownList("DistrictId", null, new { @class = "form-control", required = "" })
+                                        @Html.ValidationMessage("DistrictId", new { @class = "text-danger" })
                                     </div>
                                 </div>
+
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
                                         Phường/Xã
                                     </label>
                                     <div class="col-md-8" id="Wards">
+                                        @Html.DropDownList("WardId", null, new { @class = "form-control", required = "" })
+                                        @Html.ValidationMessage("WardId", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2">
-
-                                    </label>
-                                    <div class="col-md-8">
-                                        @if (Model.HasPassword)
-                                        {
-                                            @Html.ActionLink("Change your password", "ChangePassword")
-                                        }
-                                        else
-                                        {
-                                            @Html.ActionLink("Create", "SetPassword")
-                                        }
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2">
-                                        Đăng nhập bên ngoài
-                                    </label>
-                                    <div class="col-md-8">
-                                        Model.Logins.Count [
-                                        @Html.ActionLink("Quản lý", "ManageLogins") ]
-                                    </div>
-                                </div>
-
+                              
                             </section>
                             <footer class="form-footer text-center clearfix">
                                 <button class="btn btn-primary form-control-submit" type="submit">
@@ -164,61 +127,6 @@
     </div>
 </div>
 
-@*<h2>@ViewBag.Title.</h2>
-
-    <p class="text-success">@ViewBag.StatusMessage</p>
-    <div>
-        <h4>Change your account settings</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>Password:</dt>
-            <dd>
-                [
-                @if (Model.HasPassword)
-                {
-                    @Html.ActionLink("Change your password", "ChangePassword")
-                }
-                else
-                {
-                    @Html.ActionLink("Create", "SetPassword")
-                }
-                ]
-            </dd>
-            <dt>External Logins:</dt>
-            <dd>
-                @Model.Logins.Count [
-                @Html.ActionLink("Manage", "ManageLogins") ]
-            </dd>
-
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")</text>
-                }
-             </dd>
-            <dt>
-
-            </dt>
-            <dd>
-                <form id="frmLogoff" action="@Url.Action("LogOff","Account")" method="post">
-                    @Html.AntiForgeryToken()
-                </form>
-                <a href="javascript:document.getElementById('frmLogoff').submit()" title="Đăng xuất tài khoản" rel="nofollow" class="header-btn header-user-btn">
-                    <i class="fa fa-sign-out fa-fw icon" aria-hidden="true"></i>
-                    <span class="title">Đăng xuất</span>
-                </a>
-            </dd>
-        </dl>
-    </div>*@
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")    
+}

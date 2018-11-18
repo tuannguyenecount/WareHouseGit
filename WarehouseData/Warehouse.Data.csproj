@@ -153,6 +153,10 @@
     <Compile Include="Migrations\201811171359353_addRequiredCategoryId.Designer.cs">
       <DependentUpon>201811171359353_addRequiredCategoryId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811181622544_addColumnLocationsForAspNetUsers.cs" />
+    <Compile Include="Migrations\201811181622544_addColumnLocationsForAspNetUsers.Designer.cs">
+      <DependentUpon>201811181622544_addColumnLocationsForAspNetUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -213,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811171359353_addRequiredCategoryId.resx">
       <DependentUpon>201811171359353_addRequiredCategoryId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181622544_addColumnLocationsForAspNetUsers.resx">
+      <DependentUpon>201811181622544_addColumnLocationsForAspNetUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

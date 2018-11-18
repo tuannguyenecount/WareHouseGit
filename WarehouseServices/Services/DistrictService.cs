@@ -8,7 +8,23 @@ namespace Warehouse.Services.Services
 {
     public class DistrictService : IDistrictService
     {
-        IDistrictDal _districtDal;
+        private IDistrictDal _districtDal;
+
+        public DistrictService(IDistrictDal districtDal)
+        {
+            _districtDal = districtDal;
+        }
+
+        public List<District> GetAll()
+        {
+            return _districtDal.GetList().OrderBy(d => d.SortOrder).ToList();
+        }
+
+        public District GetById(int Id)
+        {
+            return _districtDal.GetSingle(d=>d.Id == Id);
+        }
+
         public List<District> GetByProvince(int ProvinceId)
         {
             return _districtDal.GetList(p => p.ProvinceId == ProvinceId).OrderBy(p=>p.SortOrder).ToList();

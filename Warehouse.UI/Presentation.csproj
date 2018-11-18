@@ -329,6 +329,10 @@
     <Compile Include="Migrations\201811120635212_deletecolumnGenderAndPhone.Designer.cs">
       <DependentUpon>201811120635212_deletecolumnGenderAndPhone.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811181637370_addColumnLocationsForAspNetUsers.cs" />
+    <Compile Include="Migrations\201811181637370_addColumnLocationsForAspNetUsers.Designer.cs">
+      <DependentUpon>201811181637370_addColumnLocationsForAspNetUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
@@ -910,6 +914,7 @@
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Location\_GetWardByDistrict.cshtml" />
+    <Content Include="Views\Manage\_SidebarManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -957,6 +962,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811120635212_deletecolumnGenderAndPhone.resx">
       <DependentUpon>201811120635212_deletecolumnGenderAndPhone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181637370_addColumnLocationsForAspNetUsers.resx">
+      <DependentUpon>201811181637370_addColumnLocationsForAspNetUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

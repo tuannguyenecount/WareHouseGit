@@ -53,9 +53,9 @@ namespace Warehouse
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
 
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor(typeof(IProvinceService), typeof(IDistrictService), typeof(IWardService)));
             container.RegisterType<AspNetUserController>(new InjectionConstructor());
-            container.RegisterType<ManageController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor(typeof(IProvinceService), typeof(IDistrictService), typeof(IWardService)));
 
             container.RegisterType<IImagesProductService, ImagesProductService>();
             container.RegisterType<IImagesProductDal, ImagesProductDal>();

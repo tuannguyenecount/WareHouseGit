@@ -18,9 +18,19 @@ namespace Warehouse.Services.Services
             _wardDal = wardDal;
         }
 
+        public List<Ward> GetAll()
+        {
+            return _wardDal.GetList().OrderBy(w => w.SortOrder).ToList();
+        }
+
         public List<Ward> GetByDistrict(int DistrictID)
         {
             return _wardDal.GetList(w => w.DistrictID == DistrictID).OrderBy(w=>w.SortOrder).ToList();
+        }
+
+        public Ward GetById(int Id)
+        {
+            return _wardDal.GetSingle(w => w.Id == Id);
         }
     }
 }

@@ -4,29 +4,32 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Warehouse.Entities;
 using Warehouse.Models;
 using Warehouse.Services.Interface;
 
 namespace Warehouse.Controllers
 {
     [Authorize]
+    [RoutePrefix("trang-ca-nhan")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private IProvinceService _proviceService;
+        private IProvinceService _provinceService;
+        private IDistrictService _districtService;
+        private IWardService _wardService;
+
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IProvinceService proviceService)
+        public ManageController(IProvinceService provinceService, IDistrictService districtService, IWardService wardService)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
-            _proviceService = proviceService;
+            _provinceService = provinceService;
+            _districtService = districtService;
+            _wardService = wardService;
         }
-
-       
 
         public string UserId
         {
@@ -60,22 +63,42 @@ namespace Warehouse.Controllers
             }
         }
 
-        //
-        // GET: /Manage/Index
+        [Route("")]
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
 
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Mật khẩu được thay đổi thành công."
+                : message == ManageMessageId.SetPasswordSuccess ? "Bạn đã tạo mật khẩu cho tài khoản thành công."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Thiết lập đăng nhập thông qua 2 bước thành công."
+                : message == ManageMessageId.Error ? "Xảy ra lỗi khi xử lý."
+                : message == ManageMessageId.AddPhoneSuccess ? "Điện thoại đã được thêm thành công."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Gỡ bỏ điện thoại khỏi tài khoản thành công."
                 : message == ManageMessageId.UpdateInfoSuccess ? "Cập nhật thông tin thành công"
                 : "";
 
            
+          
+
+            ApplicationUser applicationUser = await UserManager.FindByIdAsync(UserId);
+            UpdateInfoViewModel updateInfoViewModel = new UpdateInfoViewModel()
+            {
+                Address = applicationUser.Address,
+                Email = applicationUser.Email,
+                FullName = applicationUser.FullName,
+                PhoneNumber = applicationUser.PhoneNumber
+            };
+
+            ViewBag.UpdateInfoViewModel = updateInfoViewModel;
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", applicationUser.ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", applicationUser.DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", applicationUser.WardId);
+            return View();
+        }
+
+        [ChildActionOnly]
+        public async Task<PartialViewResult> _SidebarManage()
+        {
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -84,22 +107,41 @@ namespace Warehouse.Controllers
                 Logins = await UserManager.GetLoginsAsync(UserId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(UserId)
             };
-            ViewBag.ProvinceId = new SelectList(_proviceService.GetAll(), "Id", "Name");
-
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditInformation(UpdateInfoViewModel updateInfoViewModel)
+        public async Task<ActionResult> EditInformation(UpdateInfoViewModel updateInfoViewModel, int ProvinceId, int DistrictId, int WardId)
         {
-            if(ModelState.IsValid)
+            Province province = _provinceService.GetById(ProvinceId);
+            if (province == null)
+            {
+                ModelState.AddModelError("ProvinceId", "Tỉnh/Thành không tồn tại");
+            }
+
+            District district = _districtService.GetById(DistrictId);
+            if (district == null)
+            {
+                ModelState.AddModelError("DistrictId", "Quận/Huyện không tồn tại");
+            }
+
+            Ward ward = _wardService.GetById(WardId);
+            if (province == null)
+            {
+                ModelState.AddModelError("WardId", "Phường/Xã không tồn tại");
+            }
+
+            if (ModelState.IsValid)
             {
                 ApplicationUser applicationUser = UserManager.FindById(UserId);
                 applicationUser.Email = updateInfoViewModel.Email;
                 applicationUser.FullName = updateInfoViewModel.FullName;
                 applicationUser.PhoneNumber = updateInfoViewModel.PhoneNumber;
                 applicationUser.Address = updateInfoViewModel.Address;
+                applicationUser.ProvinceId = ProvinceId;
+                applicationUser.DistrictId = DistrictId;
+                applicationUser.WardId = WardId;
                 await UserManager.UpdateAsync(applicationUser);
                 return RedirectToAction("Index", new { message = ManageMessageId.UpdateInfoSuccess });
 
@@ -113,8 +155,46 @@ namespace Warehouse.Controllers
                 Logins = await UserManager.GetLoginsAsync(UserId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(UserId)
             };
+            ViewBag.UpdateInfoViewModel = updateInfoViewModel;
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", WardId);
             return View("Index", model);
         }
+
+        
+        [Route("doi-mat-khau")]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("doi-mat-khau")]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePasswordAsync(UserId, model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
+
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
@@ -171,61 +251,36 @@ namespace Warehouse.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-       
-        //
-        // POST: /Manage/ChangePassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<JsonResult> ChangePassword(ChangePasswordViewModel changepassword)
-        {
-            string errors = "";
-            if (!ModelState.IsValid)
-            {
-                errors = Functions.GetAllErrorsPage(this.ModelState);
-                return Json(new { status = 0, message = errors }, JsonRequestBehavior.AllowGet);
-            }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), changepassword.OldPassword, changepassword.NewPassword);
-            if (result.Succeeded)
-            {
-                return Json(new { status = 1, message = "Success" }, JsonRequestBehavior.AllowGet);
-            }
-            AddErrors(result);
-            errors = Functions.GetAllErrorsPage(this.ModelState);
-            return Json(new { status = 0, message = errors }, JsonRequestBehavior.AllowGet);
-        }
 
-        //
-        // GET: /Manage/SetPassword
+        [Route("dat-mat-khau")]
         public ActionResult SetPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/SetPassword
+        [Route("dat-mat-khau")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<JsonResult> SetPassword(SetPasswordViewModel setpassword, string Id)
+        public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await UserManager.RemovePasswordAsync(Id);
+                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddPasswordAsync(Id, setpassword.NewPassword);
-                    if (result.Succeeded)
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
                     {
-                        return Json(new { status = 1, message = "Success" }, JsonRequestBehavior.AllowGet);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
+                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
                 AddErrors(result);
             }
-            string error = Functions.GetAllErrorsPage(ModelState);
-            // If we got this far, something failed, redisplay form
-            return Json(new { status = 0, message = error }, JsonRequestBehavior.AllowGet);
-        }
 
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
         //
         // POST: /Manage/LinkLogin

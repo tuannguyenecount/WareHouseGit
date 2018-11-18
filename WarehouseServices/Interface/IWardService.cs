@@ -10,5 +10,9 @@ namespace Warehouse.Services.Interface
     public interface IWardService
     {
         List<Ward> GetByDistrict(int DistrictID);
+
+        List<Ward> GetAll();
+
+        Ward GetById(int Id);
     }
 }

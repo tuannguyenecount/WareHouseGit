@@ -16,10 +16,14 @@ using System.IO;
 using System.Data.Entity.Validation;
 using Warehouse.Data.Interface;
 using Warehouse.Services.Interface;
+using Warehouse.Services.Services;
+using Warehouse.Data.Data;
+using Warehouse.Entities;
 
 namespace Warehouse.Controllers
 {
     [Authorize]
+    [RoutePrefix("tai-khoan")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -28,19 +32,18 @@ namespace Warehouse.Controllers
         private IDistrictService _districtService;
         private IWardService _wardService;
 
-        public AccountController()
+        public AccountController(IProvinceService provinceService, IDistrictService districtService, IWardService wardService)
         {
-
-        }
-        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IProvinceService provinceService, IDistrictService districtService, IWardService wardService)
-        {
-            SignInManager = signInManager;
-            UserManager = userManager;
             _provinceService = provinceService;
             _districtService = districtService;
             _wardService = wardService;
         }
-        
+        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager)
+        {
+            SignInManager = signInManager;
+            UserManager = userManager;
+        }
+
 
         public ApplicationSignInManager SignInManager
         {
@@ -54,7 +57,8 @@ namespace Warehouse.Controllers
             }
         }
 
-        public ApplicationUserManager UserManager {
+        public ApplicationUserManager UserManager
+        {
             get
             {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -156,7 +160,7 @@ namespace Warehouse.Controllers
         public async Task<ActionResult> Revalidate(string password, string returnUrl)
         {
             var user = await UserManager.FindAsync(User.Identity.GetUserName(), password);
-            if(user != null)
+            if (user != null)
             {
                 if (Session["Revalidate"] == null)
                 {
@@ -166,13 +170,13 @@ namespace Warehouse.Controllers
             else
             {
                 object thongbao = "Sai mật khẩu!";
-                return View("Error", new HandleErrorInfo(new Exception(thongbao.ToString()),"Account","Revalidate"));
+                return View("Error", new HandleErrorInfo(new Exception(thongbao.ToString()), "Account", "Revalidate"));
             }
             return Redirect(returnUrl);
         }
         //
-        // GET: /Account/Login
         [AllowAnonymous]
+        [Route("dang-nhap")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -181,15 +185,14 @@ namespace Warehouse.Controllers
 
 
         //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [Route("dang-nhap")]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
-
             }
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -197,9 +200,9 @@ namespace Warehouse.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                {
+                    {
                         return RedirectToLocal(returnUrl);
-                }
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -212,7 +215,7 @@ namespace Warehouse.Controllers
         }
 
         [AllowAnonymous]
-        [Route("AdminLogin")]
+        [Route("~/AdminLogin")]
         public ActionResult AdminLogin()
         {
             return View();
@@ -220,8 +223,8 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("AdminLogin")]
-        public async Task<ActionResult> AdminLogin(AdminLoginViewModel model, string returnUrl)
+        [Route("~/AdminLogin")]
+        public async Task<ActionResult> AdminLogin(AdminLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -230,7 +233,7 @@ namespace Warehouse.Controllers
 
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, false, shouldLockout: true);
 
-            if(result == SignInStatus.Success)
+            if (result == SignInStatus.Success)
             {
                 if (UserManager.FindByName(model.UserName).Roles == null || UserManager.FindByName(model.UserName).Roles.Count == 0)
                 {
@@ -242,7 +245,7 @@ namespace Warehouse.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        return Redirect(returnUrl);
+                        return Redirect("/AdminArea");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -255,10 +258,14 @@ namespace Warehouse.Controllers
             }
         }
 
+
         [AllowAnonymous]
+        [Route("tao-tai-khoan")]
         public ActionResult Register()
         {
             ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name");
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name");
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name");
             return View();
         }
 
@@ -266,27 +273,36 @@ namespace Warehouse.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, int? ProvinceId, int? DistrictId, int? WardId)
+        [Route("tao-tai-khoan")]
+        public async Task<ActionResult> Register(RegisterViewModel model, int ProvinceId, int DistrictId, int WardId)
         {
+            Province province = _provinceService.GetById(ProvinceId);
+            if (province == null)
+            {
+                ModelState.AddModelError("ProvinceId", "Tỉnh/Thành không tồn tại");
+            }
+
+            District district = _districtService.GetById(DistrictId);
+            if (district == null)
+            {
+                ModelState.AddModelError("DistrictId", "Quận/Huyện không tồn tại");
+            }
+
+            Ward ward = _wardService.GetById(WardId);
+            if (province == null)
+            {
+                ModelState.AddModelError("WardId", "Phường/Xã không tồn tại");
+            }
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() {  UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, DateRegister = DateTime.Now, EmailConfirmed = true };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, ProvinceId = ProvinceId, DistrictId = DistrictId
+                    , WardId = WardId, DateRegister = DateTime.Now, EmailConfirmed = true };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    try
-                    {
-                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        await UserManager.SendEmailAsync(user.Id, "Xác thực tài khoản", "Vui lòng xác thực tài khoản của bạn tại website bằng cách click vào  <a href=\"" + callbackUrl + "\">đây</a>");
-                        ViewBag.Message = "Chúng tôi vừa gửi đến email của bạn link xác nhận đăng ký. Bạn hãy kiểm tra email và xác nhận hoàn tất đăng ký thành viên. Vui lòng không thoát khỏi trang này khi chưa nhận được email. Nếu quá 10 phút mà bạn chưa nhận được email thì hãy ấn F5 tại trang này để thực hiện lại.";
-                        return View(model);
-                    }
-                    catch
-                    {
-                        ViewBag.Message = "Đăng ký thành công.";
-                        return View(model);
-                    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -294,6 +310,8 @@ namespace Warehouse.Controllers
                 }
             }
             ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", WardId);
             return View(model);
         }
 
@@ -302,7 +320,7 @@ namespace Warehouse.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null) 
+            if (userId == null || code == null)
             {
                 return View("Error");
             }
@@ -346,7 +364,7 @@ namespace Warehouse.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code}, protocol: Request.Url.Scheme);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Đặt lại mật khẩu", "Bạn có thể đặt lại mật khẩu của mình bằng cách click vào <a href=\"" + callbackUrl + "\">đây</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -362,13 +380,13 @@ namespace Warehouse.Controllers
         {
             return View();
         }
-	
+
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            if (code == null) 
+            if (code == null)
             {
                 return View("Error");
             }
@@ -457,45 +475,8 @@ namespace Warehouse.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> Manage(ManageUserViewModel model)
         //{
-           
-        //}
-        public ViewResult ChangePassword()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
-            bool hasPassword = HasPassword();
-            ViewBag.HasLocalPassword = hasPassword;
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            if (hasPassword)
-            {
-                if (ModelState.IsValid)
-                {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-                    if (result.Succeeded)
-                    {
-                        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                        await SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                    }
-                    else
-                    {
-                        AddErrors(result);
-                    }
-                }
-            }
-            else
-            {
-                // User does not have a password so remove any validation errors caused by a missing OldPassword field
-              
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //}
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -581,7 +562,7 @@ namespace Warehouse.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, EmailConfirmed = true, Avatar = "user.png"};
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, EmailConfirmed = true, Avatar = "user.png" };
                 IdentityResult result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -603,7 +584,7 @@ namespace Warehouse.Controllers
             }
 
             ViewBag.ReturnUrl = returnUrl;
-            
+
             return View(model);
         }
 
@@ -615,7 +596,7 @@ namespace Warehouse.Controllers
         {
             AuthenticationManager.SignOut();
             Session["Revalidate"] = null;
-            if(fromAdminArea == 1)
+            if (fromAdminArea == 1)
             {
                 return RedirectToAction("AdminLogin");
             }

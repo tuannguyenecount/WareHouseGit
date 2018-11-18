@@ -10,5 +10,9 @@ namespace Warehouse.Services.Interface
     public interface IDistrictService
     {
         List<District> GetByProvince(int ProvinceId);
+
+        List<District> GetAll();
+
+        District GetById(int id);
     }
 }

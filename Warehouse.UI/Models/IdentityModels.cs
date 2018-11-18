@@ -22,6 +22,12 @@ namespace Warehouse.Models
 
         public DateTime DateRegister { get; set; }
 
+        public int? ProvinceId { get; set; }
+
+        public int? DistrictId { get; set; }
+
+        public int? WardId { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

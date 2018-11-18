@@ -31,23 +31,16 @@
                         <a itemprop="item" href="/">
                             <span itemprop="name">Trang chủ</span>
                         </a>
-                        <meta itemprop="position" content="1">
                     </li>
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/ps17/en/3-women">
-                            <span itemprop="name"></span>
-                        </a>
-                        <meta itemprop="position" content="2">
-                    </li>
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                  
+                    @*<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="/ps17/en/18-accessories">
-                            <span itemprop="name">Sản phẩm</span>
+                            <span itemprop="name">@Model.</span>
                         </a>
-                        <meta itemprop="position" content="3">
-                    </li>
+                    </li>*@
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="/ps17/en/accessories/87-printed-summer-dress.html">
-                            <span itemprop="name">ViewBag.Title</span>
+                            <span itemprop="name">@ViewBag.Title</span>
                         </a>
                     </li>
                 </ol>
@@ -102,7 +95,7 @@
                                             <div class="thumb-container">
                                                 <img class="thumb js-thumb  selected img-fluid"
                                                      data-image-medium-src="@Url.Content(@Url.Content("~/Photos/Products/" + product.Image))"
-                                                     data-image-large-src="@Url.Content(@Url.Content("~/Photos/Products/" + product.Image))"
+                                                     data-image-large-src="@Url.Content(@Url.Content("~/Photos/Products/l/" + product.Image))"
                                                      src="@Url.Content(@Url.Content("~/Photos/Products/" + product.Image))"
                                                      alt=""
                                                      title=""
@@ -139,7 +132,7 @@
                                 <p>@Model.Description</p>
                             </div>
                             <div class="product-actions">
-                                <form action="/ps17/en/cart" method="post" id="add-to-cart-or-refresh">
+                                <form action="#" method="post" id="add-to-cart-or-refresh">
                                     @*<input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50">
                                         <input type="hidden" name="id_product" value="87"
                                                id="product_page_product_id">
