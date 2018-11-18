@@ -17,7 +17,7 @@ namespace Warehouse.Services.Services
 
         public List<Province> GetAll()
         {
-            return _provinceDal.GetList();
+            return _provinceDal.GetList().OrderBy(p=>p.SortOrder).ToList();
         }
 
         public Province GetById(int id)

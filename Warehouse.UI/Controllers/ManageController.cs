@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Warehouse.Models;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Controllers
 {
@@ -13,16 +14,19 @@ namespace Warehouse.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private IProvinceService _proviceService;
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IProvinceService proviceService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _proviceService = proviceService;
         }
+
+       
 
         public string UserId
         {
@@ -56,7 +60,61 @@ namespace Warehouse.Controllers
             }
         }
 
-    
+        //
+        // GET: /Manage/Index
+        public async Task<ActionResult> Index(ManageMessageId? message)
+        {
+
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.UpdateInfoSuccess ? "Cập nhật thông tin thành công"
+                : "";
+
+           
+            var model = new IndexViewModel
+            {
+                HasPassword = HasPassword(),
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(UserId),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(UserId),
+                Logins = await UserManager.GetLoginsAsync(UserId),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(UserId)
+            };
+            ViewBag.ProvinceId = new SelectList(_proviceService.GetAll(), "Id", "Name");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditInformation(UpdateInfoViewModel updateInfoViewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                ApplicationUser applicationUser = UserManager.FindById(UserId);
+                applicationUser.Email = updateInfoViewModel.Email;
+                applicationUser.FullName = updateInfoViewModel.FullName;
+                applicationUser.PhoneNumber = updateInfoViewModel.PhoneNumber;
+                applicationUser.Address = updateInfoViewModel.Address;
+                await UserManager.UpdateAsync(applicationUser);
+                return RedirectToAction("Index", new { message = ManageMessageId.UpdateInfoSuccess });
+
+            }
+
+            var model = new IndexViewModel
+            {
+                HasPassword = HasPassword(),
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(UserId),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(UserId),
+                Logins = await UserManager.GetLoginsAsync(UserId),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(UserId)
+            };
+            return View("Index", model);
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
@@ -245,6 +303,7 @@ namespace Warehouse.Controllers
 
         public enum ManageMessageId
         {
+            UpdateInfoSuccess,
             AddPhoneSuccess,
             ChangePasswordSuccess,
             SetTwoFactorSuccess,

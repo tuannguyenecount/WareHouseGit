@@ -60,6 +60,15 @@ namespace Warehouse
             container.RegisterType<IImagesProductService, ImagesProductService>();
             container.RegisterType<IImagesProductDal, ImagesProductDal>();
 
+            container.RegisterType<IProvinceService, ProvinceService>();
+            container.RegisterType<IProvinceDal, ProvinceDal>();
+
+            container.RegisterType<IDistrictService, DistrictService>();
+            container.RegisterType<IDistrictDal, DistrictDal>();
+
+            container.RegisterType<IWardService, WardService>();
+            container.RegisterType<IWardDal, WardDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

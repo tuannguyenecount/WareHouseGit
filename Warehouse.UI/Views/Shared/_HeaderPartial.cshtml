@@ -44,6 +44,7 @@
                                 </div>
                             </div>
                         </div>*@
+
                     <div class="d-inline-block">
                         <a href="//iqit-commerce.com/ps17/en/module/iqitwishlist/view">
                             <i class="fa fa-heart-o" aria-hidden="true"></i> Sản phẩm bạn thích (<span id="iqitwishlist-nb">0</span>)
@@ -267,10 +268,21 @@
                                 </div>
                             </div>
                             <div id="header-user-btn" class="col col-auto header-btn-w header-user-btn-w">
-                                <a href="@Url.Action("Login","Account")" title="Đăng nhập" rel="nofollow" class="header-btn header-user-btn">
-                                    <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
-                                    <span class="title">Đăng nhập</span>
-                                </a>
+                                @if (User.Identity.IsAuthenticated == false)
+                                {
+                                    <a href="@Url.Action("Login", "Account")" title="Đăng nhập" rel="nofollow" class="header-btn header-user-btn">
+                                        <i class="fa fa-sign-in fa-fw icon" aria-hidden="true"></i>
+                                        <span class="title">Đăng nhập</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Index", "Manage")" title="Vào trang cá nhân của bạn" rel="nofollow" class="header-btn header-user-btn">
+                                        <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
+                                        <span class="title">Chào @User.Identity.Name</span>
+                                    </a>
+                                   
+                                }
                             </div>
                             @Html.Partial("_ShoppingCartPartial")
                         </div>

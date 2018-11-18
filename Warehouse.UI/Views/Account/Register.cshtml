@@ -1,294 +1,161 @@
 ﻿@model RegisterViewModel
 
 @{
-    ViewBag.Title = "Đăng ký thành viên";
+    ViewBag.Title = "Tạo tài khoản";
     ViewBag.BodyId = "index";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-authentication tax-display-disabled page-customer-account body-desktop-header-style-w-4";
 }
-@section styles
-{
-
-}
-@*<div class="content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <button type="button" id="btnOpenModal" class="displaynone" data-toggle="modal" data-target="#ModalDangKy">Open modal</button>
-                <!-- Modal -->
-                <div id="ModalDangKy" class="modal fade" role="dialog">
-                    <div class="modal-dialog modal-lg">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="form">
-                                    <ul class="tab-group">
-                                        <li class="tab active"><a href="#signup">Đăng ký</a></li>
-                                        <li class="tab"><a href="#login">Log In</a></li>
-                                    </ul>
-
-                                    <div class="tab-content">
-                                        <div id="signup">
-                                            <h1>Đăng ký thành viên</h1>
-                                            @if (ViewBag.Message != null)
-                                            {
-                                                <p class="text-success">
-                                                    @ViewBag.Message
-                                                </p>
-                                            }
-                                            @Html.ValidationSummary("", new { @class="text-danger"})
-                                            <form action="@Url.Action("Register")" method="post">
-                                            @Html.AntiForgeryToken()
-                                                <div class="top-row">
-                                                    <div class="field-wrap">
-                                                        @Html.TextBoxFor(m => m.Name, new { style = "width:100%", placeholder="Họ tên *" })
-                                                        @Html.ValidationMessageFor(m => Model.Name, "", new {  @class = "text-danger" })
-                                                    </div>
-                                                    <div class="field-wrap">
-                                                        @Html.TextBoxFor(m => m.Email, new { style = "width:100%", placeholder="Email *" })
-                                                        @*<input type="email" name="Email" style="width:100%" />
-                                                        @Html.ValidationMessageFor(m => Model.Email, "", new { @class = "text-danger" })
-                                                    </div>
-                                                 </div>
-                                                    <div class="top-row">
-                                                        <div class="field-wrap">
-                                                            @Html.TextBoxFor(m => m.Password, new { type="password", style = "width:100%", placeholder = "Mật khẩu *" })
-                                                            @Html.ValidationMessageFor(m => Model.Password, "", new { @class = "text-danger" })
-                                                        </div>
-                                                        <div class="field-wrap">
-
-                                                            @Html.TextBoxFor(m => m.ConfirmPassword, new { type = "password", style = "width:100%", placeholder = "Nhập lại mật khẩu *" })
-                                                            @Html.ValidationMessageFor(m => Model.ConfirmPassword, "", new { @class = "text-danger" })
-                                                           
-                                                        </div>
-                                                    </div>
-                                                    <div class="field-wrap">
-
-                                                        @Html.TextBoxFor(m => m.Phone, new { style = "width:100%", placeholder="Số điện thoại *" })
-                                                        @Html.ValidationMessageFor(m => Model.Phone, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="field-wrap">
-
-                                                        @Html.TextBoxFor(m => m.Address, new { style = "width:100%", placeholder="Địa chỉ *" })
-                                                        @Html.ValidationMessageFor(m => Model.Address, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <button type="submit" class="button button-block">Đăng ký</button>
-
-</form>
-
-                                        </div>
-
-                                        <div id="login">
-                                            <h1>Đăng nhập</h1>
-
-                                            <form action="@Url.Action("Login")" method="post">
-                                                @Html.AntiForgeryToken()
-                                                <div class="field-wrap">
-                                                    @Html.TextBox("Email", null, new { required="required", style="width:100%",placeholder="Email *"})
-                                                    @Html.ValidationMessageFor(m => loginView.Email,"", new { @class="text-danger"})
-                                                    
-                                                </div>
-
-                                                <div class="field-wrap">
-                                                    @Html.TextBox("Password", null, new { required = "required", type = "password", style = "width:100%", placeholder = "Email *" })
-                                                    @Html.ValidationMessageFor(m => loginView.Password, "", new { @class = "text-danger" })
-                                                </div>
-
-                                                <p class="forgot"><a href="@Url.Action("ForgotPassword")">Quên mật khẩu?</a></p>
-
-                                                <button type="submit" class="button button-block">Đăng nhập</button>
-
-                                            </form>
-                                           
-                                        </div>
-
-                                    </div><!-- tab-content -->
-
-                                </div> <!-- /form -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="btnDong" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-               
-            </div>
-        </div>
-    </div>
-</div>
-    *@ 
 
 <div class="container">
-        <nav data-depth="1" class="breadcrumb">
-            <div class="row align-items-center">
-                <div class="col">
-                    <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
-
-
-                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="https://iqit-commerce.com/ps17/en/">
-                                <span itemprop="name">Home</span>
-                            </a>
-                            <meta itemprop="position" content="1">
-                        </li>
-
-
-                    </ol>
-                </div>
-                <div class="col col-auto"> </div>
+    <nav class="breadcrumb">
+        <div class="row align-items-center">
+            <div class="col">
+                <ol>
+                    <li>
+                        <a href="/">
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+                </ol>
             </div>
-        </nav>
-    </div>
-<div id="inner-wrapper" class="container">
-       <aside id="notifications"></aside>
-        <div id="content-wrapper">
-            <section id="main">
-                <header class="page-header">
-                    <h1 class="h1 page-title">
-                        <span>
-                            Create an account
-                        </span>
-                    </h1>
-                </header>
-                <section id="content" class="page-content">
-                    <section class="register-form">
-                        <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> Already have an account? <a href="https://iqit-commerce.com/ps17/en/login"><u>Log in instead!</u></a></p>
-                        <form action="https://iqit-commerce.com/ps17/en/login?create_account=1" id="customer-form" class="js-customer-form" method="post">
-                            <section>
-                                <input type="hidden" name="id_customer" value="">
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label">
-                                        Social title
-                                    </label>
-                                    <div class="col-md-8 form-control-valign">
-                                        <label class="radio-inline">
-                                            <span class="custom-radio">
-                                                <input name="id_gender" type="radio" value="1">
-                                                <span></span>
-                                            </span>
-                                            Mr.
-                                        </label>
-                                        <label class="radio-inline">
-                                            <span class="custom-radio">
-                                                <input name="id_gender" type="radio" value="2">
-                                                <span></span>
-                                            </span>
-                                            Mrs.
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label required">
-                                        First name
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" name="firstname" type="text" value="" required="">
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label required">
-                                        Last name
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" name="lastname" type="text" value="" required="">
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label required">
-                                        Email
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" name="email" type="email" value="" required="">
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label required">
-                                        Password
-                                    </label>
-                                    <div class="col-md-8">
-                                        <div class="input-group js-parent-focus">
-                                            <input class="form-control js-child-focus js-visible-password" name="password" type="password" value="" pattern=".{5,}" required="">
-                                            <span class="input-group-btn">
-                                                <button class="btn" type="button" data-action="show-password">
-                                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label">
-                                        Birthdate
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" name="birthday" type="text" value="" placeholder="MM/DD/YYYY">
-                                        <span class="form-control-comment">
-                                            (E.g.: 05/31/1970)
-                                        </span>
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                        Optional
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label">
-                                    </label>
-                                    <div class="col-md-8">
-                                        <span class="custom-checkbox">
-                                            <input name="optin" id="ff_optin" type="checkbox" value="1">
-                                            <span><i class="fa fa-check rtl-no-flip checkbox-checked" aria-hidden="true"></i></span>
-                                            <label for="ff_optin">Receive offers from our partners</label>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label">
-                                    </label>
-                                    <div class="col-md-8">
-                                        <span class="custom-checkbox">
-                                            <input name="newsletter" id="ff_newsletter" type="checkbox" value="1">
-                                            <span><i class="fa fa-check rtl-no-flip checkbox-checked" aria-hidden="true"></i></span>
-                                            <label for="ff_newsletter">Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></label>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-2 form-control-comment">
-                                    </div>
-                                </div>
-                            </section>
-                            <footer class="form-footer text-center clearfix">
-                                <input type="hidden" name="submitCreate" value="1">
-
-                                <button class="btn btn-primary form-control-submit" data-link-action="save-customer" type="submit">
-                                    Save
-                                </button>
-
-                            </footer>
-                        </form>
-                    </section>
-                </section>
-                <footer class="page-footer">
-
-                </footer>
-            </section>
+            <div class="col col-auto"> </div>
         </div>
+    </nav>
+</div>
+<div id="inner-wrapper" class="container">
+    <aside id="notifications"></aside>
+    <div id="content-wrapper">
+        <section id="main">
+            <header class="page-header">
+                <h1 class="h1 page-title">
+                    <span>
+                        Tạo tài khoản
+                    </span>
+                </h1>
+            </header>
+            <section id="content" class="page-content">
+                <section class="register-form">
+                    <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> Bạn đã có tài khoản ở shop ? <a href="@Url.Action("Login")"><u>Đăng nhập ngay!</u></a></p>
+                    <form action="@Url.Action("Register")" class="js-customer-form" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <section>
+
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label required">
+                                    Họ tên
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "" })
+                                </div>
+                                <div class="col-md-2 form-control-comment">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label required">
+                                    Email
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "" })
+                                </div>
+                                <div class="col-md-2 form-control-comment">
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label required">
+                                    Mật khẩu
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="input-group js-parent-focus">
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", required = "" })
+                                        <span class="input-group-btn">
+                                            <button class="btn" type="button" data-action="show-password">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-control-comment">
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label required">
+                                    Xác thực mật khẩu
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="input-group js-parent-focus">
+                                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                                        <span class="input-group-btn">
+                                            <button class="btn" type="button" data-action="show-password">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-control-comment">
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label">
+                                    Địa chỉ
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                    <span class="form-control-comment">
+                                        Số nhà/Khu phố/Đường
+                                    </span>
+                                </div>
+                                <div class="col-md-2 form-control-comment">
+                                    Nhập chính xác để chúng tôi dễ dàng giao hàng cho bạn
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label">
+                                    Tỉnh/Thành
+                                </label>
+                                <div class="col-md-8">
+                                    @using (Ajax.BeginForm("_GetDistrictByProvince", new AjaxOptions { AllowCache = true, UpdateTargetId = "Districts", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
+                                    {
+                                        <button type="submit" class="hidden"></button>
+                                        @Html.DropDownList("ProvinceId", null, new { @class = "form-control", onchange = "this.parentNode.submit()" })
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label">
+                                    Quận/Huyện
+                                </label>
+                                <div class="col-md-8" id="Districts">
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center ">
+                                <label class="col-md-2 col-form-label">
+                                    Phường/Xã
+                                </label>
+                                <div class="col-md-8" id="Wards">
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="form-footer text-center clearfix">
+                            <input type="hidden" name="submitCreate" value="1">
+
+                            <button class="btn btn-primary form-control-submit" data-link-action="save-customer" type="submit">
+                                Hoàn Thành
+                            </button>
+
+                        </footer>
+                    </form>
+                </section>
+            </section>
+            <footer class="page-footer"></footer>
+        </section>
     </div>
+</div>
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 }

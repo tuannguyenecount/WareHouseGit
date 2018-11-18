@@ -8,31 +8,15 @@
 }
 
 <div>&nbsp;</div>
-<div class="container">
-        <nav data-depth="1" class="breadcrumb">
-            <div class="row align-items-center">
-                <div class="col">
-                    <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                            <a itemprop="item" href="https://iqit-commerce.com/ps17/en/">
-                                <span itemprop="name">Home</span>
-                            </a>
-                            <meta itemprop="position" content="1">
-                        </li>
-                    </ol>
-                </div>
-                <div class="col col-auto"> </div>
-            </div>
-        </nav>
-    </div>
+
 <div id="inner-wrapper" class="container">
         <aside id="notifications"></aside>
         <div id="content-wrapper">
-            <section id="main">
+            <section id="main" class="col-sm-8" style="margin-left:auto;margin-right:auto">
                 <header class="page-header">
                     <h1 class="h1 page-title">
                         <span>
-                            Log in to your account
+                            Đăng nhập 
                         </span>
                     </h1>
                 </header>
@@ -43,10 +27,9 @@
                             <input type="hidden" name="returnUrl" value="@Request.Url" />
                             @Html.AntiForgeryToken()
                             <section>
-                                <input type="hidden" name="back" value="my-account" />
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label required">
-                                        Email
+                                        @Html.DisplayNameFor(m => m.Email)
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
@@ -56,7 +39,7 @@
                                 </div>
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label required">
-                                        Password
+                                        @Html.DisplayNameFor(m => m.Password)
                                     </label>
                                     <div class="col-md-8">
                                         <div class="input-group js-parent-focus">
@@ -72,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="forgot-password">
-                                    @Html.ActionLink("Quên mật khẩu", "ForgotPassword", "Account", new { rel = "nofollow" })
+                                    @Html.ActionLink("Quên mật khẩu", "ForgotPassword", "Account", new { rel = "nofollow", @class="text-primary" })
                                 </div>
                             </section>
                             <footer class="form-footer text-center clearfix">
@@ -86,7 +69,7 @@
                     </section>
                     <hr>
                     <div class="no-account">
-                        <a href="@Url.Action("Register","Account",new { area="" })" data-link-action="display-register-form">
+                        <a class="text-danger" href="@Url.Action("Register","Account",new { area="" })" data-link-action="display-register-form">
                             Bạn chưa có tài khoản? Tạo ngay tại khoản tại đây <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
                     </div>

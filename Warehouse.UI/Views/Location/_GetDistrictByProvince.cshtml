@@ -1,0 +1,6 @@
+﻿
+@using (Ajax.BeginForm("_GetWardByDistrict", new AjaxOptions { AllowCache = true, UpdateTargetId = "Wards", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
+{
+    <button type="submit" class="hidden"></button>
+    @Html.DropDownList("DistrictId", null, new { @class = "form-control", onchange = "this.parentNode.submit()" })
+}

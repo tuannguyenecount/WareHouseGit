@@ -15,6 +15,7 @@ using Facebook;
 using System.IO;
 using System.Data.Entity.Validation;
 using Warehouse.Data.Interface;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Controllers
 {
@@ -23,17 +24,23 @@ namespace Warehouse.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IProvinceService _provinceService;
+        private IDistrictService _districtService;
+        private IWardService _wardService;
 
         public AccountController()
         {
 
         }
-
-        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager)
+        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IProvinceService provinceService, IDistrictService districtService, IWardService wardService)
         {
             SignInManager = signInManager;
             UserManager = userManager;
+            _provinceService = provinceService;
+            _districtService = districtService;
+            _wardService = wardService;
         }
+        
 
         public ApplicationSignInManager SignInManager
         {
@@ -172,6 +179,38 @@ namespace Warehouse.Controllers
             return View();
         }
 
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+
+            }
+
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                {
+                        return RedirectToLocal(returnUrl);
+                }
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");
+                    return View(model);
+            }
+        }
+
         [AllowAnonymous]
         [Route("AdminLogin")]
         public ActionResult AdminLogin()
@@ -216,54 +255,22 @@ namespace Warehouse.Controllers
             }
         }
 
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    {
-                        return RedirectToLocal(returnUrl);
-                    }
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");
-                    return View(model);
-            }
-        }
-
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name");
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, int? ProvinceId, int? DistrictId, int? WardId)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() {  UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, Avatar = "user.png",DateRegister = DateTime.Today};
+                var user = new ApplicationUser() {  UserName = model.Email, Email = model.Email, FullName = model.Name, PhoneNumber = model.Phone, Address = model.Address, DateRegister = DateTime.Now, EmailConfirmed = true };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -286,8 +293,7 @@ namespace Warehouse.Controllers
                     AddErrors(result);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", ProvinceId);
             return View(model);
         }
 

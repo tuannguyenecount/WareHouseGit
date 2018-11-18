@@ -76,6 +76,7 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ArticleDal.cs" />
     <Compile Include="Data\CategoryDal.cs" />
+    <Compile Include="Data\DistrictDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\NewsDal.cs" />
     <Compile Include="Data\ImagesProductDal.cs" />
@@ -85,9 +86,11 @@
     <Compile Include="Data\OrderDetailDal.cs" />
     <Compile Include="Data\OrderDal.cs" />
     <Compile Include="Data\ProductDal.cs" />
+    <Compile Include="Data\WardDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
     <Compile Include="Interface\IArticleDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
+    <Compile Include="Interface\IDistrictDal.cs" />
     <Compile Include="Interface\IImagesProductDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Interface\IOrderDetailDal.cs" />
     <Compile Include="Interface\IOrderDal.cs" />
     <Compile Include="Interface\IProductDal.cs" />
+    <Compile Include="Interface\IWardDal.cs" />
     <Compile Include="Migrations\201811081541082_addTableArticleandImagesProduct.cs" />
     <Compile Include="Migrations\201811081541082_addTableArticleandImagesProduct.Designer.cs">
       <DependentUpon>201811081541082_addTableArticleandImagesProduct.cs</DependentUpon>

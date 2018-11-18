@@ -99,17 +99,14 @@ namespace Warehouse.Models
 
         [Required(ErrorMessage = "Bạn chưa nhập họ tên")]
         [Display(Name = "Họ tên")]
-        [StringLength(300, ErrorMessage = "Họ tên tối đa 300 ký tự.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Bạn chưa nhập số điện thoại.")]
         [Display(Name = "Số điện thoại")]
-        [RegularExpression(@"^(0\d{9,12})$", ErrorMessage = "Số điện thoại không hợp lệ. Số điện thoại tối thiểu 9 ký tự số và tối đa 12 ký tự số.")]
         public string Phone { get; set; }
 
         [Display(Name = "Địa chỉ")]
         [Required(ErrorMessage = "Bạn chưa nhập địa chỉ.")]
-        [StringLength(300, ErrorMessage = "Địa chỉ quá dài. Địa chỉ tối đa 300 ký tự.")]
         public string Address { get; set; }
 
         
