@@ -108,7 +108,7 @@ namespace Warehouse.Services.Services
 
         public List<Product> Search(string keyword)
         {
-            return _productDal.GetList(p => p.Name.ToUpper().Contains(keyword.ToUpper()) || true);
+            return _productDal.GetList(p => p.Name.ToUpper().Trim().Contains(keyword.ToUpper().Trim()));
         }
 
         public List<Product> GetByUser(string UserName)
