@@ -1,0 +1,31 @@
+﻿@model Category
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Delete", "Category",new { Id = Model.Id }, FormMethod.Post, new { name = "frm" }))
+{
+    <div class="modal-header bg-red">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Xoá Phân Loại</h4>
+    </div>
+
+    <div class="modal-body">
+        <!-- form start -->
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h5>Bạn có chắc muốn xoá phân loại @Model.Name ?</h5>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-default bg-red"><i class="fa fa-save"></i> Xoá</button>
+    </div>
+}
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+

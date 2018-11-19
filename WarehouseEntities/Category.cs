@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -17,18 +17,23 @@ namespace Warehouse.Entities
             Products = new HashSet<Product>();
         }
 
+        [Display(Name = "Mã phân loại")]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        [Required(ErrorMessage = "Tên phân loại không được để trống!")]
+        [StringLength(256, ErrorMessage = "Tên phân loại chỉ được phép tối đa 256 ký tự!")]
+        [Display(Name = "Tên phân loại")]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        [Required(ErrorMessage = "Bí danh phân loại không được để trống!")]
+        [StringLength(256, ErrorMessage = "Bí danh phân loại chỉ được phép tối đa 256 ký tự!")]
+        [Display(Name = "Bí danh phân loại")]
         public string Alias_SEO { get; set; }
 
+        [Display(Name = "Phân loại cha")]
         public Nullable<int> ParentId { get; set; }
 
+        [Display(Name = "Số thứ tự")]
         public Nullable<int> OrderNum { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -16,5 +16,11 @@ namespace Warehouse.Services.Interface
         int CountAll();
         List<Category> GetParents();
         List<Category> GetChilds(int Id);
+        bool CheckExistName(string Name);
+        bool CheckExistAlias(string Alias);
+        void Add(Category category);
+        void Update(Category category);
+        void Delete(Category category);
+
     }
 }

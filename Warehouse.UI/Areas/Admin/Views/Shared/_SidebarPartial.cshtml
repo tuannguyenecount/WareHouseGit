@@ -25,7 +25,7 @@
                 <i class="fa fa-dashboard"></i> <span>Bảng điều khiển</span>
             </a>
         </li>
-        
+
         <li>
             <a href="@Url.Action("Create","Product")">
                 <i class="fa fa-plus"></i> <span>Thêm Sản Phẩm</span>
@@ -56,28 +56,40 @@
             </a>
         </li>
 
-        <li id="categories">
-            <a href="@Url.Action("Index","Category")">
-                <i class="fa fa-cogs"></i>
-                <span>Phân Loại Sản Phẩm</span>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-cubes"></i> <span>Phân Loại Sản Phẩm</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu" >
+                <li class="active"><a href="@Url.Action("Index","Category",new { level = 1 })"><i class="fa fa-circle-o"></i> Phân Loại Cấp 1</a></li>
+                <li><a href="@Url.Action("Index","Category",new { level = 2 })"><i class="fa fa-circle-o"></i> Phân Loại Cấp 2</a></li>
+            </ul>
+        </li>
+
+        <li id="users">
+            <a href="@Url.Action("Index","AspNetUser",new { customer = 1 })">
+                <i class="fa fa-users"></i> <span>Khách Hàng</span>
             </a>
         </li>
 
         <li id="users">
             <a href="@Url.Action("Index","AspNetUser")">
-                <i class="fa fa-users"></i> <span>Thành Viên</span>
+                <i class="fa fa-user-circle"></i> <span>Thành Viên</span>
             </a>
         </li>
 
         <li id="slider">
             <a href="@Url.Action("Index","Slider")">
-                <i class="fa fa-picture-o"></i> <span>Slider Giới Thiệu</span>
+                <i class="fa fa-picture-o"></i> <span>Slider</span>
             </a>
         </li>
 
         <li id="subscribe">
             <a href="@Url.Action("Index","Subscribe")">
-                <i class="fa fa-inbox"></i> <span>Email Theo Dõi</span>
+                <i class="fa fa-inbox"></i> <span>Email Nhận Tin</span>
             </a>
         </li>
 

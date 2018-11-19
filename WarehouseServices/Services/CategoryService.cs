@@ -71,6 +71,31 @@ namespace Warehouse.Services.Services
         {
             return _categoryDal.GetList(c => c.ParentId == Id).OrderBy(c => c.OrderNum).ToList();
         }
+
+        public bool CheckExistName(string Name)
+        {
+            return _categoryDal.GetFirst(c => c.Name == Name) == null;
+        }
+
+        public bool CheckExistAlias(string Alias)
+        {
+            return _categoryDal.GetFirst(c => c.Alias_SEO == Alias) == null;
+        }
+
+        public void Add(Category category)
+        {
+            _categoryDal.Add(category);
+        }
+
+        public void Update(Category category)
+        {
+            _categoryDal.Update(category);
+        }
+
+        public void Delete(Category category)
+        {
+            _categoryDal.Delete(category);
+        }
         #endregion
     }
 }

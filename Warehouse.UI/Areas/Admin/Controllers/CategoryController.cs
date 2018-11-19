@@ -7,124 +7,147 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Warehouse.Models;
+using Warehouse.Entities;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
     [Authorize(Roles="Admin")]
     public class CategoryController : Controller
     {
-        private hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
+        ICategoryService _categoryService;
 
-        // GET: Admin/Category
-        public ActionResult Index()
+        public CategoryController(ICategoryService categoryService)
         {
-            return View(db.Categories.ToList());
+            _categoryService = categoryService;
         }
 
-        // GET: Admin/Category/Create
-        public ActionResult Create()
+        public ActionResult Index(int? level)
         {
-            return View();
+            level = level ?? 1;
+            switch(level)
+            {
+                case 1: return View(_categoryService.GetParents());
+                case 2:
+                    {
+                        return View(_categoryService.GetAll().Where(p => p.ParentId != null).OrderBy(p => p.ParentId).ThenBy(c => c.OrderNum).ToList());
+                    }
+            }
+            return View(_categoryService.GetParents());
+        }
+
+        public ActionResult _CreateModal()
+        {
+            var categories = _categoryService.GetAll().Select(c=>new { Id = c.Id, Name = c.Name }).ToList();
+            categories.Add(new { Id = 0, Name = "Không có" });
+            ViewBag.ParentId = new SelectList(categories.OrderBy(c=>c.Id).ToList(), "Id", "Name");
+            return PartialView();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name")] Category category)
-        {           
-            if (ModelState.IsValid)
+        public JsonResult Create(Category category)
+        {
+            if (!_categoryService.CheckExistName(category.Name))
             {
-                if(db.Categories.FirstOrDefault(m=>m.Name.Trim().ToLower() == category.Name.Trim().ToLower()) != null)
+                ModelState.AddModelError("", "Tên phân loại bị trùng. Vui lòng chọn tên khác.");
+            }
+            if (!_categoryService.CheckExistName(category.Alias_SEO))
+            {
+                ModelState.AddModelError("", "Bí danh bị trùng. Vui lòng chọn bí danh khác.");
+            }
+            if (category.ParentId == 0)
+                category.ParentId = null;
+            try
+            {
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Tên phân loại bị trùng. Vui lòng chọn tên khác.");
-                    return View(category);
+                    _categoryService.Add(category);
+                    return Json(new { status = 1, message = "Thêm thành công" });
                 }
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
             }
 
-            return View(category);
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState)});
         }
 
-        // GET: Admin/Category/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult _EditModal(int Id = 0)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category Category = db.Categories.Find(id);
-            if (Category == null)
-            {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
-            }
-            return View(Category);
-        }
-
-        // POST: Admin/Category/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Category category,string NameCu)
-        {
-            if (ModelState.IsValid)
-            {
-                if(db.Categories.FirstOrDefault(m=>m.Name.Trim().ToLower() == category.Name && m.Name != NameCu) != null)
-                {
-                    ModelState.AddModelError("", "Tên phân loại bị trùng. Vui lòng chọn tên khác.");
-                    return View(category);
-                }
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(category);
-        }
-
-        // GET: Admin/Category/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {        
-               return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
+            Category category = _categoryService.GetById(Id);
             if (category == null)
             {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
+                return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
             }
-            return View(category);
+            var categories = _categoryService.GetAll().Select(c => new { Id = c.Id, Name = c.Name }).ToList();
+            categories.Add(new { Id = 0, Name = "Không có" });
+            ViewBag.ParentId = new SelectList(categories.OrderBy(c => c.Id).ToList(), "Id", "Name", category.ParentId);
+            return PartialView(category);
         }
 
-        // POST: Admin/Category/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult Edit(Category category,string OldName, string OldAlias)
         {
-            if (Session["Revalidate"] == null)
+            if(OldName != category.Name)
             {
-                object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
-                return View("_ThongBaoLoi", thongbao);
+                if (!_categoryService.CheckExistName(category.Name))
+                {
+                    ModelState.AddModelError("", "Tên phân loại bị trùng. Vui lòng chọn tên khác.");
+                }
             }
-            Category Category = db.Categories.Find(id);
-            if(Category.Products.Count > 0)
+            if (OldAlias != category.Alias_SEO)
             {
-                ModelState.AddModelError("", "Không thể xóa phân loại này vì có các sản phẩm thuộc phân loại này.");
-                return View("Delete",Category);
+                if (!_categoryService.CheckExistName(category.Alias_SEO))
+                {
+                    ModelState.AddModelError("", "Bí danh bị trùng. Vui lòng chọn bí danh khác.");
+                }
             }
-            db.Categories.Remove(Category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (category.ParentId == 0)
+                category.ParentId = null;
+            if (ModelState.IsValid)
+            {
+                _categoryService.Update(category);
+                return Json(new { status = 1, message = "Sửa thành công" });
+            }
+
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
         }
 
-        protected override void Dispose(bool disposing)
+        public ActionResult _DeleteModal(int Id = 0)
         {
-            if (disposing)
+            Category category = _categoryService.GetById(Id);
+            if (category == null)
             {
-                db.Dispose();
+                return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
             }
-            base.Dispose(disposing);
+            return PartialView(category);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Delete(int Id = 0)
+        {
+            Category category = _categoryService.GetById(Id);
+            if (category == null)
+            {
+                ModelState.AddModelError("", "Dữ liệu không tồn tại trong hệ thống!");
+            }
+            try
+            {
+                _categoryService.Delete(category);
+                return Json(new { status = 1, message = "Xoá thành công." });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
+        }
+
+        
     }
 }

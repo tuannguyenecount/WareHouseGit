@@ -1,0 +1,61 @@
+﻿@model Category
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Create","Category", FormMethod.Post, new { name="frm" }))
+{
+    <div class="modal-header bg-green">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Thêm Phân Loại</h4>
+    </div>
+
+    <div class="modal-body form-horizontal">
+        <!-- form start -->
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderNum, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.OrderNum, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrderNum, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Alias_SEO, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Alias_SEO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Alias_SEO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.DropDownList("ParentId", null, new { @class="form-control" })
+                @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-default bg-green">Thêm Mới</button>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
