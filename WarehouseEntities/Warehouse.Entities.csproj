@@ -73,6 +73,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="District.cs" />
+    <Compile Include="FavoriteProduct.cs" />
     <Compile Include="historyBankCharging.cs" />
     <Compile Include="ImagesProduct.cs" />
     <Compile Include="InfoShop.cs" />

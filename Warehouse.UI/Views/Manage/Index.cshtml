@@ -15,14 +15,13 @@
                     @Html.Action("_SidebarManage")
                     <div class="my-account-page-content col-sm-9">
                         <aside id="notifications">
-                            @if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
-                            {
+                            @if (!string.IsNullOrEmpty(ViewBag.StatusMessage)) {
                                 <p class="alert alert-success">@ViewBag.StatusMessage</p>
                             }
                         </aside>
-                        <form action="@Url.Action("EditInformation")"  class="js-customer-form" method="post">
+                        <form action="@Url.Action("EditInformation")" class="js-customer-form" method="post">
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true,"",new { @class="text-danger" })
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <section>
 
                                 <div class="form-group row align-items-center ">
@@ -31,7 +30,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(m => updateInfoViewModel.FullName, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => updateInfoViewModel.FullName, "", new { @class="text-danger" })
+                                        @Html.ValidationMessageFor(m => updateInfoViewModel.FullName, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-md-2 form-control-comment"></div>
                                 </div>
@@ -54,7 +53,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(model => updateInfoViewModel.PhoneNumber, new { @class = "form-control" })
-                                     
+
                                         @Html.ValidationMessageFor(m => updateInfoViewModel.PhoneNumber, "", new { @class = "text-danger" })
 
                                     </div>
@@ -86,7 +85,7 @@
                                     </label>
                                     <div class="col-md-8">
                                         @Html.DropDownList("ProvinceId", null, new { @class = "form-control", required = "" })
-                                        @Html.ValidationMessage("ProvinceId", new { @class = "text-danger"})
+                                        @Html.ValidationMessage("ProvinceId", new { @class = "text-danger" })
 
                                     </div>
                                 </div>
@@ -110,7 +109,7 @@
                                         @Html.ValidationMessage("WardId", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                              
+
                             </section>
                             <footer class="form-footer text-center clearfix">
                                 <button class="btn btn-primary form-control-submit" type="submit">
@@ -128,5 +127,24 @@
 </div>
 
 @section Scripts{
-    @Scripts.Render("~/bundles/jqueryval")    
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+           
+            $(document).on("change", "#ProvinceId", function (e) {
+                $.post("@Url.Action("_GetDistrictByProvince","Location")", { ProvinceId: $(this).val() }, function (data) {
+                    $("#Districts").html(data);
+                    $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $("#DistrictId").val() }, function (data) {
+                        $("#Wards").html(data);
+                    });
+                });
+            });
+            $(document).on("change", "#DistrictId", function (e) {
+                $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $(this).val() }, function (data) {
+                    $("#Wards").html(data);
+                });
+            });
+
+        });
+    </script>
 }

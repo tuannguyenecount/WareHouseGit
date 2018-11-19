@@ -21,7 +21,7 @@
             <section id="content" class="page-content">
                 <section>
                     <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> Bạn đã có tài khoản ở shop ? <a href="@Url.Action("Login")" class="text-danger"><u>Đăng nhập ngay!</u></a></p>
-                    <form action="@Url.Action("Register")"  method="post">
+                    <form action="@Url.Action("Register")" method="post">
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary("", new { @class = "text-danger" })
                         <section>
@@ -97,7 +97,7 @@
                                     @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
 
                                     <span class="form-control-comment">
-                                        
+
                                     </span>
                                 </div>
                                 <div class="col-md-2 form-control-comment">
@@ -165,5 +165,28 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-   
+    <script>
+        $(function () {
+            $.post("@Url.Action("_GetDistrictByProvince","Location")", { ProvinceId: $("#ProvinceId").val() }, function (data) {
+                    $("#Districts").html(data);
+                    $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $("#DistrictId").val() }, function (data) {
+                        $("#Wards").html(data);
+                    });
+            });
+            $(document).on("change", "#ProvinceId", function (e) {
+                $.post("@Url.Action("_GetDistrictByProvince","Location")", { ProvinceId: $(this).val() }, function (data) {
+                    $("#Districts").html(data);
+                    $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $("#DistrictId").val() }, function (data) {
+                        $("#Wards").html(data);
+                    });
+                });
+            });
+            $(document).on("change", "#DistrictId", function (e) {
+                $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $(this).val() }, function (data) {
+                    $("#Wards").html(data);
+                });
+            });
+
+        });
+    </script>
 }

@@ -1,9 +1,6 @@
 ﻿@model DetailsProductViewModel
 
 @{
-    /**/
-
-
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "product";
@@ -21,6 +18,15 @@
         <meta property="og:description" content="" />
         <meta property="og:image" content="@Model.ImageCustom" />*@
 }
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=1932380583495333&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="container">
     <nav data-depth="4" class="breadcrumb">
@@ -32,29 +38,18 @@
                             <span itemprop="name">Trang chủ</span>
                         </a>
                     </li>
-                  
-                    @*<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/ps17/en/18-accessories">
-                            <span itemprop="name">@Model.</span>
-                        </a>
-                    </li>*@
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/ps17/en/accessories/87-printed-summer-dress.html">
+                        <a itemprop="item" href="@Url.Action("Index",new { aliasCategory = Model.Category.Id })">
+                            <span itemprop="name">@Model.Category.Name</span>
+                        </a>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="@Request.Url">
                             <span itemprop="name">@ViewBag.Title</span>
                         </a>
                     </li>
                 </ol>
             </div>
-            @*<div class="col col-auto">
-                    <div id="iqitproductsnav">
-                        <a href="/ps17/en/accessories/97-printed-summer-dress.html" title="Previous product">
-                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        </a>
-                        <a href="/ps17/en/accessories/88-printed-summer-dress.html" title="Next product">
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>*@
         </div>
     </nav>
 </div>
@@ -76,13 +71,12 @@
                                     <a class="expander" data-toggle="modal" data-target="#product-modal"><span><i class="fa fa-expand" aria-hidden="true"></i></span></a>
 
                                     <div id="product-images-large" class="product-images-large slick-slider">
-                                        @foreach (var product in Model.imagesProducts)
-                                        {
+                                        @foreach (var product in Model.imagesProducts.OrderBy(i => i.OrderNum)) {
                                             <div>
                                                 <div class="easyzoom easyzoom-product">
-                                                    <a href="/Content/ps17/289-thickbox_default/printed-summer-dress.jpg" class="js-easyzoom-trigger"></a>
+                                                    <a href="~/Photos/Products/slide/@product.Image" class="js-easyzoom-trigger"></a>
                                                 </div>
-                                                <img src="@Url.Content(@Url.Content("~/Photos/Products/" + product.Image))" alt="" title="" itemprop="image" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" class="img-fluid">
+                                                <img src="@Url.Content(@Url.Content("~/Photos/Products/slide/" + product.Image))" alt="" title="" itemprop="image"  class="img-fluid">
                                             </div>
                                         }
                                     </div>
@@ -90,17 +84,16 @@
                                 <div class="js-qv-mask mask">
 
                                     <div id="product-images-thumbs" class="product-images js-qv-product-images slick-slider">
-                                        @foreach (var product in Model.imagesProducts)
-                                        {
+                                        @foreach (var product in Model.imagesProducts) {
                                             <div class="thumb-container">
                                                 <img class="thumb js-thumb  selected img-fluid"
-                                                     data-image-medium-src="@Url.Content(@Url.Content("~/Photos/Products/" + product.Image))"
-                                                     data-image-large-src="@Url.Content(@Url.Content("~/Photos/Products/l/" + product.Image))"
-                                                     src="@Url.Content(@Url.Content("~/Photos/Products/" + product.Image))"
+                                                     data-image-medium-src="@Url.Content(@Url.Content("~/Photos/Products/slide/" + product.Image))"
+                                                     data-image-large-src="@Url.Content(@Url.Content("~/Photos/Products/slide/" + product.Image))"
+                                                     src="@Url.Content(@Url.Content("~/Photos/Products/slide/" + product.Image))"
                                                      alt=""
                                                      title=""
-                                                     width="452"
-                                                     height="584"
+                                                     width="100"
+                                                     height="auto"
                                                      itemprop="image">
                                             </div>
                                         }
@@ -113,7 +106,7 @@
                     </div>
                     <div class="col-md-6 col-product-info">
                         <div class="product_header_container clearfix">
-                            
+
                             <h1 class="h1"><a href="@Url.Action("Details","Product",new { alias = Model.Alias })">@Model.Name</a></h1>
                             <div class="product-prices">
                                 <div class=""
@@ -133,13 +126,7 @@
                             </div>
                             <div class="product-actions">
                                 <form action="#" method="post" id="add-to-cart-or-refresh">
-                                    @*<input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50">
-                                        <input type="hidden" name="id_product" value="87"
-                                               id="product_page_product_id">
-                                        <input type="hidden" name="id_customization" value="0"
-                                               id="product_customization_id">
-                                        <div class="product-variants">
-                                        </div>*@
+
                                     @Html.AntiForgeryToken()
                                     <div class="product-add-to-cart pt-3">
                                         <div class="row extra-small-gutters product-quantity">
@@ -211,10 +198,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                <div class="additional_button">
-                                    <div class="addthis_sharing_toolbox addthis_inline_share_toolbox addthis_inline_share_toolbox_slg1"></div>
-                                </div>
-                                <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50d44b832bee7204"></script>
 
                             </div>
                         </div>
@@ -244,7 +227,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab"
-                               href="#product-details-tab">
+                               href="#content">
                                 Thông tin chi tiết
                             </a>
                         </li>
@@ -256,108 +239,21 @@
                     <div id="product-infos-tabs-content" class="tab-content">
                         <div class="tab-pane in active" id="description">
                             <div class="product-description">
-                                <div class="rte-content"><p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p></div>
+                                <div class="rte-content">
+                                    @Model.Description
+                                </div>
                             </div>
 
                         </div>
                         <div class="tab-pane "
-                             id="product-details-tab">
-                            <div id="product-details" data-product="{&quot;id_shop_default&quot;:&quot;1&quot;,&quot;id_manufacturer&quot;:&quot;30&quot;,&quot;id_supplier&quot;:&quot;1&quot;,&quot;reference&quot;:&quot;demo_6&quot;,&quot;is_virtual&quot;:&quot;0&quot;,&quot;delivery_in_stock&quot;:null,&quot;delivery_out_stock&quot;:null,&quot;id_category_default&quot;:&quot;18&quot;,&quot;on_sale&quot;:&quot;0&quot;,&quot;online_only&quot;:&quot;0&quot;,&quot;ecotax&quot;:0,&quot;minimal_quantity&quot;:&quot;1&quot;,&quot;low_stock_threshold&quot;:null,&quot;low_stock_alert&quot;:&quot;0&quot;,&quot;price&quot;:30.5,&quot;unity&quot;:&quot;&quot;,&quot;unit_price_ratio&quot;:&quot;0.000000&quot;,&quot;additional_shipping_cost&quot;:&quot;0.00&quot;,&quot;customizable&quot;:&quot;0&quot;,&quot;text_fields&quot;:&quot;0&quot;,&quot;uploadable_files&quot;:&quot;0&quot;,&quot;redirect_type&quot;:&quot;404&quot;,&quot;id_type_redirected&quot;:&quot;0&quot;,&quot;available_for_order&quot;:&quot;1&quot;,&quot;available_date&quot;:&quot;0000-00-00&quot;,&quot;show_condition&quot;:&quot;0&quot;,&quot;condition&quot;:&quot;new&quot;,&quot;show_price&quot;:&quot;1&quot;,&quot;indexed&quot;:&quot;1&quot;,&quot;visibility&quot;:&quot;both&quot;,&quot;cache_default_attribute&quot;:&quot;0&quot;,&quot;advanced_stock_management&quot;:&quot;0&quot;,&quot;date_add&quot;:&quot;2017-09-27 17:35:28&quot;,&quot;date_upd&quot;:&quot;2017-09-27 17:39:25&quot;,&quot;pack_stock_type&quot;:&quot;0&quot;,&quot;meta_description&quot;:&quot;&quot;,&quot;meta_keywords&quot;:&quot;&quot;,&quot;meta_title&quot;:&quot;&quot;,&quot;link_rewrite&quot;:&quot;printed-summer-dress&quot;,&quot;name&quot;:&quot;Leather bag&quot;,&quot;description&quot;:&quot;&lt;p&gt;Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman&#039;s wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!&lt;\/p&gt;&quot;,&quot;description_short&quot;:&quot;&lt;p&gt;Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.&lt;\/p&gt;&quot;,&quot;available_now&quot;:&quot;&quot;,&quot;available_later&quot;:&quot;&quot;,&quot;id&quot;:87,&quot;id_product&quot;:87,&quot;out_of_stock&quot;:0,&quot;new&quot;:1,&quot;id_product_attribute&quot;:&quot;0&quot;,&quot;quantity_wanted&quot;:1,&quot;extraContent&quot;:[{&quot;title&quot;:&quot;Reviews&quot;,&quot;content&quot;:&quot;&lt;div id=\&quot;iqit-reviews\&quot;&gt;\n\n    &lt;div id=\&quot;iqit-reviews-top\&quot;&gt;\n        &lt;div class=\&quot;row justify-content-between align-items-center\&quot;&gt;\n\n            &lt;div class=\&quot;col mb-3\&quot;&gt;\n                            &lt;div id=\&quot;iqitreviews-snippet\&quot;&gt;No reviews&lt;\/div&gt;\n                    &lt;\/div&gt;\n\n                    &lt;div class=\&quot;col col-auto mb-3\&quot;&gt;\n                &lt;button type=\&quot;button\&quot; class=\&quot;btn btn-primary \&quot; data-toggle=\&quot;modal\&quot;\n                        data-target=\&quot;#iqit-reviews-modal\&quot;&gt;\n                    &lt;i class=\&quot;fa fa-pencil-square-o\&quot;\n                       aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt; Write  review\n                &lt;\/button&gt;\n            &lt;\/div&gt;\n        \n    &lt;\/div&gt; &lt;!-- \/ .row --&gt;\n&lt;\/div&gt;&lt;!-- \/ #iqit-reviews-top --&gt;\n\n\n&lt;div class=\&quot;col-xs-12 alert alert-success hidden-xs-up\&quot;\n     id=\&quot;iqitreviews-productreview-form-success-alert\&quot;&gt;\n&lt;\/div&gt;\n\n\n\n&lt;\/div&gt;\n\n    &lt;div class=\&quot;modal fade\&quot; id=\&quot;iqit-reviews-modal\&quot;&gt;\n        &lt;div class=\&quot;modal-dialog\&quot; role=\&quot;document\&quot;&gt;\n            &lt;div class=\&quot;modal-content\&quot;&gt;\n                &lt;form action=\&quot;\/\/iqit-commerce.com\/ps17\/en\/module\/iqitreviews\/actions?process=addProductReview&amp;ajax=1\&quot;\n                      method=\&quot;post\&quot; id=\&quot;iqitreviews-productreview-form\&quot;&gt;\n                    &lt;div class=\&quot;modal-header\&quot;&gt;\n                        &lt;span class=\&quot;modal-title\&quot;&gt;Write a review&lt;\/span&gt;\n                        &lt;button type=\&quot;button\&quot; class=\&quot;close\&quot; data-dismiss=\&quot;modal\&quot; aria-label=\&quot;Close\&quot;&gt;\n                            &lt;span aria-hidden=\&quot;true\&quot;&gt;&amp;times;&lt;\/span&gt;\n                        &lt;\/button&gt;\n                    &lt;\/div&gt;\n                    &lt;div class=\&quot;modal-body\&quot;&gt;\n\n                        &lt;div class=\&quot;col-xs-12 alert alert-success alert-warning hidden-xs-up\&quot;\n                             id=\&quot;iqitreviews-productreview-form-alert\&quot;&gt;\n                        &lt;\/div&gt;\n\n\n                        &lt;div class=\&quot;form-fields\&quot; id=\&quot;iqitreviews-productreview-fields\&quot;&gt;\n\n                            &lt;input type=\&quot;hidden\&quot; name=\&quot;iqitreviews_id_product\&quot; id=\&quot;iqitreviews_id_product\&quot;\n                                   value=\&quot;87\&quot;\/&gt;\n\n                                                            &lt;div class=\&quot;form-group row\&quot;&gt;\n                                    &lt;label class=\&quot;col-md-3 form-control-label\&quot;&gt;Name&lt;\/label&gt;\n                                    &lt;div class=\&quot;col-md-6\&quot;&gt;\n                                        &lt;input type=\&quot;text\&quot; class=\&quot;form-control\&quot; name=\&quot;iqitreviews_customer_name\&quot;\n                                               id=\&quot;iqitreviews_customer_name\&quot; value=\&quot;\&quot;\n                                               placeholder=\&quot;John Doe\&quot;\/&gt;\n                                    &lt;\/div&gt;\n                                &lt;\/div&gt;\n                            \n                            &lt;div class=\&quot;form-group row\&quot;&gt;\n                                &lt;label class=\&quot;col-md-3 form-control-label\&quot;&gt;Title&lt;\/label&gt;\n                                &lt;div class=\&quot;col-md-6\&quot;&gt;\n                                    &lt;input type=\&quot;text\&quot; class=\&quot;form-control\&quot; name=\&quot;iqitreviews_title\&quot;\n                                           id=\&quot;iqitreviews_title\&quot; value=\&quot;\&quot;\n                                           placeholder=\&quot;Ex. Very good\&quot;\/&gt;\n                                &lt;\/div&gt;\n                            &lt;\/div&gt;\n\n                            &lt;div class=\&quot;form-group row\&quot;&gt;\n                                &lt;label class=\&quot;col-md-3 form-control-label\&quot;&gt;Rating&lt;\/label&gt;\n                                &lt;div class=\&quot;col-md-6\&quot;&gt;\n                                    &lt;input class=\&quot;rating \&quot; data-max=\&quot;5\&quot; data-min=\&quot;1\&quot; data-empty-value=\&quot;0\&quot;\n                                           value=\&quot;4\&quot;\n                                           id=\&quot;iqitreviews_rating\&quot; name=\&quot;iqitreviews_rating\&quot; type=\&quot;number\&quot;\n                                           data-icon-lib=\&quot;fa\&quot;\n                                           data-active-icon=\&quot;fa-star iqit-review-star\&quot; data-inactive-icon=\&quot;fa-star-o iqit-review-star\&quot;\/&gt;\n                                &lt;\/div&gt;\n                            &lt;\/div&gt;\n\n                            &lt;div class=\&quot;form-group row\&quot;&gt;\n                                &lt;label class=\&quot;col-md-3 form-control-label\&quot;&gt;Comment&lt;\/label&gt;\n                                &lt;div class=\&quot;col-md-6\&quot;&gt;\n                                         &lt;textarea class=\&quot;form-control\&quot; rows=\&quot;3\&quot; name=\&quot;iqitreviews_comment\&quot;\n                                                   id=\&quot;iqitreviews_comment\&quot;\n                                                   placeholder=\&quot;Write your opinion about product\&quot;&gt;&lt;\/textarea&gt;\n                                &lt;\/div&gt;\n                            &lt;\/div&gt;\n\n                        &lt;\/div&gt;\n\n\n                    &lt;\/div&gt;\n                    &lt;div class=\&quot;modal-footer\&quot;&gt;\n                        &lt;input class=\&quot;btn btn-primary\&quot; type=\&quot;submit\&quot; name=\&quot;iqitreviews_submit\&quot;\n                               id=\&quot;iqitreviews_submit\&quot;\n                               value=\&quot; Submit review\&quot;&gt;\n                    &lt;\/div&gt;\n                &lt;\/form&gt;\n            &lt;\/div&gt;\n        &lt;\/div&gt;\n    &lt;\/div&gt;\n&quot;,&quot;attr&quot;:{&quot;id&quot;:&quot;&quot;,&quot;class&quot;:&quot;&quot;},&quot;moduleName&quot;:&quot;iqitreviews&quot;}],&quot;allow_oosp&quot;:true,&quot;category&quot;:&quot;accessories&quot;,&quot;category_name&quot;:&quot;Accessories&quot;,&quot;link&quot;:&quot;https:\/\/iqit-commerce.com\/ps17\/en\/accessories\/87-printed-summer-dress.html&quot;,&quot;attribute_price&quot;:0,&quot;price_tax_exc&quot;:30.5,&quot;price_without_reduction&quot;:30.5,&quot;reduction&quot;:0,&quot;specific_prices&quot;:[],&quot;quantity&quot;:-2,&quot;quantity_all_versions&quot;:-2,&quot;id_image&quot;:&quot;en-default&quot;,&quot;features&quot;:[],&quot;attachments&quot;:[],&quot;virtual&quot;:0,&quot;pack&quot;:0,&quot;packItems&quot;:[],&quot;nopackprice&quot;:0,&quot;customization_required&quot;:false,&quot;rate&quot;:0,&quot;tax_name&quot;:&quot;&quot;,&quot;ecotax_rate&quot;:0,&quot;unit_price&quot;:0,&quot;customizations&quot;:{&quot;fields&quot;:[]},&quot;id_customization&quot;:0,&quot;is_customizable&quot;:false,&quot;show_quantities&quot;:false,&quot;quantity_label&quot;:&quot;Item&quot;,&quot;quantity_discounts&quot;:[],&quot;customer_group_discount&quot;:0}" class="clearfix">
-                                <div class="product-reference">
-                                    <label class="label">Reference </label>
-                                    <span itemprop="sku">demo_6</span>
-                                </div>
-                                <div class="product-out-of-stock">
-
-                                </div>
+                             id="content">
+                            <div id="product-details" class="clearfix">
+                                @Html.Raw(Model.Content)
                             </div>
                         </div>
                         <div class="tab-pane  in " id="extra-0">
                             <div id="iqit-reviews">
-                                <div id="iqit-reviews-top">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col mb-3">
-                                            <div id="iqitreviews-snippet">No reviews</div>
-                                        </div>
-                                        <div class="col col-auto mb-3">
-                                            <button type="button" class="btn btn-primary " data-toggle="modal"
-                                                    data-target="#iqit-reviews-modal">
-                                                <i class="fa fa-pencil-square-o"
-                                                   aria-hidden="true"></i> Write  review
-                                            </button>
-                                        </div>
-
-                                    </div> <!-- / .row -->
-                                </div><!-- / #iqit-reviews-top -->
-                                <div class="col-xs-12 alert alert-success hidden-xs-up"
-                                     id="iqitreviews-productreview-form-success-alert">
-                                </div>
-                            </div>
-                            <div class="modal fade" id="iqit-reviews-modal">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form action="//iqit-commerce.com/ps17/en/module/iqitreviews/actions?process=addProductReview&ajax=1"
-                                              method="post" id="iqitreviews-productreview-form">
-                                            <div class="modal-header">
-                                                <span class="modal-title">Write a review</span>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="col-xs-12 alert alert-success alert-warning hidden-xs-up"
-                                                     id="iqitreviews-productreview-form-alert">
-                                                </div>
-
-                                                <div class="form-fields" id="iqitreviews-productreview-fields">
-                                                    <input type="hidden" name="iqitreviews_id_product" id="iqitreviews_id_product"
-                                                           value="87" />
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 form-control-label">Name</label>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control" name="iqitreviews_customer_name"
-                                                                   id="iqitreviews_customer_name" value=""
-                                                                   placeholder="John Doe" />
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 form-control-label">Title</label>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control" name="iqitreviews_title"
-                                                                   id="iqitreviews_title" value=""
-                                                                   placeholder="Ex. Very good" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 form-control-label">Rating</label>
-                                                        <div class="col-md-6">
-                                                            <input class="rating " data-max="5" data-min="1" data-empty-value="0"
-                                                                   value="4"
-                                                                   id="iqitreviews_rating" name="iqitreviews_rating" type="number"
-                                                                   data-icon-lib="fa"
-                                                                   data-active-icon="fa-star iqit-review-star" data-inactive-icon="fa-star-o iqit-review-star" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-md-3 form-control-label">Comment</label>
-                                                        <div class="col-md-6">
-                                                            <textarea class="form-control" rows="3" name="iqitreviews_comment"
-                                                                      id="iqitreviews_comment"
-                                                                      placeholder="Write your opinion about product"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input class="btn btn-primary" type="submit" name="iqitreviews_submit"
-                                                       id="iqitreviews_submit"
-                                                       value=" Submit review">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                <div class="fb-comments" data-href="@Request.Url.ToString()" data-width="600" data-numposts="20"></div>
                             </div>
                         </div>
                     </div>
@@ -367,14 +263,13 @@
             <section class="category-products block block-section">
                 <h4 class="section-title">
                     <span>
-                        các sản phẩm liên quan:
+                        Các sản phẩm liên quan:
                     </span>
                 </h4>
                 <div class="block-content">
                     <div class="products slick-products-carousel products-grid slick-default-carousel slick-arrows-middle">
 
-                        @foreach (var productrelated in ViewBag.productsRelated)
-                        {
+                        @foreach (var productrelated in ViewBag.productsRelated) {
                             <div class="js-product-miniature-wrapper product-carousel ">
                                 <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-3 js-product-miniature"
                                          data-id-product="94"
@@ -885,7 +780,8 @@
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+            </div>
+            <!-- /.modal -->
             <footer class="page-footer"></footer>
         </section>
     </div>

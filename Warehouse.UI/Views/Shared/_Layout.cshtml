@@ -307,32 +307,6 @@
 
     @RenderSection("scripts", required: false)
 
-
-    <script>
-        $(function () {
-            $.post("@Url.Action("_GetDistrictByProvince","Location")", { ProvinceId: $("#ProvinceId").val() }, function (data) {
-                    $("#Districts").html(data);
-                    $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $("#DistrictId").val() }, function (data) {
-                        $("#Wards").html(data);
-                    });
-                });
-            $(document).on("change", "#ProvinceId", function (e) {
-                $.post("@Url.Action("_GetDistrictByProvince","Location")", { ProvinceId: $(this).val() }, function (data) {
-                    $("#Districts").html(data);
-                    $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $("#DistrictId").val() }, function (data) {
-                        $("#Wards").html(data);
-                    });
-                });
-            });
-            $(document).on("change", "#DistrictId", function (e) {
-                $.post("@Url.Action("_GetWardByDistrict","Location")", { DistrictId: $(this).val() }, function (data) {
-                    $("#Wards").html(data);
-                });
-            });
-
-        });
-    </script>
-
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();

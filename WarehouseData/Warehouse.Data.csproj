@@ -157,6 +157,14 @@
     <Compile Include="Migrations\201811181622544_addColumnLocationsForAspNetUsers.Designer.cs">
       <DependentUpon>201811181622544_addColumnLocationsForAspNetUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811190536564_createTableFavoriteProducts.cs" />
+    <Compile Include="Migrations\201811190536564_createTableFavoriteProducts.Designer.cs">
+      <DependentUpon>201811190536564_createTableFavoriteProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811190538589_createTableFavoriteProducts-v2.cs" />
+    <Compile Include="Migrations\201811190538589_createTableFavoriteProducts-v2.Designer.cs">
+      <DependentUpon>201811190538589_createTableFavoriteProducts-v2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -220,6 +228,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811181622544_addColumnLocationsForAspNetUsers.resx">
       <DependentUpon>201811181622544_addColumnLocationsForAspNetUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811190536564_createTableFavoriteProducts.resx">
+      <DependentUpon>201811190536564_createTableFavoriteProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811190538589_createTableFavoriteProducts-v2.resx">
+      <DependentUpon>201811190538589_createTableFavoriteProducts-v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

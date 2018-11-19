@@ -20,6 +20,11 @@ namespace Warehouse.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// Tên phân loại
+        /// </summary>
+        public Category Category { get; set; }
+
+        /// <summary>
         /// Bí danh sản phẩm
         /// </summary>
         public string Alias { get; set; }
@@ -38,6 +43,9 @@ namespace Warehouse.Models
         /// Mô tả sản phẩm
         /// </summary>
         public string Description { get; set; }
+
+        // Chi tiết nội dung
+        public string Content { get; set; }
 
         /// <summary>
         /// Hình fullURL

@@ -102,12 +102,14 @@ namespace Warehouse.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 Alias = product.Alias_SEO,
+                Category = product.Category,
                 Image = product.Image,
                 imagesProducts = product.ImagesProducts.ToList(),
                 Price = (int)(product.PriceNew ?? product.Price),
                 FlagColor = "#eba53d",
                 Description = product.Description,
-                ProductFlag = product.Category.Name
+                ProductFlag = product.Category.Name,
+                Content = product.Content
             };
 
             return View(_detail);
