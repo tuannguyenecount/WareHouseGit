@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Warehouse.Entities;
 using Microsoft.AspNet.Identity.Owin;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Controllers
 {
@@ -16,6 +17,18 @@ namespace Warehouse.Controllers
     public class OrderController : Controller
     {
         private ApplicationUserManager _userManager;
+        private IOrderService _orderService;
+        private IOrderDetailService _orderDetailService;
+        private IProductService _productService;
+
+        public OrderController(ApplicationUserManager userManager, IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService)
+        {
+            UserManager = userManager;
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
+            _productService = productService;
+        }
+
 
         public ApplicationUserManager UserManager
         {
@@ -29,11 +42,6 @@ namespace Warehouse.Controllers
             }
         }
 
-        public OrderController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
-        }
-
         [Authorize]
         public ViewResult Index()
         {
@@ -44,12 +52,32 @@ namespace Warehouse.Controllers
 
         public ActionResult Checkout()
         {
-            return View();
+
+            // kiểm tra đăng nhập
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            //Kiểm tra giỏ hàng
+            if (Session["ShoppingCart"] == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
+
+            var model = new Order();
+            model.DateOrder = DateTime.Now;
+            model.TotalQuantity = (byte)ds.Sum(m => m.Quantity);
+            model.TotalMoney = ds.Sum(m => m.Subtotal);
+
+            return View(model);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Checkout([Bind(Exclude = "Paid,Deleted")]Order model, bool? onlinePayment)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Checkout(Order model)
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
             model.DateOrder = DateTime.Now;
@@ -61,9 +89,11 @@ namespace Warehouse.Controllers
                 ApplicationUser user = UserManager.FindByName(User.Identity.Name);
                 model.UserId = user.Id;
                 model.Name = user.FullName;
-                model.Phone = user.PhoneNumber;
+                if (model.Phone == null)
+                    model.Phone = user.PhoneNumber;
                 model.Email = user.Email;
-                model.Address = user.Address;
+                if (model.Address == null)
+                    model.Address = user.Address;
             }
             else
             {
@@ -84,23 +114,22 @@ namespace Warehouse.Controllers
                 }
             }
             #region ModelState Valid
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
 
                 try
                 {
-                    //db.Orders.Add(model);
-                    //await db.SaveChangesAsync();
+                    _orderService.Add(model);
                 }
                 catch
                 {
                     ModelState.AddModelError("", "Không thể lưu đơn hàng này!");
                     return View("OrderError");
                 }
-                
+
                 foreach (CartItem item in ds)
                 {
-                    OrderDetail chiTiet = new OrderDetail()
+                    OrderDetail detail = new OrderDetail()
                     {
                         OrderId = model.Id,
                         ProductImage = item.Image,
@@ -113,12 +142,11 @@ namespace Warehouse.Controllers
                     };
                     try
                     {
-                        //db.OrderDetails.Add(chiTiet);
-                        //await db.SaveChangesAsync();
+                        _orderDetailService.Add(detail);
                     }
                     catch
                     {
-                        ModelState.AddModelError("", "Không thể lưu bản ghi chi tiết số " + chiTiet.Id.ToString());
+                        ModelState.AddModelError("", "Không thể lưu bản ghi chi tiết số " + detail.Id.ToString());
                     }
                 }
                 //try
@@ -159,9 +187,9 @@ namespace Warehouse.Controllers
             {
                 return View("OrderError");
             }
-          
+
         }
-        
+
         public ActionResult Confirm(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
         {
             if (error_text == "")
@@ -174,7 +202,7 @@ namespace Warehouse.Controllers
                     //db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
                     //await db.SaveChangesAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return View("Error", new HandleErrorInfo(ex, "Order", "Confirm"));
                 }
@@ -198,7 +226,7 @@ namespace Warehouse.Controllers
                     //db.historyBankChargings.Add(history);
                     //await db.SaveChangesAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("", "Không thể lưu lịch sử thanh toán! Lỗi " + ex.Message);
                     return View("OrderError");
@@ -207,7 +235,7 @@ namespace Warehouse.Controllers
                 return View("OrderSuccess");
             }
             else
-                return View("Error",new HandleErrorInfo(new Exception(error_text), "Order", "Confirm"));
+                return View("Error", new HandleErrorInfo(new Exception(error_text), "Order", "Confirm"));
         }
     }
 }

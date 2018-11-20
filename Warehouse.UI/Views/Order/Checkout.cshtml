@@ -1,4 +1,4 @@
-﻿
+﻿@model Order
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,9 +26,9 @@
         <section id="main">
             <h1 class="h1 page-title"><span>Checkout</span></h1><div class="row">
                 <div class="col-md-8">
-                    <section id="checkout-personal-information-step" class="checkout-step -current -reachable js-current-step">
+                    <section id="checkout-personal-information-step" class="checkout-step -reachable -complete">
                         <h1 class="step-title h3">
-                            <span class="step-number">1</span>Personal Information
+                            <span class="step-number">1</span>Thông tin cá nhân
                             <i class="fa fa-check rtl-no-flip done" aria-hidden="true"></i><span class="step-edit text-muted"><i class="fa fa-pencil" aria-hidden="true"></i> edit</span>
                         </h1>
                         <div class="content">
@@ -178,47 +178,140 @@
                             </form>
                         </div>
                     </section>
-                    <section class="checkout-step -unreachable" id="checkout-addresses-step">
+                    <section id="checkout-step -reachable -current js-current-step" class="checkout-step -current -reachable js-current-step">
                         <h1 class="step-title h3">
-                            <span class="step-number">2</span> Addresses
+                            <span class="step-number">2</span> Địa chỉ
                         </h1>
+                        <div class="content">
+                            <div class="js-address-form">
+                                @using (Html.BeginForm("Checkout", "Order", FormMethod.Post))
+                                {
+                                    <p>
+                                        Địa chỉ được chọn sẽ được dùng làm địa chỉ cá nhân của bạn (cho hóa đơn) và làm địa chỉ giao hàng của bạn.
+                                    </p>
+                                    <div id="delivery-address">
+                                        <div class="js-address-form">
+                                            <section class="form-fields">
+                                                <div class="form-group row align-items-center ">
+                                                    <label class="col-md-2 col-form-label required">
+                                                        Họ và tên
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" name="name" type="text" value="" maxlength="100" required="">
+                                                    </div>
+
+                                                    <div class="col-md-2 form-control-comment">
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="form-group row align-items-center ">
+                                                        <label class="col-md-2 col-form-label">
+                                                            Công ty
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input class="form-control" name="company" type="text" value="" maxlength="255">
+                                                        </div>
+
+                                                        <div class="col-md-2 form-control-comment">
+                                                            không bắt buộc
+                                                        </div>
+                                                    </div>*@
+
+                                                <div class="form-group row align-items-center ">
+                                                    <label class="col-md-2 col-form-label required">
+                                                        Địa chỉ
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" name="address" type="text" value="" maxlength="128" required="">
+                                                    </div>
+
+                                                    <div class="col-md-2 form-control-comment">
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="form-group row align-items-center ">
+                                                        <label class="col-md-2 col-form-label">
+                                                            Địa chỉ bổ sung
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input class="form-control" name="address2" type="text" value="" maxlength="128">
+                                                        </div>
+
+                                                        <div class="col-md-2 form-control-comment">
+                                                            không bắt buộc
+                                                        </div>
+                                                    </div>*@
+
+                                                <div class="form-group row align-items-center ">
+                                                    <label class="col-md-2 col-form-label">
+                                                        Số điện thoại
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" name="phone" type="text" value="" maxlength="20" required="">
+                                                    </div>
+                                                    <div class="col-md-2 form-control-comment">
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" name="saveAddress" value="delivery">
+                                                <div class="form-group row">
+                                                    <div class="col-md-9 col-md-offset-3">
+                                                        <span class="custom-checkbox">
+                                                            <input name="use_same_address" type="checkbox" value="1" checked="">
+                                                            <span><i class="fa fa-check checkbox-checked" aria-hidden="true"></i></span>
+                                                            <label>Sử dụng địa chỉ này để giao hàng</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <footer class="form-footer text-center clearfix">
+                                                <input type="hidden" name="submitAddress" value="1">
+                                                <button type="submit" class="continue btn btn-primary btn-block btn-lg" name="confirm-addresses" value="1">
+                                                    Đặt hàng
+                                                </button>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </section>
-                    <section class="checkout-step -unreachable" id="checkout-delivery-step">
+                    @*<section class="checkout-step -unreachable" id="checkout-delivery-step">
                         <h1 class="step-title h3">
-                            <span class="step-number">3</span> Shipping Method
+                            <span class="step-number">3</span> Phương thức Thanh toán
                         </h1>
                     </section>
                     <section class="checkout-step -unreachable" id="checkout-payment-step">
                         <h1 class="step-title h3">
                             <span class="step-number">4</span> Payment
                         </h1>
-                    </section>
+                    </section>*@
                 </div>
                 <div class="col-md-4 cart-grid-right">
                     <section id="js-checkout-summary" class="card cart-summary js-cart" data-refresh-url="https://iqit-commerce.com/ps17/en/cart?ajax=1&amp;action=refresh">
                         <div class="card-block">
                             <div class="cart-summary-products">
                                 <div>
-                                    1 item
+                                    @Model.TotalQuantity sản phẩm
                                     <a href="#" data-toggle="collapse" class="text-muted pull-right" data-target="#cart-summary-product-list">show details <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                 </div>
-                                <div class="collapse" id="cart-summary-product-list">
-                                    <ul class="media-list">
-                                        <li class="media cart-summary-product">
-                                            <div class="media-left mr-3 align-self-center">
-                                                <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" title="Leather bag"><img class="media-object img-fluid" src="https://iqit-commerce.com/ps17/297-small_default/printed-summer-dress.jpg" alt="Leather bag"></a>
-                                            </div>
-                                            <div class="media-body align-self-center"><a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" title="Leather bag"><span class="product-name">Leather bag</span></a><span class="pull-right"><span class="product-quantity text-muted">x1</span> $30.50</span></div>
-                                        </li>
-                                    </ul>
-                                    <div class="text-right"><a href="//iqit-commerce.com/ps17/en/cart?action=show"><span class="step-edit"><i class="fa fa-pencil" aria-hidden="true"></i> edit</span></a></div>
-                                </div>
+                                @*<div class="collapse" id="cart-summary-product-list">
+                                        <ul class="media-list">
+                                            <li class="media cart-summary-product">
+                                                <div class="media-left mr-3 align-self-center">
+                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" title="Leather bag"><img class="media-object img-fluid" src="https://iqit-commerce.com/ps17/297-small_default/printed-summer-dress.jpg" alt="Leather bag"></a>
+                                                </div>
+                                                <div class="media-body align-self-center"><a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" title="Leather bag"><span class="product-name">Leather bag</span></a><span class="pull-right"><span class="product-quantity text-muted">x1</span> $30.50</span></div>
+                                            </li>
+                                        </ul>
+                                        <div class="text-right"><a href="//iqit-commerce.com/ps17/en/cart?action=show"><span class="step-edit"><i class="fa fa-pencil" aria-hidden="true"></i> edit</span></a></div>
+                                    </div>*@
                             </div>
                         </div>
                         <hr>
                         <div class="card-block">
-                            <div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-products"><span class="label">Subtotal</span><span class="value">$30.50</span></div>
-                            <div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-shipping"><span class="label">Shipping</span><span class="value">$7.00</span></div>
+                            <div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-products"><span class="label">Tổng cộng</span><span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.TotalMoney))</span></div>
+                            <div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-shipping"><span class="label">Phí vận chuyển</span><span class="value">@(Warehouse.Common.Format.FormatCurrencyVND(0))</span></div>
                         </div>
                         <hr>
                         <div class="block-promo">
@@ -228,8 +321,12 @@
                                         <div class="alert alert-danger js-error" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="m-l-1 js-error-text"></span></div>
                                         <form action="https://iqit-commerce.com/ps17/en/cart" data-link-action="add-voucher" method="post" class="">
                                             <div class="input-group">
-                                                <i class="fa fa-tag btn voucher-icon" aria-hidden="true"></i><input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50"><input type="hidden" name="addDiscount" value="1"><input class="form-control" type="text" name="discount_name" placeholder="Promo code"><button type="submit" class="btn btn-secondary">
-                                                    <span>Add</span>
+                                                <i class="fa fa-tag btn voucher-icon" aria-hidden="true"></i>
+                                                <input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50">
+                                                <input type="hidden" name="addDiscount" value="1">
+                                                <input class="form-control" type="text" name="discount_name" placeholder="Mã giảm giá">
+                                                <button type="submit" class="btn btn-secondary">
+                                                    <span>Áp dụng</span>
                                                 </button>
                                             </div>
                                         </form>
@@ -239,9 +336,10 @@
                         </div>
                         <hr>
                         <div class="card-block cart-summary-totals">
-                            <div class="cart-summary-line cart-total"><span class="label">Total (tax incl.)</span><span class="value">$37.50</span></div>
-                            <div class="cart-summary-line"><span class="label sub"></span><span class="value sub"></span></div>
-                            <div class="alert alert-info iqitfreedeliverycount p-2 " role="alert"><div class="iqitfreedeliverycount-title mb-1"><strong>Spend <span class="ifdc-remaining-price">$469.50</span> more to get free shipping!</strong></div>IQITFREEDELIVERYCOUNT - module, you can put own text in configuration</div>
+                            <div class="cart-summary-line cart-total">
+                                <span class="label">Tổng tiền</span>
+                                <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.TotalMoney + 0))</span>
+                            </div>
                         </div>
                     </section>
                 </div>

@@ -44,6 +44,8 @@ namespace Warehouse
 
             container.RegisterType<IOrderService, OrderService>();
             container.RegisterType<IOrderDal, OrderDal>();
+            container.RegisterType<IOrderDetailService, OrderDetailService>();
+            container.RegisterType<IOrderDetailDal, OrderDetailDal>();
 
 
             container.RegisterType<IArticleService, ArticleService>();
