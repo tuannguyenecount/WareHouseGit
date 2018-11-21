@@ -250,12 +250,11 @@
                         <button class="btn btn-link" type="button"  onclick="document.getElementById('files').click();"><i class="fa fa-image"></i> Thêm hình</button>
                     </form>
                     <br/>
-                    <table class="table table-condensed">
+                    <table class="table table-condensed table-middle">
                         <thead>
                             <tr>
-                                <th>Số thứ tự</th>
-                                <th>Hình</th>
-                                <th>Sửa/Xóa</th>
+                                <th class="text-center">Hình</th>
+                                <th>Xóa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -263,10 +262,9 @@
                             {
                                 foreach (ImagesProduct imagesProduct in Model.ImagesProducts)
                                 {
-                                <tr>
-                                    <td>@imagesProduct.OrderNum</td>
-                                    <td>
-                                        <img src="~/Photos/Products/slide/@imagesProduct.Image" width="250" height="auto" />
+                                <tr class="col-sm-3 col-xs-6">
+                                    <td class="text-center">
+                                        <img src="~/Photos/Products/slide/@imagesProduct.Image" width="100" height="auto" />
                                     </td>
                                     <td>
                                         <form action="@Url.Action("DeleteImage", new { ProductId = Model.Id, ImageId = imagesProduct.Id })"  method="post">

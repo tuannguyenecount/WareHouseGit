@@ -33,7 +33,7 @@
                                     <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions" data-toggle="tooltip" title="" data-original-title="Compare">
                                         <i class="fa fa-random" aria-hidden="true"></i>
                                     </a>
-                                    <a href="@Url.Action("_ContentQuickViewModal","Product",new { Id = product.Id })" data-toggle="modal" data-target="#quickview-modal">
+                                    <a href="@Url.Action("_ContentQuickViewModal","Product",new { Id = product.Id })" data-toggle="modal" data-target="#quickview-modal" title="Xem nhanh">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -51,7 +51,6 @@
 
                             <div class="product-add-cart">
                                 <div class="input-group input-group-add-cart">
-                                    <input type="number" name="qty" value="1" class="input-group form-control input-qty" min="1">
                                     <a href="@Url.Action("Add","ShoppingCart",new { Id = product.Id })" class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal">
                                         <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
                                     </a>

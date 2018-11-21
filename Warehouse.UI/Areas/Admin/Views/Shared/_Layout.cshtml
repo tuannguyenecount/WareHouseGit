@@ -54,6 +54,9 @@
         .table-info tr td:nth-child(2) {
             font-weight:bold;
         }
+        .table-info tr td:first-child{
+            width:40%;
+        }
     </style>
     <!-- jQuery 3 -->
     <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
@@ -359,7 +362,7 @@
             if (key.charCode < 48 || key.charCode > 57) return false;
         });
 
-        $(".modal").on("show.bs.modal", function (e) {
+        $(".modal-ajax").on("show.bs.modal", function (e) {
             var link = $(e.relatedTarget);
             $(this).find(".modal-content").load(link.attr("href"));
         });

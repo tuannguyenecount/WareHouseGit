@@ -44,7 +44,7 @@ namespace Warehouse.Models
         {
             get
             {
-                return ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Products/" + SecondImage;
+                return ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Products/slide/" + SecondImage;
             }
         }
 
@@ -53,7 +53,7 @@ namespace Warehouse.Models
         {
             get
             {
-                return ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Products/l/" + Image;
+                return ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Products/" + Image;
             }
         }
         // Hình thứ 2 lớn
@@ -61,7 +61,7 @@ namespace Warehouse.Models
         {
             get
             {
-                return ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Products/l/" + SecondImage;
+                return ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Products/" + SecondImage;
             }
         }
         /// <summary>

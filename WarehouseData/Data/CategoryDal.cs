@@ -21,6 +21,24 @@ namespace Warehouse.Data.Data
                     ? context.Set<Category>().Include(p => p.Category1).Include(p=>p.Category2).ToList()
                     : context.Set<Category>().Include(p => p.Category1).Include(p => p.Category2).Where(filter).ToList();
             }
-        }      
+        }
+        public override Category GetFirst(Expression<Func<Category, bool>> filter)
+        {
+            using (var context = new WarehouseContext())
+            {
+                return filter == null
+                    ? context.Set<Category>().Include(p => p.Category1).Include(p => p.Category2).FirstOrDefault()
+                    : context.Set<Category>().Include(p => p.Category1).Include(p => p.Category2).FirstOrDefault(filter);
+            }
+        }
+        public override Category GetSingle(Expression<Func<Category, bool>> filter)
+        {
+            using (var context = new WarehouseContext())
+            {
+                return filter == null
+                    ? context.Set<Category>().Include(p => p.Category1).Include(p => p.Category2).SingleOrDefault()
+                    : context.Set<Category>().Include(p => p.Category1).Include(p => p.Category2).SingleOrDefault(filter);
+            }
+        }
     }
 }

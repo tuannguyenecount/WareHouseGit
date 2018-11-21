@@ -95,7 +95,17 @@ namespace Warehouse.Controllers
             int count = productsRelated.Count;
             Random r = new Random();
             int skip = count - 10 > 0 ? r.Next(0, count - 10) : 0;
-            ViewBag.productsRelated = productsRelated.Skip(skip).Take(10).ToList();
+            ViewBag.productsRelated = productsRelated.Skip(skip).Take(10).ToList().Select(p=> new GridProductViewModel()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Alias = p.Alias_SEO,
+                Image = p.Image,
+                SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
+                Price = (int)(p.PriceNew ?? p.Price),
+                FlagColor = "#eba53d",
+                ProductFlag = "Sản phẩm liên quan"
+            });
 
             DetailsProductViewModel _detail = new DetailsProductViewModel()
             {
@@ -111,6 +121,8 @@ namespace Warehouse.Controllers
                 ProductFlag = product.Category.Name,
                 Content = product.Content
             };
+
+            ViewBag.CategoryParent = _categoryService.GetById(product.CategoryId).Category2;
 
             return View(_detail);
         }
