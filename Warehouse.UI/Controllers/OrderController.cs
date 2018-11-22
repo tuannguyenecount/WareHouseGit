@@ -14,7 +14,7 @@ using Warehouse.Models.Order;
 
 namespace Warehouse.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class OrderController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -97,25 +97,20 @@ namespace Warehouse.Controllers
                 if (model.Address == null)
                     model.Address = user.Address;
             }
-            //else
-            //{
-            //    if (string.IsNullOrEmpty(model.Address))
-            //    {
-            //        ModelState.AddModelError("", "Bạn chưa cung cấp địa chỉ.");
-            //        return View("OrderError");
-            //    }
-            //    if (string.IsNullOrEmpty(model.Phone))
-            //    {
-            //        ModelState.AddModelError("", "Bạn chưa cung cấp số điện thoại.");
-            //        return View("OrderError");
-            //    }
-            //    if (Functions.IsValidEmail(model.Email) == false)
-            //    {
-            //        ModelState.AddModelError("", "Địa chỉ email không hợp lệ.");
-            //        return View("OrderError");
-            //    }
-            //}
 
+            Order order = new Order
+            {
+                UserId = model.UserId,
+                Name = model.Name,
+                Email = model.Email,
+                Phone = model.Phone,
+                Address = model.Address,
+                TotalQuantity = model.TotalQuantity,
+                TotalMoney = model.TotalMoney,
+                Paid = model.Paid,
+                Assigned = model.Assigned,
+                DateOrder = DateTime.Now
+            };
 
 
             #region ModelState Valid
@@ -124,7 +119,7 @@ namespace Warehouse.Controllers
 
                 try
                 {
-                    _orderService.Add(model);
+                    _orderService.Add(order);
                 }
                 catch
                 {
