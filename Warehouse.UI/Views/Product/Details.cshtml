@@ -83,7 +83,7 @@
                                                 <div>
                                                     <a href="~/Photos/Products/slide/@product.Image"></a>
                                                 </div>
-                                                <img src="@Url.Content(@Url.Content("~/Photos/Products/slide/" + product.Image))" alt="" title="" itemprop="image"  class="img-fluid">
+                                                <img src="@Url.Content("~/Photos/Products/slide/" + product.Image)" alt="" title="" itemprop="image"  class="img-fluid">
                                             </div>
                                         }
                                     </div>
@@ -93,9 +93,8 @@
                                     <div id="product-images-thumbs" class="product-images js-qv-product-images slick-slider">
                                         @foreach (var product in Model.imagesProducts) {
                                             <div class="thumb-container">
-                                                <img class="thumb js-thumb  selected img-fluid"
-                                                    
-                                                     src="@Url.Content(@Url.Content("~/Photos/Products/slide/" + product.Image))"
+                                                <img class="thumb js-thumb  selected img-fluid"                                                  
+                                                     src="@Url.Content("~/Photos/Products/slide/" + product.Image)"
                                                      alt=""
                                                      title=""
                                                      width="100"

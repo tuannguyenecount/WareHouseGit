@@ -10,10 +10,11 @@ using System.Web.Mvc;
 using Warehouse.Entities;
 using Microsoft.AspNet.Identity.Owin;
 using Warehouse.Services.Interface;
+using Warehouse.Models.Order;
 
 namespace Warehouse.Controllers
 {
-
+    [Authorize]
     public class OrderController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -67,7 +68,7 @@ namespace Warehouse.Controllers
 
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
 
-            var model = new Order();
+            var model = new OrderViewModel();
             model.DateOrder = DateTime.Now;
             model.TotalQuantity = (byte)ds.Sum(m => m.Quantity);
             model.TotalMoney = ds.Sum(m => m.Subtotal);
@@ -77,7 +78,7 @@ namespace Warehouse.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Checkout(Order model)
+        public ActionResult Checkout(OrderViewModel model)
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
             model.DateOrder = DateTime.Now;
@@ -88,31 +89,35 @@ namespace Warehouse.Controllers
             {
                 ApplicationUser user = UserManager.FindByName(User.Identity.Name);
                 model.UserId = user.Id;
-                model.Name = user.FullName;
+                if (model.Name == null)
+                    model.Name = user.FullName;
                 if (model.Phone == null)
                     model.Phone = user.PhoneNumber;
                 model.Email = user.Email;
                 if (model.Address == null)
                     model.Address = user.Address;
             }
-            else
-            {
-                if (string.IsNullOrEmpty(model.Address))
-                {
-                    ModelState.AddModelError("", "Bạn chưa cung cấp địa chỉ.");
-                    return View("OrderError");
-                }
-                if (string.IsNullOrEmpty(model.Phone))
-                {
-                    ModelState.AddModelError("", "Bạn chưa cung cấp số điện thoại.");
-                    return View("OrderError");
-                }
-                if (Functions.IsValidEmail(model.Email) == false)
-                {
-                    ModelState.AddModelError("", "Địa chỉ email không hợp lệ.");
-                    return View("OrderError");
-                }
-            }
+            //else
+            //{
+            //    if (string.IsNullOrEmpty(model.Address))
+            //    {
+            //        ModelState.AddModelError("", "Bạn chưa cung cấp địa chỉ.");
+            //        return View("OrderError");
+            //    }
+            //    if (string.IsNullOrEmpty(model.Phone))
+            //    {
+            //        ModelState.AddModelError("", "Bạn chưa cung cấp số điện thoại.");
+            //        return View("OrderError");
+            //    }
+            //    if (Functions.IsValidEmail(model.Email) == false)
+            //    {
+            //        ModelState.AddModelError("", "Địa chỉ email không hợp lệ.");
+            //        return View("OrderError");
+            //    }
+            //}
+
+
+
             #region ModelState Valid
             if (ModelState.IsValid)
             {

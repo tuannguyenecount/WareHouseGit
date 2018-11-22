@@ -348,6 +348,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\News\NewsListViewModel.cs" />
+    <Compile Include="Models\Order\OrderViewModel.cs" />
     <Compile Include="Models\Product\DetailsProductViewModel.cs" />
     <Compile Include="Models\Product\GridProductViewModel.cs" />
     <Compile Include="Models\Product\ProductAddViewModel.cs" />
