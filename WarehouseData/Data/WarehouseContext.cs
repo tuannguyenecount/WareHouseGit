@@ -31,8 +31,8 @@ namespace Warehouse.Data.Data
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<ImagesProduct> ImagesProducts { get; set; }
-
         public virtual DbSet<FavoriteProduct> FavoriteProducts { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

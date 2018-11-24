@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
-    [Authorize(Roles="Admin,Mod")]
+    [Authorize(Roles="Admin")]
     public class ProductController : Controller
     {
         #region Private Propertys
@@ -299,12 +299,12 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _productService.Update(product);
+                    return RedirectToAction("Details", new { Id = product.Id });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("",ex.Message);
                 }
-                return RedirectToAction("Details", new { Id = product.Id });
             }
 
             product.ImagesProducts = _productService.GetById(product.Id).ImagesProducts;

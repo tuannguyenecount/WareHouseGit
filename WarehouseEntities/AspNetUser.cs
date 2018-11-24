@@ -75,5 +75,7 @@ namespace Warehouse.Entities
         public virtual District District { get; set; }
 
         public virtual Ward Ward { get; set; }
+
+        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }

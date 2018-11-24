@@ -41,17 +41,6 @@
                                         <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })">@cartItem.Name</a>
                                     </div>
 
-                                    @*<div class="product-attributes text-muted pb-1">
-                                            <div class="product-line-info">
-                                                <span class="label">Size:</span>
-                                                <span class="value">S</span>
-                                            </div>
-                                            <div class="product-line-info">
-                                                <span class="label">Color:</span>
-                                                <span class="value">Yellow</span>
-                                            </div>
-                                        </div>*@
-
                                     <span class="text-muted">@cartItem.Quantity x</span>
                                     <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)cartItem.Subtotal))</span>
                                 </div>

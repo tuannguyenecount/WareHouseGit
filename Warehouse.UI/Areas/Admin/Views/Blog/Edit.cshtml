@@ -1,0 +1,260 @@
+﻿@model Blog
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Html.BeginForm())
+            {
+                <div class="box">
+                    <div class="box-body">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.DateCreated)
+                        @Html.HiddenFor(m => m.Image)
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <input type="hidden" name="OldTitle" value="@Model.Title" />
+                        <input type="hidden" name="OldAlias" value="@Model.Alias" />
+                        <div class="col-md-3 text-center">
+                            <p>
+                                <img src="~/Photos/Blogs/@Model.Image" width="300" height="auto" />
+                            </p>
+                            <p class="text-center">
+                                <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn bg-purple btn-sm"><i class="fa fa-image"></i> Đổi hình</button>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+
+                            <table class="table table-info table-border-none table-middle">
+                               
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Title)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Description)</td>
+                                    <td>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Alias)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Alias, new { type = "text", @class = "divide form-control" })
+                                        @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                               
+                            </table>
+
+                        </div>
+                        <div class="col-md-4">
+                            <table class="table table-info table-border-none table-middle">
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Description)</td>
+                                    <td>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Content)</td>
+                                    <td>
+                                        <a href="#modalEditContent" data-toggle="modal">Sửa nội dung</a>
+                                        <div class="modal fade" id="modalEditContent">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-blue">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        <h4 class="modal-title">Sửa nội dung</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="box-body">
+                                                            @Html.TextAreaFor(m => m.Content)
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer text-right">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.ViewCount, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.LikeCount)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.LikeCount, new { @class = "divide form-control", type = "text" })
+                                        @Html.ValidationMessageFor(model => model.LikeCount, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Display)</td>
+                                    <td>
+                                        @if (Model.Display.HasValue)
+                                        {
+                                            @Html.CheckBoxFor(model => model.Display.Value)
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" name="Display" />
+                                        }
+                                        @Html.ValidationMessageFor(model => model.Display, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix text-right">
+                        <button type="submit" class="btn bg-green btn-sm"><i class="fa fa-save"></i> Lưu</button>
+                        @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm", onclick = "return confirm('Các thay đổi sẽ không được cập nhật. Bạn vẫn muốn trở về danh sách?');" })
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <style>
+        #Categories li {
+            margin: 10px;
+        }
+    </style>
+    <link href="~/dist/css/canvasCrop.css" rel="stylesheet" />
+    <style>
+        .cropped {
+            position: absolute;
+            right: -230px;
+            top: 0;
+            width: 200px;
+            height: 460px;
+            padding: 4px;
+            box-shadow: 0px 0px 12px #ddd;
+            text-align: center;
+        }
+
+        .imageBox {
+            position: relative;
+            height: @(int.Parse(Context.Application["HeightImageBlog"].ToString()) + 100)px;
+            width: @(int.Parse(Context.Application["WidthImageBlog"].ToString()) * 1.5)px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #fff;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            cursor: move;
+            box-shadow: 4px 4px 12px #B0B0B0;
+        }
+
+            .imageBox .thumbBox {
+
+                width: @(Context.Application["WidthImageBlog"])px;
+                height: @(Context.Application["HeightImageBlog"])px;
+                margin-left: -@((int.Parse(Context.Application["WidthImageBlog"].ToString()) / 2).ToString())px;
+                margin-top: -@((int.Parse(Context.Application["HeightImageBlog"].ToString()) / 2).ToString())px;
+                box-sizing: border-box;
+                border:none;
+                box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+                background: none repeat scroll 0% 0% transparent;
+            }
+
+            .imageBox .spinner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                line-height: 400px;
+                background: rgba(0,0,0,0.7);
+            }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/dist/js/jquery.canvasCrop.js"></script>
+    <!-- CK Editor -->
+    <script src="~/bower_components/ckeditor/ckeditor.js"></script>
+    <script>
+        $(function () {
+            CKEDITOR.replace('Content')
+        })
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var rot = 0, ratio = 1;
+
+            $('#upload-file').on('change', function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    CanvasCrop = $.CanvasCrop({
+                        cropBox: ".imageBox",
+                        imgSrc: e.target.result,
+                        limitOver: 2
+                    });
+                    rot = 0;
+                    ratio = 1;
+
+                }
+
+                reader.readAsDataURL(this.files[0]);
+                console.log(this);
+                this.value = "";
+                $("#crop").removeClass("hide");
+                $("#btnLuu").addClass("hide");
+            });
+
+            $("#crop").on("click", function () {
+                var src = CanvasCrop.getDataURL("jpeg");
+                $("#modal-crop-image .modal-body").append("<img src='" + src + "' />");
+                $("#file").val(src);
+                $("#btnLuu").removeClass("hide");
+            });
+
+
+
+            console.log("ontouchend" in document);
+
+        })
+    </script>
+}
+
+
