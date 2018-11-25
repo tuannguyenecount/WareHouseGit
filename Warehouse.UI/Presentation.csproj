@@ -311,6 +311,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\FavoriteProductController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -344,6 +345,7 @@
     <Compile Include="Models\Category\CategoryAddModel.cs" />
     <Compile Include="Models\Category\CategoryUpdateModel.cs" />
     <Compile Include="Models\Category\CategoryListModel.cs" />
+    <Compile Include="Models\FavoriteProduct\ListFavoriteProductViewModel.cs" />
     <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -956,6 +958,7 @@
     <Content Include="Views\Location\_GetWardByDistrict.cshtml" />
     <Content Include="Views\Manage\_SidebarManage.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\FavoriteProduct\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

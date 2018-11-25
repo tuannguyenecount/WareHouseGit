@@ -22,7 +22,7 @@ namespace Warehouse
     {
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            var container = new UnityContainer();
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
@@ -73,6 +73,9 @@ namespace Warehouse
 
             container.RegisterType<IBlogService, BlogService>();
             container.RegisterType<IBlogDal, BlogDal>();
+
+            container.RegisterType<IFavoriteProductService, FavoriteProductService>();
+            container.RegisterType<IFavoriteProductDal, FavoriteProductDal>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
