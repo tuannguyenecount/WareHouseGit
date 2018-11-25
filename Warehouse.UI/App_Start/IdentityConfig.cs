@@ -92,15 +92,15 @@ namespace Warehouse
             
             var client = new SmtpClient
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
+                Host = "webmail.abcd.net.vn",
+                Port = 25,
                 UseDefaultCredentials = false,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential("shopphukienthienthu@gmail.com", "hothienkhoi1551993"),
-                EnableSsl = true,
+                Credentials = new NetworkCredential("admin@abcd.net.vn", "3*y0A1gj"),
+                EnableSsl = false,
             };
 
-            var from = new MailAddress("shopphukienthienthu@gmail.com", "Shop thiên thu");
+            var from = new MailAddress("admin@abcd.net.vn", "admin@abcd.net.vn");
             var to = new MailAddress(message.Destination);
 
             var mail = new MailMessage(from, to)

@@ -318,6 +318,7 @@ namespace Warehouse.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
+        
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
@@ -340,6 +341,7 @@ namespace Warehouse.Controllers
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
+        [Route("quen-mat-khau")]
         public ActionResult ForgotPassword()
         {
             return View();
@@ -350,15 +352,15 @@ namespace Warehouse.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("quen-mat-khau")]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    ModelState.AddModelError("", "Email không tồn tại hoặc chưa được xác thực.");
-                    return View();
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

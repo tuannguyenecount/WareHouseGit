@@ -644,6 +644,8 @@
     <Content Include="Photos\Blogs\7-thumb.jpeg" />
     <Content Include="Photos\Blogs\8-thumb.jpeg" />
     <Content Include="Photos\Blogs\9-thumb.jpeg" />
+    <Content Include="Photos\Blogs\best-gravel-bikes636787570745183234.jpg" />
+    <Content Include="Photos\Blogs\no_photo.gif" />
     <Content Include="Photos\Products\Black-bag-1.jpg" />
     <Content Include="Photos\Products\Black-bag-2.jpg" />
     <Content Include="Photos\Products\Black-bag-3.jpg" />
@@ -792,6 +794,7 @@
     <Content Include="Areas\Admin\Views\Blog\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Blog\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Blog\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\Create.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />

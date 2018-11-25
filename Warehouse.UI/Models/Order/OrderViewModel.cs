@@ -9,7 +9,6 @@ namespace Warehouse.Models.Order
 {
     public partial class OrderViewModel
     {
-        public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} Không được để trống.")]
         public string Name { get; set; }
@@ -30,15 +29,13 @@ namespace Warehouse.Models.Order
         [Column(TypeName = "money")]
         public decimal? TotalMoney { get; set; }
 
-        public bool Paid { get; set; }
-
-        public bool Assigned { get; set; }
-
-        [Required(ErrorMessage = "{0} Không được để trống.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]//áp dụng cho hiểu chỉnh.
-        public DateTime DateOrder { get; set; }
-
         [Display(Name = "Ghi chú")]
-        public string GhiChu { get; set; }
+        public string Note { get; set; }
+
+        public int? ProvinceId { get; set; }
+
+        public int? DistrictId { get; set; }
+
+        public int? WardId { get; set; }
     }
 }

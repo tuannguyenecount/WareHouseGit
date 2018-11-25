@@ -21,13 +21,19 @@ namespace Warehouse.Controllers
         private IOrderService _orderService;
         private IOrderDetailService _orderDetailService;
         private IProductService _productService;
+        private IProvinceService _provinceService;
+        private IDistrictService _districtService;
+        private IWardService _wardService;
 
-        public OrderController(ApplicationUserManager userManager, IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService)
+        public OrderController(ApplicationUserManager userManager, IOrderService orderService, IOrderDetailService orderDetailService, IProductService productService, IProvinceService provinceService, IDistrictService districtService, IWardService wardService)
         {
             UserManager = userManager;
             _orderService = orderService;
             _orderDetailService = orderDetailService;
             _productService = productService;
+            _provinceService = provinceService;
+            _districtService = districtService;
+            _wardService = wardService;
         }
 
 
@@ -43,64 +49,41 @@ namespace Warehouse.Controllers
             }
         }
 
-        [Authorize]
-        public ViewResult Index()
-        {
-            //ViewBag.ListUnAssigned = db.Orders.Where(m=>m.Assigned == false && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m=>m.Assigned).ToList();
-            //ViewBag.ListAssigned = db.Orders.Where(m => m.Assigned == true && m.Deleted == false && m.AspNetUser != null && m.AspNetUser.UserName == User.Identity.Name).OrderBy(m => m.Assigned).ToList();
-            return View();
-        }
-
+        [Route("dat-hang")]
         public ActionResult Checkout()
         {
             var model = new OrderViewModel();
 
-            if (User.Identity.IsAuthenticated)
-            {
-                ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-                model.Name = user.FullName;
-                model.Phone = user.PhoneNumber;
-                model.Email = user.Email;
-                model.Address = user.Address;
-            }
-            else
-            {
-                RedirectToAction("Login", "Account");
-            }
+            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
+            model.Name = user.FullName;
+            model.Phone = user.PhoneNumber;
+            model.Email = user.Email;
+            model.Address = user.Address;
+            model.ProvinceId = user.ProvinceId;
+            model.WardId = user.WardId;
+            model.DistrictId = user.DistrictId;
 
             //Kiểm tra giỏ hàng
             if (Session["ShoppingCart"] == null || (Session["ShoppingCart"] as List<CartItem>).Count == 0)
             {
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "ShoppingCart");
             }
 
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
-            model.DateOrder = DateTime.Now;
             model.TotalQuantity = (byte)ds.Sum(m => m.Quantity);
             model.TotalMoney = ds.Sum(m => m.Subtotal);
 
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", model.ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", model.DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", model.WardId);
             return View(model);
         }
 
+        [Route("dat-hang")]
         [HttpPost]
-        public ActionResult Checkout(OrderViewModel model)
+        public ActionResult Checkout([Bind(Exclude = "Paid,Assigned,DateOrder")]OrderViewModel model)
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
-            model.DateOrder = DateTime.Now;
-            model.TotalQuantity = (byte)ds.Sum(m => m.Quantity);
-            model.TotalMoney = ds.Sum(m => m.Subtotal);
-
-            if (User.Identity.IsAuthenticated)
-            {
-                ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-                if (model.Name == null)
-                    model.Name = user.FullName;
-                if (model.Phone == null)
-                    model.Phone = user.PhoneNumber;
-                model.Email = user.Email;
-                if (model.Address == null)
-                    model.Address = user.Address;
-            }
 
             Order order = new Order
             {
@@ -109,10 +92,13 @@ namespace Warehouse.Controllers
                 Email = model.Email,
                 Phone = model.Phone,
                 Address = model.Address,
-                TotalQuantity = model.TotalQuantity,
-                TotalMoney = model.TotalMoney,
-                Paid = model.Paid,
-                Assigned = model.Assigned,
+                DistrictId = model.DistrictId,
+                WardId = model.WardId,
+                ProvinceId = model.ProvinceId,
+                TotalQuantity = (byte)ds.Sum(m => m.Quantity),
+                TotalMoney = ds.Sum(m => m.Subtotal),
+                Paid = false,
+                Assigned = false,
                 DateOrder = DateTime.Now
             };
 
@@ -135,7 +121,7 @@ namespace Warehouse.Controllers
                 {
                     OrderDetail detail = new OrderDetail()
                     {
-                        OrderId = model.Id,
+                        OrderId = order.Id,
                         ProductImage = item.Image,
                         ProductName = item.Name,
                         ProductAlias = item.Alias,
@@ -184,13 +170,12 @@ namespace Warehouse.Controllers
                 //     "Thanh toán " + model.TotalMoney.ToString("#,##0").Replace(',', '.') + " đồng", "");
                 //    return Redirect(urlThanhToan);
                 //}
+                ds.Clear();
+                Session["ShoppingCart"] = ds;
                 return View("OrderSuccess");
             }
             #endregion
-            else
-            {
-                return View("OrderError");
-            }
+            return View(order);
 
         }
 
