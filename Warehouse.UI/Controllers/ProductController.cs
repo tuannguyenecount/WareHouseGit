@@ -151,9 +151,8 @@ namespace Warehouse.Controllers
         /// <param name="keyword"> từ khóa tìm kiếm</param>
         /// <param name="page"> số trang sau khi tìm kiếm thành công</param>
         /// <returns></returns>
-        //[Route("ket-qua-tim-kiem.html")]
-        //[OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Server, VaryByParam = "keyword")]
-        public ActionResult SearchResult(string keyword, int? page)
+        [Route("ket-qua-tim-kiem.html")]
+        public ActionResult Search(string keyword, int? page)
         {
             var dsProduct = _productService.Search(keyword);
             ViewBag.keyword = keyword;
@@ -173,19 +172,19 @@ namespace Warehouse.Controllers
 
         }
 
-        public ActionResult _ListPartial(int curentpage = 1)
-        {
-            int pageSize = 5; // số dòng trên 1 trang
-            var products = _productService.GetAll().Where(m => m.Display == true).OrderByDescending(m => m.Id).AsQueryable();
-            ProductListModel model = new ProductListModel
-            {
-                Products = products.ToPagedList(curentpage, pageSize),
-                PageCount = (int)Math.Ceiling(products.Count() / (double)pageSize),
-                PageSize = pageSize,
-                CurrentPage = curentpage
-            };
+        //public ActionResult _ListPartial(int curentpage = 1)
+        //{
+        //    int pageSize = 5; // số dòng trên 1 trang
+        //    var products = _productService.GetAll().Where(m => m.Display == true).OrderByDescending(m => m.Id).AsQueryable();
+        //    ProductListModel model = new ProductListModel
+        //    {
+        //        Products = products.ToPagedList(curentpage, pageSize),
+        //        PageCount = (int)Math.Ceiling(products.Count() / (double)pageSize),
+        //        PageSize = pageSize,
+        //        CurrentPage = curentpage
+        //    };
 
-            return PartialView(model);
-        }
+        //    return PartialView(model);
+        //}
     }
 }

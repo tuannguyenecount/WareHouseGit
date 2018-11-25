@@ -948,7 +948,7 @@
     <Content Include="Views\Account\AdminLogin.cshtml" />
     <Content Include="Views\Account\ModLogin.cshtml" />
     <Content Include="Views\ShoppingCart\UpdateShoppingCartPartial.cshtml" />
-    <Content Include="Views\Product\SearchResult.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Location\_GetDistrictByProvince.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />

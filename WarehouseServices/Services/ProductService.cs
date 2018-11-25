@@ -106,9 +106,11 @@ namespace Warehouse.Services.Services
             return _productDal.Count(p => p.Display == false);
         }
 
+
         public List<Product> Search(string keyword)
         {
-            return _productDal.GetList(p => p.Name.ToUpper().Trim().Contains(keyword.ToUpper().Trim()));
+            int countWord = keyword.ToUpper().Split(' ').Count();
+            return _productDal.GetList().Where(p => p.Name.ToUpper().Split(' ').Join(keyword.ToUpper().Split(' ').AsEnumerable(), o=>o, i=>i, (i,o) => new { inner = i, outer = o }).Count() == countWord).ToList();
         }
 
         public List<Product> GetByUser(string UserName)

@@ -253,14 +253,13 @@
                                 <div class="dropdown-content modal-backdrop fullscreen-search">
                                     <!-- Block search module TOP -->
                                     <div id="search_widget" class="search-widget"> 
-                                        <form method="get" action="/Product/SearchResult?keyword=controller">
+                                        <form method="get" action="@Url.Action("Search","Product")">
                                             <div class="input-group">
-                                                <input type="text" name="keyword" data-all-text="Show all results" placeholder="Search our catalog" class="form-control form-search-control" autocomplete="off">
+                                                <input type="text" name="keyword"  placeholder="Nhập tên sản phẩm" class="form-control form-search-control" autocomplete="off">
                                                 <button type="submit" class="search-btn">
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
-                                            <div class="autocomplete-suggestions "></div>
                                         </form>
                                     </div>
                                     <!-- /Block search module TOP -->
