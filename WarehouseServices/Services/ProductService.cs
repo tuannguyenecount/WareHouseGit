@@ -110,7 +110,7 @@ namespace Warehouse.Services.Services
         public List<Product> Search(string keyword)
         {
             int countWord = keyword.ToUpper().Split(' ').Count();
-            return _productDal.GetList().Where(p => p.Name.ToUpper().Split(' ').Join(keyword.ToUpper().Split(' ').AsEnumerable(), o=>o, i=>i, (i,o) => new { inner = i, outer = o }).Count() == countWord).ToList();
+            return _productDal.GetList(p=>p.Display == true).Where(p => p.Name.ToUpper().Split(' ').Join(keyword.ToUpper().Split(' ').AsEnumerable(), o=>o, i=>i, (i,o) => new { inner = i, outer = o }).Count() == countWord).ToList();
         }
 
         public List<Product> GetByUser(string UserName)
