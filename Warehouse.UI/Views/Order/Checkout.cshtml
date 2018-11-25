@@ -201,9 +201,9 @@
                                                         Họ và tên
                                                     </label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" name="name" type="text" value="" maxlength="100" required="">
+                                                        <input class="form-control" name="Name" type="text" value="@Model.Name" maxlength="100" required="">
                                                     </div>
-
+                                                    @Html.ValidationMessageFor(model => model.Name)
                                                     <div class="col-md-2 form-control-comment">
                                                     </div>
                                                 </div>
@@ -213,9 +213,9 @@
                                                         Địa chỉ
                                                     </label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" name="address" type="text" value="" maxlength="128" required="">
+                                                        <input class="form-control" name="Address" type="text" value="@Model.Address" maxlength="128" required="">
                                                     </div>
-
+                                                    @Html.ValidationMessageFor(model => model.Address)
                                                     <div class="col-md-2 form-control-comment">
                                                     </div>
                                                 </div>
@@ -225,7 +225,8 @@
                                                         Số điện thoại
                                                     </label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" name="phone" type="text" value="" maxlength="20" required="">
+                                                        <input class="form-control" name="Phone" type="text" value="@Model.Phone" maxlength="20" required="">
+                                                        @Html.ValidationMessageFor(model => model.Phone)
                                                     </div>
                                                     <div class="col-md-2 form-control-comment">
                                                     </div>
@@ -236,8 +237,10 @@
                                                         Email
                                                     </label>
                                                     <div class="col-md-8">
-                                                        <input class="form-control" name="email" type="email" value="" required="">
+                                                        <input class="form-control" name="Email" type="email" value="@Model.Email" required="">
+
                                                     </div>
+                                                    @Html.ValidationMessageFor(model => model.Email)
                                                     <div class="col-md-2 form-control-comment"></div>
                                                 </div>
 
@@ -292,26 +295,26 @@
                         </div>
                         <hr>
                         @*<div class="block-promo">
-                            <div class="cart-voucher">
-                                <div class="cart-voucher-area">
-                                    <div class="promo-code" id="promo-code">
-                                        <div class="alert alert-danger js-error" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="m-l-1 js-error-text"></span></div>
-                                        <form action="https://iqit-commerce.com/ps17/en/cart" data-link-action="add-voucher" method="post" class="">
-                                            <div class="input-group">
-                                                <i class="fa fa-tag btn voucher-icon" aria-hidden="true"></i>
-                                                <input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50">
-                                                <input type="hidden" name="addDiscount" value="1">
-                                                <input class="form-control" type="text" name="discount_name" placeholder="Mã giảm giá">
-                                                <button type="submit" class="btn btn-secondary">
-                                                    <span>Áp dụng</span>
-                                                </button>
-                                            </div>
-                                        </form>
+                                <div class="cart-voucher">
+                                    <div class="cart-voucher-area">
+                                        <div class="promo-code" id="promo-code">
+                                            <div class="alert alert-danger js-error" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="m-l-1 js-error-text"></span></div>
+                                            <form action="https://iqit-commerce.com/ps17/en/cart" data-link-action="add-voucher" method="post" class="">
+                                                <div class="input-group">
+                                                    <i class="fa fa-tag btn voucher-icon" aria-hidden="true"></i>
+                                                    <input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50">
+                                                    <input type="hidden" name="addDiscount" value="1">
+                                                    <input class="form-control" type="text" name="discount_name" placeholder="Mã giảm giá">
+                                                    <button type="submit" class="btn btn-secondary">
+                                                        <span>Áp dụng</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr>*@
+                            <hr>*@
                         <div class="card-block cart-summary-totals">
                             <div class="cart-summary-line cart-total">
                                 <span class="label">Tổng tiền</span>

@@ -52,7 +52,21 @@ namespace Warehouse.Controllers
         }
 
         public ActionResult Checkout()
-        { 
+        {
+            var model = new OrderViewModel();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                ApplicationUser user = UserManager.FindByName(User.Identity.Name);
+                model.Name = user.FullName;
+                model.Phone = user.PhoneNumber;
+                model.Email = user.Email;
+                model.Address = user.Address;
+            }
+            else
+            {
+                RedirectToAction("Login", "Account");
+            }
 
             //Kiểm tra giỏ hàng
             if (Session["ShoppingCart"] == null || (Session["ShoppingCart"] as List<CartItem>).Count == 0)
@@ -61,8 +75,6 @@ namespace Warehouse.Controllers
             }
 
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
-
-            var model = new OrderViewModel();
             model.DateOrder = DateTime.Now;
             model.TotalQuantity = (byte)ds.Sum(m => m.Quantity);
             model.TotalMoney = ds.Sum(m => m.Subtotal);
