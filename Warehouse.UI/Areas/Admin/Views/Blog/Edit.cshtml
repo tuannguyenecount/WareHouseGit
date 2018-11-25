@@ -26,19 +26,24 @@
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(m => m.DateCreated)
                         @Html.HiddenFor(m => m.Image)
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
                         <input type="hidden" name="OldTitle" value="@Model.Title" />
                         <input type="hidden" name="OldAlias" value="@Model.Alias" />
-                        <div class="col-md-3 text-center">
-                            <p>
-                                <img src="~/Photos/Blogs/@Model.Image" width="300" height="auto" />
-                            </p>
-                            <p class="text-center">
-                                <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn bg-purple btn-sm"><i class="fa fa-image"></i> Đổi hình</button>
-                            </p>
-                        </div>
-                        <div class="col-md-4">
-                            <table class="table table-info table-border-none table-middle">                              
+
+                        <div class="col-md-8 col-md-offset-2">
+                            @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+                            <table class="table table-border-none table-middle">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <img src="~/Photos/Blogs/@Model.Image" width="600" height="auto" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn bg-purple btn-sm"><i class="fa fa-image"></i> Đổi hình</button>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Title)</td>
                                     <td>
@@ -56,14 +61,10 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Alias)</td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.Alias, new { type = "text", @class = "divide form-control" })
+                                        @Html.TextBoxFor(model => model.Alias, new { type = "text", @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
                                     </td>
-                                </tr>                            
-                            </table>
-                        </div>
-                        <div class="col-md-4">
-                            <table class="table table-info table-border-none table-middle">                           
+                                </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Content)</td>
                                     <td>
@@ -96,7 +97,7 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.ViewCount, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.ViewCount, new { @class = "divide form-control", type = "text" })
                                         @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
@@ -110,14 +111,7 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Display)</td>
                                     <td>
-                                        @if (Model.Display.HasValue)
-                                        {
-                                            @Html.CheckBoxFor(model => model.Display.Value)
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" name="Display" />
-                                        }
+                                        @Html.CheckBox("Display", Model.Display ?? false)
                                         @Html.ValidationMessageFor(model => model.Display, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
@@ -138,7 +132,7 @@
 </section>
 
 <div class="modal fade" id="modal-crop-image">
-    <div class="modal-dialog" style="width:@(int.Parse(Context.Application["WidthImageBlog"].ToString()) * 1.5)px">
+    <div class="modal-dialog" style="width:@(int.Parse(Context.Application["WidthImageBlog"].ToString()) * 2)px">
         <div class="modal-content">
             <div class="modal-header bg-purple">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

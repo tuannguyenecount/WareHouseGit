@@ -7,6 +7,8 @@ using Warehouse.Models;
 using Warehouse.Services.Interface;
 using PagedList.Mvc;
 using PagedList;
+using Warehouse.Entities;
+
 namespace Warehouse.Controllers
 {
     [RoutePrefix("blog")]
@@ -32,6 +34,26 @@ namespace Warehouse.Controllers
                     DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
                 }).ToList();
             return View(listBlogViewModel.ToPagedList(page ?? 1, 9));
+        }
+
+        [Route("{alias}.html")]
+        public ActionResult Details(string alias)
+        {
+            Blog blog = _blogService.GetByAlias(alias);
+            if (blog == null || blog.Display == false)
+                return Redirect("/pages/404");
+
+            DetailsBlogViewModel detailsBlogViewModel = new DetailsBlogViewModel()
+            {
+                Id = blog.Id,
+                Content = blog.Content,
+                Alias = blog.Alias,
+                LikeCount = blog.LikeCount,
+                DateCreated = blog.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(blog.DateCreated.Value) : "",
+                ViewCount = blog.ViewCount,
+                Title = blog.Title
+            };
+            return View(detailsBlogViewModel);
         }
     }
 }

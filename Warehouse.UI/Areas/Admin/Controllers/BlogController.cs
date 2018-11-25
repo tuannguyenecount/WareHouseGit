@@ -19,6 +19,7 @@ namespace Warehouse.Areas.Admin.Controllers
             _blogService = blogService;
         }
 
+        #region CRUD
         public ViewResult Index()
         {
             List<Blog> blogs = _blogService.GetAll();
@@ -39,7 +40,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
         public ViewResult Create()
         {
-            return View();
+            return View(new Blog());
         }
 
         [HttpPost]
@@ -51,7 +52,7 @@ namespace Warehouse.Areas.Admin.Controllers
             blog.DateCreated = DateTime.Now;
             if (_blogService.CheckUniqueTitle(blog.Title) == false)
             {
-                ModelState.AddModelError("Name", "Tiêu đề bị trùng với bài viết khác. Vui lòng đặt lại.");
+                ModelState.AddModelError("Title", "Tiêu đề bị trùng với bài viết khác. Vui lòng đặt lại.");
             }
             if (_blogService.CheckUniqueAlias(blog.Alias) == false)
             {
@@ -153,7 +154,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _blogService.Update(blog);
-                    return RedirectToAction("Details", new { Id = blog.Id });
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
@@ -164,7 +165,19 @@ namespace Warehouse.Areas.Admin.Controllers
             return View(blog);
         }
 
-        #region Change Image Product
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int Id)
+        {
+            Blog blog = _blogService.GetById(Id);
+            if (blog != null)
+                _blogService.Delete(Id);
+            return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region Change Image 
         [HttpPost]
         public ActionResult ChangeImage(int? id, string base64String)
         {
@@ -214,5 +227,20 @@ namespace Warehouse.Areas.Admin.Controllers
             return View("Edit", blog);
         }
         #endregion
+        
+        #region Count 
+        [ChildActionOnly]
+        public ContentResult CountDisplay()
+        {
+            return Content(_blogService.CountDisplay().ToString());
+        }
+
+        [ChildActionOnly]
+        public ContentResult CountHide()
+        {
+            return Content(_blogService.CountHide().ToString());
+        }
+        #endregion
+
     }
 }

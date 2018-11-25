@@ -18,5 +18,7 @@ namespace Warehouse.Services.Interface
         void Add(Blog blog);
         void Update(Blog blog);
         void Delete(int Id);
+        int CountDisplay();
+        int CountHide();
     }
 }

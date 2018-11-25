@@ -1,6 +1,8 @@
 ﻿@{ 
     string countProductsDisplay = Html.Action("CountDisplay", "Product").ToString();
     string countProductsHide = Html.Action("CountHide", "Product").ToString();
+    string countBlogDisplay = Html.Action("CountDisplay", "Blog").ToString();
+    string countBlogHide = Html.Action("CountHide", "Blog").ToString();
 }
 <section class="sidebar">
     <!-- Sidebar user panel -->
@@ -72,6 +74,10 @@
         <li id="slider">
             <a href="@Url.Action("Index","Blog")">
                 <i class="fa fa-newspaper-o"></i> <span>Blog</span>
+                <span class="pull-right-container">
+                    <span title="@countBlogDisplay bài viết đang ẩn" class="label label-warning pull-right">@countBlogDisplay</span>
+                    <span title="@countBlogHide bài viết đang hiển thị" class="label label-success pull-right">@countBlogHide</span>
+                </span>
             </a>
         </li>
 
@@ -102,6 +108,12 @@
         <li>
             <a href="@Url.Action("Details","InfoShop",new {Id = 1 })">
                 <i class="fa fa-info"></i> <span>Thông Tin Chung</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/" target="_blank">
+                <i class="fa fa-globe"></i> <span>Xem Website</span>
             </a>
         </li>
 

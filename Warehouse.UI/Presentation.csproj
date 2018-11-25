@@ -306,7 +306,7 @@
     <Compile Include="Areas\Admin\Controllers\AspNetUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\PopupController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -340,6 +340,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
+    <Compile Include="Models\Blog\DetailsBlogViewModel.cs" />
     <Compile Include="Models\Blog\ListBlogViewModel.cs" />
     <Compile Include="Models\CaptchaImageResult.cs" />
     <Compile Include="Models\Category\CategoryAddModel.cs" />
@@ -959,11 +960,12 @@
     <Content Include="Views\Manage\_SidebarManage.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\FavoriteProduct\Index.cshtml" />
+    <Content Include="Views\Blog\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Home\" />
+    <Folder Include="Areas\Admin\Views\Dashboard\" />
     <Folder Include="Photos\Slides\" />
   </ItemGroup>
   <ItemGroup>

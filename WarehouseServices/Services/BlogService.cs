@@ -62,5 +62,15 @@ namespace Warehouse.Services.Services
         {
             _blogDal.Delete(new Blog() { Id = Id });
         }
+        
+        public int CountDisplay()
+        {
+            return _blogDal.Count(b => b.Display == true);
+        }
+
+        public int CountHide()
+        {
+            return _blogDal.Count(b => b.Display == false);
+        }
     }
 }

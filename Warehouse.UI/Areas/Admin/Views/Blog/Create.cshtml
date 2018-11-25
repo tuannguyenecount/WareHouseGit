@@ -1,6 +1,6 @@
 ﻿@model Blog
 @{
-    ViewBag.Title = "Tạo mới bài viết Blog";
+    ViewBag.Title = "Tạo bài viết Blog";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <section class="content-header">
@@ -21,10 +21,9 @@
                 <div class="box">
                     <div class="box-body">
                         @Html.AntiForgeryToken()
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                        <div class="col-md-4">
-
-                            <table class="table table-info table-border-none table-middle">
+                        <div class="col-md-8 col-md-offset-2">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <table class="table table-border-none table-middle">
 
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Title)</td>
@@ -36,10 +35,9 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Image)</td>
                                     <td>
-                                    <td>
                                         <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Chọn hình</button>
                                         <div class="modal fade" id="modal-crop-image">
-                                            <div class="modal-dialog" style="width:@(int.Parse(Context.Application["WidthImageBlog"].ToString()) * 1.5)px">
+                                            <div class="modal-dialog" style="width:@(int.Parse(Context.Application["WidthImageBlog"].ToString()) * 2)px">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-purple">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -89,17 +87,10 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Alias)</td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.Alias, new { type = "text", @class = "divide form-control" })
+                                        @Html.TextBoxFor(model => model.Alias, new {  @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
-
-                            </table>
-
-                        </div>
-                        <div class="col-md-4">
-                            <table class="table table-info table-border-none table-middle">
-
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Content)</td>
                                     <td>
@@ -132,34 +123,27 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.ViewCount, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.ViewCount, new { type="text", @class = "divide form-control" })
                                         @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.LikeCount)</td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.LikeCount, new { @class = "divide form-control", type = "text" })
+                                        @Html.TextBoxFor(model => model.LikeCount, new { type = "text", @class = "divide form-control" })
                                         @Html.ValidationMessageFor(model => model.LikeCount, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.Display)</td>
                                     <td>
-                                        @if (Model.Display.HasValue)
-                                        {
-                                            @Html.CheckBoxFor(model => model.Display.Value)
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" name="Display" />
-                                        }
+                                        @Html.CheckBox("Display", Model.Display ?? false)
                                         @Html.ValidationMessageFor(model => model.Display, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
-
                             </table>
-                        </div>
+
+                        </div>      
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix text-right">

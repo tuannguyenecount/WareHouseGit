@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace Warehouse.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin,Mod")]
-    public class HomeController : Controller
+    public class DashboardController : Controller
     {
         // GET: Admin/Home
         public string Index()

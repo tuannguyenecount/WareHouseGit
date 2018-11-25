@@ -86,7 +86,7 @@ namespace Warehouse.Controllers
         public ActionResult Details(string alias)
         {
             var product = _productService.GetByAlias(alias);
-            if (product == null)
+            if (product == null || product.Display == false)
             {
                 return Redirect("/pages/404");
             }
@@ -130,7 +130,7 @@ namespace Warehouse.Controllers
         public ActionResult _ContentQuickViewModal(int Id)
         {
             Product product = _productService.GetById(Id);
-            if (product == null)
+            if (product == null || product.Display == false)
                 return Content("<p>Sản phẩm không tồn tại!</p>");
             QuickViewProductViewModel quickViewProductViewModel = new QuickViewProductViewModel()
             {

@@ -1,0 +1,135 @@
+﻿@model DetailsBlogViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <nav data-depth="4" class="breadcrumb">
+        <div class="row align-items-center">
+            <div class="col">
+                <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/ps17/en/">
+                            <span itemprop="name">Home</span>
+                        </a>
+                    </li>
+
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="@Url.Action("Index")">
+                            <span itemprop="name">Blog</span>
+                        </a>
+                    </li>
+
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="@Request.Url">
+                            <span itemprop="name">@ViewBag.Title </span>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+            <div class="col col-auto"> </div>
+        </div>
+    </nav>
+</div>
+<div id="inner-wrapper" class="container">
+    <aside id="notifications"></aside>
+    <div id="content-wrapper">
+        <section id="main">
+            <header class="page-header">
+                <h1 class="h1 page-title">
+                    <span>
+                        @Model.Title
+                    </span>
+                </h1>
+            </header>
+            <div itemscope="itemscope" itemtype="http://schema.org/Blog" itemprop="mainContentOfPage">
+                <div class="ph_simpleblog simpleblog-single without-cover simpleblog-single-14" itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+                    <div class="post-meta-info text-muted">
+                        <span class="post-date">
+                            <i class="fa fa-calendar"></i> @Model.DateCreated
+                        </span>
+                        <span class="post-category">
+                            <i class="fa fa-tags"></i> <a href="@Url.Action("Index")" title="Blog">Blog</a>
+                        </span>
+                        <span class="post-likes">
+                            <a href="#" class="simpleblog-like-button">
+                                <i class="fa fa-heart"></i>
+                                <span>@Model.LikeCount</span> lượt thích
+                            </a>
+                        </span>
+                        <span class="post-views">
+                            <i class="fa fa-eye"></i> @Model.ViewCount lượt xem
+                        </span>
+                    </div>
+
+                    <div class="post-content" itemprop="text">
+                        <div class="rte-content">
+                            @Html.Raw(Model.Content)
+                        </div>
+                    </div><!-- .post-content -->
+                    <div id="displayPrestaHomeBlogAfterPostContent">
+                        <div class="block-section simpleblog-socialshare">
+                            <h4 class="section-title">
+                                <span>Chia sẻ bài viết này</span>
+                            </h4>
+                            <div class="block-content">
+
+                                <div class="simpleblog-socialshare-icons">
+                                    <button data-type="twitter" type="button" class="btn btn-default btn-twitter">
+                                        <i class="fa fa-twitter"></i> Tweet
+                                    </button>
+                                    <button data-type="facebook" type="button" class="btn btn-default btn-facebook">
+                                        <i class="fa fa-facebook"></i> Share
+                                    </button>
+                                    <button data-type="google-plus" type="button" class="btn btn-default btn-google-plus">
+                                        <i class="fa fa-google-plus"></i> Google+
+                                    </button>
+                                    <button data-type="pinterest" type="button" class="btn btn-default btn-pinterest">
+                                        <i class="fa fa-pinterest"></i> Pinterest
+                                    </button>
+
+                                </div><!-- simpleblog-socialshare-icons. -->
+                            </div><!-- .simpleblog-socialshare -->
+
+                        </div><!-- #displayPrestaHomeBlogAfterPostContent -->
+                        <div id="simpleblog-post-comments" class="block-section">
+                            <div id="disqus_thread"></div>
+                            <script type="text/javascript">
+	    /* * * CONFIGURATION VARIABLES * * */
+	    // Required: on line below, replace text in quotes with your forum shortname
+	    var disqus_shortname = 'iqitcommerce';
+	    var disqus_identifier = 'd6c1fd1420e98041dec618080356951e';
+
+
+	    /* * * DON'T EDIT BELOW THIS LINE * * */
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+                            </script>
+                            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                        </div>
+                    </div><!-- .ph_simpleblog -->
+                </div><!-- schema -->
+
+                <script>
+			var lang_iso = 'en_EN';
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "/connect.facebook.net/"+lang_iso+"/all.js#xfbml=1";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+                </script>
+
+            </div><!-- .ph_simpleblog -->
+                </div><!-- schema -->
+            </div>
+        </section>
+    </div>
+</div>

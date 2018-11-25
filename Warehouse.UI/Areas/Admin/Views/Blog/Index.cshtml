@@ -17,7 +17,7 @@
     <script>
         $(function () {
             $('#tblData').DataTable({
-                columnDefs: [{ orderable: false, targets: [0,6] }],
+                columnDefs: [{ orderable: false, targets: [0,8] }],
                 order: [[1, 'desc']],
             });
            
@@ -40,6 +40,11 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
+                    <div>
+                        <p>
+                            <a href="@Url.Action("Create")" class="btn bg-green btn-xs" >Tạo bài viết</a>
+                        </p>
+                    </div>
                     <div class="table-responsive">
                         <table id="tblData" class="table table-bordered table-middle" method="post">
                             <thead>
@@ -51,6 +56,7 @@
                                     <th>Lượt thích</th>
                                     <th>Tác giả</th>
                                     <th>Ngày tạo</th>
+                                    <th>Hiển thị</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
@@ -74,7 +80,7 @@
                                             @item.LikeCount lượt
                                         </td>
                                         <td>
-                                            @if(item.User != null)
+                                            @if (item.User != null)
                                             {
                                                 @item.User.UserName
                                             }
@@ -85,13 +91,23 @@
                                                 @Warehouse.Common.Format.FormatDateTime(item.DateCreated.Value)
                                             }
                                         </td>
+                                        <td>
+                                            @if (item.Display != null && item.Display == true)
+                                            {
+                                                <label class="label label-success">Hiển thị</label>
+                                            }
+                                            else
+                                            {
+                                                <label class="label label-danger">Ẩn</label>
+                                            }
+                                        </td>
                                         <td class="text-center">
                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
                                             <form class="hidden" id="frmDelete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                 @Html.AntiForgeryToken()
                                             </form>
-                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa bài viết @item.Title.ToUpperInvariant() ?')) { document.getElementById('frmDelete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa bài viết @item.Title ?')) { document.getElementById('frmDelete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
                                         </td>
 
                                     </tr>
@@ -100,10 +116,8 @@
 
                         </table>
                     </div>
-
                 </div>
-                <!-- /.box-body -->
-              
+                <!-- /.box-body -->       
             </div>
         </div>
         <!-- /.col -->

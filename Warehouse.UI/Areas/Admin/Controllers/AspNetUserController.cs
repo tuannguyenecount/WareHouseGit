@@ -20,7 +20,7 @@ using Warehouse.Data.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin,Mod")]
+    [Authorize(Roles = "Admin")]
     public class AspNetUserController : Controller
     {
 
@@ -40,7 +40,7 @@ namespace Warehouse.Areas.Admin.Controllers
             SignInManager = signInManager;
             UserManager = userManager;
         }
-        
+        #region Public Property 
         public string UserId
         {
             get
@@ -73,7 +73,8 @@ namespace Warehouse.Areas.Admin.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin,Mod")]
+        #endregion
+
         public PartialViewResult _UserLoggedPartial()
         {
             ApplicationUser applicationUser = UserManager.FindById(UserId);
@@ -82,14 +83,12 @@ namespace Warehouse.Areas.Admin.Controllers
             return PartialView(applicationUser);
         }
 
-        [Authorize(Roles = "Admin")]
         public PartialViewResult _UserPanelPartial()
         {
             ApplicationUser applicationUser = UserManager.FindById(UserId);
             return PartialView(applicationUser);
         }
 
-        [Authorize(Roles = "Admin,Mod")]
         public ViewResult ProfileUser(string Id)
         {
             if (Id == null)
@@ -124,7 +123,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Mod")]
         public ActionResult ProfileUser([Bind(Exclude = "UserName")] UpdateInfoViewModel updateInfoViewModel, string OldRole, string RoleId)
         {
             if (User.IsInRole("Admin") == false)
@@ -160,7 +158,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Mod")]
         public ActionResult ChangeAvatar(string userId, string base64String)
         {
             if (User.IsInRole("Admin") == false)
@@ -249,7 +246,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string Id)
         {
             ApplicationUser user = await UserManager.FindByIdAsync(Id);

@@ -74,16 +74,15 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-            <div>
-                <p>
-                    <a data-toggle="modal" href="@Url.Action("_CreateModal")" class="btn bg-green btn-xs" data-target="#modal-createUser">Thêm mới</a>
-                </p>
-            </div>
             <div class="box">
                 <div class="box-body">
-                    
                     <div class="row">
                         <div class="col-md-12">
+                            <div>
+                                <p>
+                                    <a data-toggle="modal" href="@Url.Action("_CreateModal")" class="btn bg-green btn-xs" data-target="#modal-createUser">Thêm mới</a>
+                                </p>
+                            </div>
                             <div class="table-responsive">
                                 <table id="tblAspNetUser" class="table table-bordered table-striped table-middle" method="post">
                                     <thead>
@@ -100,38 +99,38 @@
                                     <tbody>
                                         @foreach (ApplicationUser applicationUser in Model)
                                         {
-                                        <tr>
-                                            <td class="text-center">
-                                                <img src="~/Photos/Users/@applicationUser.Avatar" width="60" height="auto" />
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(m => applicationUser.FullName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(m => applicationUser.UserName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(m => applicationUser.Email)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(m => applicationUser.PhoneNumber)
-                                            </td>
-                                            <td>
-                                                @if (applicationUser.LockoutEndDateUtc > DateTime.Now)
-                                                {
-                                                    <label class="label label-danger">Bị khóa</label>
-                                                }
-                                                else
+                                            <tr>
+                                                <td class="text-center">
+                                                    <img src="~/Photos/Users/@applicationUser.Avatar" width="60" height="auto" />
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.FullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.UserName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.PhoneNumber)
+                                                </td>
+                                                <td>
+                                                    @if (applicationUser.LockoutEndDateUtc > DateTime.Now)
+                                                    {
+                                                        <label class="label label-danger">Bị khóa</label>
+                                                    }
+                                                    else
 
-                                                {
-                                                    <label class="label label-success">Hoạt động</label>
-                                                }
-                                            </td>
-                                            <td>
-                                                <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem</a>
-                                                <a data-target="#modal-deleteUser" href="@Url.Action("_DeleteModal","ApplicationUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
-                                            </td>
-                                        </tr>
+                                                    {
+                                                        <label class="label label-success">Hoạt động</label>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem</a>
+                                                    <a data-target="#modal-deleteUser" href="@Url.Action("_DeleteModal","ApplicationUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>

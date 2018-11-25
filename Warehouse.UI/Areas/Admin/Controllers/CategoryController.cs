@@ -22,6 +22,7 @@ namespace Warehouse.Areas.Admin.Controllers
             _categoryService = categoryService;
         }
 
+        #region CRUD
         public ActionResult Index(int? level)
         {
             level = level ?? 1;
@@ -147,7 +148,7 @@ namespace Warehouse.Areas.Admin.Controllers
             
             return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
         }
+        #endregion
 
-        
     }
 }
