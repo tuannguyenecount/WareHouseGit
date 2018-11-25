@@ -70,6 +70,7 @@
     <Compile Include="Article.cs" />
     <Compile Include="AspNetRole.cs" />
     <Compile Include="AspNetUser.cs" />
+    <Compile Include="Blog.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="District.cs" />

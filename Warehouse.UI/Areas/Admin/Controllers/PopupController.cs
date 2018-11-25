@@ -6,11 +6,10 @@ using System.Web.Mvc;
 
 namespace QLKhachSan.Controllers
 {
-    [Authorize(Roles = "Admin,Mod")]
+    [Authorize(Roles = "Admin")]
     public class PopupController : Controller
     {
      
-
         //public ActionResult Show()
         //{
         //    Popup popup = db.Popups.FirstOrDefault();

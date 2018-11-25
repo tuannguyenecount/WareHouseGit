@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ArticleDal.cs" />
+    <Compile Include="Data\BlogDal.cs" />
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\DistrictDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WardDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
+    <Compile Include="Interface\IBlog.cs" />
     <Compile Include="Interface\IArticleDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
     <Compile Include="Interface\IDistrictDal.cs" />
@@ -165,6 +167,14 @@
     <Compile Include="Migrations\201811190538589_createTableFavoriteProducts-v2.Designer.cs">
       <DependentUpon>201811190538589_createTableFavoriteProducts-v2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811240801189_createTableBlog.cs" />
+    <Compile Include="Migrations\201811240801189_createTableBlog.Designer.cs">
+      <DependentUpon>201811240801189_createTableBlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811240904215_updateTableBlog.cs" />
+    <Compile Include="Migrations\201811240904215_updateTableBlog.Designer.cs">
+      <DependentUpon>201811240904215_updateTableBlog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -234,6 +244,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811190538589_createTableFavoriteProducts-v2.resx">
       <DependentUpon>201811190538589_createTableFavoriteProducts-v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811240801189_createTableBlog.resx">
+      <DependentUpon>201811240801189_createTableBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811240904215_updateTableBlog.resx">
+      <DependentUpon>201811240904215_updateTableBlog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

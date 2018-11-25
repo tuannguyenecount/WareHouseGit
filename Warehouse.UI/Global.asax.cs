@@ -27,8 +27,8 @@ namespace Warehouse
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Application["WidthImageProduct"] = ConfigurationManager.AppSettings["WidthImageProduct"].ToString();
             Application["HeightImageProduct"] = ConfigurationManager.AppSettings["HeightImageProduct"].ToString();
-            Application["WidthImageNews"] = ConfigurationManager.AppSettings["WidthImageNews"].ToString();
-            Application["HeightImageNews"] = ConfigurationManager.AppSettings["HeightImageNews"].ToString();
+            Application["WidthImageBlog"] = ConfigurationManager.AppSettings["WidthImageBlog"].ToString();
+            Application["HeightImageBlog"] = ConfigurationManager.AppSettings["HeightImageBlog"].ToString();
         }
 
         protected void Session_Start()

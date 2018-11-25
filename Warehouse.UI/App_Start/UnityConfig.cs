@@ -71,6 +71,9 @@ namespace Warehouse
             container.RegisterType<IWardService, WardService>();
             container.RegisterType<IWardDal, WardDal>();
 
+            container.RegisterType<IBlogService, BlogService>();
+            container.RegisterType<IBlogDal, BlogDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -11,13 +11,7 @@ namespace Warehouse.Models.Order
     {
         public int Id { get; set; }
 
-        [StringLength(128)]
-        public string UserId { get; set; }
-
-        [StringLength(300)]
         [Required(ErrorMessage = "{0} Không được để trống.")]
-        [MaxLength(50, ErrorMessage = "{0}  tối đa là {1} ký tự")]
-        [MinLength(3, ErrorMessage = "{0}  tối thiểu là {1} ký tự")]
         public string Name { get; set; }
 
         [StringLength(256)]
@@ -25,12 +19,9 @@ namespace Warehouse.Models.Order
         [DataType((DataType.EmailAddress))]
         public string Email { get; set; }
 
-
-        [StringLength(50)]
         [Required(ErrorMessage = "{0} Không được để trống.")]
         public string Phone { get; set; }
 
-        [StringLength(500)]
         [Required(ErrorMessage = "{0} Không được để trống.")]
         public string Address { get; set; }
 

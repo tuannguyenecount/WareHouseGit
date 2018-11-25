@@ -14,7 +14,7 @@ using Warehouse.Models.Order;
 
 namespace Warehouse.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class OrderController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -52,16 +52,10 @@ namespace Warehouse.Controllers
         }
 
         public ActionResult Checkout()
-        {
-
-            // kiểm tra đăng nhập
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+        { 
 
             //Kiểm tra giỏ hàng
-            if (Session["ShoppingCart"] == null)
+            if (Session["ShoppingCart"] == null || (Session["ShoppingCart"] as List<CartItem>).Count == 0)
             {
                 RedirectToAction("Index", "Home");
             }
@@ -77,7 +71,6 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Checkout(OrderViewModel model)
         {
             List<CartItem> ds = Session["ShoppingCart"] as List<CartItem>;
@@ -88,7 +81,6 @@ namespace Warehouse.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-                model.UserId = user.Id;
                 if (model.Name == null)
                     model.Name = user.FullName;
                 if (model.Phone == null)
@@ -100,7 +92,7 @@ namespace Warehouse.Controllers
 
             Order order = new Order
             {
-                UserId = model.UserId,
+                UserId = User.Identity.GetUserId(),
                 Name = model.Name,
                 Email = model.Email,
                 Phone = model.Phone,
@@ -190,52 +182,52 @@ namespace Warehouse.Controllers
 
         }
 
-        public ActionResult Confirm(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
-        {
-            if (error_text == "")
-            {
-                int Id = int.Parse(order_code);
-                try
-                {
-                    //Order Order = db.Orders.Find(Id);
-                    //Order.Paid = true;
-                    //db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
-                    //await db.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    return View("Error", new HandleErrorInfo(ex, "Order", "Confirm"));
-                }
-                try
-                {
-                    ApplicationUser user = UserManager.FindByName(User.Identity.Name);
-                    historyBankCharging history = new historyBankCharging()
-                    {
-                        fullname = user.FullName,
-                        email = user.Email,
-                        phone = user.PhoneNumber,
-                        date_trans = DateTime.Now,
-                        price = price,
-                        order_code = order_code,
-                        error_text = error_text,
-                        transaction_info = transaction_info,
-                        payment_id = payment_id,
-                        payment_type = payment_type,
-                        secure_code = secure_code
-                    };
-                    //db.historyBankChargings.Add(history);
-                    //await db.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Không thể lưu lịch sử thanh toán! Lỗi " + ex.Message);
-                    return View("OrderError");
-                }
-                Session["ShoppingCart"] = null;
-                return View("OrderSuccess");
-            }
-            else
-                return View("Error", new HandleErrorInfo(new Exception(error_text), "Order", "Confirm"));
-        }
+        //public ActionResult Confirm(string transaction_info, string order_code, int price, string payment_id, string payment_type, string error_text, string secure_code)
+        //{
+        //    if (error_text == "")
+        //    {
+        //        int Id = int.Parse(order_code);
+        //        try
+        //        {
+        //            //Order Order = db.Orders.Find(Id);
+        //            //Order.Paid = true;
+        //            //db.Entry(Order).State = System.Data.Entity.EntityState.Modified;
+        //            //await db.SaveChangesAsync();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return View("Error", new HandleErrorInfo(ex, "Order", "Confirm"));
+        //        }
+        //        try
+        //        {
+        //            ApplicationUser user = UserManager.FindByName(User.Identity.Name);
+        //            historyBankCharging history = new historyBankCharging()
+        //            {
+        //                fullname = user.FullName,
+        //                email = user.Email,
+        //                phone = user.PhoneNumber,
+        //                date_trans = DateTime.Now,
+        //                price = price,
+        //                order_code = order_code,
+        //                error_text = error_text,
+        //                transaction_info = transaction_info,
+        //                payment_id = payment_id,
+        //                payment_type = payment_type,
+        //                secure_code = secure_code
+        //            };
+        //            //db.historyBankChargings.Add(history);
+        //            //await db.SaveChangesAsync();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ModelState.AddModelError("", "Không thể lưu lịch sử thanh toán! Lỗi " + ex.Message);
+        //            return View("OrderError");
+        //        }
+        //        Session["ShoppingCart"] = null;
+        //        return View("OrderSuccess");
+        //    }
+        //    else
+        //        return View("Error", new HandleErrorInfo(new Exception(error_text), "Order", "Confirm"));
+        //}
     }
 }
