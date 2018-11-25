@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="inner-wrapper" class="container">
+    <div id="content-wrapper">
+        <section id="main">
+            <header class="page-header">
+                <h1 class="h1 page-title"><span>Trang cá nhân</span></h1>
+            </header>
+            <section id="content" class="page-content my-account-page-content-wrapper">
+                <div class="row">
+                    @Html.Action("_SidebarManage", "Manage")
+                    <div class="my-account-page-content col-sm-9">
+                        Test sản phẩm yêu thích
+                    </div>
+                </div>
+            </section>
+            <footer class="page-footer"></footer>
+        </section>
+    </div>
+</div>
+

@@ -76,6 +76,7 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ArticleDal.cs" />
     <Compile Include="Data\BlogDal.cs" />
+    <Compile Include="Data\FavoriteProductDal.cs" />
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\DistrictDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Interface\ICategoryDal.cs" />
     <Compile Include="Interface\IDistrictDal.cs" />
     <Compile Include="Interface\IImagesProductDal.cs" />
+    <Compile Include="Interface\IFavoriteProductDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\INewsDal.cs" />
     <Compile Include="Interface\ISubscriberDal.cs" />
