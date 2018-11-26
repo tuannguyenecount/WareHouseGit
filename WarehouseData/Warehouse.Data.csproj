@@ -177,6 +177,14 @@
     <Compile Include="Migrations\201811240904215_updateTableBlog.Designer.cs">
       <DependentUpon>201811240904215_updateTableBlog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811260407440_updatecolumnFullName.cs" />
+    <Compile Include="Migrations\201811260407440_updatecolumnFullName.Designer.cs">
+      <DependentUpon>201811260407440_updatecolumnFullName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811260429259_updatecolumnAddress.cs" />
+    <Compile Include="Migrations\201811260429259_updatecolumnAddress.Designer.cs">
+      <DependentUpon>201811260429259_updatecolumnAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -252,6 +260,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811240904215_updateTableBlog.resx">
       <DependentUpon>201811240904215_updateTableBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260407440_updatecolumnFullName.resx">
+      <DependentUpon>201811260407440_updatecolumnFullName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260429259_updatecolumnAddress.resx">
+      <DependentUpon>201811260429259_updatecolumnAddress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

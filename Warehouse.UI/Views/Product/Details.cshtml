@@ -126,7 +126,7 @@
                                     @Html.AntiForgeryToken()
                                     <div class="product-add-to-cart pt-3">
                                         <div class="row extra-small-gutters product-quantity">
-                                            <div class="col col-12 col-sm-auto">
+                                            @*<div class="col col-12 col-sm-auto">
                                                 <div class="qty">
                                                     <input type="number"
                                                            name="qty"
@@ -135,7 +135,7 @@
                                                            class="input-group"
                                                            min="1">
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="col col-12 col-sm-auto">
                                                 <div class="add">
                                                     <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">

@@ -1,8 +1,8 @@
 ﻿@model UpdateInfoViewModel
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    ChangePasswordViewModel changepassword = new ChangePasswordViewModel();
-    SetPasswordViewModel setpassword = new SetPasswordViewModel();
+    ChangePasswordViewModel changePasswordViewModel = new ChangePasswordViewModel();
+    SetPasswordViewModel setPasswordViewModel = new SetPasswordViewModel();
 }
 @section styles{
     <link href="~/dist/css/canvasCrop.css" rel="stylesheet" />
@@ -60,7 +60,6 @@
 @section scripts{
     <script src="~/dist/js/jquery.canvasCrop.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script type="text/javascript">
         $(function(){
         var rot = 0,ratio = 1;
@@ -90,13 +89,7 @@
             $("#modal-crop-image .modal-body").append("<img src='" + src + "' />");
             $("#file").val(src);
             $("#btnLuu").removeClass("hide");
-        });
-
-        @if(User.IsInRole("Nhân viên") && User.Identity.Name != Model.UserName)
-        {
-            WriteLiteral("$('#settings input').attr('readonly','');");
-            WriteLiteral("$('#settings select').attr('readonly','');");
-        }
+            });
 
         console.log("ontouchend" in document);
 
@@ -105,7 +98,10 @@
     <script type="text/javascript">
         function ChangePasswordSuccess(response) {
             if (response.status == 1) {
-                ShowPopUpSuccess("Đổi mật khẩu thành công.");
+                ShowPopUpSuccess("Đổi mật khẩu thành công. Trang sẽ tự tải lại sau 3 giây.");
+                setTimeout(function () {
+                    window.location.reload();
+                }, 3000);
             }
             else {
                 ShowPopUpError(response.message);
@@ -113,7 +109,10 @@
         }
         function SetPasswordSuccess(response) {
             if (response.status == 1) {
-                ShowPopUpSuccess("Đặt lại mật khẩu thành công.");
+                ShowPopUpSuccess("Đặt lại mật khẩu thành công. Trang sẽ tự tải lại sau 3 giây.");
+                setTimeout(function () {
+                    window.location.reload();
+                }, 3000);
             }
             else {
                 ShowPopUpError(response.message);
@@ -190,13 +189,13 @@
                     }
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
-                            <b>Tài khoản</b> <a class="pull-right">@Model.UserName</a>
+                            <span>Tài khoản:</span> <label class="pull-right text-info">@Model.UserName</label>
                         </li>
                         <li class="list-group-item">
-                            <b>Email</b> <a class="pull-right">@Model.Email</a>
+                            <span>Email:</span> <label class="pull-right text-info">@Model.Email</label>
                         </li>
                         <li class="list-group-item">
-                            <b>Điện thoại</b> <a class="pull-right">@Model.PhoneNumber</a>
+                            <span>Điện thoại:</span> <label class="pull-right text-info">@Model.PhoneNumber</label>
                         </li>
                     </ul>
                 </div>
@@ -314,27 +313,27 @@
                     @if (User.Identity.Name == Model.UserName)
                     {
                         <div id="changepassword" class="tab-pane">
-                            @using (Ajax.BeginForm("ChangePassword", "Manage", new { area = "" }, new AjaxOptions { OnSuccess = "ChangePasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post" }, new { @class = "form-horizontal", role = "form" }))
+                            @using (Ajax.BeginForm("ChangePassword", "AspNetUser",null, new AjaxOptions { OnSuccess = "ChangePasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post", AllowCache = false }, new { @class = "form-horizontal", role = "form" }))
                             {
 
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary("", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    @Html.LabelFor(m => changepassword.OldPassword, new { @class = "col-md-3 control-label" })
+                                    @Html.LabelFor(m => changePasswordViewModel.OldPassword, new { @class = "col-md-3 control-label" })
                                     <div class="col-md-6">
-                                        @Html.PasswordFor(m => changepassword.OldPassword, new { @class = "form-control" })
+                                        @Html.PasswordFor(m => changePasswordViewModel.OldPassword, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => changepassword.NewPassword, new { @class = "col-md-3 control-label" })
+                                    @Html.LabelFor(m => changePasswordViewModel.NewPassword, new { @class = "col-md-3 control-label" })
                                     <div class="col-md-6">
-                                        @Html.PasswordFor(m => changepassword.NewPassword, new { @class = "form-control" })
+                                        @Html.PasswordFor(m => changePasswordViewModel.NewPassword, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => changepassword.ConfirmPassword, new { @class = "col-md-3 control-label" })
+                                    @Html.LabelFor(m => changePasswordViewModel.ConfirmPassword, new { @class = "col-md-3 control-label" })
                                     <div class="col-md-6">
-                                        @Html.PasswordFor(m => changepassword.ConfirmPassword, new { @class = "form-control" })
+                                        @Html.PasswordFor(m => changePasswordViewModel.ConfirmPassword, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -348,21 +347,21 @@
                     @if (User.IsInRole("Admin") && Model.RoleId != "Admin")
                     {
                         <div id="setpassword" class="tab-pane">
-                            @using (Ajax.BeginForm("SetPassword", "Manage", new { area = "" }, new AjaxOptions { OnSuccess = "SetPasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post" }, new { @class = "form-horizontal", role = "form" }))
+                            @using (Ajax.BeginForm("SetPassword", "AspNetUser",  new AjaxOptions { OnSuccess = "SetPasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post", AllowCache = false }, new { @class = "form-horizontal", role = "form" }))
                             {
                                 <input type="hidden" name="Id" value="@Model.Id" />
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary("", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    @Html.LabelFor(m => setpassword.NewPassword, new { @class = "col-md-3 control-label" })
+                                    @Html.LabelFor(m => setPasswordViewModel.NewPassword, new { @class = "col-md-3 control-label" })
                                     <div class="col-md-6">
-                                        @Html.PasswordFor(m => setpassword.NewPassword, new { @class = "form-control" })
+                                        @Html.PasswordFor(m => setPasswordViewModel.NewPassword, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(m => setpassword.ConfirmPassword, new { @class = "col-md-3 control-label" })
+                                    @Html.LabelFor(m => setPasswordViewModel.ConfirmPassword, new { @class = "col-md-3 control-label" })
                                     <div class="col-md-6">
-                                        @Html.PasswordFor(m => setpassword.ConfirmPassword, new { @class = "form-control" })
+                                        @Html.PasswordFor(m => setPasswordViewModel.ConfirmPassword, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="form-group">

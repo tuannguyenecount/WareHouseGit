@@ -19,10 +19,8 @@ namespace Warehouse.Entities
 
         public string Id { get; set; }
 
-        [StringLength(300)]
         public string FullName { get; set; }
 
-        [Required]
         public string Address { get; set; }
 
         [Required]

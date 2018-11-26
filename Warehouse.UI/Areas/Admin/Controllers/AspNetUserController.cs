@@ -184,7 +184,35 @@ namespace Warehouse.Areas.Admin.Controllers
             return RedirectToAction("ProfileUser", new { Id = userId });
         }
 
-        public ActionResult Index(int? afterInsert)
+        /// <summary>
+        /// Danh sách Admin
+        /// </summary>
+        /// <param name="afterInsert">Vừa hoàn thành thao tác thêm?</param>
+        /// <returns></returns>
+        public async Task<ActionResult> ListAdmin(int? afterInsert)
+        {
+            List<ApplicationUser> applicationUsers = await UserManager.Users.ToListAsync();
+            applicationUsers = applicationUsers.Where(u => u.Roles != null && u.Roles.FirstOrDefault(r=>r.RoleId == "Admin") != null ).ToList();
+            return View(applicationUsers);
+        }
+
+        /// <summary>
+        /// Danh sách Mod
+        /// </summary>
+        /// <param name="afterInsert">Vừa hoàn thành thao tác thêm?</param>
+        /// <returns></returns>
+        public async Task<ActionResult> ListMod(int? afterInsert)
+        {
+            List<ApplicationUser> applicationUsers = await UserManager.Users.ToListAsync();
+            applicationUsers = applicationUsers.Where(u => u.Roles != null && u.Roles.FirstOrDefault(r => r.RoleId == "Mod") != null).ToList();
+            return View(applicationUsers);
+        }
+
+        /// <summary>
+        /// Danh sách khách hàng
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Customer()
         {
             List<ApplicationUser> applicationUsers = UserManager.Users.ToList();
             return View(applicationUsers);
@@ -192,14 +220,44 @@ namespace Warehouse.Areas.Admin.Controllers
 
         public ActionResult _CreateModal()
         {
-            return PartialView();
+            return PartialView(new CreateUserViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create()
+        public async Task<JsonResult> Create(CreateUserViewModel createUserViewModel)
         {
-            return RedirectToAction("Index",new { afterInsert = 1 });
+            if(ModelState.IsValid)
+            {
+                var user = new ApplicationUser()
+                {
+                    UserName = createUserViewModel.UserName,
+                    Email = createUserViewModel.Email,
+                    FullName = createUserViewModel.FullName,
+                    Avatar = "user.png",
+                    DateRegister = DateTime.Now,
+                    EmailConfirmed = true
+                };
+                try
+                {
+                    IdentityResult result = await UserManager.CreateAsync(user, createUserViewModel.Password);
+                    user.Roles.Add(new IdentityUserRole() { RoleId = createUserViewModel.RoleId, UserId = user.Id });
+                    UserManager.Update(user);
+                    if (result.Succeeded)
+                    {
+                        return Json(new { status = 1, message = "Thêm thành công" });
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
         }
 
         // GET: Expense/Edit/5
@@ -208,7 +266,7 @@ namespace Warehouse.Areas.Admin.Controllers
             ApplicationUser applicationUser = UserManager.FindById(Id); 
             if (applicationUser == null)
             {
-                return Content("<p>Khách không tồn tại trong hệ thống!</p>");
+                return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
             }
             return PartialView(applicationUser);
         }
@@ -239,7 +297,7 @@ namespace Warehouse.Areas.Admin.Controllers
             ApplicationUser applicationUser = UserManager.FindById(Id);
             if (applicationUser == null)
             {
-                return Content("<p>Khách không tồn tại trong hệ thống!</p>");
+                return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
             }
             return PartialView(applicationUser);
         }
@@ -331,6 +389,59 @@ namespace Warehouse.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-       
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = UserManager.ChangePassword(UserId, changePasswordViewModel.OldPassword, changePasswordViewModel.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = UserManager.FindById(UserId);
+                    if (user != null)
+                    {
+                        SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return Json(new { status = 1, message = "Đổi mật khẩu thành công." }, JsonRequestBehavior.AllowGet);
+                }
+                AddErrors(result);
+            }  
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState)}, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult SetPassword(SetPasswordViewModel setPasswordViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = UserManager.AddPassword(UserId, setPasswordViewModel.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = UserManager.FindById(UserId);
+                    if (user != null)
+                    {
+                        SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return Json(new { status = 1, message = "Đặt lại mật khẩu thành công." });
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
+        }
+
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
     }
 }

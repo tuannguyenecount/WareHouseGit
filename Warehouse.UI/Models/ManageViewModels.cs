@@ -19,8 +19,8 @@ namespace Warehouse.Models
 
     public class SetPasswordViewModel
     {
-        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu hiện mới.")]
-        [MinLength(6, ErrorMessage = "Mật khẩu mới phải tối thiếu 6 ký tự.")]
+        [Required(ErrorMessage = "Bạn chưa nhập {0}.")]
+        [MinLength(6, ErrorMessage = "Mật khẩu mới phải tối thiếu {0} ký tự.")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu mới")]
         public string NewPassword { get; set; }
@@ -39,7 +39,7 @@ namespace Warehouse.Models
         public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "Bạn chưa nhập mật khẩu hiện mới.")]
-        [MinLength(6, ErrorMessage = "Mật khẩu mới phải tối thiếu 6 ký tự.")]
+        [MinLength(6, ErrorMessage = "Mật khẩu mới phải tối thiếu {0} ký tự.")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu mới")]
         public string NewPassword { get; set; }

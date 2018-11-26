@@ -11,15 +11,13 @@ namespace Warehouse.Models
 
         [Required(ErrorMessage = "Bạn chưa nhập họ tên")]
         [Display(Name = "Họ tên")]
-        [StringLength(300, ErrorMessage = "Họ tên tối đa 300 ký tự.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Bạn chưa nhập số điện thoại.")]
         [Display(Name = "Số điện thoại")]
-        [RegularExpression(@"^(0\d{9,12})$", ErrorMessage = "Số điện thoại không hợp lệ. Số điện thoại tối thiểu 9 ký tự số và tối đa 12 ký tự số.")]
         public string Phone { get; set; }
+
         [Required(ErrorMessage = "Bạn chưa nhập địa chỉ.")]
-        [StringLength(300, ErrorMessage = "Địa chỉ quá dài. Địa chỉ tối đa 300 ký tự.")]
         public string Address { get; set; }
     }
 
@@ -33,17 +31,14 @@ namespace Warehouse.Models
     {
         [Required(ErrorMessage = "Bạn chưa nhập họ tên")]
         [Display(Name = "Họ tên")]
-        [StringLength(300, ErrorMessage = "Họ tên tối đa 300 ký tự.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Bạn chưa nhập số điện thoại.")]
         [Display(Name = "Số điện thoại")]
-        [RegularExpression(@"^(0\d{9,12})$", ErrorMessage = "Số điện thoại không hợp lệ. Số điện thoại tối thiểu 9 ký tự số và tối đa 12 ký tự số.")]
         public string Phone { get; set; }
 
         [Display(Name = "Địa chỉ")]
         [Required(ErrorMessage = "Địa chỉ không được bỏ trống")]
-        [StringLength(300, ErrorMessage = "Địa chỉ quá dài.")]
         public string Address { get; set; }
 
         [Display(Name = "Giới tính")]
@@ -87,7 +82,7 @@ namespace Warehouse.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Bạn chưa nhập mật khẩu")]
-        [MinLength(6, ErrorMessage = "Mật khẩu phải tối thiếu 6 ký tự.")]
+        [MinLength(6, ErrorMessage = "Mật khẩu phải tối thiếu {0} ký tự.")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
@@ -112,6 +107,38 @@ namespace Warehouse.Models
         
     }
 
+    public class CreateUserViewModel
+    {
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [Display(Name = "Tài khoản")]
+        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [MinLength(6, ErrorMessage = "{0} phải tối thiếu {1} ký tự")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Nhập lại mật khẩu")]
+        [Compare("Password", ErrorMessage = "Mật khẩu và nhập lại mật khẩu không khớp.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [Display(Name = "Họ tên")]
+        public string FullName { get; set; }
+
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Bạn chưa xác định vai trò của người dùng này")]
+        [Display(Name = "Vai trò")]
+        public string RoleId { get; set; }
+
+    }
+
     public class ResetPasswordViewModel
     {
         [Required(ErrorMessage = "Bạn chưa nhập email")]
@@ -119,8 +146,8 @@ namespace Warehouse.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-         [Required(ErrorMessage = "Bạn chưa nhập mật khẩu mới")]
-         [StringLength(100, ErrorMessage = "Mật khẩu phải tối thiếu 6 ký tự.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu mới")]
+        [MinLength(6, ErrorMessage = "{0} phải tối thiếu {1} ký tự")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu mới")]
         public string Password { get; set; }

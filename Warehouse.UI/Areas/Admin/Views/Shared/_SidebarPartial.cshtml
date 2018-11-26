@@ -81,16 +81,23 @@
             </a>
         </li>
 
-        <li id="users">
-            <a href="@Url.Action("Index","AspNetUser",new { customer = 1 })">
+        <li id="customers">
+            <a href="@Url.Action("Customer","AspNetUser",new { customer = 1 })">
                 <i class="fa fa-users"></i> <span>Khách Hàng</span>
             </a>
         </li>
 
-        <li id="users">
-            <a href="@Url.Action("Index","AspNetUser")">
-                <i class="fa fa-user-circle"></i> <span>Thành Viên</span>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-user-circle-o"></i> <span>Người Dùng</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
             </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="@Url.Action("ListAdmin","AspNetUser")"><i class="fa fa-user"></i> Danh Sách Admin</a></li>
+                <li><a href="@Url.Action("ListMod","AspNetUser")"><i class="fa fa-user"></i> Danh Sách Mod</a></li>
+            </ul>
         </li>
 
         <li id="slider">

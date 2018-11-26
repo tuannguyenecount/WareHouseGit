@@ -1,7 +1,7 @@
 ﻿@model List<ApplicationUser>
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Danh sách khách hàng";
+    ViewBag.Title = "Danh sách Admin (người quản trị website)";
 }
 
 @section styles{
@@ -27,14 +27,6 @@
                 var link = $(e.relatedTarget);
                 $(this).find(".modal-content").load(link.attr("href"));
             });
-            $(document).on("show.bs.modal", "#modal-editUser", function (e) {
-                var link = $(e.relatedTarget);
-                $(this).find(".modal-content").load(link.attr("href"));
-            });
-            $(document).on("show.bs.modal", "#modal-deleteUser", function (e) {
-                var link = $(e.relatedTarget);
-                $(this).find(".modal-content").load(link.attr("href"));
-            });
             $(document).on("submit", "form[name=frm]", function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -54,8 +46,6 @@
                     }
                 });
             });
-            $("#daya").datepicker($.datepicker.regional["vi"]);
-            $("#dayb").datepicker($.datepicker.regional["vi"]);
         });
 
     </script>
@@ -101,7 +91,7 @@
                                         {
                                             <tr>
                                                 <td class="text-center">
-                                                    <img src="~/Photos/Users/@applicationUser.Avatar" width="60" height="auto" />
+                                                    <img src="~/Photos/Users/@applicationUser.Avatar" width="70" height="auto" />
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(m => applicationUser.FullName)
@@ -127,8 +117,7 @@
                                                     }
                                                 </td>
                                                 <td>
-                                                    <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem</a>
-                                                    <a data-target="#modal-deleteUser" href="@Url.Action("_DeleteModal","ApplicationUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
+                                                    <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem thông tin</a>
                                                 </td>
                                             </tr>
                                         }
@@ -139,15 +128,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.box-body -->
-                @if (Model.Count > 0)
-                {
-                    <div class="box-footer clearfix">
-                        <a onclick="return confirm('Xác nhận xuất dữ liệu này ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("Index", new { exportExcel = 1 })" class="btn btn-sm btn-info btn-flat pull-left">
-                            <i class="fa fa fa-file-excel-o"></i> Xuất file Excel
-                        </a>
-                    </div>
-                }
             </div>
         </div>
         <!-- /.col -->
@@ -160,26 +140,5 @@
         <div class="modal-content" id="modal-content">
 
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id="modal-editUser">
-    <div class="modal-dialog">
-        <div class="modal-content" id="modal-content">
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="modal-deleteUser">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.row -->
