@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Warehouse.Data.Interface;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
@@ -28,7 +29,10 @@ namespace Warehouse.Areas.Admin.Controllers
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private IProvinceService _provinceService;
+        private IDistrictService _districtService;
+        private IWardService _wardService;
+        private IProductService _productService;
 
         public AspNetUserController()
         {
@@ -40,6 +44,15 @@ namespace Warehouse.Areas.Admin.Controllers
             SignInManager = signInManager;
             UserManager = userManager;
         }
+
+        public AspNetUserController(IProvinceService provinceService, IDistrictService districtService, IWardService wardService, IProductService productService)
+        {
+            _provinceService = provinceService;
+            _districtService = districtService;
+            _wardService = wardService;
+            _productService = productService;
+        }
+
         #region Public Property 
         public string UserId
         {
@@ -114,10 +127,15 @@ namespace Warehouse.Areas.Admin.Controllers
                 PhoneNumber = model.PhoneNumber,
                 RoleId = ViewBag.RoleId,
                 Avatar = model.Avatar,
-                Email = model.Email
+                Email = model.Email,
+                ProvinceId = model.ProvinceId,
+                DistrictId = model.DistrictId,
+                WardId = model.WardId
             };
-
-
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", updateInfoViewModel.ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", updateInfoViewModel.DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", updateInfoViewModel.WardId);
+            ViewBag.ProductsUserPost = _productService.GetByUser(model.UserName).Where(p=>p.Display == true).ToList();
             return View(updateInfoViewModel);
         }
 
@@ -136,6 +154,9 @@ namespace Warehouse.Areas.Admin.Controllers
                 model.Address = updateInfoViewModel.Address;
                 model.Email = updateInfoViewModel.Email;
                 model.PhoneNumber = updateInfoViewModel.PhoneNumber;
+                model.ProvinceId = updateInfoViewModel.ProvinceId;
+                model.DistrictId = updateInfoViewModel.DistrictId;
+                model.WardId = updateInfoViewModel.WardId;
                 if (User.IsInRole("Admin"))
                 {
                     if (OldRole != RoleId)
@@ -153,6 +174,9 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 ViewBag.Title = "Hồ sơ cá nhân";
             }
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", updateInfoViewModel.ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", updateInfoViewModel.DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", updateInfoViewModel.WardId);
             return View(model);
         }
 

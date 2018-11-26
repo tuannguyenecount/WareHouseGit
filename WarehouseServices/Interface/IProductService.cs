@@ -19,6 +19,8 @@ namespace Warehouse.Services.Interface
 
         Product GetByAlias(string alias);
 
+        List<Product> GetByUser(string UserId);
+
         List<Product> GetNewProducts();
 
         List<Product> GetHotProductsInWeek();
@@ -34,8 +36,6 @@ namespace Warehouse.Services.Interface
         void Delete(int productId);
 
         List<Product> GetRelatedProducts(int? categoryId, int productMainId);
-
-        List<Product> GetByUser(string UserName);
 
         bool CheckUniqueName(string Name);
 

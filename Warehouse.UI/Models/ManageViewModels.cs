@@ -76,6 +76,15 @@ namespace Warehouse.Models
 
         [Display(Name = "Vai trò")]
         public string RoleId { get; set; }
+
+        [Display(Name = "Tỉnh/Thành")]
+        public int? ProvinceId { get; set; }
+
+        [Display(Name = "Quận/Huyện")]
+        public int? DistrictId { get; set; }
+
+        [Display(Name = "Phường/Xã")]
+        public int? WardId { get; set; }
     }
 
     public class AddPhoneNumberViewModel

@@ -128,6 +128,5 @@ namespace Warehouse.Services.Services
             return _productDal.GetFirst(p => p.Alias_SEO == Alias) == null;
         }
 
-       
     }
 }
