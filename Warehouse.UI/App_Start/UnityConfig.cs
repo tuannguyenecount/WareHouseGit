@@ -80,6 +80,9 @@ namespace Warehouse
             container.RegisterType<IInfoShopService, InfoShopService>();
             container.RegisterType<IInfoShopDal, InfoShopDal>();
 
+            container.RegisterType<ISubscriberService, SubscriberService>();
+            container.RegisterType<ISubscriberDal, SubscriberDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

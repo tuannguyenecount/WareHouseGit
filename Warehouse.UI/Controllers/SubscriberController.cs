@@ -5,41 +5,41 @@ using System.Web;
 using System.Web.Mvc;
 using Warehouse.Models;
 using System.Threading.Tasks;
+using Warehouse.Services.Interface;
+
 namespace Warehouse.Controllers
 {
     public class SubscriberController : Controller
     {
-        #region front-end
-        // GET: NhanTinQuaEmail
-        
+        private ISubscriberService _subscriberService;
+
+        public SubscriberController(ISubscriberService subscriberService)
+        {
+            _subscriberService = subscriberService;
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public string Register(string email)
+        [Route("dang-ky-nhan-tin")]
+        public ActionResult Register(string email)
         {
             if(string.IsNullOrEmpty(email))
             {
-                return "Bạn chưa nhập email!";
+                ModelState.AddModelError("", "Bạn chưa nhập email!");
             }
             if(Functions.IsValidEmail(email) == false)
             {
-                return "Địa chỉ email không hợp lệ!";
+                ModelState.AddModelError("", "Địa chỉ email không hợp lệ!");
             }
-            try
+            if(_subscriberService.GetByEmail(email) != null)
             {
-                //if(db.Subscribers.FirstOrDefault(m=>m.Email == email) != null)
-                //{
-                //    return "Địa chỉ email này đã đăng ký nhận tin trước đó.";
-                //}
-                //Subscriber model = new Subscriber() { Email = email, DateSubscriber = DateTime.Today };
-                //db.Subscribers.Add(model);
-                //db.SaveChangesAsync();
-                return "Đăng ký nhận tin tức qua email " + email + " thành công. Chúc bạn 1 ngày tốt lành.";
+                ModelState.AddModelError("", "Email đã tồn tại!");
             }
-            catch
+            if (ModelState.IsValid)
             {
-                return "Xảy ra lỗi ở phía server. Vui lòng thử lại sau!";
+                _subscriberService.Add(new Entities.Subscriber() { Email = email, DateSubscriber = DateTime.Now });
+                return View("SuccessSubscriber");
             }
+            return View("ErrorSubscriber");
         }
-        #endregion
     }
 }

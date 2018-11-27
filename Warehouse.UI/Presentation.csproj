@@ -1010,6 +1010,7 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\FavoriteProduct\Index.cshtml" />
     <Content Include="Views\Blog\Details.cshtml" />
+    <Content Include="Views\Subscriber\ErrorSubscriber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
