@@ -70,7 +70,7 @@ namespace Warehouse.Controllers
                 }).ToList();
 
 
-            ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true).OrderBy(s => s.Order);
+            ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true);
 
             ViewBag.News = _newsService.GetNews(10).Select(n => new NewsListViewModel()
             {

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<InfoShop>
 
 @{
-    ViewBag.Title = "Chỉnh sửa thông tin shop";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Thông tin shop";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <table class="table table-middle">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Logo)
         </th>
         <th>
@@ -46,7 +46,7 @@
         </td>
 
         <td>
-            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
             
         </td>
         <td>@Html.ActionLink("Xem thêm", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })</td>

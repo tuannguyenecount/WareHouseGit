@@ -1,144 +1,120 @@
 ﻿@model InfoShop
 
 @{
-    ViewBag.Title = "Thông tin chi tiết về shop";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Thông tin shop";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @section styles{
-<style>
-    dd, dt {
-        padding: 10px;
-       
-    }
-    dd{
-        font-weight:bolder;
-        color:#4800ff;
-    }
-    </style>    
+    <style>
+        dd, dt {
+            padding: 10px;
+        }
+
+        dd {
+            font-weight: bolder;
+            color: #4800ff;
+        }
+    </style>
 }
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ShopName)
-        </dt>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShopName)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShopName)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.ShopName)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Logo)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Logo)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Logo)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Logo)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Phone)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Zalo)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Zalo)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Zalo)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Zalo)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Fanpage)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Fanpage)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Fanpage)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Fanpage)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GoogleAnalytics)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GoogleAnalytics)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GoogleAnalytics)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.GoogleAnalytics)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Google_Map)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Google_Map)
+                            </dt>
 
-        <dd>
-            @Html.Raw(Model.Google_Map)
-        </dd>
+                            <dd>
+                                @Html.Raw(Model.Google_Map)
+                            </dd>
+                        </dl>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix text-right">
+                        @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-default btn-sm" })
+                    </div>
+                </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Introduce_Shop)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Introduce_Shop)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Contact_Info)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Contact_Info)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TextFooter)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.TextFooter)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SalesPolicy)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.SalesPolicy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ShoppingGuide)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.ShoppingGuide)
-        </dd>
-
-        <dt>
-
-        </dt>
-        <dd>
-            @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-default" })
-        </dd>
-    </dl>
-</div>

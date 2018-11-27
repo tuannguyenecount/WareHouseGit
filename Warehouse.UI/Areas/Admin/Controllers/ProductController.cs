@@ -39,7 +39,7 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             var data = _productService.GetAll();
             Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment;filename=products.xls");
+            Response.AddHeader("content-disposition", "attachment;filename=sanpham.xls");
             Response.AddHeader("Content-Type", "application/vnd.ms-excel");
             Warehouse.Common.File.WriteHtmlTable(data, Response.Output);
             Response.End();

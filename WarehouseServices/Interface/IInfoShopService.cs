@@ -10,5 +10,7 @@ namespace Warehouse.Services.Interface
     public interface IInfoShopService
     {
         InfoShop GetFirst();
+        List<InfoShop> GetList();
+        void Update(InfoShop infoShop);
     }
 }

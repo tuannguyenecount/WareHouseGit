@@ -1,17 +1,85 @@
 ﻿@model IEnumerable<Slide>
 
 @{
-    ViewBag.Title = "Danh Sách Slide";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Danh sách slide";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @section Styles{
     <link rel="stylesheet" href="~/Content/popupImage.css" type="text/css" />
 }
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
 
-<h5>
-    @Html.ActionLink("Tạo slide", "Create")
-</h5>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <p>
+                        @Html.ActionLink("Thêm Slide", "Create",null,new { @class="btn btn-success btn-sm" })
+                    </p>
+                    <div class="table-responsive">
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <table class="table table-middle">
+                            <tr>
+                                <th class="text-center"> 
+                                    @Html.DisplayNameFor(model => model.Image)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Order)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <img class="popupImage" src="~/images/@item.Image" width="200" height="auto" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Order)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                                        <form class="hidden" action="@Url.Action("Delete")" id="frmDeleteSlide@(item.Id)" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="Id" value="@item.Id" />
+                                        </form>
+                                        <a class="btn btn-default btn-sm" onclick="return confirm('Xác nhận xóa hình slide này?');" href="javascript:document.getElementById('frmDeleteSlide@(item.Id)').submit();">Xoá</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
 
 <!-- The Modal -->
 <div id="modalShowImage" class="modal-Image">
@@ -21,55 +89,6 @@
     <img class="modal-content" id="img01">
     <!-- Modal Caption (Image Text) -->
     <div id="caption"></div>
-</div>
-
-@Html.ValidationSummary("", new { @class = "text-danger" })
-
-<div class="table-responsive">
-    <table class="table table-middle">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <img class="popupImage" src="@item.ImageCustom" width="100" height="auto" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Order)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                    <form class="hidden" action="@Url.Action("Delete")" id="frmDeleteSlide@(item.Id)" method="post">
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" name="Id" value="@item.Id" />
-                    </form>
-                    <a class="btn btn-default btn-sm" onclick="return confirm('Xác nhận xóa hình slide này?');" href="javascript:document.getElementById('frmDeleteSlide@(item.Id)').submit();">Xoá</a>
-                </td>
-            </tr>
-        }
-
-    </table>
 </div>
 
 @section Scripts{

@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -12,29 +12,28 @@ namespace Warehouse.Entities
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        [Display(Name = "Tên shop")]
         public string ShopName { get; set; }
 
-        [StringLength(256)]
         public string Logo { get; set; }
 
-        [StringLength(50)]
+        [Display(Name = "Điện thoại")]
         public string Phone { get; set; }
 
-        [StringLength(50)]
         public string Zalo { get; set; }
 
         [StringLength(256)]
         public string Email { get; set; }
 
+        [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
 
-        [StringLength(256)]
         public string Fanpage { get; set; }
 
+        [Display(Name = "Bản đồ google map")]
         public string Google_Map { get; set; }
 
+        [Display(Name = "Google Analytics")]
         public string GoogleAnalytics { get; set; }
 
     }

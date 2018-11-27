@@ -18,9 +18,19 @@ namespace Warehouse.Services.Services
             _infoShopDal = infoShopDal;
         }
 
+        public void Update(InfoShop infoShop)
+        {
+            _infoShopDal.Update(infoShop);
+        }
+
         public InfoShop GetFirst()
         {
             return _infoShopDal.GetFirst();
+        }
+
+        public List<InfoShop> GetList()
+        {
+            return _infoShopDal.GetList();
         }
     }
 }

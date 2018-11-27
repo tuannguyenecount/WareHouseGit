@@ -38,16 +38,19 @@ namespace Warehouse.Controllers
             {
                 return Redirect("/pages/404");
             }
-
             ViewBag.Name = aliasCategory;
-            var products = _productService.GetByCategory(category.Id)
-                            .Where(p => p.Status == true).OrderByDescending(p => p.Id).ToList();
-
+            var products = _productService.GetByCategory(category.Id);
+            if(category.Category1 != null && category.Category1.Count > 0)
+            {
+                foreach(Category category1 in category.Category1)
+                {
+                    products.AddRange(_productService.GetByCategory(category1.Id));
+                }
+            }
             if (sortName != null)
             {
                 products = _productService.Sorting(products.AsQueryable(), sortName, sortType ?? ENUM.SORT_TYPE.Ascending).ToList();
             }
-
             ViewBag.CountAll = products.Count;
             ViewBag.Start = (((page ?? 1) - 1) * 20) + 1;
             IPagedList<GridProductViewModel> model = products.Select(p =>
@@ -62,7 +65,6 @@ namespace Warehouse.Controllers
                                 FlagColor = "#eba53d",
                                 ProductFlag = p.Category.Name
                             }).ToPagedList(page ?? 1, 20);
-
             if (!string.IsNullOrEmpty(productListView) || sortName != null)
             {
                 ViewBag.productListView = productListView;
@@ -73,7 +75,6 @@ namespace Warehouse.Controllers
                     default: return PartialView("_GridPartial", model);
                 }
             }
-
             return View(model);
         }
 

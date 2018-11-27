@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -13,13 +13,17 @@ namespace Warehouse.Entities
         public int Id { get; set; }
 
         [StringLength(128)]
+        [Display(Name = "Hình")]
         public string Image { get; set; }
 
+        [Display(Name = "Số thứ tự")]
         public byte? Order { get; set; }
 
+        [Display(Name = "Mô tả")]
         [StringLength(256)]
         public string Title { get; set; }
 
+        [Display(Name = "Trạng thái")]
         public bool Status { get; set; }
     }
 }

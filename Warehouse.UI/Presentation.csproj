@@ -307,8 +307,10 @@
     <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InfoShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\PopupController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\FavoriteProductController.cs" />
@@ -837,6 +839,13 @@
     <Content Include="Areas\Admin\Views\Blog\Create.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\ListMod.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\_DeleteModal.cshtml" />
+    <Content Include="Areas\Admin\Views\InfoShop\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\InfoShop\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\InfoShop\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InfoShop\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Index.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -1006,7 +1015,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Dashboard\" />
-    <Folder Include="Photos\Slides\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -9,19 +9,25 @@ using System.Web;
 using System.Web.Mvc;
 using Warehouse.Models;
 using System.Configuration;
+using Warehouse.Services.Interface;
+using Warehouse.Entities;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class SlideController : Controller
     {
-        private hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
+        private ISlideService _slideService;
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
-        // GET: Admin/Slide
-        public async Task<ActionResult> Index()
+        public SlideController(ISlideService slideService)
         {
-            return View(await db.Slides.ToListAsync());
+            _slideService = slideService;
+        }
+
+        public ActionResult Index()
+        {
+            return View(_slideService.GetAll());
         }
 
         // GET: Admin/Slide/Create
@@ -32,7 +38,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Order,Title,Status")] Slide slide, HttpPostedFileBase file)
+        public ActionResult Create(Slide slide, HttpPostedFileBase file)
         {
             if(file != null && file.ContentLength > 0)
             {
@@ -46,8 +52,7 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Slides.Add(slide);
-                await db.SaveChangesAsync();
+                _slideService.Add(slide);
                 return RedirectToAction("Index");
             }
 
@@ -55,13 +60,13 @@ namespace Warehouse.Areas.Admin.Controllers
         }
 
         // GET: Admin/Slide/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Slide slide = await db.Slides.FindAsync(id);
+            Slide slide = _slideService.GetById(id.Value);
             if (slide == null)
             {
                 return Redirect("/pages/404");
@@ -71,7 +76,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Image,Order,Title,Status")] Slide slide, HttpPostedFileBase file)
+        public ActionResult Edit(Slide slide, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
             {
@@ -82,8 +87,7 @@ namespace Warehouse.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(slide).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _slideService.Update(slide);
                 return RedirectToAction("Index");
             }
             return View(slide);
@@ -93,9 +97,9 @@ namespace Warehouse.Areas.Admin.Controllers
         // POST: Admin/Slide/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Slide slide = await db.Slides.FindAsync(id);
+            Slide slide = _slideService.GetById(id);
             if(slide == null)
             {
                 ModelState.AddModelError("", "Slide không tồn tại!");
@@ -104,8 +108,7 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 try
                 {
-                    db.Slides.Remove(slide);
-                    await db.SaveChangesAsync();
+                    _slideService.Delete(id);
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -113,16 +116,8 @@ namespace Warehouse.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Xảy ra lỗi " + ex.Message + " khi xóa slide này!");
                 }
             }
-            return View("Index",await db.Slides.ToListAsync());
+            return View("Index", _slideService.GetAll());
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

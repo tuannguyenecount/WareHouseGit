@@ -77,6 +77,9 @@ namespace Warehouse
             container.RegisterType<IFavoriteProductService, FavoriteProductService>();
             container.RegisterType<IFavoriteProductDal, FavoriteProductDal>();
 
+            container.RegisterType<IInfoShopService, InfoShopService>();
+            container.RegisterType<IInfoShopDal, InfoShopDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -185,6 +185,10 @@
     <Compile Include="Migrations\201811260429259_updatecolumnAddress.Designer.cs">
       <DependentUpon>201811260429259_updatecolumnAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811271333507_updateInfoShop.cs" />
+    <Compile Include="Migrations\201811271333507_updateInfoShop.Designer.cs">
+      <DependentUpon>201811271333507_updateInfoShop.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -266,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811260429259_updatecolumnAddress.resx">
       <DependentUpon>201811260429259_updatecolumnAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271333507_updateInfoShop.resx">
+      <DependentUpon>201811271333507_updateInfoShop.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

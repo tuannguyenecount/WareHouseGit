@@ -7,19 +7,28 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Warehouse.Entities;
 using Warehouse.Models;
+using Warehouse.Services.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class InfoShopController : Controller
     {
-        private hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
-        readonly List<string> ImageExtensions = new List<string> { ".JPG", ".PNG", ".JPEG" };
+        private IInfoShopService _infoShopService;
+
+        readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
+
+        public InfoShopController(IInfoShopService infoShopService)
+        {
+            _infoShopService = infoShopService;
+        }
 
         // GET: Admin/InfoShop
         public ActionResult Index()
         {
-            return View(db.InfoShops.ToList());
+            return View(_infoShopService.GetList());
         }
 
         // GET: Admin/InfoShop/Details/5
@@ -29,7 +38,7 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InfoShop infoShop = db.InfoShops.Find(id);
+            InfoShop infoShop = _infoShopService.GetFirst();
             if (infoShop == null)
             {
                 return Redirect("/pages/404");
@@ -46,7 +55,7 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InfoShop infoShop = db.InfoShops.Find(id);
+            InfoShop infoShop = _infoShopService.GetFirst();
             if (infoShop == null)
             {
                 return Redirect("/pages/404");
@@ -54,13 +63,10 @@ namespace Warehouse.Areas.Admin.Controllers
             return View(infoShop);
         }
 
-        // POST: Admin/InfoShop/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "Id,Logo,ShopName,Phone,Zalo,Email,Address,Fanpage,Introduce_Shop,Contact_Info,Google_Map,TextFooter,GoogleAnalytics,SalesPolicy,ShoppingGuide")] InfoShop infoShop, HttpPostedFileBase file)
+        public ActionResult Edit(InfoShop infoShop, HttpPostedFileBase file)
         {
             if(file != null && file.ContentLength > 0)
             {
@@ -70,23 +76,12 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Entry(infoShop).State = EntityState.Modified;
-                db.SaveChanges();
+                _infoShopService.Update(infoShop);
                 Session["InfoShop"] = infoShop;
                 return RedirectToAction("Index");
             }
             return View(infoShop);
         }
 
-       
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

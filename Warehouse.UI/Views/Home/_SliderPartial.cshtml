@@ -2,16 +2,19 @@
     <!-- START REVOLUTION SLIDER  fullwidth mode -->
     <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="">
         <ul>
+            @{  
+                int i = 1;
+            }
             @foreach (Slide slide in ViewBag.Slides)
             {
                 <!-- SLIDE  -->
-            <li data-index="rs-1" data-transition="slideoververtical" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title="Intro" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+            <li data-index="rs-@i" data-transition="slideoververtical" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="1500" data-thumb="" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title="Intro" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
                 <!-- MAIN IMAGE -->
-                <img src="/Content/ps17/modules/revsliderprestashop/admin/assets/images/dummy.png" alt="@slide.Title" data-lazyload="/Content/ps17/modules/revsliderprestashop/uploads/@slide.Image" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                <img src="~/images/@slide.Image" alt="@slide.Title" data-lazyload="/images/@slide.Image" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
                 <!-- LAYERS -->
-                <!-- LAYER NR. 1 -->
+
                 <div class="tp-caption Gym-Display   tp-resizeme"
-                     id="slide-1-layer-1"
+                     id="slide-1-layer-@i"
                      data-x="center" data-hoffset=""
                      data-y="center" data-voffset="-73"
                      data-width="['auto','auto']"
@@ -24,8 +27,9 @@
                      data-paddingright="[0,0,0,0]"
                      data-paddingbottom="[0,0,0,0]"
                      data-paddingleft="[0,0,0,0]"
-                     style="z-index: 5; white-space: nowrap; font-size: 80px; line-height: 70px; font-weight: 900; color: #000;font-family:Raleway;text-transform:left;">KEEP WALKING</div>
+                     style="z-index: 5; white-space: nowrap; font-size: 80px; line-height: 70px; font-weight: 900; color: #000;font-family:Raleway;text-transform:left;">@slide.Title</div>
             </li>
+                i++;
             }
         </ul>
 
