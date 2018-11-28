@@ -3,6 +3,7 @@
     string countProductsHide = Html.Action("CountHide", "Product").ToString();
     string countBlogDisplay = Html.Action("CountDisplay", "Blog").ToString();
     string countBlogHide = Html.Action("CountHide", "Blog").ToString();
+    string CountOrderWaitConfirm = Html.Action("CountOrderWaitConfirm", "Order").ToString();
 }
 <section class="sidebar">
     <!-- Sidebar user panel -->
@@ -53,7 +54,7 @@
                 <i class="fa fa-book"></i>
                 <span>Đơn Hàng</span>
                 <span class="pull-right-container">
-                    <span data-placement="bottom" title="Có 3 đơn hàng bạn chưa xác nhận" class="label label-danger pull-right">5</span>
+                    <span data-placement="bottom" title="Có @CountOrderWaitConfirm đơn hàng chờ xác nhận" class="label label-warning pull-right">@CountOrderWaitConfirm</span>
                 </span>
             </a>
         </li>

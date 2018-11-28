@@ -21,5 +21,7 @@ namespace Warehouse.Services.Interface
         void Delete(int OrderId);
 
         int CountAll();
+
+        int CountOrderWaitConfirm();
     }
 }

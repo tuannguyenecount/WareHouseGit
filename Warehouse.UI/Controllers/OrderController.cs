@@ -98,7 +98,7 @@ namespace Warehouse.Controllers
                 TotalQuantity = (byte)ds.Sum(m => m.Quantity),
                 TotalMoney = ds.Sum(m => m.Subtotal),
                 Paid = false,
-                Assigned = false,
+                Status = 0, // mặc định là chưa xác nhận với khách
                 DateOrder = DateTime.Now
             };
 

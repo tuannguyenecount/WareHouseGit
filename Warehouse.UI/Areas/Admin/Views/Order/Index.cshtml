@@ -1,106 +1,222 @@
-﻿@using PagedList;
-@using PagedList.Mvc;
-@model IPagedList<Order>
+﻿@model List<Order>
 
 @{
-    ViewBag.Title = ViewBag.Message = "Danh sách đơn hàng";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Danh Sách Đơn Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-<div class="table-responsive">
-    <table class="table table-hover">
-        <thead>
-            <tr class="bg-info">
-                <th>Mã số</th>
-                <th>
-                    Họ tên
-                </th>
-                <th>
-                    Tổng số lượng
-                </th>
-                <th>
-                    Tổng thành tiền
-                </th>
-                <th>
-                    Ngày đặt hàng
-                </th>
-                <th>
-                    Đã giao hàng
-                </th>
-                <th>
-                    Đã thanh toán?
-                </th>
-                <th>Bị xóa?</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
-                <tr>
-                    <td>#@item.Id</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalMoney)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateOrder)
-                    </td>
-                    <td>
-                        @if (item.Assigned) {
-                            <label class="label label-success">Đã giao</label>
-                        }
-                        else {
-                            <label class="label label-danger">Chưa giao</label>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Paid) {
-                            <label class="label label-success">Đã thanh toán</label>
-                        }
-                        else {
-                            <label class="label label-danger">Chưa thanh toán</label>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Deleted) {
-                            <label class="label label-danger">Đã xóa</label>
-                        }
-                        else {
-                            <label class="label label-success">Chưa xóa</label>
-                        }
-                    </td>
-                    <td>
-                        <a class="btn btn-default btn-sm" href="@Url.Action("ThayTrangThai", new { id = item.Id})">Thay trạng thái</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-default btn-sm" href="@Url.Action("Details", new { id = item.Id})"><span class="glyphicon glyphicon-zoom-in"></span> Chi tiết</a>
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
 
-                    </td>
-                    <td>
-                        @if (item.Deleted == false) {
-                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Xóa</a>
-                        }
-                        else {
-                            <a href="@Url.Action("RemoveDeleted", new { id = item.Id })" class="btn btn-warning btn-sm">Bỏ xóa</a>
-
-                        }
-                    </td>
-                </tr>
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(function () {
+          
+            @if(Request.QueryString["tabActive"] != null)
+            {
+                WriteLiteral("$('#" + (Request.QueryString["tabActive"]) + "').addClass('active');"
+                        + " $('a[href=\"#"+ (Request.QueryString["tabActive"]) + "\"]').parent().addClass('active');");
             }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td class="text-center" colspan="11">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.Always, DisplayLinkToFirstPage = PagedListDisplayMode.Always })
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
+            $("input[data-id=checkall]").change(function () {
+                if ($(this).is(":checked")) {
+                    $(this).closest("table").find("input[type=checkbox]").attr("checked", "checked");
+                }
+                else {
+                    $(this).closest("table").find("input[type=checkbox]").removeAttr("checked");
+
+                }
+            });
+            $('#tblData').DataTable({
+                columnDefs: [{ orderable: false, targets: [0, 8] }],
+                order: [[1, 'desc']],
+            });
+        });
+    </script>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+
+                            <li @(Request.QueryString["tabActive"] == null ? "class='active'" : "")><a href="#tab_0" data-toggle="tab">Chờ xác nhận<label class="label label-warning">@Model.Count(m => m.Status == 0)</label></a></li>
+                            <li><a href="#tab_1" data-toggle="tab">Đang giao<label class="label label-default">@Model.Count(m => m.Status == 1)</label></a></li>
+                            <li><a href="#tab_2" data-toggle="tab">Đã giao<label class="label label-success">@Model.Count(m => m.Status == 2)</label></a></li>
+                            <li><a href="#tab_3" data-toggle="tab">Đổi/trả hàng<label class="label label-info">@Model.Count(m => m.Status == 3)</label></a></li>
+                            <li><a href="#tab_4" data-toggle="tab">Bị huỷ<label class="label label-danger">@Model.Count(m => m.Status == 4)</label></a></li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div class="tab-pane @(Request.QueryString["tabActive"] == null ? "active" : "")" id="tab_0">
+                                @using (Html.BeginForm("Delete", "Order", FormMethod.Post, null))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="table-responsive">
+                                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">
+                                                        <input data-id="checkall" data-ref="check" type="checkbox" />
+                                                    </th>
+                                                    <th>Mã đơn hàng</th>
+                                                    <th>Họ tên khách</th>
+                                                    <th>Điện thoại</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Tổng số lượng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (Order order in Model.Where(m => m.Status == 0))
+                                                {
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <input type="checkbox" name="check" value="@order.Id" />
+                                                        </td>
+                                                        <td class="text-center">
+                                                            #@order.Id
+                                                        </td>
+                                                        <td>
+                                                            <b>@Html.DisplayFor(o => order.Name)</b>
+                                                        </td>
+                                                        <td>
+                                                            <a href="tel:@order.Phone">@order.Phone</a>
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatCurrencyVND((int?)order.TotalMoney)
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @Html.DisplayFor(o => order.TotalQuantity)
+                                                        </td>
+                                                        <td>
+                                                            <label class="label label-warning">Chờ xác nhận</label>
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatDateTime(order.DateOrder)
+                                                        </td>
+
+                                                        <td class="text-center">
+                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = order.Id })"><i class="fa fa-eye"></i> Xem</a>
+                                                            @*<a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>*@
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <button type="submit" class="btn btn-default btn-xs" onclick="return confirm('Xác nhận xoá các bản ghi được chọn?')"><i class="fa fa-remove"></i> Xoá</button>
+                                                    </td>
+                                                    <td colspan="7"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                }
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane @(Request.QueryString["tabActive"] == null ? "active" : "")" id="tab_1">
+                                @using (Html.BeginForm("Delete", "Order", FormMethod.Post, null))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="table-responsive">
+                                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">
+                                                        <input data-id="checkall" data-ref="check" type="checkbox" />
+                                                    </th>
+                                                    <th>Mã đơn hàng</th>
+                                                    <th>Họ tên khách</th>
+                                                    <th>Điện thoại</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Tổng số lượng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (Order order in Model.Where(m => m.Status == 1))
+                                                {
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <input type="checkbox" name="check[]" value="@order.Id" />
+                                                        </td>
+                                                        <td class="text-center">
+                                                            #@order.Id
+                                                        </td>
+                                                        <td>
+                                                            <b>@Html.DisplayFor(o => order.Name)</b>
+                                                        </td>
+                                                        <td>
+                                                            <a href="tel:@order.Phone">@order.Phone</a>
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatCurrencyVND((int?)order.TotalMoney)
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @Html.DisplayFor(o => order.TotalQuantity)
+                                                        </td>
+                                                        <td>
+                                                            <label class="label label-default">Đang giao</label>
+                                                        </td>
+                                                        <td>
+                                                            @Warehouse.Common.Format.FormatDateTime(order.DateOrder)
+                                                        </td>
+
+                                                        <td class="text-center">
+                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = order.Id })"><i class="fa fa-eye"></i> Xem</a>
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <button type="submit" class="btn btn-default btn-xs" onclick="return confirm('Xác nhận xoá các bản ghi được chọn?')"><i class="fa fa-remove"></i> Xoá</button>
+                                                    </td>
+                                                    <td colspan="7"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- /.tab-pane -->
+
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
 

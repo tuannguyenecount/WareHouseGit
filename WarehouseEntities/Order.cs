@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -22,14 +22,12 @@ namespace Warehouse.Entities
         public string UserId { get; set; }
 
         [Required]
-        [StringLength(300)]
         public string Name { get; set; }
 
         [StringLength(256)]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Phone { get; set; }
 
         public int? WardId { get; set; }
@@ -38,7 +36,6 @@ namespace Warehouse.Entities
 
         public int? ProvinceId { get; set; }
 
-        [StringLength(500)]
         public string Address { get; set; }
 
         public int? TotalQuantity { get; set; }
@@ -46,9 +43,15 @@ namespace Warehouse.Entities
         [Column(TypeName = "money")]
         public decimal? TotalMoney { get; set; }
 
+        /// <summary>
+        /// Đã thanh toán?
+        /// </summary>
         public bool Paid { get; set; }
 
-        public bool Assigned { get; set; }
+        /// <summary>
+        /// Trạng thái đơn hàng (0: chờ xác nhận, 1: đang giao hàng, 2: đã giao, 3: đổi/trả hàng, 4: bị huỷ)
+        /// </summary>
+        public byte Status { get; set; }
 
         public DateTime DateOrder { get; set; }
 

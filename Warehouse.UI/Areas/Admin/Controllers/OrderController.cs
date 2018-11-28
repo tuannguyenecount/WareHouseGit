@@ -10,19 +10,24 @@ using Warehouse.Models;
 using PagedList;
 using PagedList.Mvc;
 using System.Threading.Tasks;
-
+using Warehouse.Services.Interface;
+using Warehouse.Entities;
 namespace Warehouse.Areas.Admin.Controllers
 {
     [Authorize(Roles="Admin")]
     public class OrderController : Controller
     {
-        private hotellte_WarehouseEntities db = new hotellte_WarehouseEntities();
+        private IOrderService _orderService;
+
+        public OrderController(IOrderService orderService)
+        {
+            _orderService = orderService;
+        }
 
         // GET: Admin/Order
         public ActionResult Index(int? page)
         {
-            var Orders = db.Orders.Include(d => d.AspNetUser);
-            return View(Orders.OrderByDescending(m=>m.Id).ToPagedList(page??1, 10));
+            return View(_orderService.GetAll());
         }
 
         // GET: Admin/Order/Details/5
@@ -32,27 +37,27 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order Order = db.Orders.Find(id.Value);
-            ViewBag.dsOrderDetail = db.OrderDetails.Where(m => m.OrderId == Order.Id).ToList();
+            Order Order = _orderService.GetById(id.Value);
             if (Order == null)
             {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
+                return Redirect("/pages/404");
             }
             return View(Order);
         }
-        
-        public int DemDonChuaGiao()
-        {
-            return db.Orders.Count(o=>o.Assigned == false);
-        }
 
-        public ActionResult ThayTrangThai(int? id)
+        [ChildActionOnly]
+        public ContentResult CountOrderWaitConfirm()
+        {
+            return Content(_orderService.CountOrderWaitConfirm().ToString());
+        }
+       
+        public ActionResult ChangeStatus(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order Order = db.Orders.Find(id);
+            Order Order = _orderService.GetById(id.Value);
             if (Order == null)
             {
                 return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
@@ -63,65 +68,26 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ThayTrangThai(int id, string TrangThai,bool? Paid, string returnURL)
+        public ActionResult ChangeStatus(int Id, byte Status)
         {
-            Order Order = db.Orders.Find(id);
-            Order.Assigned = TrangThai == "Assigned" ? true : false;
-            Order.Paid = (Paid != null && Paid.Value == true);
-            
-            db.Entry(Order).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-            return Redirect(returnURL);
-        }
-
-        public ActionResult RemoveDeleted(int id)
-        {
-            Order order = db.Orders.Find(id);
-            order.Deleted = false;
-            db.Entry(order).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Admin/Order/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order Order = db.Orders.Find(id);
-            if (Order == null)
-            {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
-            }
-            return View(Order);
+            Order order = _orderService.GetById(Id);
+            order.Status = Status;
+            order.Paid = Status == 2 ? true : false; // nếu trạng thái đổi thành đã giao thì tương đương đơn hàng đã được thanh toán
+            _orderService.Update(order);
+            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
         }
 
         // POST: Admin/Order/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, string returnURL)
+        public ActionResult DeleteConfirmed(int[] check)
         {
-            if (Session["Revalidate"] == null)
+            foreach (int id in check)
             {
-                object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
-                return View("_ThongBaoLoi", thongbao);
+                _orderService.Delete(id);
             }
-            Order Order = db.Orders.Find(id);
-            Order.Deleted = true;
-            db.Entry(Order).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

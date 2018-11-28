@@ -44,5 +44,10 @@ namespace Warehouse.Services.Services
         {
             return _orderDal.Count();
         }
+
+        public int CountOrderWaitConfirm()
+        {
+            return _orderDal.Count(o => o.Status == 0);
+        }
     }
 }
