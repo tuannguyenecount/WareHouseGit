@@ -1,0 +1,49 @@
+﻿@model List<OrderDetail>
+<div class="modal-header bg-blue">
+    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>*@
+    <h4 class="modal-title">Thông tin các sản phẩm của đơn hàng @ViewBag.Id</h4>
+</div>
+
+<div class="modal-body">
+   <div class="table-responsive">
+       <table class="table table-condensed table-middle">
+           <thead>
+               <tr>
+                   <th class="text-center">Hình ảnh</th>
+                   <th>Tên sản phẩm</th>
+                   <th class="text-center">Số lượng đặt</th>
+                   <th class="text-center">Giá bán</th>
+                   <th class="text-center">Thành tiền</th>
+               </tr>
+           </thead>
+           <tbody>
+            @foreach (OrderDetail orderDetail in Model)
+            {
+               <tr>
+                   <td class="text-center">
+                       <img src="~/Photos/Products/@orderDetail.ProductImage" width="100" height="auto" />
+                   </td>
+                   <td>
+                       <a target="_blank" href="@Url.Action("Details","Product",new { alias = orderDetail.ProductAlias })">@orderDetail.ProductName</a>
+                   </td>
+                   <td class="text-center">
+                       @orderDetail.Quantity
+                   </td>
+                   <td class="text-center">
+                       @Warehouse.Common.Format.FormatCurrencyVND((int?)orderDetail.Price)
+                   </td>
+                   <td class="text-center">
+                       @Warehouse.Common.Format.FormatCurrencyVND((int?)orderDetail.Money)
+                   </td>
+               </tr>
+            }
+           </tbody>
+       </table>
+   </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Đóng</button>
+</div>

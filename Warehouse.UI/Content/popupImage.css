@@ -30,7 +30,7 @@
         margin: auto;
         display: block;
         width: 80%;
-        max-width: 300px;
+        max-width: 600px;
     }
     /* Caption of Modal Image (Image Text) - Same Width as the Image */
 
@@ -97,6 +97,6 @@
 @media only screen and (max-width: 700px) {
 
     .modal-Image .modal-content {
-        width: 100%;
+        width:     90%;
     }
 }

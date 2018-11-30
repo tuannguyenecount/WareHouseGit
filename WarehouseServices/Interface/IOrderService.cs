@@ -23,5 +23,7 @@ namespace Warehouse.Services.Interface
         int CountAll();
 
         int CountOrderWaitConfirm();
+
+        List<Order> GetHistory(string userId);
     }
 }

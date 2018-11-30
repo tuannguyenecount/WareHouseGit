@@ -153,6 +153,13 @@
         .hidden, .hide {
             display: none;
         }
+        .table-middle tr td {
+            vertical-align: middle !important;
+        }
+
+        .modal-body {
+            overflow: auto;
+        }
     </style>
     @RenderSection("styles", false)
 </head>
@@ -333,6 +340,10 @@
                 $(this).find(".modal-body").load(link.attr("href"));
             });
 
+             $(".modal-ajax").on("show.bs.modal", function (e) {
+                var link = $(e.relatedTarget);
+                $(this).find(".modal-content").load(link.attr("href"));
+            });
         
         });
     </script>

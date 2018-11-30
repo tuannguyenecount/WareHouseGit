@@ -51,30 +51,39 @@ namespace Warehouse.Areas.Admin.Controllers
             return Content(_orderService.CountOrderWaitConfirm().ToString());
         }
        
-        public ActionResult ChangeStatus(int? id)
+        public ActionResult _ChangeStatusModal(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order Order = _orderService.GetById(id.Value);
+            Order Order = _orderService.GetById(id);
             if (Order == null)
             {
-                return RedirectToAction("PageNotFound", "StaticContent", new { area = "" });
-            }
-            
-            return View(Order);
+                return Content("<p>Dữ liệu không tồn tại!</p>");
+            }           
+            return PartialView(Order);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeStatus(int Id, byte Status)
+        public JsonResult _ChangeStatusModal(int Id, byte? Status)
         {
-            Order order = _orderService.GetById(Id);
-            order.Status = Status;
-            order.Paid = Status == 2 ? true : false; // nếu trạng thái đổi thành đã giao thì tương đương đơn hàng đã được thanh toán
-            _orderService.Update(order);
-            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
+            try
+            {
+                if(Status == null)
+                    return Json(new { status = 0, message = "Bạn chưa chọn trạng thái!" });
+
+                Order order = _orderService.GetById(Id);
+                if(order == null)
+                    return Json(new { status = 0, message = "Dữ liệu không tồn tại!" });
+
+                order.Status = Status.Value;
+                order.Paid = Status.Value == 2 ? true : false; // nếu trạng thái đổi thành đã giao thì tương đương đơn hàng đã được thanh toán
+                _orderService.Update(order);
+
+                return Json(new { status = 1, message = "Đổi trạng thái đơn hàng " + Id + " thành công" });
+            }
+            catch(Exception ex)
+            {
+                return Json(new { status = 0, message = "Lỗi: " + ex.Message });
+            }
         }
 
         // POST: Admin/Order/Delete/5

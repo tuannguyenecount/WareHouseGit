@@ -849,7 +849,7 @@
     <Content Include="Areas\Admin\Views\Order\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\ThayTrangThai.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\_ChangeStatusModal.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -945,20 +945,17 @@
     <Content Include="Scripts\slider\LICENSE.md" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ChangeInfo.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SetPassword.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_InfoPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -980,7 +977,6 @@
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_ManageLayout.cshtml" />
     <Content Include="Views\Shared\_QuickViewProductPartial.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Subscriber\SuccessSubscriber.cshtml" />
@@ -1011,6 +1007,9 @@
     <Content Include="Views\FavoriteProduct\Index.cshtml" />
     <Content Include="Views\Blog\Details.cshtml" />
     <Content Include="Views\Subscriber\ErrorSubscriber.cshtml" />
+    <Content Include="Views\Manage\ViewHistory.cshtml" />
+    <Content Include="Views\Manage\_PagedListHistory.cshtml" />
+    <Content Include="Views\Manage\ViewOrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

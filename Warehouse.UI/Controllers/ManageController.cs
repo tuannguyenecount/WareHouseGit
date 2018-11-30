@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PagedList;
 using Warehouse.Entities;
 using Warehouse.Models;
 using Warehouse.Services.Interface;
@@ -19,16 +22,18 @@ namespace Warehouse.Controllers
         private IProvinceService _provinceService;
         private IDistrictService _districtService;
         private IWardService _wardService;
+        private IOrderService _orderService;
 
         public ManageController()
         {
         }
 
-        public ManageController(IProvinceService provinceService, IDistrictService districtService, IWardService wardService)
+        public ManageController(IProvinceService provinceService, IDistrictService districtService, IWardService wardService, IOrderService orderService)
         {
             _provinceService = provinceService;
             _districtService = districtService;
             _wardService = wardService;
+            _orderService = orderService;
         }
 
         public string UserId
@@ -194,7 +199,47 @@ namespace Warehouse.Controllers
             return View(model);
         }
 
+        [Route("don-hang-cua-ban")]
+        public ActionResult ViewHistory(int? page, string message, string errormessage)
+        {
+            IPagedList<Order> orders = _orderService.GetHistory(User.Identity.GetUserId()).OrderBy(o => o.Status).ThenByDescending(o => o.Id).ToPagedList(page ?? 1, 2);
+            if (page == null)
+                return View(orders);
+            else
+                return PartialView("_PagedListHistory", orders);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("huy-don-hang")]
+        public ActionResult CancelOrder(int Id, int? page)
+        {
+            try
+            {
+                Order order = _orderService.GetById(Id);
+                if (order != null)
+                {
+                    order.Status = 4; // Trạng thái bị hủy
+                    _orderService.Update(order);
+                }
+                return RedirectToAction("ViewHistory", new { page = page, message = "Hủy đơn hàng thành công." });
+            }
+            catch
+            {
+                return RedirectToAction("ViewHistory", new { page = page, errormessage = "Xảy ra lỗi khi xóa đơn hàng " + Id });
+            }
+        }
+
+        [Route("xem-san-pham-don-hang")]
+        public ActionResult ViewOrderDetails(int Id)
+        {
+            Order order = _orderService.GetById(Id);
+            if (order == null)
+                return Content("<p>Dữ liệu không tồn tại!</p>");
+            ViewBag.Id = Id;
+            List<OrderDetail> orderDetails = order.OrderDetails.ToList();
+            return PartialView(orderDetails);
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

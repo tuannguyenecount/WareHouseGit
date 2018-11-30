@@ -49,5 +49,10 @@ namespace Warehouse.Services.Services
         {
             return _orderDal.Count(o => o.Status == 0);
         }
+
+        public List<Order> GetHistory(string userId)
+        {
+            return _orderDal.GetList(o => o.UserId == userId && o.Status != 4); // lấy đơn theo user ngoại trừ đơn đã bị hủy
+        }
     }
 }

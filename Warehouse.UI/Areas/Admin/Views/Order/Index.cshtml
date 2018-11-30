@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Danh Sách Đơn Hàng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    string[] listStatus = new string[] { "Chờ xác nhận", "Đang giao", "Đã giao", "Đổi/trả hàng", "Bị Hủy" };
+    string[] listColor = new string[] { "warning", "primary", "success", "danger", "danger" };
 }
 @section styles{
     <!-- DataTables -->
@@ -24,16 +26,35 @@
             }
             $("input[data-id=checkall]").change(function () {
                 if ($(this).is(":checked")) {
-                    $(this).closest("table").find("input[type=checkbox]").attr("checked", "checked");
+                    $(this).closest("table").find("input[type=checkbox]").prop("checked","");
                 }
                 else {
-                    $(this).closest("table").find("input[type=checkbox]").removeAttr("checked");
+                    $(this).closest("table").find("input[type=checkbox]").removeProp("checked");
 
                 }
             });
             $('#tblData').DataTable({
-                columnDefs: [{ orderable: false, targets: [0, 8] }],
+                columnDefs: [{ orderable: false, targets: [0, 5, 7] }],
                 order: [[1, 'desc']],
+            });
+            $(document).on("submit", "form[name=frm]", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("action"),
+                    method: "Post",
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.status == 1) {
+                            window.location.reload();
+                        }
+                        else {
+                            ShowPopUpError(result.message);
+                        }
+                    },
+                    error: function () {
+                        ShowPopUpError("Lỗi ajax!");
+                    }
+                });
             });
         });
     </script>
@@ -58,14 +79,15 @@
                         <ul class="nav nav-tabs">
 
                             <li @(Request.QueryString["tabActive"] == null ? "class='active'" : "")><a href="#tab_0" data-toggle="tab">Chờ xác nhận<label class="label label-warning">@Model.Count(m => m.Status == 0)</label></a></li>
-                            <li><a href="#tab_1" data-toggle="tab">Đang giao<label class="label label-default">@Model.Count(m => m.Status == 1)</label></a></li>
+                            <li><a href="#tab_1" data-toggle="tab">Đang giao<label class="label label-primary">@Model.Count(m => m.Status == 1)</label></a></li>
                             <li><a href="#tab_2" data-toggle="tab">Đã giao<label class="label label-success">@Model.Count(m => m.Status == 2)</label></a></li>
-                            <li><a href="#tab_3" data-toggle="tab">Đổi/trả hàng<label class="label label-info">@Model.Count(m => m.Status == 3)</label></a></li>
+                            <li><a href="#tab_3" data-toggle="tab">Đổi/trả hàng<label class="label label-danger">@Model.Count(m => m.Status == 3)</label></a></li>
                             <li><a href="#tab_4" data-toggle="tab">Bị huỷ<label class="label label-danger">@Model.Count(m => m.Status == 4)</label></a></li>
                         </ul>
                         <div class="tab-content">
-
-                            <div class="tab-pane @(Request.QueryString["tabActive"] == null ? "active" : "")" id="tab_0">
+                            @for (int i = 0; i < listStatus.Count(); i++)
+                            {
+                            <div class="tab-pane @(Request.QueryString["tabActive"] == null && i == 0 ? "active" : "")" id="tab_@i">
                                 @using (Html.BeginForm("Delete", "Order", FormMethod.Post, null))
                                 {
                                     @Html.AntiForgeryToken()
@@ -76,25 +98,24 @@
                                                     <th class="text-center">
                                                         <input data-id="checkall" data-ref="check" type="checkbox" />
                                                     </th>
-                                                    <th>Mã đơn hàng</th>
+                                                    <th>Mã số</th>
                                                     <th>Họ tên khách</th>
                                                     <th>Điện thoại</th>
                                                     <th>Tổng tiền</th>
-                                                    <th>Tổng số lượng</th>
                                                     <th>Trạng thái</th>
                                                     <th>Ngày đặt</th>
                                                     <th>Thao tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (Order order in Model.Where(m => m.Status == 0))
+                                                @foreach (Order order in Model.Where(m => m.Status == i))
                                                 {
                                                     <tr>
                                                         <td class="text-center">
                                                             <input type="checkbox" name="check" value="@order.Id" />
                                                         </td>
                                                         <td class="text-center">
-                                                            #@order.Id
+                                                            @order.Id
                                                         </td>
                                                         <td>
                                                             <b>@Html.DisplayFor(o => order.Name)</b>
@@ -105,11 +126,8 @@
                                                         <td>
                                                             @Warehouse.Common.Format.FormatCurrencyVND((int?)order.TotalMoney)
                                                         </td>
-                                                        <td class="text-center">
-                                                            @Html.DisplayFor(o => order.TotalQuantity)
-                                                        </td>
                                                         <td>
-                                                            <label class="label label-warning">Chờ xác nhận</label>
+                                                            <label class="label label-@listColor[i]">@listStatus[i]</label>
                                                         </td>
                                                         <td>
                                                             @Warehouse.Common.Format.FormatDateTime(order.DateOrder)
@@ -117,7 +135,8 @@
 
                                                         <td class="text-center">
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = order.Id })"><i class="fa fa-eye"></i> Xem</a>
-                                                            @*<a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>*@
+                                                            <a class="btn btn-@listColor[i] btn-xs" data-toggle="modal" data-target="#modal-ChangeStatusModal" href="@Url.Action("_ChangeStatusModal", new { Id = order.Id })"><i class="fa fa-change"></i> Đổi trạng thái</a>
+
                                                         </td>
 
                                                     </tr>
@@ -128,7 +147,7 @@
                                                     <td class="text-center">
                                                         <button type="submit" class="btn btn-default btn-xs" onclick="return confirm('Xác nhận xoá các bản ghi được chọn?')"><i class="fa fa-remove"></i> Xoá</button>
                                                     </td>
-                                                    <td colspan="7"></td>
+                                                    <td colspan="6"></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -136,77 +155,7 @@
                                 }
                             </div>
                             <!-- /.tab-pane -->
-                            <div class="tab-pane @(Request.QueryString["tabActive"] == null ? "active" : "")" id="tab_1">
-                                @using (Html.BeginForm("Delete", "Order", FormMethod.Post, null))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <div class="table-responsive">
-                                        <table id="tblData" class="table table-bordered table-middle" method="post">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">
-                                                        <input data-id="checkall" data-ref="check" type="checkbox" />
-                                                    </th>
-                                                    <th>Mã đơn hàng</th>
-                                                    <th>Họ tên khách</th>
-                                                    <th>Điện thoại</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Tổng số lượng</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Thao tác</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (Order order in Model.Where(m => m.Status == 1))
-                                                {
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <input type="checkbox" name="check[]" value="@order.Id" />
-                                                        </td>
-                                                        <td class="text-center">
-                                                            #@order.Id
-                                                        </td>
-                                                        <td>
-                                                            <b>@Html.DisplayFor(o => order.Name)</b>
-                                                        </td>
-                                                        <td>
-                                                            <a href="tel:@order.Phone">@order.Phone</a>
-                                                        </td>
-                                                        <td>
-                                                            @Warehouse.Common.Format.FormatCurrencyVND((int?)order.TotalMoney)
-                                                        </td>
-                                                        <td class="text-center">
-                                                            @Html.DisplayFor(o => order.TotalQuantity)
-                                                        </td>
-                                                        <td>
-                                                            <label class="label label-default">Đang giao</label>
-                                                        </td>
-                                                        <td>
-                                                            @Warehouse.Common.Format.FormatDateTime(order.DateOrder)
-                                                        </td>
-
-                                                        <td class="text-center">
-                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = order.Id })"><i class="fa fa-eye"></i> Xem</a>
-                                                        </td>
-
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td class="text-center">
-                                                        <button type="submit" class="btn btn-default btn-xs" onclick="return confirm('Xác nhận xoá các bản ghi được chọn?')"><i class="fa fa-remove"></i> Xoá</button>
-                                                    </td>
-                                                    <td colspan="7"></td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                }
-                            </div>
-
-                            <!-- /.tab-pane -->
+                            }
 
                         </div>
                         <!-- /.tab-content -->
@@ -220,3 +169,12 @@
     <!-- /.row -->
 </section>
 
+<div class="modal fade modal-ajax" id="modal-ChangeStatusModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

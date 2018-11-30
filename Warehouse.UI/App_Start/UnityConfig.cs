@@ -57,7 +57,7 @@ namespace Warehouse
 
             container.RegisterType<AccountController>(new InjectionConstructor(typeof(IProvinceService), typeof(IDistrictService), typeof(IWardService)));
             container.RegisterType<AspNetUserController>(new InjectionConstructor(typeof(IProvinceService), typeof(IDistrictService), typeof(IWardService), typeof(IProductService)));
-            container.RegisterType<ManageController>(new InjectionConstructor(typeof(IProvinceService), typeof(IDistrictService), typeof(IWardService)));
+            container.RegisterType<ManageController>(new InjectionConstructor(typeof(IProvinceService), typeof(IDistrictService), typeof(IWardService), typeof(IOrderService)));
 
             container.RegisterType<IImagesProductService, ImagesProductService>();
             container.RegisterType<IImagesProductDal, ImagesProductDal>();

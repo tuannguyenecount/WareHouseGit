@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -17,23 +17,30 @@ namespace Warehouse.Entities
         public int? ProductId { get; set; }
 
         [StringLength(256)]
+        [Display(Name = "Tên sản phẩm")]
         public string ProductName { get; set; }
 
         [StringLength(300)]
+        [Display(Name = "Hình ảnh")]
         public string ProductImage { get; set; }
 
         [StringLength(256)]
+        [Display(Name = "Bí danh")]
         public string ProductAlias { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "Thông tin")]
         public string ProductProperty { get; set; }
 
+        [Display(Name = "Số lượng")]
         public int? Quantity { get; set; }
 
         [Column(TypeName = "money")]
+        [Display(Name = "Giá bán")]
         public decimal? Price { get; set; }
 
         [Column(TypeName = "money")]
+        [Display(Name = "Thành tiền")]
         public decimal? Money { get; set; }
 
         public virtual Order Order { get; set; }

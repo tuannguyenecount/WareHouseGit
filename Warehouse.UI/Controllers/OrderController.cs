@@ -11,6 +11,7 @@ using Warehouse.Entities;
 using Microsoft.AspNet.Identity.Owin;
 using Warehouse.Services.Interface;
 using Warehouse.Models.Order;
+using PagedList;
 
 namespace Warehouse.Controllers
 {

@@ -1,0 +1,61 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Order>
+@{ 
+    string[] listStatus = new string[] { "Chờ xác nhận", "Đang giao", "Đã giao", "Đổi/trả hàng", "Bị Hủy" };
+    string[] listColor = new string[] { "warning", "primary", "success", "danger", "danger" };
+}
+<table class="table table-hover table-condensed table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Mã đơn hàng</th>
+            <th class="text-center">Tổng số lượng</th>
+            <th>Tổng thành tiền</th>
+            <th>Ngày đặt</th>
+            <th>Trạng thái</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order order in Model)
+        {
+            <tr>
+                <td class="text-center">@order.Id</td>
+                <td class="text-center">@order.TotalQuantity</td>
+                <td>
+                    @Warehouse.Common.Format.FormatCurrencyVND((int?)order.TotalMoney)
+                </td>
+                <td>
+                    @Warehouse.Common.Format.FormatDateTime(order.DateOrder)
+                </td>
+                <td>
+                    <label class="label label-@listColor[order.Status]">@listStatus[order.Status]</label>
+                </td>
+                <td class="text-center">
+                    <a data-toggle="modal" data-target="#modal-ViewOrderDetails" href="@Url.Action("ViewOrderDetails",new { Id = order.Id })" class="btn btn-danger btn-sm"><i class="fa fa-list"></i> Xem sản phẩm</a>
+                    <form class="hidden" action="@Url.Action("CancelOrder",new { Id = order.Id })" method="post"></form>
+                    <button onclick="if(confirm('Xác nhận hủy đặt đơn hàng này?')) $(this).parent().children('form').submit()" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Hủy đơn</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6" class="text-center">
+                @Html.PagedListPager(Model, page => Url.Action("ViewHistory",new { page = page }),
+               PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() {
+                   ContainerDivClasses = new string[] { "pagination" },
+                   UlElementClasses = new string[] { "page-list clearfix text-center" },
+                   LiElementClasses = new string[] { "page-list clearfix text-center" },
+
+                   Display = PagedListDisplayMode.Always,
+                   DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                   DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                   DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+                   DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded
+               },
+               new AjaxOptions() { UpdateTargetId = "table", InsertionMode = InsertionMode.Replace, HttpMethod = "Get", AllowCache = true  }) )
+            </td>
+        </tr>
+    </tfoot>
+</table>
