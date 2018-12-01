@@ -200,9 +200,9 @@ namespace Warehouse.Controllers
         }
 
         [Route("don-hang-cua-ban")]
-        public ActionResult ViewHistory(int? page, string message, string errormessage)
+        public ActionResult ViewHistory(int? page)
         {
-            IPagedList<Order> orders = _orderService.GetHistory(User.Identity.GetUserId()).OrderBy(o => o.Status).ThenByDescending(o => o.Id).ToPagedList(page ?? 1, 2);
+            IPagedList<Order> orders = _orderService.GetHistory(User.Identity.GetUserId()).OrderBy(o => o.Status).ThenByDescending(o => o.Id).ToPagedList(page ?? 1, 10);
             if (page == null)
                 return View(orders);
             else
@@ -222,7 +222,7 @@ namespace Warehouse.Controllers
                     order.Status = 4; // Trạng thái bị hủy
                     _orderService.Update(order);
                 }
-                return RedirectToAction("ViewHistory", new { page = page, message = "Hủy đơn hàng thành công." });
+                return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("ViewHistory"));
             }
             catch
             {
@@ -230,17 +230,6 @@ namespace Warehouse.Controllers
             }
         }
 
-        [Route("xem-san-pham-don-hang")]
-        public ActionResult ViewOrderDetails(int Id)
-        {
-            Order order = _orderService.GetById(Id);
-            if (order == null)
-                return Content("<p>Dữ liệu không tồn tại!</p>");
-            ViewBag.Id = Id;
-            List<OrderDetail> orderDetails = order.OrderDetails.ToList();
-            return PartialView(orderDetails);
-        }
-        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]

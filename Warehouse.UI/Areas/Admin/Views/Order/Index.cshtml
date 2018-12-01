@@ -1,10 +1,11 @@
-﻿@model List<Order>
+﻿@using System.Configuration;
+@model List<Order>
 
 @{
     ViewBag.Title = "Danh Sách Đơn Hàng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    string[] listStatus = new string[] { "Chờ xác nhận", "Đang giao", "Đã giao", "Đổi/trả hàng", "Bị Hủy" };
-    string[] listColor = new string[] { "warning", "primary", "success", "danger", "danger" };
+    string[] listStatus = ConfigurationManager.AppSettings["listStatus"].Split(',');
+    string[] listColor = ConfigurationManager.AppSettings["listColor"].Split(',');
 }
 @section styles{
     <!-- DataTables -->

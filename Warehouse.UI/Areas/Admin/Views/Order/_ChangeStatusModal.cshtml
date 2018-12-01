@@ -1,9 +1,10 @@
-﻿@model Order
+﻿@using System.Configuration;
+@model Order
 
 @{
     Layout = null;
-    string[] listStatus = new string[] { "Chờ xác nhận", "Đang giao", "Đã giao", "Đổi/trả hàng", "Bị Hủy" };
-    string[] listColor = new string[] { "warning", "primary", "success", "danger", "danger" };
+    string[] listStatus = ConfigurationManager.AppSettings["listStatus"].Split(',');
+    string[] listColor = ConfigurationManager.AppSettings["listColor"].Split(',');
 }
 
 @using (Html.BeginForm("_ChangeStatusModal", "Order", new { Id = Model.Id }, FormMethod.Post, new { name = "frm" }))
@@ -31,7 +32,7 @@
                 <select name="Status" id="Status" class="form-control" required>
                     @for (int i = 0; i < listStatus.Count(); i++)
                     {
-                    <option value="@i"  @(i == Model.Status ? "selected" :"") >@listStatus[i]</option>
+                        <option value="@i" @(i == Model.Status ? "selected" : "")>@listStatus[i]</option>
                     }
                 </select>
                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })

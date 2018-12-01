@@ -49,7 +49,7 @@
                         <ul class="nav nav-tabs">
 
                             <li @(Request.QueryString["tabActive"] == null ? "class='active'" : "")><a href="#tab_1" data-toggle="tab">Đang Hiển Thị <label class="label label-success">@Model.Count(m => m.Display == true)</label></a></li>
-                            <li><a href="#tab_2" data-toggle="tab">Đang Ẩn <label class="label label-warning">@Model.Count(m => m.Display == false)</label></a></li>
+                            <li><a href="#tab_2" data-toggle="tab">Đang Ẩn <label class="label label-danger">@Model.Count(m => m.Display == false)</label></a></li>
 
                         </ul>
                         <div class="tab-content">

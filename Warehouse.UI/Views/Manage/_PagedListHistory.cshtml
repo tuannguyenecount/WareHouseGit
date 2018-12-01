@@ -2,8 +2,8 @@
 @using PagedList.Mvc;
 @model IPagedList<Order>
 @{ 
-    string[] listStatus = new string[] { "Chờ xác nhận", "Đang giao", "Đã giao", "Đổi/trả hàng", "Bị Hủy" };
-    string[] listColor = new string[] { "warning", "primary", "success", "danger", "danger" };
+    string[] listStatus = System.Configuration.ConfigurationManager.AppSettings["listStatus"].Split(',');
+    string[] listColor = System.Configuration.ConfigurationManager.AppSettings["listColor"].Split(',');
 }
 <table class="table table-hover table-condensed table-striped">
     <thead>
@@ -29,12 +29,77 @@
                     @Warehouse.Common.Format.FormatDateTime(order.DateOrder)
                 </td>
                 <td>
-                    <label class="label label-@listColor[order.Status]">@listStatus[order.Status]</label>
+                    <label class="text text-@listColor[order.Status]">@listStatus[order.Status]</label>
                 </td>
                 <td class="text-center">
-                    <a data-toggle="modal" data-target="#modal-ViewOrderDetails" href="@Url.Action("ViewOrderDetails",new { Id = order.Id })" class="btn btn-danger btn-sm"><i class="fa fa-list"></i> Xem sản phẩm</a>
-                    <form class="hidden" action="@Url.Action("CancelOrder",new { Id = order.Id })" method="post"></form>
-                    <button onclick="if(confirm('Xác nhận hủy đặt đơn hàng này?')) $(this).parent().children('form').submit()" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Hủy đơn</button>
+                    <a data-toggle="modal" data-target="#modal-ViewOrderDetails-@order.Id" href="@Url.Action("ViewOrderDetails",new { Id = order.Id })" class="btn btn-danger btn-sm"><i class="fa fa-list"></i> Xem sản phẩm</a>
+                    @if (order.Status == 0) // nếu trạng thái là đang giao
+                    {
+                        <form class="hidden" action="@Url.Action("CancelOrder", new { Id = order.Id })" method="post">
+                            @Html.AntiForgeryToken()
+
+                        </form>
+                        <button onclick="if(confirm('Xác nhận hủy đặt đơn hàng này?')) $(this).parent().children('form').submit()" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Hủy đơn</button>
+                    }
+                    else
+                    {
+                        <button onclick="alert('Không thể hủy đơn hàng này vì trạng thái đơn hàng là @listStatus[order.Status] ')" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Hủy đơn</button>
+                    }
+                    <div class="modal fade" id="modal-ViewOrderDetails-@order.Id">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-blue">
+                                    <h4 class="modal-title">Thông tin các sản phẩm của đơn hàng @order.Id</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Hình ảnh</th>
+                                                    <th>Tên sản phẩm</th>
+                                                    <th class="text-center">Số lượng đặt</th>
+                                                    <th class="text-center">Giá bán</th>
+                                                    <th class="text-center">Thành tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (OrderDetail orderDetail in order.OrderDetails)
+                                                {
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <img src="~/Photos/Products/@orderDetail.ProductImage" width="100" height="auto" />
+                                                        </td>
+                                                        <td>
+                                                            <a target="_blank" href="@Url.Action("Details","Product",new { alias = orderDetail.ProductAlias })">@orderDetail.ProductName</a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @orderDetail.Quantity
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @Warehouse.Common.Format.FormatCurrencyVND((int?)orderDetail.Price)
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @Warehouse.Common.Format.FormatCurrencyVND((int?)orderDetail.Money)
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Đóng</button>
+                                </div>
+
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+
                 </td>
             </tr>
         }

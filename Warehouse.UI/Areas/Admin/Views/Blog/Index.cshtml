@@ -17,7 +17,7 @@
     <script>
         $(function () {
             $('#tblData').DataTable({
-                columnDefs: [{ orderable: false, targets: [0,8] }],
+                columnDefs: [{ orderable: false, targets: [0,6] }],
                 order: [[1, 'desc']],
             });
            
@@ -45,7 +45,6 @@
                             <a href="@Url.Action("Create")" class="btn bg-green btn-xs" >Tạo bài viết</a>
                         </p>
                     </div>
-                    <div class="table-responsive">
                         <table id="tblData" class="table table-bordered table-middle" method="post">
                             <thead>
                                 <tr>
@@ -53,11 +52,9 @@
                                     <th class="hidden">Mã số</th>
                                     <th>Tiêu đề</th>
                                     <th>Lượt xem</th>
-                                    <th>Lượt thích</th>
-                                    <th>Tác giả</th>
                                     <th>Ngày tạo</th>
                                     <th>Hiển thị</th>
-                                    <th>Thao tác</th>
+                                    <th class="col-xs-3">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,15 +72,6 @@
                                         </td>
                                         <td>
                                             @item.ViewCount lượt
-                                        </td>
-                                        <td>
-                                            @item.LikeCount lượt
-                                        </td>
-                                        <td>
-                                            @if (item.User != null)
-                                            {
-                                                @item.User.UserName
-                                            }
                                         </td>
                                         <td>
                                             @if (item.DateCreated.HasValue)
@@ -112,7 +100,6 @@
 
                                     </tr>
                                 }
-                            </tbody>
 
                         </table>
                     </div>

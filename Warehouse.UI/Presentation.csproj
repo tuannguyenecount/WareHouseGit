@@ -1009,7 +1009,6 @@
     <Content Include="Views\Subscriber\ErrorSubscriber.cshtml" />
     <Content Include="Views\Manage\ViewHistory.cshtml" />
     <Content Include="Views\Manage\_PagedListHistory.cshtml" />
-    <Content Include="Views\Manage\ViewOrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
