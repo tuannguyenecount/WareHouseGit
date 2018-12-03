@@ -6,7 +6,19 @@
 
 @section Styles{
 
-
+<style>
+        .popupSocial{
+z-index:999; text-align:center;
+background:#2c4584; position:fixed;
+top:45%; right:10px; padding:20px 10px;
+border:1px solid #333; border-radius:10px;
+  }
+    @@media screen and (max-width:768px) {
+        .popupSocial {
+            display: none;
+        }
+    }
+</style>
 }
 
 @section Scripts{
@@ -131,6 +143,23 @@
     </script>
 }
 
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1932380583495333";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="popupSocial">
+    <div class="fb-like" data-href="UrlTrangweb" data-layout="box_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    <br /><br />
+    <div style="width:60px">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <g:plusone></g:plusone>
+    </div>
+</div>
 
 <div class="container">
     <nav data-depth="1" class="breadcrumb">
