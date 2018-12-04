@@ -16,8 +16,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Order>().Include(p => p.OrderDetails).SingleOrDefault()
-                    : context.Set<Order>().Include(p => p.OrderDetails).SingleOrDefault(filter);
+                    ? context.Set<Order>().Include(p => p.OrderDetails).Include(p=>p.District).Include(p => p.Ward).Include(p => p.Province).SingleOrDefault()
+                    : context.Set<Order>().Include(p => p.OrderDetails).Include(p => p.District).Include(p => p.Ward).Include(p => p.Province).SingleOrDefault(filter);
             }
         }
         public override List<Order> GetList(Expression<Func<Order, bool>> filter = null)
@@ -25,8 +25,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Order>().Include(p => p.OrderDetails).ToList()
-                    : context.Set<Order>().Include(p => p.OrderDetails).Where(filter).ToList();
+                    ? context.Set<Order>().Include(p => p.OrderDetails).Include(p => p.District).Include(p => p.Ward).Include(p => p.Province).ToList()
+                    : context.Set<Order>().Include(p => p.OrderDetails).Include(p => p.District).Include(p => p.Ward).Include(p => p.Province).Where(filter).ToList();
             }
         }
        

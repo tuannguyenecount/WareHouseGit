@@ -9,7 +9,7 @@ using Warehouse.Services.Interface;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class BlogController : Controller
     {
         IBlogService _blogService;

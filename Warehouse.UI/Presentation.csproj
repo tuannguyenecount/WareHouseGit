@@ -309,9 +309,9 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\InfoShopController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PopupController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SubscribeEmailController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\FavoriteProductController.cs" />
@@ -850,6 +850,7 @@
     <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\_ChangeStatusModal.cshtml" />
+    <Content Include="Areas\Admin\Views\SubscribeEmail\Index.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />

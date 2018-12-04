@@ -25,19 +25,21 @@
                 WriteLiteral("$('#" + (Request.QueryString["tabActive"]) + "').addClass('active');"
                         + " $('a[href=\"#"+ (Request.QueryString["tabActive"]) + "\"]').parent().addClass('active');");
             }
+
             $("input[data-id=checkall]").change(function () {
                 if ($(this).is(":checked")) {
-                    $(this).closest("table").find("input[type=checkbox]").prop("checked","");
+                    $(this).closest("table").find("input[type=checkbox]").prop("checked", true);
                 }
                 else {
-                    $(this).closest("table").find("input[type=checkbox]").removeProp("checked");
-
+                    $(this).closest("table").find("input[type=checkbox]").prop("checked", false);
                 }
             });
+
             $('#tblData').DataTable({
                 columnDefs: [{ orderable: false, targets: [0, 5, 7] }],
                 order: [[1, 'desc']],
             });
+
             $(document).on("submit", "form[name=frm]", function (e) {
                 e.preventDefault();
                 $.ajax({

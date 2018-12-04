@@ -1,0 +1,100 @@
+﻿@model List<Subscriber>
+
+@{
+    ViewBag.Title = "Danh sách đăng ký theo dõi qua Email";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section scripts{
+    <!-- DataTables -->
+    <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('#tblData').DataTable({
+                columnDefs: [{ orderable: false, targets: [0,2] }],
+                order: [[1, 'asc']],
+            });
+            $("input[data-id=checkall]").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#tblData tbody input[type=checkbox]").prop("checked", true);
+                }
+                else {
+                    $("#tblData tbody input[type=checkbox]").prop("checked", false);
+                }
+            });
+        });
+    </script>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <form action="@Url.Action("Delete")" method="post">
+                        @Html.AntiForgeryToken()
+                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Ngày theo dõi</th>
+                                    <th class="text-center">
+                                        <input type="checkbox" name="checkall" data-id=checkall id="checkall" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Subscriber item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Email
+                                        </td>
+                                        <td>
+                                            @Warehouse.Common.Format.FormatDateTime(item.DateSubscriber)
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="emails" value="@item.Email" />
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <button class="btn bg-red btn-xs" onclick="return confirm('Xác nhận xóa danh sách được chọn ?')"><i class="fa fa-remove"></i> Xóa</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a onclick="return confirm('Xác nhận xuất dữ liệu ra file text txt? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("ExportToTxt")" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Text</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
