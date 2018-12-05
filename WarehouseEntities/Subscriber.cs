@@ -1,4 +1,4 @@
-namespace Warehouse.Entities
+﻿namespace Warehouse.Entities
 {
     using System;
     using System.Collections.Generic;
@@ -12,9 +12,10 @@ namespace Warehouse.Entities
     {
         [Key]
         [StringLength(256)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Column(TypeName = "date")]
+        [Display(Name = "Ngày đăng ký")]
         public DateTime DateSubscriber { get; set; }
     }
 }

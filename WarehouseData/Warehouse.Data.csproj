@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201811281657251_updateTableOrder.Designer.cs">
       <DependentUpon>201811281657251_updateTableOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812050819171_alterColumnDateSubscriber.cs" />
+    <Compile Include="Migrations\201812050819171_alterColumnDateSubscriber.Designer.cs">
+      <DependentUpon>201812050819171_alterColumnDateSubscriber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -280,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811281657251_updateTableOrder.resx">
       <DependentUpon>201811281657251_updateTableOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812050819171_alterColumnDateSubscriber.resx">
+      <DependentUpon>201812050819171_alterColumnDateSubscriber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
