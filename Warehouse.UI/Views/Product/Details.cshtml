@@ -20,13 +20,13 @@
 }
 <div id="fb-root"></div>
 <script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=1932380583495333&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=1932380583495333&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="container">
     <nav data-depth="4" class="breadcrumb">
@@ -40,11 +40,11 @@
                     </li>
                     @if (ViewBag.CategoryParent != null)
                     {
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="@Url.Action("Index", new { aliasCategory = ViewBag.CategoryParent.Alias_SEO })">
-                            <span itemprop="name">@ViewBag.CategoryParent.Name</span>
-                        </a>
-                    </li>
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" href="@Url.Action("Index", new { aliasCategory = ViewBag.CategoryParent.Alias_SEO })">
+                                <span itemprop="name">@ViewBag.CategoryParent.Name</span>
+                            </a>
+                        </li>
                     }
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="@Url.Action("Index",new { aliasCategory = Model.Category.Id })">
@@ -78,12 +78,13 @@
                                     </ul>
 
                                     <div id="product-images-large" class="product-images-large slick-slider">
-                                        @foreach (var product in Model.imagesProducts.OrderBy(i => i.OrderNum)) {
+                                        @foreach (var product in Model.imagesProducts.OrderBy(i => i.OrderNum))
+                                        {
                                             <div>
                                                 <div>
                                                     <a href="~/Photos/Products/slide/@product.Image"></a>
                                                 </div>
-                                                <img src="@Url.Content("~/Photos/Products/slide/" + product.Image)" alt="" title="" itemprop="image"  class="img-fluid">
+                                                <img src="@Url.Content("~/Photos/Products/slide/" + product.Image)" alt="" title="" itemprop="image" class="img-fluid">
                                             </div>
                                         }
                                     </div>
@@ -91,9 +92,10 @@
                                 <div class="js-qv-mask mask">
 
                                     <div id="product-images-thumbs" class="product-images js-qv-product-images slick-slider">
-                                        @foreach (var product in Model.imagesProducts) {
+                                        @foreach (var product in Model.imagesProducts)
+                                        {
                                             <div class="thumb-container">
-                                                <img class="thumb js-thumb  selected img-fluid"                                                  
+                                                <img class="thumb js-thumb  selected img-fluid"
                                                      src="@Url.Content("~/Photos/Products/slide/" + product.Image)"
                                                      alt=""
                                                      title=""
@@ -105,7 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </section>
                     </div>
                     <div class="col-md-6 col-product-info">
@@ -119,81 +121,67 @@
                             </div>
                         </div>
                         <div class="product-information">
-                            <div  class="rte-content">
+                            <div class="rte-content">
                                 <p>@Model.Description</p>
                             </div>
                             <div class="product-actions">
-                                    @Html.AntiForgeryToken()
-                                    <div class="product-add-to-cart pt-3">
-                                        <div class="row extra-small-gutters product-quantity">
-                                            @*<div class="col col-12 col-sm-auto">
-                                                <div class="qty">
-                                                    <input type="number"
-                                                           name="qty"
-                                                           id="quantity_wanted"
-                                                           value="1"
-                                                           class="input-group"
-                                                           min="1">
-                                                </div>
-                                            </div>*@
-                                            <div class="col col-12 col-sm-auto">
-                                                <div class="add">
-                                                    <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">
-                                                        <i class="fa fa-shopping-bag fa-fw bag-icon" aria-hidden="true"></i>
-                                                        <i class="fa fa-circle-o-notch fa-spin fa-fw spinner-icon" aria-hidden="true"></i>
-                                                        Thêm vảo giỏ
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="col col-sm-auto">
-                                                <button type="button" data-toggle="tooltip" data-placement="top" title="Add to wishlist"
-                                                        class="btn btn-secondary btn-lg btn-iconic btn-iqitwishlist-add js-iqitwishlist-add" data-animation="false" id="iqit-wishlist-product-btn"
-                                                        data-id-product="87"
-                                                        data-id-product-attribute="0"
-                                                        data-url="//iqit-commerce.com/ps17/en/module/iqitwishlist/actions">
-                                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i>
-                                                    <i class="fa fa-heart added" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col col-sm-auto">
-                                                <button type="button" data-toggle="tooltip" data-placement="top" title="Add to compare"
-                                                        class="btn btn-secondary btn-lg btn-iconic btn-iqitcompare-add js-iqitcompare-add" data-animation="false" id="iqit-compare-product-btn"
-                                                        data-id-product="87"
-                                                        data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions">
-                                                    <i class="fa fa-random not-added" aria-hidden="true"></i><i class="fa fa-check added"
-                                                                                                                aria-hidden="true"></i>
-                                                </button>
+                                @Html.AntiForgeryToken()
+                                <div class="product-add-to-cart pt-3">
+                                    <div class="row extra-small-gutters product-quantity">
+                                        <div class="col col-12 col-sm-auto">
+                                            <div class="add">
+                                                <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">
+                                                    <i class="fa fa-shopping-bag fa-fw bag-icon" aria-hidden="true"></i>
+                                                    <i class="fa fa-circle-o-notch fa-spin fa-fw spinner-icon" aria-hidden="true"></i>
+                                                    Thêm vảo giỏ
+                                                </a>
                                             </div>
                                         </div>
-                                        <p class="product-minimal-quantity"></p>
-                                    </div>
-                                    <div class="quickview-product-additional-info">
-                                        <div class="social-sharing">
-                                            <ul>
-                                                <li class="facebook">
-                                                    <a href="http://www.facebook.com/sharer.php?u=@(Request.Url)" title="Share" target="_blank">
-                                                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="twitter">
-                                                    <a href="https://twitter.com/intent/tweet?text=@Model.Name @(Request.Url)" title="Tweet" target="_blank">
-                                                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="googleplus">
-                                                    <a href="https://plus.google.com/share?url=@Request.Url" title="Google+" target="_blank">
-                                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="pinterest">
-                                                    <a href="http://www.pinterest.com/pin/create/button/?media=@(Model.FullUrlImage)&amp;url=@(Request.Url)" title="Pinterest" target="_blank">
-                                                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                        <div class="col col-sm-auto">
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Add to wishlist"
+                                                    class="btn btn-secondary btn-lg btn-iconic btn-iqitwishlist-add js-iqitwishlist-add" data-animation="false" id="iqit-wishlist-product-btn">
+                                                <i class="fa fa-heart-o not-added" aria-hidden="true"></i>
+                                                <i class="fa fa-heart added" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col col-sm-auto">
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Add to compare"
+                                                    class="btn btn-secondary btn-lg btn-iconic btn-iqitcompare-add js-iqitcompare-add" data-animation="false" id="iqit-compare-product-btn"
+                                                    data-id-product="87"
+                                                    data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions">
+                                                <i class="fa fa-random not-added" aria-hidden="true"></i><i class="fa fa-check added"
+                                                                                                            aria-hidden="true"></i>
+                                            </button>
                                         </div>
                                     </div>
-
+                                    <p class="product-minimal-quantity"></p>
+                                </div>
+                                <div class="quickview-product-additional-info">
+                                    <div class="social-sharing">
+                                        <ul>
+                                            <li class="facebook">
+                                                <a href="http://www.facebook.com/sharer.php?u=@(Request.Url)" title="Share" target="_blank">
+                                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="twitter">
+                                                <a href="https://twitter.com/intent/tweet?text=@Model.Name @(Request.Url)" title="Tweet" target="_blank">
+                                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="googleplus">
+                                                <a href="https://plus.google.com/share?url=@Request.Url" title="Google+" target="_blank">
+                                                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="pinterest">
+                                                <a href="http://www.pinterest.com/pin/create/button/?media=@(Model.FullUrlImage)&amp;url=@(Request.Url)" title="Pinterest" target="_blank">
+                                                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -250,7 +238,8 @@
                 <div class="block-content">
                     <div class="products slick-products-carousel products-grid slick-default-carousel slick-arrows-middle">
 
-                        @foreach (GridProductViewModel productrelated in ViewBag.productsRelated) {
+                        @foreach (GridProductViewModel productrelated in ViewBag.productsRelated)
+                        {
                             <div class="js-product-miniature-wrapper product-carousel ">
                                 <article class="product-miniature product-miniature-default product-miniature-grid product-miniature-layout-1 js-product-miniature">
                                     <div class="thumbnail-container">
@@ -287,7 +276,7 @@
                                             </div>
                                             <div class="product-functional-buttons product-functional-buttons-overlay">
                                                 <div class="product-functional-buttons-links">
-                                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add"  
+                                                    <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add"
                                                        data-toggle="tooltip" title="Add to wishlist">
                                                         <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
                                                     </a>
@@ -308,7 +297,7 @@
                                 </article>
                             </div>
 
-                        }                      
+                        }
                     </div>
                 </div>
             </section>

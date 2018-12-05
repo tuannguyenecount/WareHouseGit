@@ -154,6 +154,7 @@
         .hidden, .hide {
             display: none;
         }
+
         .table-middle tr td {
             vertical-align: middle !important;
         }
@@ -345,8 +346,29 @@
                 var link = $(e.relatedTarget);
                 $(this).find(".modal-content").load(link.attr("href"));
             });
-        
+
         });
+
+        function Fav(id) {
+            //debugger
+            var url = '@Url.Action("Create", "FavoriteProduct")';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    alert(data.message);
+                },
+                error: function (jqXHR) {
+                    // Http Status is not 200
+                },
+                complete: function (jqXHR, status) {
+                    // Whether success or error it enters here
+                }
+            });
+        };
     </script>
 
 

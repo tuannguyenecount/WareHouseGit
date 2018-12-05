@@ -22,5 +22,20 @@ namespace Warehouse.Services.Services
         {
             return _iFavoriteProductDal.GetList();
         }
+
+        public void Add(FavoriteProduct favoriteProduct)
+        {
+            _iFavoriteProductDal.Add(favoriteProduct);
+        }
+
+        public void Update(FavoriteProduct favoriteProduct)
+        {
+            _iFavoriteProductDal.Update(favoriteProduct);
+        }
+
+        public void Delete(FavoriteProduct favoriteProduct)
+        {
+            _iFavoriteProductDal.Delete(favoriteProduct);
+        }
     }
 }
