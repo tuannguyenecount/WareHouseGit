@@ -14,7 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/bower_components/Ionicons/css/ionicons.min.css">
     <!-- bootstrap datepicker -->
-   @* <link rel="stylesheet" href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">*@
+    @* <link rel="stylesheet" href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">*@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="~/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- Theme style -->
@@ -23,7 +23,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/dist/css/skins/_all-skins.min.css">
     <link href="~/dist/css/jquery-ui.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="~/Content/popupImage.css" type="text/css" />
     @RenderSection("styles", false)
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -31,31 +31,45 @@
         h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .margin-top-10{
-            margin-top:10px !important;
+
+        .margin-top-10 {
+            margin-top: 10px !important;
         }
+
         body {
             font-family: Arial, Helvetica, sans-serif !important;
         }
-        .table-border-none tr{border:none;}
-        .table-border-none td{border:none !important;}
-        .clearfix{
-            clear:both;
+
+        .table-border-none tr {
+            border: none;
         }
-        .table-middle tr td{
-            vertical-align:middle !important;
-        } 
-        .modal-body{
-            overflow:auto;
+
+        .table-border-none td {
+            border: none !important;
         }
-        .table-info tr td:first-child{
-            text-align:right;
+
+        .clearfix {
+            clear: both;
         }
+
+        .table-middle tr td {
+            vertical-align: middle !important;
+        }
+
+        .modal-body {
+            overflow: auto;
+        }
+
+        .table-info tr td:first-child {
+            text-align: right;
+        }
+
         .table-info tr td:nth-child(2) {
-            font-weight:bold;
+            font-weight: bold;
         }
-        .table-info tr td:first-child{
-            width:40%;
+
+        .table-info tr td:first-child {
+            width: 40%;
         }
     </style>
     <!-- jQuery 3 -->
@@ -142,6 +156,15 @@
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
+            </div>
+            <!-- The Modal Show Popup Image -->
+            <div id="modalShowImage" class="modal-Image">
+                <!-- The Close Button -->
+                <span class="close">&times;</span>
+                <!-- Modal Content (The Image) -->
+                <img class="modal-content" id="img01">
+                <!-- Modal Caption (Image Text) -->
+                <div id="caption"></div>
             </div>
 
         </div>
@@ -367,6 +390,20 @@
             $(this).find(".modal-content").load(link.attr("href"));
         });
 
+        // Event khi người dùng click vào hình ảnh có class popupImage
+        $(".popupImage").click(function () {
+            var modal = document.getElementById("modalShowImage");  // Tạo biến modal lấy ra element có Id  modalShowImage
+            var captionText = document.getElementById("caption");  // Tạo biến captionText lấy ra từ element có Id caption
+            var modalImg = document.getElementById("img01");   // Tạo biến modalImg lấy ra từ element có Id img01
+            modal.style.display = "block";    // Hiển thị  popup
+            modalImg.src = $(this).attr("src");  // Gán thuộc tính src của hình ảnh trong popup
+            captionText.innerHTML = $(this).attr("alt");   // Gán giá trị cho caption theo thuộc tính alt của hình
+        });
+        // Event khi người dùng click nút Close popup
+        $(".modal-Image .close").click(function () {
+            var modal = document.getElementById("modalShowImage");
+            modal.style.display = 'none';  // Ẩn popup
+        });
     </script>
 
     @RenderSection("scripts", false)

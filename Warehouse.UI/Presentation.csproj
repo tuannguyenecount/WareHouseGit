@@ -846,7 +846,6 @@
     <Content Include="Areas\Admin\Views\Slide\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Slide\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Slide\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\_ChangeStatusModal.cshtml" />
