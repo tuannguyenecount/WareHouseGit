@@ -83,11 +83,13 @@ namespace Warehouse.Controllers
             var favorite = new FavoriteProduct();
             favorite.ProductId = id;
             favorite.AspNetUserId = userid;
+            favorite.FavoriteDate = DateTime.Now;
 
             var validate = _ifavoriteProductService.GetAll().Where(n => n.AspNetUserId == userid && n.ProductId == id).SingleOrDefault();
             if (validate != null)
                 return Json(new { status = 4, message = "sản phẩm đã có trong danh sách yêu thích" });
-            else {
+            else
+            {
                 try
                 {
                     _ifavoriteProductService.Add(favorite);
