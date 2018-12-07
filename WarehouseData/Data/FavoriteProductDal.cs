@@ -14,6 +14,13 @@ namespace Warehouse.Data.Data
 {
     public class FavoriteProductDal : EntityRepositoryBase<FavoriteProduct, WarehouseContext>, IFavoriteProductDal
     {
-
+        public override List<FavoriteProduct> GetList(Expression<Func<FavoriteProduct, bool>> filter = null)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<FavoriteProduct>().Include(p => p.Product).Include(p => p.AspNetUser).ToList()
+                    : context.Set<FavoriteProduct>().Include(p => p.Product).Include(p => p.AspNetUser).Where(filter).ToList();
+            }
+        }
     }
 }

@@ -1,53 +1,55 @@
 ﻿@using Warehouse.Models;
 @model List<ListFavoriteProductViewModel>
 
-    @{
-        ViewBag.Title = "Sản phẩm yêu thích";
-    }
+@{
+    ViewBag.Title = "Sản phẩm bạn thích";
+}
 
-    <div id="inner-wrapper" class="container">
-        <div id="content-wrapper">
-            <section id="main">
-                <header class="page-header">
-                    <h1 class="h1 page-title"><span>Trang cá nhân</span></h1>
-                </header>
-                <section id="content" class="page-content my-account-page-content-wrapper">
-                    <div class="row">
-                        @Html.Action("_SidebarManage", "Manage")
-                        <div class="my-account-page-content col-sm-9">
-                            <div id="iqitwishlist-user-products" class="mb-4">
-                                @foreach (var product in Model)
-                                {
-                                    <div id="iqitwishlist-product-169" class="iqitwishlist-product">
-                                        <div class="row align-items-center">
-                                            <div class="col-3 col-sm-auto">
-                                                <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html"> <img class="img-fluid" src="https://iqit-commerce.com/ps17/289-cart_default/printed-summer-dress.jpg" alt=""></a>
-                                            </div>
-
-                                            <div class="col _name">
-                                                <a href="https://iqit-commerce.com/ps17/en/accessories/87-printed-summer-dress.html">Leather bag</a>
-                                                <div class="text-muted">
-                                                </div>
-                                            </div>
-
-                                            <div class="col ">
-                                                <span class="product-price">$30.50</span>
-                                            </div>
-                                            <div class="col col-auto">
-                                                <a href="#" class="js-iqitwishlist-remove" data-id-product="169" data-url="">
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
+<div id="inner-wrapper" class="container">
+    <div id="content-wrapper">
+        <section id="main">
+            <header class="page-header">
+                <h1 class="h1 page-title"><span>Trang cá nhân</span></h1>
+            </header>
+            <section id="content" class="page-content my-account-page-content-wrapper">
+                <div class="row">
+                    @Html.Action("_SidebarManage", "Manage")
+                    <div class="my-account-page-content col-sm-9">
+                        <h2>
+                            @ViewBag.Title
+                        </h2>
+                        <div id="iqitwishlist-user-products" class="mb-4">
+                            @foreach (var item in Model) {
+                                <div class="iqitwishlist-product">
+                                    <div class="row align-items-center">
+                                        <div class="col-3 col-sm-auto">
+                                            <a href="@Url.Action("Details", "Product", new { alias = item.Alias_SEO })"> 
+                                                <img class="img-fluid" src="@item.FullUrlImage" width="@Context.Application["WidthImageProduct"]" height="@Context.Application["HeightImageProduct"]" >
+                                            </a>
                                         </div>
-                                        <hr>
+
+                                        <div class="col _name">
+                                            <a href="@Url.Action("Details", "Product", new { alias = item.Alias_SEO })">@item.Name</a>
+                                        </div>
+
+                                        <div class="col ">
+                                            <span class="product-price">@Warehouse.Common.Format.FormatCurrencyVND(item.Price)</span>
+                                        </div>
+                                        <div class="col col-auto">
+                                            <a href="@Url.Action("RemoveFavorite",new { ProductId = item.ProductId  })"  >
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                }
-                            </div>
+                                    <hr>
+                                </div>
+                            }
                         </div>
                     </div>
-                </section>
-                <footer class="page-footer"></footer>
+                </div>
             </section>
-        </div>
+            <footer class="page-footer"></footer>
+        </section>
     </div>
+</div>
 

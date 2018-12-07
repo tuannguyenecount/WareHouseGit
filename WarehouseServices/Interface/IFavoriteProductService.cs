@@ -9,9 +9,10 @@ namespace Warehouse.Services.Interface
 {
     public interface IFavoriteProductService
     {
-        List<FavoriteProduct> GetAll();
+        List<FavoriteProduct> GetAll(string userId);
         void Add(FavoriteProduct favorite);
         void Update(FavoriteProduct favorite);
+        FavoriteProduct Get(string UserId, int ProductId);
         void Delete(FavoriteProduct favorite);
     }
 }
