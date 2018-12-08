@@ -16,6 +16,8 @@ namespace Warehouse.Models
 
         public Nullable<DateTime> FavoriteDate { get; set; }
 
+        public int Price { get; set; }
+
         // Name product
         public string Name { get; set; }
 
@@ -30,6 +32,11 @@ namespace Warehouse.Models
             {
                 return ConfigurationManager.AppSettings["BaseUrl"].ToString() + "/Photos/Products/" + this.Image;
             }
+        }
+
+        public string Alias_SEO
+        {
+            get;set;
         }
     }
 }
