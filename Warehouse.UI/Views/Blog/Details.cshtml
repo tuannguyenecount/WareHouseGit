@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <div class="container">
     <nav data-depth="4" class="breadcrumb">
         <div class="row align-items-center">
@@ -53,7 +55,7 @@
                             <i class="fa fa-tags"></i> <a href="@Url.Action("Index")" title="Blog">Blog</a>
                         </span>
                         <span class="post-likes">
-                            <a href="#" class="simpleblog-like-button">
+                            <a href="@Url.Action("LikeArticle",new { Id = Model.Id })" class="simpleblog-like-button">
                                 <i class="fa fa-heart"></i>
                                 <span>@Model.LikeCount</span> lượt thích
                             </a>
@@ -76,19 +78,16 @@
                             <div class="block-content">
 
                                 <div class="simpleblog-socialshare-icons">
-                                    <button data-type="twitter" type="button" class="btn btn-default btn-twitter">
+                                    <button onclick="window.open('https://twitter.com/intent/tweet?text=@Request.Url','Share','height=400,width=600')" data-type="twitter" type="button" class="btn btn-default btn-twitter">
                                         <i class="fa fa-twitter"></i> Tweet
                                     </button>
-                                    <button data-type="facebook" type="button" class="btn btn-default btn-facebook">
+                                    <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=@Request.Url','Share','height=400,width=600')" data-type="facebook" type="button" class="btn btn-default btn-facebook">
                                         <i class="fa fa-facebook"></i> Share
                                     </button>
-                                    <button data-type="google-plus" type="button" class="btn btn-default btn-google-plus">
+                                    <button onclick="window.open('https://plus.google.com/share?url=@Request.Url','Share','height=400,width=600')" data-type="google-plus" type="button" class="btn btn-default btn-google-plus">
                                         <i class="fa fa-google-plus"></i> Google+
                                     </button>
-                                    <button data-type="pinterest" type="button" class="btn btn-default btn-pinterest">
-                                        <i class="fa fa-pinterest"></i> Pinterest
-                                    </button>
-
+                                  
                                 </div><!-- simpleblog-socialshare-icons. -->
                             </div><!-- .simpleblog-socialshare -->
 
@@ -115,21 +114,23 @@
                     </div><!-- .ph_simpleblog -->
                 </div><!-- schema -->
 
-                <script>
-			var lang_iso = 'en_EN';
-			(function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s); js.id = id;
-				js.src = "/connect.facebook.net/"+lang_iso+"/all.js#xfbml=1";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-
-                </script>
-
             </div><!-- .ph_simpleblog -->
-                </div><!-- schema -->
-            </div>
+
         </section>
     </div>
 </div>
+@section Scripts{
+    <script>
+        $(function () {
+            $(".simpleblog-like-button").click(function (e) {
+                e.preventDefault();
+                $.get($(this).attr("href"), function (data) {
+                    if (data.status == 1) {
+                        $(this).children("span").text(data.newLikeCount);
+                    }
+                    console.log(data.status);
+                });
+            });
+        });
+    </script>    
+}

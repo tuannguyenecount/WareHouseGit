@@ -24,7 +24,7 @@
                             <tr>
                                 <td>@Html.DisplayNameFor(model => model.Image)</td>
                                 <td>
-                                    <img src="~/Photos/Blogs/@Model.Image" width="300" height="auto" />
+                                    <img src="~/Photos/Blogs/@Model.Image" width="@Context.Application["WidthImageBlog"]" height="@Context.Application["HeightImageBlog"]" />
                                 </td>
                             </tr>
                             <tr>

@@ -53,7 +53,36 @@ namespace Warehouse.Controllers
                 ViewCount = blog.ViewCount,
                 Title = blog.Title
             };
+            if(Session["read-post-" + blog.Id] == null)
+            {
+                Session["read-post-" + blog.Id] = true;
+                blog.LikeCount++;
+                _blogService.Update(blog);
+            }
             return View(detailsBlogViewModel);
+        }
+
+        [Route("thich-bai-viet/{Id}")]
+        public JsonResult LikeArticle(int Id)
+        {
+            try
+            {
+                Blog blog = _blogService.GetById(Id);
+                if (blog != null)
+                {
+                    if (Session["like-post-" + blog.Id] == null)
+                    {
+                        Session["like-post-" + blog.Id] = true;
+                        blog.LikeCount++;
+                        _blogService.Update(blog);
+                    }
+                }
+                return Json(new { status = 1, newLikeCount = blog.LikeCount,  message = "Thích bài viết thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { status = 0, message = "Thích bài viết thất bại" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
