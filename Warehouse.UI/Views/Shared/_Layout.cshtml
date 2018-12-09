@@ -369,6 +369,27 @@
                 }
             });
         };
+
+        function Compare(id) {
+            //debugger
+            var url = '@Url.Action("Add", "Compare")';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    alert(data.message);
+                },
+                error: function (jqXHR) {
+                    // Http Status is not 200
+                },
+                complete: function (jqXHR, status) {
+                    // Whether success or error it enters here
+                }
+            });
+        };
     </script>
 
 

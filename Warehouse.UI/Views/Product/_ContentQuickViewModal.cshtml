@@ -34,20 +34,20 @@
                 </div>
             </div>
 
-            <div id="product-description-short" >
+            <div id="product-description-short">
                 <p>@Model.Description</p>
             </div>
 
             <div class="product-actions">
-                <form action="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" method="get" >
+                <form action="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" method="get">
                     @Html.AntiForgeryToken()
 
                     <div class="product-add-to-cart pt-3">
                         <div class="row extra-small-gutters product-quantity">
-                            
+
                             <div class="col col-12 col-sm-auto">
                                 <div class="add">
-                                    <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart"  >
+                                    <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">
                                         <i class="fa fa-shopping-bag fa-fw bag-icon" aria-hidden="true"></i>
                                         <i class="fa fa-circle-o-notch fa-spin fa-fw spinner-icon" aria-hidden="true"></i>
                                         Thêm vào giỏ
@@ -60,9 +60,9 @@
                                 </a>
                             </div>
                             <div class="col col-sm-auto">
-                                <button type="button" data-toggle="tooltip" data-placement="top" title="Add to compare" class="btn btn-secondary btn-lg btn-iconic btn-iqitcompare-add js-iqitcompare-add" data-animation="false" id="iqit-compare-product-btn" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions">
+                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-toggle="tooltip" title="" data-original-title="So sánh" onclick="Compare(@Model.Id)">
                                     <i class="fa fa-random not-added" aria-hidden="true"></i><i class="fa fa-check added" aria-hidden="true"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <p class="product-minimal-quantity">

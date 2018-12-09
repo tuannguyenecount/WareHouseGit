@@ -35,6 +35,8 @@ namespace Warehouse
         {
             if(Session["ShoppingCart"] == null)
                 Session["ShoppingCart"] = new List<CartItem>();
+            if (Session["CompareItem"] == null)
+                Session["CompareItem"] = new List<DetailsProductViewModel>();
             InfoShopDal infoShopDal = new InfoShopDal();
             InfoShopService infoShopService = new InfoShopService(infoShopDal);
             Session["InfoShop"] = infoShopService.GetFirst();

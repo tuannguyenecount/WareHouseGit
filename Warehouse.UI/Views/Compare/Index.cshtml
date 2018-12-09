@@ -1,0 +1,121 @@
+﻿@model List<DetailsProductViewModel>
+@{
+    ViewBag.Title = "So sánh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <nav data-depth="1" class="breadcrumb">
+        <div class="row align-items-center">
+            <div class="col">
+                <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+
+
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Trang chủ</span>
+                        </a>
+                    </li>
+                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        @*<a itemprop="item" href="@Request.Url">
+                                <span itemprop="name">@ViewBag.Title</span>
+                            </a>*@
+                    </li>
+
+                </ol>
+            </div>
+            <div class="col col-auto"> </div>
+        </div>
+    </nav>
+</div>
+
+<div id="inner-wrapper" class="container">
+    <div id="content-wrapper">
+        <section id="main">
+            <section id="content" class="page-content">
+                <h1 class="h1 page-title"><span>So sánh sản phẩm</span></h1>
+                <div id="iqitcompare-table">
+                    <div class="iqitcompare-table-actions text-right">
+                        <a href="@Url.Action("DeleteAll", "Compare")" class="js-iqitcompare-remove-all iqitcompare-remove-all">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> Xóa tất cả sản phẩm
+                        </a>
+                    </div>
+                    <div class="iqitcompare-table-container">
+                        <table class="table table-hover">
+                            <tbody>
+
+                                <tr class="iqitcompare-product-tr">
+                                    <td class="iqitcompare-product-td"></td>
+                                    @foreach (var product in Model)
+                                    {
+                                        <td class="iqitcompare-product-td">
+                                            <article class="iqitcompare-product">
+                                                <div class="pack-product-container">
+                                                    <div class="thumb-mask">
+                                                        <a href="@Url.Action("Details","Product",new { alias = product.Alias })">
+                                                            <img class="img-fluid" src="@product.FullUrlImage" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="pack-product-name">
+                                                        <a href="@Url.Action("Details","Product",new { alias = product.Alias })">@product.Name</a>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        <span class="product-price">$30.50</span>
+                                                    </div>
+
+                                                    <a class="iqitcompare-remove" href="@Url.Action("Delete", "Compare", new { Id = product.Id })">
+                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </article>
+                                        </td>
+                                    }
+                                </tr>
+
+                                <tr>
+                                    <td class="comparison_feature_odd feature-name">
+                                        <strong>Compositions</strong>
+                                    </td>
+                                    @foreach (var product in Model)
+                                    {
+                                        <td class="comparison_feature_odd iqitcompare-feature-td js-iqitcompare-product-87">
+                                            ---
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td class="comparison_feature_even feature-name">
+                                        <strong>Styles</strong>
+                                    </td>
+                                    @foreach (var product in Model)
+                                    {
+                                        <td class="comparison_feature_even iqitcompare-feature-td js-iqitcompare-product-87">
+                                            ---
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td class="comparison_feature_odd feature-name">
+                                        <strong>Properties</strong>
+                                    </td>
+                                    @foreach (var product in Model)
+                                    {
+                                        <td class="comparison_feature_odd iqitcompare-feature-td js-iqitcompare-product-87">
+                                            ---
+                                        </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="alert alert-warning hidden-xs-up" id="iqitcompare-warning">There is no products to compare.</p>
+            </section>
+            <footer class="page-footer">
+                <!-- Footer content -->
+            </footer>
+        </section>
+    </div>
+</div>
