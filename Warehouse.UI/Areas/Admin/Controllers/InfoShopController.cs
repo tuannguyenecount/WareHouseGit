@@ -24,14 +24,12 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             _infoShopService = infoShopService;
         }
-
-        // GET: Admin/InfoShop
+        #region CRUD
         public ActionResult Index()
         {
             return View(_infoShopService.GetList());
         }
 
-        // GET: Admin/InfoShop/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -46,9 +44,6 @@ namespace Warehouse.Areas.Admin.Controllers
             return View(infoShop);
         }
 
-       
-
-        // GET: Admin/InfoShop/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +77,6 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             return View(infoShop);
         }
-
+        #endregion
     }
 }

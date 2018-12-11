@@ -138,19 +138,19 @@
                                             </div>
                                         </div>
                                         <div class="col col-sm-auto">
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Add to wishlist"
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Yêu thích"
                                                     class="btn btn-secondary btn-lg btn-iconic btn-iqitwishlist-add js-iqitwishlist-add" data-animation="false" id="iqit-wishlist-product-btn">
                                                 <i class="fa fa-heart-o not-added" aria-hidden="true"></i>
                                                 <i class="fa fa-heart added" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                         <div class="col col-sm-auto">
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Add to compare"
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="So sánh"
                                                     class="btn btn-secondary btn-lg btn-iconic btn-iqitcompare-add js-iqitcompare-add" data-animation="false" id="iqit-compare-product-btn"
-                                                    data-id-product="87"
-                                                    data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions">
-                                                <i class="fa fa-random not-added" aria-hidden="true"></i><i class="fa fa-check added"
-                                                                                                            aria-hidden="true"></i>
+                                                    data-id-product="@Model.Id"
+                                                    data-url="#">
+                                                <i class="fa fa-random not-added" aria-hidden="true"></i>
+                                                <i class="fa fa-check added" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab"
-                               href="#content">
+                               href="#contentProduct">
                                 Thông tin chi tiết
                             </a>
                         </li>
@@ -212,15 +212,13 @@
                                     @Model.Description
                                 </div>
                             </div>
-
                         </div>
-                        <div class="tab-pane "
-                             id="content">
+                        <div class="tab-pane in" id="contentProduct">
                             <div id="product-details" class="clearfix">
                                 @Html.Raw(Model.Content)
                             </div>
                         </div>
-                        <div class="tab-pane  in " id="extra-0">
+                        <div class="tab-pane in" id="extra-0">
                             <div id="iqit-reviews">
                                 <div class="fb-comments" data-href="@Request.Url.ToString()" data-width="600" data-numposts="20"></div>
                             </div>

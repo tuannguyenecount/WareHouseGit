@@ -15,7 +15,33 @@ namespace Warehouse.Data.Data
         {
             using (var context = new WarehouseContext())
             {
-                return context.Set<News>().Include(n => n.AspNetUser).Where(filter).ToList();
+                return context.Set<News>().Include(n => n.AspNetUser).Where(n => n.Deleted == false).Where(filter).ToList();
+            }
+        }
+
+        public override News GetFirst(Expression<Func<News, bool>> filter)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<News>().Include(n=>n.AspNetUser).Where(n => n.Deleted == false).FirstOrDefault()
+                    : context.Set<News>().Include(n => n.AspNetUser).Where(n => n.Deleted == false).FirstOrDefault(filter);
+            }
+        }
+        public override News GetSingle(Expression<Func<News, bool>> filter)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<News>().Include(n => n.AspNetUser).Where(n => n.Deleted == false).SingleOrDefault()
+                    : context.Set<News>().Include(n => n.AspNetUser).Where(n => n.Deleted == false).SingleOrDefault(filter);
+            }
+        }
+
+        public override int Count(Expression<Func<News, bool>> filter)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<News>().Where(n => n.Deleted == false).Count()
+                    : context.Set<News>().Where(n => n.Deleted == false).Count(filter);
             }
         }
 
@@ -23,7 +49,16 @@ namespace Warehouse.Data.Data
         {
             using (var context = new WarehouseContext())
             {
-                return context.Set<News>().Include(n => n.AspNetUser).Where(n=>n.Status== true).OrderByDescending(n => n.Id).Take(8).ToList();
+                return context.Set<News>().Include(n => n.AspNetUser).Where(n=>n.Status == true && n.Deleted == false).OrderByDescending(n => n.Id).Take(8).ToList();
+            }
+        }
+
+        public override void Delete(News entity)
+        {
+            using (var context = new WarehouseContext()) {
+                entity.Deleted = true;
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
             }
         }
     }

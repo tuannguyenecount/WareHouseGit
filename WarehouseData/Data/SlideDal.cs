@@ -11,6 +11,45 @@ namespace Warehouse.Data.Data
 {
     public class SlideDal : EntityRepositoryBase<Slide, WarehouseContext>, ISlideDal
     {
-        
+        public override int Count(Expression<Func<Slide, bool>> filter)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<Slide>().Where(s => s.Deleted == false).Count()
+                    : context.Set<Slide>().Where(s => s.Deleted == false).Count(filter);
+            }
+        }
+        public override List<Slide> GetList(Expression<Func<Slide, bool>> filter = null)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<Slide>().Where(s => s.Deleted == false).ToList()
+                    : context.Set<Slide>().Where(s => s.Deleted == false).Where(filter).ToList();
+            }
+        }
+        public override Slide GetFirst(Expression<Func<Slide, bool>> filter)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<Slide>().Where(p => p.Deleted == false).FirstOrDefault()
+                    : context.Set<Slide>().Where(s => s.Deleted == false).FirstOrDefault(filter);
+            }
+        }
+        public override Slide GetSingle(Expression<Func<Slide, bool>> filter)
+        {
+            using (var context = new WarehouseContext()) {
+                return filter == null
+                    ? context.Set<Slide>().Where(p => p.Deleted == false).SingleOrDefault()
+                    : context.Set<Slide>().Where(s => s.Deleted == false).SingleOrDefault(filter);
+            }
+        }
+        public override void Delete(Slide entity)
+        {
+            using (var context = new WarehouseContext()) {
+                entity.Deleted = true;
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -197,6 +197,22 @@
     <Compile Include="Migrations\201812050819171_alterColumnDateSubscriber.Designer.cs">
       <DependentUpon>201812050819171_alterColumnDateSubscriber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812100345525_addColumnDeleted.cs" />
+    <Compile Include="Migrations\201812100345525_addColumnDeleted.Designer.cs">
+      <DependentUpon>201812100345525_addColumnDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812100425248_addColumnDeleted2.cs" />
+    <Compile Include="Migrations\201812100425248_addColumnDeleted2.Designer.cs">
+      <DependentUpon>201812100425248_addColumnDeleted2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812100451238_addColumnDeleted3.cs" />
+    <Compile Include="Migrations\201812100451238_addColumnDeleted3.Designer.cs">
+      <DependentUpon>201812100451238_addColumnDeleted3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812100453242_addColumnDeleted4.cs" />
+    <Compile Include="Migrations\201812100453242_addColumnDeleted4.Designer.cs">
+      <DependentUpon>201812100453242_addColumnDeleted4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -287,6 +303,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812050819171_alterColumnDateSubscriber.resx">
       <DependentUpon>201812050819171_alterColumnDateSubscriber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812100345525_addColumnDeleted.resx">
+      <DependentUpon>201812100345525_addColumnDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812100425248_addColumnDeleted2.resx">
+      <DependentUpon>201812100425248_addColumnDeleted2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812100451238_addColumnDeleted3.resx">
+      <DependentUpon>201812100451238_addColumnDeleted3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812100453242_addColumnDeleted4.resx">
+      <DependentUpon>201812100453242_addColumnDeleted4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

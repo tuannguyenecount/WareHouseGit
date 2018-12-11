@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -47,15 +48,17 @@
         [Display(Name = "Nội dung")]
         public string Content { get; set; }
 
-        [Required(ErrorMessage = "Bí danh không được bỏ trống")]
-        [StringLength(256, ErrorMessage = "Bí danh không được vượt quá 256 ký tự!")]
-        [Display(Name = "Bí danh SEO")]
+        [Required(ErrorMessage = "{0} không được bỏ trống")]
+        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
+        [Display(Name = "Bí danh")]
         public string Alias_SEO { get; set; }
 
         [Display(Name = "Tình trạng")]
+        [DefaultValue(false)]
         public bool Status { get; set; }
 
         [Display(Name = "Hiển thị")]
+        [DefaultValue(false)]
         public bool Display { get; set; }
 
         [StringLength(256)]
@@ -67,6 +70,9 @@
 
         [Display(Name = "Ngày sửa")]
         public DateTime? DateUpdated { get; set; }
+
+        [DefaultValue(false)]
+        public bool Deleted { get; set; }
 
         public virtual Category Category { get; set; }
 

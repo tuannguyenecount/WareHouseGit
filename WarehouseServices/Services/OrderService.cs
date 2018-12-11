@@ -35,9 +35,11 @@ namespace Warehouse.Services.Services
             _orderDal.Add(Order);
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            _orderDal.Delete(new Order { Id = id });
+            Order order = GetById(Id);
+            if (order != null)
+                _orderDal.Delete(order);
         }
 
         public int CountAll()

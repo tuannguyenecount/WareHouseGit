@@ -23,14 +23,12 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             _orderService = orderService;
         }
-
-        // GET: Admin/Order
+        #region CRUD
         public ActionResult Index(int? page)
         {
             return View(_orderService.GetAll());
         }
 
-        // GET: Admin/Order/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -45,12 +43,24 @@ namespace Warehouse.Areas.Admin.Controllers
             return View(Order);
         }
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int[] check)
+        {
+            foreach (int id in check) {
+                _orderService.Delete(id);
+            }
+            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
+        }
+        #endregion
+        #region Count Order Wait Confirm
         [ChildActionOnly]
         public ContentResult CountOrderWaitConfirm()
         {
             return Content(_orderService.CountOrderWaitConfirm().ToString());
         }
-       
+        #endregion
+        #region Change Status 
         public ActionResult _ChangeStatusModal(int id)
         {
             Order Order = _orderService.GetById(id);
@@ -85,18 +95,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 return Json(new { status = 0, message = "Lỗi: " + ex.Message });
             }
         }
-
-        // POST: Admin/Order/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int[] check)
-        {
-            foreach (int id in check)
-            {
-                _orderService.Delete(id);
-            }
-            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
-        }
+        #endregion
 
     }
 }

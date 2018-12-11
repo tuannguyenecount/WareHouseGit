@@ -53,6 +53,9 @@ namespace Warehouse.Entities
         [Display(Name = "Tác giả")]
         public string UserId{ get; set; }
 
+        [DefaultValue(false)]
+        public bool Deleted { get; set; }
+
         public virtual AspNetUser User { get; set; }
     }
 }

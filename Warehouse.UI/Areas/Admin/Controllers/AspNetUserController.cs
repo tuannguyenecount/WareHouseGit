@@ -24,7 +24,6 @@ namespace Warehouse.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AspNetUserController : Controller
     {
-
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
         private ApplicationSignInManager _signInManager;

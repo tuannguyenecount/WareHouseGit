@@ -55,7 +55,7 @@ namespace Warehouse.Controllers
                 var check_exist = CompareItem.Where(n => n.Id == product.Id).Count();
                 if (check_exist > 0)
                 {
-                    return Json(new { status = 3, message = "sản phẩm đã tồn tại" });
+                    return Json(new { status = 3, message = "Sản phẩm đã tồn tại" });
                 }
             }
 

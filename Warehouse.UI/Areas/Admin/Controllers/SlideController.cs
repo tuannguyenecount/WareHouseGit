@@ -24,7 +24,7 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             _slideService = slideService;
         }
-
+        #region CRUD
         public ActionResult Index()
         {
             return View(_slideService.GetAll());
@@ -118,6 +118,6 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             return View("Index", _slideService.GetAll());
         }
-
+        #endregion
     }
 }

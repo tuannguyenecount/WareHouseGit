@@ -18,12 +18,7 @@ namespace Warehouse.Areas.Admin.Controllers
             _subscriberService = subscriberService;
         }
 
-        // GET: Admin/SubscribeEmail
-        public ActionResult Index()
-        {
-            return View(_subscriberService.GetAll());
-        }
-
+        #region Export List
         public void ExportToTxt()
         {
             List<Subscriber> subscribers = _subscriberService.GetAll();
@@ -39,8 +34,17 @@ namespace Warehouse.Areas.Admin.Controllers
             // Push it!
             Response.TransmitFile(filename);
         }
+        #endregion
 
+        #region List
+        public ActionResult Index()
+        {
+            return View(_subscriberService.GetAll());
+        }
+        #endregion
         [HttpPost]
+
+        #region Delete
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string[] emails)
         {
@@ -50,5 +54,6 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

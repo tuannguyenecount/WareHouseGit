@@ -38,5 +38,32 @@ namespace Warehouse.Services.Services
             return _articleDal.GetSingle(a => a.Id == Id);
         }
 
+        public bool CheckUniqueTitle(string Title)
+        {
+            return _articleDal.GetFirst(b => b.Title == Title) == null;
+        }
+
+        public bool CheckUniqueAlias(string Alias)
+        {
+            return _articleDal.GetFirst(b => b.Alias == Alias) == null;
+        }
+
+        public void Add(Article article)
+        {
+            _articleDal.Add(article);
+        }
+
+        public void Update(Article article)
+        {
+            _articleDal.Update(article);
+        }
+
+        public void Delete(int Id)
+        {
+            Article article = GetById(Id);
+            if(article != null)
+                _articleDal.Delete(article);
+        }
+
     }
 }

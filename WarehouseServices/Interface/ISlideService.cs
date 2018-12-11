@@ -9,10 +9,7 @@ namespace Warehouse.Services.Interface
 {
     public interface ISlideService
     {
-
         List<Slide> GetAll();
-
-        
 
         Slide GetById(int id);
 

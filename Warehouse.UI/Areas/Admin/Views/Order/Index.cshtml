@@ -35,7 +35,7 @@
                 }
             });
 
-            $('#tblData').DataTable({
+            $('.tblData').DataTable({
                 columnDefs: [{ orderable: false, targets: [0, 5, 7] }],
                 order: [[1, 'desc']],
             });
@@ -95,7 +95,7 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     <div class="table-responsive">
-                                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                                        <table id="tblData" class="table table-bordered table-middle tblData" method="post">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">

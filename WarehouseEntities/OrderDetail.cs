@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -42,6 +43,9 @@
         [Column(TypeName = "money")]
         [Display(Name = "Thành tiền")]
         public decimal? Money { get; set; }
+
+        [DefaultValue(false)]
+        public bool Deleted { get; set; }
 
         public virtual Order Order { get; set; }
 

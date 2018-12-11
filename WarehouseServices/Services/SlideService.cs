@@ -35,9 +35,11 @@ namespace Warehouse.Services.Services
             _slideDal.Add(slide);
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            _slideDal.Delete(new Slide { Id = id });
+            Slide slide = GetById(Id);
+            if (slide != null)
+                _slideDal.Delete(slide);
         }
 
         

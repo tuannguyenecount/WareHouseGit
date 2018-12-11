@@ -78,7 +78,9 @@ namespace Warehouse.Services.Services
 
         public void Delete(int productId)
         {
-            _productDal.Delete(new Product { Id = productId });
+            Product product = GetById(productId);
+            if (product != null)
+                _productDal.Delete(product);
         }
 
         public List<Product> GetRelatedProducts(int? categoryId, int productMainId)

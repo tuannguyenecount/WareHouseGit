@@ -35,9 +35,11 @@ namespace Warehouse.Services.Services
             _newsDal.Add(news);
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            _newsDal.Delete(new News { Id = id });
+            News news = GetById(Id);
+            if (news != null)
+                _newsDal.Delete(news);
         }
 
         public List<News> GetNews(int take)

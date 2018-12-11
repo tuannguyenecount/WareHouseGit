@@ -1,0 +1,109 @@
+﻿@model List<Article>
+@{
+
+    ViewBag.Title = "Bài viết thông tin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section scripts{
+    <!-- DataTables -->
+    <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('#tblData').DataTable({
+                searching: false,
+                lengthChange: false,
+                columnDefs: [{ orderable: false, targets: [4] }],
+                order: [[0, 'asc']],
+            });
+           
+        });
+    </script>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div>
+                        <p>
+                            <a href="@Url.Action("Create")" class="btn bg-green btn-xs" >Tạo bài viết</a>
+                        </p>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tblData" class="table table-bordered table-middle" method="post">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Số thứ tự</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Ngày tạo</th>
+                                    <th class="text-center">Hiển thị</th>
+                                    <th class="col-xs-3 text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Article item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @item.OrderNum
+                                        </td>
+                                        <td>
+                                            <b><a href="@Url.Action("Details","Article",new { alias = item.Alias, area="" })" target="_blank">@item.Title</a></b>
+                                        </td>
+                                        <td>
+                                            @if (item.DateCreated.HasValue)
+                                            {
+                                                @Warehouse.Common.Format.FormatDateTime(item.DateCreated.Value)
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            @if (item.Display != null && item.Display == true)
+                                            {
+                                                <label class="label label-success">Hiển thị</label>
+                                            }
+                                            else
+                                            {
+                                                <label class="label label-danger">Ẩn</label>
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
+                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
+                                            <form class="hidden" id="frmDelete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
+                                                @Html.AntiForgeryToken()
+                                            </form>
+                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa bài viết @item.Title ?')) { document.getElementById('frmDelete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->       
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+

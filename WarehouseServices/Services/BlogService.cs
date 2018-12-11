@@ -60,7 +60,9 @@ namespace Warehouse.Services.Services
 
         public void Delete(int Id)
         {
-            _blogDal.Delete(new Blog() { Id = Id });
+            Blog blog = GetById(Id);
+            if (blog != null)
+                _blogDal.Delete(blog);
         }
         
         public int CountDisplay()

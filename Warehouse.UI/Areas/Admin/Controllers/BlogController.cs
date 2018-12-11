@@ -169,9 +169,7 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
         {
-            Blog blog = _blogService.GetById(Id);
-            if (blog != null)
-                _blogService.Delete(Id);
+            _blogService.Delete(Id);
             return RedirectToAction("Index");
         }
 

@@ -13,5 +13,10 @@ namespace Warehouse.Services.Interface
         List<Article> GetListByDisplay(bool? Display);
         Article GetById(int Id);
         Article GetByAlias(string alias);
+        bool CheckUniqueTitle(string Title);
+        bool CheckUniqueAlias(string Alias);
+        void Add(Article blog);
+        void Update(Article blog);
+        void Delete(int Id);
     }
 }

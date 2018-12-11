@@ -321,9 +321,7 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id, string tabActive)
         {
-            Product product = _productService.GetById(Id);
-            if (product != null)
-                _productService.Delete(Id);
+            _productService.Delete(Id);
             return RedirectToAction("Index", new { tabActive = tabActive });
         }
 
