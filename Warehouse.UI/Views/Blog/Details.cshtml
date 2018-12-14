@@ -12,8 +12,8 @@
             <div class="col">
                 <ol itemscope itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/ps17/en/">
-                            <span itemprop="name">Home</span>
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Trang chủ</span>
                         </a>
                     </li>
 
@@ -93,23 +93,16 @@
 
                         </div><!-- #displayPrestaHomeBlogAfterPostContent -->
                         <div id="simpleblog-post-comments" class="block-section">
-                            <div id="disqus_thread"></div>
-                            <script type="text/javascript">
-	    /* * * CONFIGURATION VARIABLES * * */
-	    // Required: on line below, replace text in quotes with your forum shortname
-	    var disqus_shortname = 'iqitcommerce';
-	    var disqus_identifier = 'd6c1fd1420e98041dec618080356951e';
-
-
-	    /* * * DON'T EDIT BELOW THIS LINE * * */
-	    (function() {
-	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	    })();
-
-                            </script>
-                            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                            <div id="fb-root"></div>
+                            <script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2&appId=1932380583495333&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+                            <div class="fb-comments" data-href="@Request.Url.ToString()" data-width="600" data-numposts="20"></div>
                         </div>
                     </div><!-- .ph_simpleblog -->
                 </div><!-- schema -->

@@ -12,16 +12,16 @@ namespace Warehouse.Controllers
     public class HomeController : Controller
     {
         private readonly IProductService _productService;
-        private readonly INewsService _newsService;
+        private readonly IBlogService _blogService;
         private readonly ISlideService _slideService;
         private readonly ICategoryService _categoryService;
         private readonly IOrderService _orderService;
 
 
-        public HomeController(IProductService productService, INewsService newsService, ISlideService slideService, ICategoryService categoryService, IOrderService orderService)
+        public HomeController(IProductService productService, IBlogService blogService, ISlideService slideService, ICategoryService categoryService, IOrderService orderService)
         {
             _productService = productService;
-            _newsService = newsService;
+            _blogService = blogService;
             _slideService = slideService;
             _categoryService = categoryService;
             _orderService = orderService;
@@ -72,16 +72,29 @@ namespace Warehouse.Controllers
 
             ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true);
 
-            ViewBag.News = _newsService.GetNews(10).Select(n => new NewsListViewModel()
+            ViewBag.Blogs = _blogService.GetListByDisplay(true).Take(8).Select(b => new ListBlogViewModel()
             {
-                Id = n.Id,
-                Alias = n.Alias_SEO,
-                Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/News/" + n.Image,
-                Introduce = n.Introduce,
-                Title = n.Title,
-                DateSubmitted = n.DateSubmitted ?? new DateTime(2018, 01, 01)
+                Id = b.Id,
+                Alias = b.Alias,
+                Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/News/" + b.Image,
+                Description = b.Description,
+                Title = b.Title,
+                DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
             });
             return View();
+        }
+
+        public ActionResult _BlogPartial()
+        {
+            ViewBag.Blogs = _blogService.GetListByDisplay(true).OrderByDescending(b=>b.Id).Take(8).Select(b => new ListBlogViewModel() {
+                Id = b.Id,
+                Alias = b.Alias,
+                Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Blogs/" + b.Image,
+                Description = b.Description,
+                Title = b.Title,
+                DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
+            });
+            return PartialView();
         }
 
         [OutputCache(Duration = 86400)]

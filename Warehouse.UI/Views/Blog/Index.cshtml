@@ -73,30 +73,12 @@
                                         <span class="post-date">
                                             <i class="fa fa-calendar"></i> @listBlogViewModel.DateCreated
                                         </span>
-                                        @*<span class="post-category">
-                                            <i class="fa fa-tags"></i> <a href="/Content/ps17/en/blog/bikes"
-                                                                          title="Bikes"
-                                                                          rel="category">Bikes</a>
-                                        </span>*@
                                     </div><!-- .post-additional-info post-meta-info -->
                                 </div><!-- .post-item -->
                             </div>
                         }
                     </div>
                     <!-- Pagination -->
-                    @*<nav class="pagination">
-                        <ul class="page-list clearfix text-center">
-                            <li class="current">
-                                <a><span>1</span></a>
-                            </li>
-                            <li>
-                                <a href="http://iqit-commerce.com/Content/ps17/en/blog/page/2">2</a>
-                            </li>
-                            <li id="pagination_next" class="pagination_next">
-                                <a href="http://iqit-commerce.com/Content/ps17/en/blog/page/2" rel="next">Next&nbsp;&raquo;</a>
-                            </li>
-                        </ul>
-                    </nav>*@
                     @Html.PagedListPager(Model, page => Url.Action("Index",new { page = page }),
                         new PagedListRenderOptions()
                         {
