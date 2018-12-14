@@ -16,7 +16,7 @@ using Warehouse.Entities;
 namespace Warehouse.Controllers
 {
     [RoutePrefix("san-pham-yeu-thich")]
-    [Authorize]
+    
     public class FavoriteProductController : Controller
     {
         readonly IFavoriteProductService _ifavoriteProductService;
@@ -41,6 +41,7 @@ namespace Warehouse.Controllers
 
         [Route("")]
         [Route("xem-danh-sach")]
+        [Authorize]
         public ActionResult Index()
         {
             var userid = User.Identity.GetUserId();
@@ -61,6 +62,9 @@ namespace Warehouse.Controllers
         [HttpPost]
         public JsonResult Create(int id)
         {
+            if(!User.Identity.IsAuthenticated) {
+                return Json(new { status = 3, message = "Bạn chưa đăng nhập!" });
+            }
             var userid = User.Identity.GetUserId();
          
             var favorite = new FavoriteProduct();
@@ -77,13 +81,15 @@ namespace Warehouse.Controllers
                 }
                 catch (Exception)
                 {
-                    return Json(new { status = 2, message = "Có lỗi" });
+                    return Json(new { status = 2, message = "Có lỗi!" });
                 }
             }
-            return Json(new { status = 1, message = "Thêm thành công" });
+            return Json(new { status = 1, message = "Thêm thành công." });
         }
 
         [Route("remove/{ProductId}")]
+        [Authorize]
+        [HttpPost]
         public ActionResult RemoveFavorite(int ProductId)
         {
             FavoriteProduct favoriteProduct = _ifavoriteProductService.Get(User.Identity.GetUserId(), ProductId);

@@ -95,7 +95,7 @@
                                             <form class="hidden" id="frmDelete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                 @Html.AntiForgeryToken()
                                             </form>
-                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa bài viết @item.Title ?')) { document.getElementById('frmDelete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa bài viết này?')) { document.getElementById('frmDelete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
                                         </td>
 
                                     </tr>

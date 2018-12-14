@@ -109,7 +109,7 @@
                                                                 @Html.AntiForgeryToken()
                                                                 <input name="tabActive" value="tab_1" />
                                                             </form>
-                                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm @item.Name.ToUpperInvariant() ?')) { document.getElementById('frmTab1Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
+                                                            <button class="btn bg-red btn-xs" onclick="if(confirm('Xác nhận xóa sản phẩm này?')) { document.getElementById('frmTab1Delete_@item.Id').submit();  }"><i class="fa fa-remove"></i> Xóa</button>
                                                         </td>
                                                        
                                                     </tr>

@@ -36,7 +36,10 @@
                                             <span class="product-price">@Warehouse.Common.Format.FormatCurrencyVND(item.Price)</span>
                                         </div>
                                         <div class="col col-auto">
-                                            <a href="@Url.Action("RemoveFavorite",new { ProductId = item.ProductId  })"  >
+                                            <form id="frmDeleteFavorite_@item.ProductId" class="hidden" action="@Url.Action("RemoveFavorite", new { ProductId = item.ProductId  })" method="post">
+
+                                            </form>
+                                            <a href="javascript:document.getElementById('frmDeleteFavorite_@item.ProductId').submit()"  >
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </a>
                                         </div>

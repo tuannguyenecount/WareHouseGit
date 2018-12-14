@@ -30,7 +30,7 @@ namespace Warehouse.Controllers
         /// GET: Compare
         /// </summary>
         /// <returns></returns>
-        [Route("so-sanh.html")]
+        [Route("so-sanh-san-pham.html")]
         public ActionResult Index()
         {
             return View(CompareItem);
@@ -48,14 +48,14 @@ namespace Warehouse.Controllers
 
             if (product == null)
             {
-                return Json(new { status = 2, message = "Không tìm thấy sản phẩm" });
+                return Json(new { status = 2, message = "Không tìm thấy sản phẩm!" });
             }
             else
             {
                 var check_exist = CompareItem.Where(n => n.Id == product.Id).Count();
                 if (check_exist > 0)
                 {
-                    return Json(new { status = 3, message = "Sản phẩm đã tồn tại" });
+                    return Json(new { status = 3, message = "Sản phẩm đã tồn tại!" });
                 }
             }
 
@@ -73,10 +73,10 @@ namespace Warehouse.Controllers
             }
             catch (Exception)
             {
-                return Json(new { status = 2, message = "Có lỗi" });
+                return Json(new { status = 2, message = "Có lỗi!" });
             }
 
-            return Json(new { status = 1, message = "Thêm thành công" });
+            return Json(new { status = 1, message = "Thêm thành công." });
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Warehouse.Controllers
         public ActionResult DeleteAll()
         {
             CompareItem.Clear();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
     }
 }

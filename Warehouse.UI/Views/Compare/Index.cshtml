@@ -36,9 +36,10 @@
         <section id="main">
             <section id="content" class="page-content">
                 <h1 class="h1 page-title"><span>So sánh sản phẩm</span></h1>
+                @if (Model.Count > 0) {
                 <div id="iqitcompare-table">
                     <div class="iqitcompare-table-actions text-right">
-                        <a href="@Url.Action("DeleteAll", "Compare")" class="js-iqitcompare-remove-all iqitcompare-remove-all">
+                        <a href="@Url.Action("DeleteAll", "Compare")" class="">
                             <i class="fa fa-trash-o" aria-hidden="true"></i> Xóa tất cả sản phẩm
                         </a>
                     </div>
@@ -48,18 +49,17 @@
 
                                 <tr class="iqitcompare-product-tr">
                                     <td class="iqitcompare-product-td"></td>
-                                    @foreach (var product in Model)
-                                    {
+                                    @foreach (var product in Model) {
                                         <td class="iqitcompare-product-td">
                                             <article class="iqitcompare-product">
                                                 <div class="pack-product-container">
                                                     <div class="thumb-mask">
-                                                        <a href="@Url.Action("Details","Product",new { alias = product.Alias })">
+                                                        <a href="@Url.Action("Details", "Product", new { alias = product.Alias })">
                                                             <img class="img-fluid" src="@product.FullUrlImage" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="pack-product-name">
-                                                        <a href="@Url.Action("Details","Product",new { alias = product.Alias })">@product.Name</a>
+                                                        <a href="@Url.Action("Details", "Product", new { alias = product.Alias })">@product.Name</a>
                                                     </div>
                                                     <div class="product-price">
                                                         <span class="product-price">$30.50</span>
@@ -78,8 +78,7 @@
                                     <td class="comparison_feature_odd feature-name">
                                         <strong>Compositions</strong>
                                     </td>
-                                    @foreach (var product in Model)
-                                    {
+                                    @foreach (var product in Model) {
                                         <td class="comparison_feature_odd iqitcompare-feature-td js-iqitcompare-product-87">
                                             ---
                                         </td>
@@ -89,8 +88,7 @@
                                     <td class="comparison_feature_even feature-name">
                                         <strong>Styles</strong>
                                     </td>
-                                    @foreach (var product in Model)
-                                    {
+                                    @foreach (var product in Model) {
                                         <td class="comparison_feature_even iqitcompare-feature-td js-iqitcompare-product-87">
                                             ---
                                         </td>
@@ -100,8 +98,7 @@
                                     <td class="comparison_feature_odd feature-name">
                                         <strong>Properties</strong>
                                     </td>
-                                    @foreach (var product in Model)
-                                    {
+                                    @foreach (var product in Model) {
                                         <td class="comparison_feature_odd iqitcompare-feature-td js-iqitcompare-product-87">
                                             ---
                                         </td>
@@ -111,7 +108,10 @@
                         </table>
                     </div>
                 </div>
-                <p class="alert alert-warning hidden-xs-up" id="iqitcompare-warning">There is no products to compare.</p>
+                }
+                else {
+                    <p class="alert alert-warning hidden-xs-up" id="iqitcompare-warning">Không có sản phẩm nào để so sánh.</p>
+                }
             </section>
             <footer class="page-footer">
                 <!-- Footer content -->
