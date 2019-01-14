@@ -7,7 +7,7 @@
             <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn" data-toggle="dropdown">
                 <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">@(ShoppingCart.Sum(c => c.Quantity))</span></i>
                 <span class="info-wrapper">
-                    <span class="title">Giỏ hàng</span>
+                    <span class="title"></span>
                     <span class="cart-toggle-details">
                         <span class="text-faded cart-separator"> / </span>
                         <span class="cart-products-count">(@(ShoppingCart.Sum(c=>c.Quantity)))</span>
@@ -18,7 +18,7 @@
             <div id="_desktop_blockcart-content">
                 <div id="blockcart-content" class="blockcart-content">
                     <div class="cart-title">
-                        <span class="modal-title">Giỏ hàng</span>
+                        <span class="modal-title">@Warehouse.Language.Header.Header.ShoppingCart</span>
                         <button type="button" id="js-cart-close" class="close">
                             <span>×</span>
                         </button>
@@ -57,14 +57,14 @@
                     </ul>
                     <div class="cart-subtotals">
                         <div class="products clearfix">
-                            <span class="label">Tổng tiền</span>
+                            <span class="label">@Warehouse.Language.ShoppingCart.Index.Total</span>
                             <span class="value float-right">@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c => c.Subtotal)))</span>
                         </div>
                     </div>
 
                     <div class="cart-buttons text-center">
-                        <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-block btn-lg mb-2">Đặt hàng ngay</a>
-                        <a rel="nofollow" class="btn btn-secondary btn-block" href="@Url.Action("Index","ShoppingCart")">Xem giỏ hàng</a>
+                        <a href="@Url.Action("Checkout","Order")" class="btn btn-primary btn-block btn-lg mb-2">@Warehouse.Language.ShoppingCart.Index.Checkout</a>
+                        <a rel="nofollow" class="btn btn-secondary btn-block" href="@Url.Action("Index","ShoppingCart")">@Warehouse.Language.Shared.Index.View @Warehouse.Language.Header.Header.ShoppingCart</a>
                     </div>
                 </div>
             </div>

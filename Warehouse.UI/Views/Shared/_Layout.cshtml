@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@ViewBag.Title | Warehouse for Prestashop 1.7</title>
+    <title>@ViewBag.Title</title>
     <meta name="description" content="@ViewBag.Description">
     <meta name="keywords" content="">
     <meta name="robots" content="none" />
@@ -12,18 +12,17 @@
     <meta property="og:site_name" content="" />
     <meta property="og:description" content="@ViewBag.Description">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="~/Content/ps17/img/warehouse-for-prestashop-17-logo-1496957294.jpg" />
+    @*<meta property="og:image" content="~/Content/ps17/img/warehouse-for-prestashop-17-logo-1496957294.jpg" />*@
     @RenderSection("meta", false)
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-    <link rel="icon" type="image/vnd.microsoft.icon" href="/Content/ps17/img/favicon.ico?1496957294">
-    <link rel="shortcut icon" type="image/x-icon" href="/Content/ps17/img/favicon.ico?1496957294">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="~/images/@((Session["InfoShop"] as InfoShop).Logo)">
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/@((Session["InfoShop"] as InfoShop).Logo)">
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
     <link rel="stylesheet" href="/Content/ps17/themes/warehouse/assets/cache/theme-4a403a38.css" type="text/css" media="all">
     <script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflcPgmxB/www-widgetapi.js" async=""></script>
-    @*<script src="https://www.youtube.com/iframe_api"></script>*@
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/custom.js"></script>
+    <script src="~/Scripts/custom.js" type="text/javascript"></script>
     <script type="text/javascript">
         var elementorFrontendConfig = { "isEditMode": "", "stretchedSectionContainer": "", "is_rtl": "" };
         var iqitTheme = { "rm_sticky": "0", "rm_breakpoint": 0, "op_preloader": "0", "cart_style": "side", "cart_confirmation": "modal", "h_layout": "4", "f_fixed": "1", "f_layout": "3", "h_absolute": "0", "h_sticky": "0", "hw_width": "fullwidth", "h_search_type": "full", "pl_lazyload": true, "pl_infinity": false, "pl_rollover": true, "pl_crsl_autoplay": false, "pl_slider_ld": 5, "pl_slider_d": 4, "pl_slider_t": 3, "pl_slider_p": 2, "pp_thumbs": "bottom", "pp_zoom": "inner", "pp_tabs": "tabh" };
@@ -184,59 +183,6 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Content/ps17/themes/warehouse/assets/cache/main-custom.js"></script>
 
-    <div id="iqitwishlist-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="modal-title">You need to login or create account</span><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                    <section class="login-form">
-                        <p> Save products on your wishlist to buy them later or share with your friends.</p><form id="login-form-modal" action="/ps17/en/login" method="post">
-                            <section>
-                                <input type="hidden" name="back" value=""><div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label required">
-                                        Email
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" name="email" type="email" value="" required="">
-                                    </div>
-                                    <div class="col-md-2 form-control-comment"></div>
-                                </div>
-                                <div class="form-group row align-items-center ">
-                                    <label class="col-md-2 col-form-label required">
-                                        Password
-                                    </label>
-                                    <div class="col-md-8">
-                                        <div class="input-group js-parent-focus">
-                                            <input class="form-control js-child-focus js-visible-password" name="password" autocomplete="new-password" type="password" value="" pattern=".{5,}" required=""><span class="input-group-btn">
-                                                <button class="btn" type="button" data-action="show-password"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 form-control-comment"></div>
-                                </div>
-                                <div class="forgot-password">
-                                    <a href="/ps17/en/password-recovery" rel="nofollow">
-                                        Forgot your password?
-                                    </a>
-                                </div>
-                            </section>
-                            <footer class="form-footer text-center clearfix">
-                                <input type="hidden" name="submitLogin" value="1"><button id="submit-login" class="btn btn-primary form-control-submit" data-link-action="sign-in" type="submit">
-                                    Sign in
-                                </button>
-                            </footer>
-                        </form>
-                    </section>
-                    <hr>
-                    <div class="no-account">
-                        <a href="/ps17/en/login?create_account=1" data-link-action="display-register-form">No account? Create one here</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div id="iqitcompare-notification" class="ns-box ns-effect-thumbslider ns-text-only">
         <div class="ns-box-inner">
@@ -303,7 +249,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="modal-title"><i class="fa fa-check rtl-no-flip" aria-hidden="true"></i> Thêm sản phẩm vào giỏ hàng thành công</span>
+                    <span class="modal-title"><i class="fa fa-check rtl-no-flip" aria-hidden="true"></i> @Warehouse.Language.ShoppingCart.Index.AddSuccess</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -346,7 +292,16 @@
                 var link = $(e.relatedTarget);
                 $(this).find(".modal-content").load(link.attr("href"));
             });
-
+            $("a[data-lang]").click(function (e) {
+                e.preventDefault();
+                var expiry = new Date();
+                expiry.setDate(expiry.getDate() + 30);
+                document.cookie = "lang=" + $(this).attr("data-lang") + "; expires=" + expiry.toGMTString() + "; path=/";
+                location.reload();
+                return false;
+            });
+            var lang = getCookie("lang");
+            $("a[data-lang='" + lang + "']").parent().addClass("current");
         });
 
         function Fav(id) {
@@ -390,6 +345,7 @@
                 }
             });
         };
+
     </script>
 
 

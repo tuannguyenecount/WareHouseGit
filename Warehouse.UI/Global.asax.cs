@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -40,6 +41,28 @@ namespace Warehouse
             InfoShopDal infoShopDal = new InfoShopDal();
             InfoShopService infoShopService = new InfoShopService(infoShopDal);
             Session["InfoShop"] = infoShopService.GetFirst();
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var lang = "vi"; // Ngôn ngữ mặc định
+
+            if (HttpContext.Current.Request.Cookies["lang"] != null)
+            {
+                lang = HttpContext.Current.Request.Cookies["lang"].Value;
+            }
+
+            else
+            {
+                HttpCookie cookie = new HttpCookie("lang", lang);
+                cookie.Expires = DateTime.Today.AddDays(30);
+                HttpContext.Current.Response.SetCookie(cookie);
+            }
+
+            var culture = new CultureInfo(lang);
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
         }
     }
 }

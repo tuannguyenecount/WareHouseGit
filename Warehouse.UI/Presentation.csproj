@@ -329,6 +329,64 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Language\Body\Body.Designer.cs" />
+    <Compile Include="Language\Body\Body.vi.Designer.cs" />
+    <Compile Include="Language\Footer\Index.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Footer\Index.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Header\Header.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Header.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Header\Header.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Header.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Menu\Menu.Designer.cs" />
+    <Compile Include="Language\Menu\Menu.vi.Designer.cs" />
+    <Compile Include="Language\Product\Index.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Product\Index.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Shared\Index.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Shared\Index.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\ShoppingCart\Index.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\ShoppingCart\Index.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\StaticContent\NotFound.Designer.cs" />
+    <Compile Include="Language\StaticContent\NotFound.vi.Designer.cs" />
+    <Compile Include="Language\TinTuc\Index.Designer.cs" />
+    <Compile Include="Language\TinTuc\Index.vi.Designer.cs" />
     <Compile Include="Migrations\201811120618005_deleteColumnIdentity.cs" />
     <Compile Include="Migrations\201811120618005_deleteColumnIdentity.Designer.cs">
       <DependentUpon>201811120618005_deleteColumnIdentity.cs</DependentUpon>
@@ -1057,6 +1115,54 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Language\Body\Body.resx" />
+    <EmbeddedResource Include="Language\Body\Body.vi.resx" />
+    <EmbeddedResource Include="Language\Footer\Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Footer\Index.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Header\Header.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Header.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Header\Header.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Header.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Menu\Menu.resx" />
+    <EmbeddedResource Include="Language\Menu\Menu.vi.resx" />
+    <EmbeddedResource Include="Language\Product\Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Product\Index.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Shared\Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Shared\Index.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\ShoppingCart\Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\ShoppingCart\Index.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\StaticContent\NotFound.resx" />
+    <EmbeddedResource Include="Language\StaticContent\NotFound.vi.resx" />
+    <EmbeddedResource Include="Language\TinTuc\Index.resx" />
+    <EmbeddedResource Include="Language\TinTuc\Index.vi.resx" />
     <EmbeddedResource Include="Migrations\201811120618005_deleteColumnIdentity.resx">
       <DependentUpon>201811120618005_deleteColumnIdentity.cs</DependentUpon>
     </EmbeddedResource>

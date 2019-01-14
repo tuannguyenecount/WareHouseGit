@@ -1,4 +1,5 @@
-﻿@model InfoShop
+﻿
+@model InfoShop
 @{
     List<Category> categories = ViewBag.Categories;
 }
@@ -12,12 +13,12 @@
                     <div class="block-iqitlinksmanager block-iqitlinksmanager-2 block-links-inline d-inline-block">
                         <ul>
                             <li>
-                                <a href="tel:@Model.Phone" title="Gọi cho shop để được trợ giúp ngay">
+                                <a href="tel:@Model.Phone" title="Hot line">
                                     Hot line <i class="fa fa-phone"></i> @Model.Phone
                                 </a>
                             </li>
                             <li>
-                                <a href="@Model.Fanpage" title="Fanpage của shop">
+                                <a href="@Model.Fanpage" title="Fanpage shop">
                                     Fanpage <i class="fa fa-facebook"></i>
                                 </a>
                             </li>
@@ -30,14 +31,72 @@
                     <div id="language_selector" class="d-inline-block">
                         <div class="language-selector-wrapper d-inline-block">
                             <div class="language-selector dropdown js-dropdown">
-                                <a class="expand-more" data-toggle="dropdown"><img src="~/Content/ps17/img/1.jpg" alt="Vietnamese" class="img-fluid lang-flag"> Vietnamese <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                <a class="expand-more" data-toggle="dropdown">
+                                    @if (Request.Cookies["lang"].Value == "vi")
+                                    {
+                                        <img src="~/Content/ps17/img/1.jpg" alt="Vietnamese" class="img-fluid lang-flag" />
+                                        <span>Vietnamese</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                    @if (Request.Cookies["lang"].Value == "en")
+                                    {
+                                        <img src="~/Content/ps17/img/england.png" alt="england" class="img-fluid lang-flag" />
+                                        <span>English</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                    @if (Request.Cookies["lang"].Value == "de")
+                                    {
+                                        <img src="~/Content/ps17/img/german.png" alt="Vietnamese" class="img-fluid lang-flag" />
+                                        <span>German</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                    @if (Request.Cookies["lang"].Value == "italian")
+                                    {
+                                        <img src="~/Content/ps17/img/italian.png" alt="italian" class="img-fluid lang-flag" />
+                                        <span>Italian</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                    @if (Request.Cookies["lang"].Value == "japan")
+                                    {
+                                        <img src="~/Content/ps17/img/japan.png" alt="japan" class="img-fluid lang-flag" />
+                                        <span>Japan</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                    @if (Request.Cookies["lang"].Value == "french")
+                                    {
+                                        <img src="~/Content/ps17/img/french.png" alt="french" class="img-fluid lang-flag" />
+                                        <span>French</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                    @if (Request.Cookies["lang"].Value == "espanol")
+                                    {
+                                        <img src="~/Content/ps17/img/espanol.png" alt="espanol" class="img-fluid lang-flag" />
+                                        <span>Espanol</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    }
+                                </a>
                                 <div class="dropdown-menu">
                                     <ul>
-                                        <li class="current">
-                                            <a href="#" rel="alternate" hreflang="vi" class="dropdown-item"><img src="~/Content/ps17/img/1.jpg" alt="Vietnamese" class="img-fluid lang-flag"> Vietnamese</a>
+                                        <li>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="vi" class="dropdown-item"><img src="~/Content/ps17/img/1.jpg" alt="Vietnamese" class="img-fluid lang-flag"> Vietnamese</a>
                                         </li>
                                         <li>
-                                            <a href="#" rel="alternate" hreflang="de" class="dropdown-item"><img src="~/Content/ps17/img/german.png" alt="German" class="img-fluid lang-flag"> German</a>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="en" class="dropdown-item"><img src="~/Content/ps17/img/england.png" alt="England" class="img-fluid lang-flag"> England</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="de" class="dropdown-item"><img src="~/Content/ps17/img/german.png" alt="German" class="img-fluid lang-flag"> German</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="italian" class="dropdown-item"><img src="~/Content/ps17/img/italian.png" alt="Italian" class="img-fluid lang-flag"> Italian</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="japan" class="dropdown-item"><img src="~/Content/ps17/img/japan.png" alt="Japan" class="img-fluid lang-flag"> Japan</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="french" class="dropdown-item"><img src="~/Content/ps17/img/french.png" alt="Japan" class="img-fluid lang-flag"> French</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" rel="alternate" data-lang="espanol" class="dropdown-item"><img src="~/Content/ps17/img/espanol.png" alt="espanol" class="img-fluid lang-flag"> Espanol</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -47,12 +106,12 @@
 
                     <div class="d-inline-block">
                         <a href="@Url.Action("Index", "FavoriteProduct")">
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> Sản phẩm bạn thích (<span id="iqitwishlist-nb">0</span>)
+                            <i class="fa fa-heart-o" aria-hidden="true"></i> @Warehouse.Language.Header.Header.ProductFavorite (<span id="iqitwishlist-nb">0</span>)
                         </a>
                     </div>
                     <div class="d-inline-block">
                         <a href="@Url.Action("Index", "Compare")">
-                            <i class="fa fa-random" aria-hidden="true"></i> <span>So sánh (<span id="iqitcompare-nb">@((Session["CompareItem"] as List<DetailsProductViewModel>).Sum(c => c.Id))</span>)</span>
+                            <i class="fa fa-random" aria-hidden="true"></i> <span>@Warehouse.Language.Header.Header.Compare (<span id="iqitcompare-nb">@((Session["CompareItem"] as List<DetailsProductViewModel>).Sum(c => c.Id))</span>)</span>
                         </a>
                     </div>
                 </div>
@@ -78,13 +137,13 @@
                                         <ul>
                                             <li class="cbp-hrmenu-tab">
                                                 <a class="nav-link" href="/">
-                                                    <span class="cbp-tab-title">Trang chủ</span>
+                                                    <span class="cbp-tab-title">@Warehouse.Language.Header.Header.Home</span>
                                                 </a>
                                             </li>
                                             <li id="cbp-hrmenu-tab-8" class="cbp-hrmenu-tab  cbp-has-submeu">
                                                 <a role="button" class="cbp-empty-mlink nav-link">
                                                     <span class="cbp-tab-title">
-                                                        Danh Mục Sản Phẩm <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
+                                                        @Warehouse.Language.Header.Header.ProductCategory <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
                                                     </span>
 
                                                 </a>
@@ -95,10 +154,10 @@
                                                                 <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-2 cbp-empty-column">
                                                                     <div class="cbp-menu-column-inner">
                                                                         @{ int z = 0;
-                                                                            int count = categories.Count;
-                                                                            int take = count / 4;
-                                                                        }
-                                                                        @for (int i = 0; i < 2; i++)
+                                            int count = categories.Count;
+                                            int take = count / 4;
+                                        }
+                                        @for (int i = 0; i < 2; i++)
                                                                         {
                                                                             <div class="row menu_row menu-element  menu-element-id-3">
                                                                                 @for (int j = 0; j < 2; j++)
@@ -151,7 +210,7 @@
                                             <li class="cbp-hrmenu-tab cbp-has-submeu">
                                                 <a href="javascript:void(0)" class="nav-link">
                                                     <span class="cbp-tab-title">
-                                                        Thông tin shop <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
+                                                        @Warehouse.Language.Header.Header.InfoShop <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
                                                     </span>
                                                 </a>
                                                 <div class="cbp-hrsub col-4 cbp-show">
@@ -164,7 +223,7 @@
                                                                             <div class="col-12">
                                                                                 <div class="cbp-category-link-w">
                                                                                     @foreach (Article article in ViewBag.Articles)
-                                                                                    {
+                                    {
                                                                                         <a href="@Url.Action("Details", "Article", new { alias = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
                                                                                     }
                                                                                 </div>
@@ -179,7 +238,7 @@
                                             </li>
                                             <li class="cbp-hrmenu-tab">
                                                 <a class="nav-link" href="@Url.Action("Index","Blog")">
-                                                    <span class="cbp-tab-title">Blog Tin Tức</span>
+                                                    <span class="cbp-tab-title">Blog</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -191,7 +250,7 @@
                         <div id="_desktop_iqitmegamenu-mobile">
                             <ul id="iqitmegamenu-mobile">
                                 <li>
-                                    <a href="@Url.Action("Index","Home",new { area = "" })">Trang chủ</a>
+                                    <a href="@Url.Action("Index","Home",new { area = "" })">@Warehouse.Language.Header.Header.Home</a>
                                 </li>
                                 @foreach (Category category in categories.Where(c => c.ParentId == null).OrderBy(c => c.OrderNum))
                                 {
@@ -199,7 +258,7 @@
                                         <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
                                         <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })">@category.Name</a>
                                         @if (category.Category1 != null && category.Category1.Count > 0)
-                                        {
+                                    {
                                             <ul>
                                                 @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
                                                 {
@@ -229,13 +288,13 @@
                                     </li>
                                 }
                                 @foreach (Article article in ViewBag.Articles)
-                                {
+                                    {
                                     <li>
                                         <a href="@Url.Action("Details", "Article", new { alias = article.Alias })">@article.Title</a>
                                     </li>
                                 }
                                 <li>
-                                    <a href="@Url.Action("Index", "Blog", new { area = "" })">Blog tin tức</a>
+                                    <a href="@Url.Action("Index", "Blog", new { area = "" })">Blog</a>
                                 </li>
 
                             </ul>
@@ -246,14 +305,14 @@
                             <div id="header-search-btn" class="col col-auto header-btn-w header-search-btn-w">
                                 <a data-toggle="dropdown" id="header-search-btn-drop" class="header-btn header-search-btn">
                                     <i class="fa fa-search fa-fw icon" aria-hidden="true"></i>
-                                    <span class="title">Tìm sản phẩm</span>
+                                    <span class="title">@Warehouse.Language.Header.Header.SearchProduct</span>
                                 </a>
                                 <div class="dropdown-content modal-backdrop fullscreen-search">
                                     <!-- Block search module TOP -->
                                     <div id="search_widget" class="search-widget">
                                         <form method="get" action="@Url.Action("Search","Product")">
                                             <div class="input-group">
-                                                <input type="text" name="keyword" placeholder="Nhập tên sản phẩm" class="form-control form-search-control" autocomplete="off">
+                                                <input type="text" name="keyword" placeholder="@Warehouse.Language.Header.Header.InputNameProduct" class="form-control form-search-control" autocomplete="off">
                                                 <button type="submit" class="search-btn">
                                                     <i class="fa fa-search"></i>
                                                 </button>
@@ -266,17 +325,17 @@
                             </div>
                             <div id="header-user-btn" class="col col-auto header-btn-w header-user-btn-w">
                                 @if (User.Identity.IsAuthenticated == false)
-                                {
-                                    <a href="@Url.Action("Login", "Account")" title="Đăng nhập" rel="nofollow" class="header-btn header-user-btn">
+                                    {
+                                    <a href="@Url.Action("Login", "Account")" title="@Warehouse.Language.Header.Header.Login" rel="nofollow" class="header-btn header-user-btn">
                                         <i class="fa fa-sign-in fa-fw icon" aria-hidden="true"></i>
-                                        <span class="title">Đăng nhập</span>
+                                        <span class="title">@Warehouse.Language.Header.Header.Login</span>
                                     </a>
                                 }
                                 else
                                 {
-                                    <a href="@Url.Action("Index", "Manage")" title="Vào trang cá nhân của bạn" rel="nofollow" class="header-btn header-user-btn">
+                                    <a href="@Url.Action("Index", "Manage")" title="@Warehouse.Language.Header.Header.PersonPage" rel="nofollow" class="header-btn header-user-btn">
                                         <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
-                                        <span class="title">Trang cá nhân</span>
+                                        <span class="title">@Warehouse.Language.Header.Header.PersonPage</span>
                                     </a>
 
                                 }
@@ -299,13 +358,13 @@
                     <div class="row no-gutters align-items-center row-mobile-header">
                         <div class="col col-mobile-logo">
                             <a href="/">
-                                <img class="logo img-fluid" src="/Content/ps17/img/warehouse-for-prestashop-17-logo-1496957294.jpg" alt="Warehouse for Prestashop 1.7">
+                                <img class="logo img-fluid" src="~/images/@Model.Logo" alt="~/images/@Model.Logo">
                             </a>
                         </div>
                         <div id="mobile-btn-search" class="col col-auto col-mobile-btn col-mobile-btn-search">
                             <a class="m-nav-btn" data-toggle="dropdown">
                                 <i class="fa fa-search" aria-hidden="true"></i>
-                                <span>Tìm kiếm</span>
+                                <span>@Warehouse.Language.Header.Header.SearchProduct</span>
                             </a>
                             <div id="search-widget-mobile" class="dropdown-content dropdown-menu dropdown-mobile search-widget">
                                 <form method="get" action="#">
@@ -321,7 +380,7 @@
                         <div class="col col-auto col-mobile-btn col-mobile-btn-account">
                             <a href="@Url.Action("Login","Account")" class="m-nav-btn">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                <span>Đăng nhập</span>
+                                <span>@Warehouse.Language.Header.Header.Login</span>
                             </a>
                         </div>
                         <div class="col col-auto col-mobile-btn col-mobile-btn-cart ps-shoppingcart side-cart">
@@ -330,7 +389,7 @@
                                     <i class="fa fa-shopping-bag mobile-bag-icon" aria-hidden="true">
                                         <span id="mobile-cart-products-count" class="cart-products-count cart-products-count-btn">@((Session["ShoppingCart"] as List<CartItem>).Sum(c => c.Quantity))</span>
                                     </i>
-                                    <span>Giỏ hàng</span>
+                                    <span>@Warehouse.Language.Header.Header.ShoppingCart</span>
                                 </a>
                                 <div id="_mobile_blockcart-content"></div>
                             </div>
