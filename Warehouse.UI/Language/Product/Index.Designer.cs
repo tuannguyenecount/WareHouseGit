@@ -61,6 +61,51 @@ namespace Warehouse.Language.Product {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to favorite products.
+        /// </summary>
+        public static string AddFavorite {
+            get {
+                return ResourceManager.GetString("AddFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information Details.
+        /// </summary>
+        public static string InformationDetails {
+            get {
+                return ResourceManager.GetString("InformationDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order information.
+        /// </summary>
+        public static string OrderInformation {
+            get {
+                return ResourceManager.GetString("OrderInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Price {
@@ -75,6 +120,42 @@ namespace Warehouse.Language.Product {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick view.
+        /// </summary>
+        public static string QuickView {
+            get {
+                return ResourceManager.GetString("QuickView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Related products.
+        /// </summary>
+        public static string RelatedProducts {
+            get {
+                return ResourceManager.GetString("RelatedProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search result.
+        /// </summary>
+        public static string SearchResult {
+            get {
+                return ResourceManager.GetString("SearchResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show products.
+        /// </summary>
+        public static string ShowProducts {
+            get {
+                return ResourceManager.GetString("ShowProducts", resourceCulture);
             }
         }
     }

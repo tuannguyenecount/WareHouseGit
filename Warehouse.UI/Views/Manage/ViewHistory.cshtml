@@ -3,7 +3,7 @@
 @using System.Configuration;
 @model IPagedList<Order>
 @{
-    ViewBag.Title = "Lịch sử đặt hàng";
+    ViewBag.Title = Warehouse.Language.Footer.Index.OrderHistory;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-my-account tax-display-disabled body-desktop-header-style-w-4";
     ViewBag.BodyId = "my-account";
@@ -31,12 +31,12 @@
                             <table class="table table-hover table-condensed table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Mã đơn hàng</th>
-                                        <th class="text-center">Tổng số lượng</th>
-                                        <th>Tổng thành tiền</th>
-                                        <th>Ngày đặt</th>
-                                        <th>Trạng thái</th>
-                                        <th class="text-center">Thao tác</th>
+                                        <th class="text-center">@Warehouse.Language.Order.History.OrderId</th>
+                                        <th class="text-center">@Warehouse.Language.Order.History.TotalCount</th>
+                                        <th>@Warehouse.Language.Order.History.TotalMoney</th>
+                                        <th>@Warehouse.Language.Order.History.OrderDate</th>
+                                        <th>@Warehouse.Language.Shared.Index.Status</th>
+                                        <th class="text-center">@Warehouse.Language.Shared.Index.Manage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,17 +55,17 @@
                                                 <b class="text text-@listColor[order.Status]">@listStatus[order.Status]</b>
                                             </td>
                                             <td class="text-center">
-                                                <a data-toggle="modal" href="#modal-ViewOrderDetails-@order.Id" class="btn btn-danger btn-sm"><i class="fa fa-list"></i> Xem sản phẩm</a>
+                                                <a data-toggle="modal" href="#modal-ViewOrderDetails-@order.Id" class="btn btn-danger btn-sm"><i class="fa fa-list"></i> @Warehouse.Language.Product.Index.ShowProducts</a>
                                                 @if (order.Status == 0) // nếu trạng thái là đang giao
                                                 {
                                                     <form class="hidden" action="@Url.Action("CancelOrder", new { Id = order.Id })" method="post">
                                                         @Html.AntiForgeryToken()
                                                     </form>
-                                                    <button onclick="if(confirm('Xác nhận hủy đặt đơn hàng này?')) $(this).parent().children('form').submit()" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Hủy đơn</button>
+                                                    <button onclick="if(confirm('@(Warehouse.Language.Order.History.CancelOrderConfirm)')) $(this).parent().children('form').submit()" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> @Warehouse.Language.Order.History.CancelOrder</button>
                                                 }
                                                 else
                                                 {
-                                                    <button onclick="alert('Không thể hủy đơn hàng này vì trạng thái đơn hàng là @listStatus[order.Status] ')"  class="btn btn-default btn-sm"><i class="fa fa-remove"></i> Hủy đơn</button>
+                                                    <button onclick="alert('Không thể hủy đơn hàng này vì trạng thái đơn hàng là @listStatus[order.Status] ')" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> @(Warehouse.Language.Order.History.CancelOrder)</button>
                                                 }
                                                 <div class="modal fade" id="modal-ViewOrderDetails-@order.Id">
                                                     <div class="modal-dialog">
@@ -113,7 +113,7 @@
                                                             </div>
 
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">@Warehouse.Language.Shared.Index.Cancel</button>
                                                             </div>
 
                                                         </div>

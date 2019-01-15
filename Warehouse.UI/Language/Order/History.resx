@@ -117,106 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddFavoriteProduct" xml:space="preserve">
-    <value>Thêm sản phẩm yêu thích</value>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>Hủy đơn</value>
   </data>
-  <data name="DisplayFrom" xml:space="preserve">
-    <value>Hiển thị từ</value>
+  <data name="CancelOrderConfirm" xml:space="preserve">
+    <value>Do you confirm canceling this order?</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Bộ lọc</value>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order date</value>
   </data>
-  <data name="Has" xml:space="preserve">
-    <value>Có</value>
+  <data name="OrderId" xml:space="preserve">
+    <value>Order Id</value>
   </data>
-  <data name="Have" xml:space="preserve">
-    <value>Có</value>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Total</value>
   </data>
-  <data name="InputEmail" xml:space="preserve">
-    <value>Nhập địa chỉ email</value>
-  </data>
-  <data name="InTotal" xml:space="preserve">
-    <value>Trong tổng số</value>
-  </data>
-  <data name="NameAToZ" xml:space="preserve">
-    <value>Tên, A - Z</value>
-  </data>
-  <data name="NameZToA" xml:space="preserve">
-    <value>Tên, Z - A</value>
-  </data>
-  <data name="PriceDecreases" xml:space="preserve">
-    <value>Giá giảm dần</value>
-  </data>
-  <data name="PriceIncreases" xml:space="preserve">
-    <value>Giá tăng dần</value>
-  </data>
-  <data name="Sort" xml:space="preserve">
-    <value>Sắp xếp</value>
-  </data>
-  <data name="SubscriceSuccess" xml:space="preserve">
-    <value>Bạn đã đăng ký nhận tin từ shop thành công</value>
-  </data>
-  <data name="Success" xml:space="preserve">
-    <value>Thành công</value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>Đến</value>
-  </data>
-  <data name="View" xml:space="preserve">
-    <value>Xem</value>
-  </data>
-  <data name="Address" xml:space="preserve">
-    <value>Địa chỉ</value>
-  </data>
-  <data name="City" xml:space="preserve">
-    <value>Tỉnh/Thành</value>
-  </data>
-  <data name="District" xml:space="preserve">
-    <value>Quận/Huyện</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Sửa</value>
-  </data>
-  <data name="EnterYourPhone" xml:space="preserve">
-    <value>Nhập số điện thoại của bạn</value>
-  </data>
-  <data name="FullName" xml:space="preserve">
-    <value>Họ tên</value>
-  </data>
-  <data name="MessageOrderSuccess" xml:space="preserve">
-    <value>Đặt hàng thành công. Chúng tôi sẽ liên hệ với bạn và giao hàng miễn phí trong vòng 3 ngày. Chúc bạn có 1 ngày mua sắm vui vẻ.</value>
-  </data>
-  <data name="Note" xml:space="preserve">
-    <value>Ghi chú</value>
-  </data>
-  <data name="Notification" xml:space="preserve">
-    <value>Thông báo</value>
-  </data>
-  <data name="OrderError" xml:space="preserve">
-    <value>Đặt hàng lỗi</value>
-  </data>
-  <data name="OrderSuccess" xml:space="preserve">
-    <value>Đặt hàng thành công</value>
-  </data>
-  <data name="Phone" xml:space="preserve">
-    <value>Điện thoại</value>
-  </data>
-  <data name="SpecificAddress" xml:space="preserve">
-    <value>Số nhà/Khu phố/Đường</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Trạng thái</value>
-  </data>
-  <data name="Update" xml:space="preserve">
-    <value>Cập nhật</value>
-  </data>
-  <data name="Ward" xml:space="preserve">
-    <value>Phường/Xã</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Đóng</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>Quản lý</value>
+  <data name="TotalMoney" xml:space="preserve">
+    <value>Total money</value>
   </data>
 </root>

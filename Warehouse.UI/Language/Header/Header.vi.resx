@@ -135,6 +135,9 @@
   <data name="Login" xml:space="preserve">
     <value>Đăng nhập</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
   <data name="PersonPage" xml:space="preserve">
     <value>Trang cá nhân</value>
   </data>

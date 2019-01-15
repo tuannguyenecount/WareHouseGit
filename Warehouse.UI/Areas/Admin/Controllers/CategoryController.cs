@@ -82,7 +82,7 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
             }
-            var categories = _categoryService.GetAll().Select(c => new { Id = c.Id, Name = c.Name }).ToList();
+            var categories = _categoryService.GetAll().Where(x => x.Id != Id).Select(c => new { Id = c.Id, Name = c.Name }).ToList();
             categories.Add(new { Id = 0, Name = "Không có" });
             ViewBag.ParentId = new SelectList(categories.OrderBy(c => c.Id).ToList(), "Id", "Name", category.ParentId);
             return PartialView(category);
@@ -135,6 +135,10 @@ namespace Warehouse.Areas.Admin.Controllers
             if (category == null)
             {
                 ModelState.AddModelError("", "Dữ liệu không tồn tại trong hệ thống!");
+            }
+            else if(category.Category1 != null && category.Category1.Count > 0)
+            {
+                ModelState.AddModelError("", "Đang có phân loại con tham chiếu. Bạn hãy xóa phân loại con trước!");
             }
             try
             {

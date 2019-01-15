@@ -19,14 +19,14 @@
     </div>
     <div class="col-md-7">
         <div class="cart-content pt-3">
-            <p class="cart-products-count">Giỏ hàng đang có @(ShoppingCart.Sum(c => c.Quantity)) sản phẩm.</p>
+            <p class="cart-products-count">@Warehouse.Language.ShoppingCart.Index.ShoppingCart @Warehouse.Language.Shared.Index.Has @(ShoppingCart.Sum(c => c.Quantity)) @Warehouse.Language.Product.Index.Product.</p>
             <p>
-                <strong>Tổng thành tiền:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c=>c.Subtotal)))
+                <strong>@Warehouse.Language.ShoppingCart.Index.Total:</strong>&nbsp;@(Warehouse.Common.Format.FormatCurrencyVND((int)ShoppingCart.Sum(c=>c.Subtotal)))
             </p>
 
             <div class="cart-content-btn">
-                <a href="@Url.Action("Index","ShoppingCart")" class="btn btn-primary btn-block btn-lg mb-2">Tới giỏ hàng</a>
-                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Tiếp tục mua</button>
+                <a href="@Url.Action("Index","ShoppingCart")" class="btn btn-primary btn-block btn-lg mb-2">@Warehouse.Language.ShoppingCart.Index.GoToCart</a>
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">@Warehouse.Language.ShoppingCart.Index.ContinueToBuy</button>
             </div>
         </div>
     </div>

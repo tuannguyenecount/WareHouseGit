@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Trang cá nhân ";
+    ViewBag.Title = Warehouse.Language.Header.Header.PersonPage;
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-my-account tax-display-disabled body-desktop-header-style-w-4";
     ViewBag.BodyId = "my-account";
     UpdateInfoViewModel updateInfoViewModel = ViewBag.UpdateInfoViewModel as UpdateInfoViewModel;
@@ -8,7 +8,7 @@
     <div id="content-wrapper">
         <section id="main">
             <header class="page-header">
-                <h1 class="h1 page-title"><span>Trang cá nhân</span></h1>
+                <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1>
             </header>
             <section id="content" class="page-content my-account-page-content-wrapper">
                 <div class="row">
@@ -26,7 +26,7 @@
 
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label required">
-                                        Họ tên
+                                        @Warehouse.Language.Shared.Index.FullName
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(m => updateInfoViewModel.FullName, new { @class = "form-control" })
@@ -49,7 +49,7 @@
 
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
-                                        Điện thoại
+                                        @Warehouse.Language.Shared.Index.Phone
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(model => updateInfoViewModel.PhoneNumber, new { @class = "form-control" })
@@ -58,30 +58,30 @@
 
                                     </div>
                                     <div class="col-md-2 form-control-comment">
-                                        Nhập chính xác điện thoại bạn đang dùng để shop dễ liên lạc
+                                        
                                     </div>
                                 </div>
 
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
-                                        Địa chỉ
+                                        @Warehouse.Language.Shared.Index.Address
                                     </label>
                                     <div class="col-md-8">
                                         @Html.TextBoxFor(model => updateInfoViewModel.Address, new { @class = "form-control" })
                                         <span class="form-control-comment">
-                                            Số nhà/Khu phố/Đường
+                                            @Warehouse.Language.Shared.Index.SpecificAddress
                                         </span>
                                         @Html.ValidationMessageFor(m => updateInfoViewModel.Address, "", new { @class = "text-danger" })
 
                                     </div>
                                     <div class="col-md-2 form-control-comment">
-                                        Nhập chính xác để chúng tôi dễ dàng giao hàng cho bạn
+                                        @*Nhập chính xác để chúng tôi dễ dàng giao hàng cho bạn*@
                                     </div>
                                 </div>
 
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
-                                        Tỉnh/Thành
+                                        @Warehouse.Language.Shared.Index.City
                                     </label>
                                     <div class="col-md-8">
                                         @Html.DropDownList("ProvinceId", null, new { @class = "form-control", required = "" })
@@ -92,7 +92,7 @@
 
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
-                                        Quận/Huyện
+                                        @Warehouse.Language.Shared.Index.District
                                     </label>
                                     <div class="col-md-8" id="Districts">
                                         @Html.DropDownList("DistrictId", null, new { @class = "form-control", required = "" })
@@ -102,7 +102,7 @@
 
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label">
-                                        Phường/Xã
+                                        @Warehouse.Language.Shared.Index.Ward
                                     </label>
                                     <div class="col-md-8" id="Wards">
                                         @Html.DropDownList("WardId", null, new { @class = "form-control", required = "" })
@@ -113,7 +113,7 @@
                             </section>
                             <footer class="form-footer text-center clearfix">
                                 <button class="btn btn-primary form-control-submit" type="submit">
-                                    Cập Nhật
+                                    @Warehouse.Language.Shared.Index.Update
                                 </button>
                             </footer>
                         </form>

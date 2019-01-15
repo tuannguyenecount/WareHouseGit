@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Đăng ký nhận tin thành công";
+    ViewBag.Title = @Warehouse.Language.Shared.Index.SubscriceSuccess;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "module-iqitemailsubscriptionconf-subscription";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-tax-display-disabled body-desktop-header-style-w-4";
@@ -12,9 +12,9 @@
         <div id="content-wrapper">
             <section id="main">
                 <section id="content" class="page-content">
-                    <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1>
+                    <h1 class="h1 page-title"><span>Success</span></h1>
                     <p class="alert alert-success">
-                        Bạn đã đăng ký nhận tin từ shop thành công.
+                        @ViewBag.Title
                     </p>
                 </section>
             </section>

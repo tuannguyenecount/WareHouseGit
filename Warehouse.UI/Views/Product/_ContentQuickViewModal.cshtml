@@ -50,17 +50,17 @@
                                     <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">
                                         <i class="fa fa-shopping-bag fa-fw bag-icon" aria-hidden="true"></i>
                                         <i class="fa fa-circle-o-notch fa-spin fa-fw spinner-icon" aria-hidden="true"></i>
-                                        Thêm vào giỏ
+                                        @Warehouse.Language.ShoppingCart.Index.AddToCart
                                     </a>
                                 </div>
                             </div>
                             <div class="col col-sm-auto">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-toggle="tooltip" title="" data-original-title="Thêm sản phẩm yêu thích" onclick="Fav(@Model.Id)">
+                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-toggle="tooltip" title="" data-original-title="@Warehouse.Language.Shared.Index.AddFavoriteProduct" onclick="Fav(@Model.Id)">
                                     <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
                                 </a>
                             </div>
                             <div class="col col-sm-auto">
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-toggle="tooltip" title="" data-original-title="So sánh" onclick="Compare(@Model.Id)">
+                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-toggle="tooltip" title="" data-original-title="@Warehouse.Language.Header.Header.Compare" onclick="Compare(@Model.Id)">
                                     <i class="fa fa-random not-added" aria-hidden="true"></i><i class="fa fa-check added" aria-hidden="true"></i>
                                 </a>
                             </div>

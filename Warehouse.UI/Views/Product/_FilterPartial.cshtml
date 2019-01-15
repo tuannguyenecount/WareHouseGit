@@ -3,7 +3,7 @@
         <div class="row align-items-center justify-content-between small-gutters">
             <div class="col col-auto facated-toggler">
                 <div class="filter-button">
-                    <button id="search_center_filter_toggler" class="btn btn-secondary"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                    <button id="search_center_filter_toggler" class="btn btn-secondary"><i class="fa fa-filter" aria-hidden="true"></i> @Warehouse.Language.Shared.Index.Filter</button>
                 </div>
             </div>
             <div class="col view-switcher hidden-sm-down">
@@ -51,16 +51,16 @@
             </div>
             <div class="col col-auto">
                 <span class="showing hidden-sm-down">
-                    Hiển thị sản phẩm thứ tự @ViewBag.Start đến @((int)ViewBag.Start + Model.Count - 1) trong tổng số @ViewBag.CountAll sản phẩm
+                    @Warehouse.Language.Shared.Index.DisplayFrom @ViewBag.Start @Warehouse.Language.Shared.Index.To.ToLower() @((int)ViewBag.Start + Model.Count - 1) @Warehouse.Language.Product.Index.Product.ToLower() @Warehouse.Language.Shared.Index.InTotal.ToLower() @ViewBag.CountAll 
                 </span>
                 <div class="products-sort-nb-dropdown products-sort-order dropdown">
-                    <a class="select-title expand-more form-control" rel="nofollow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="select-title-name">Sắp xếp</span>
+                    <a class="select-title expand-more form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="select-title-name">@Warehouse.Language.Shared.Index.Sort</span>
                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                     </a>
                     <div class="dropdown-menu">
                         <a rel="nofollow" href="javascript:void(0)" class="select-list dropdown-item current">
-                            Sắp xếp
+                            @Warehouse.Language.Shared.Index.Sort
                         </a>
                         <a rel="nofollow" href="@Url.Action("Index", new {
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
@@ -70,7 +70,7 @@
                                                 ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"] })" class="select-list dropdown-item sort">
-                            Tên, A đến Z
+                            @Warehouse.Language.Shared.Index.NameAToZ
                         </a>
                         <a rel="nofollow" href="@Url.Action("Index", new {
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
@@ -80,7 +80,7 @@
                                                 ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"]})" class="select-list dropdown-item sort">
-                            Tên, Z về A
+                            @Warehouse.Language.Shared.Index.NameZToA
                         </a>
                         <a rel="nofollow" href="@Url.Action("Index", new {
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
@@ -90,7 +90,7 @@
                                                 ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"]})" class="select-list dropdown-item sort">
-                            Giá, tăng dần
+                            @Warehouse.Language.Shared.Index.PriceIncreases
                         </a>
                         <a rel="nofollow" href="@Url.Action("Index", new {
                                                aliasCategory = Url.RequestContext.RouteData.Values["aliasCategory"],
@@ -100,7 +100,7 @@
                                                 ? Warehouse.Common.ENUM.SORT_TYPE.Descending
                                                  : Warehouse.Common.ENUM.SORT_TYPE.Ascending,
                                                page = Request.QueryString["page"]})" class="select-list dropdown-item sort">
-                            Giá, giảm dần
+                            @Warehouse.Language.Shared.Index.PriceDecreases
                         </a>
                     </div>
                 </div>

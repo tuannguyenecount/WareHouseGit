@@ -73,13 +73,13 @@ namespace Warehouse.Controllers
         {
 
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Mật khẩu được thay đổi thành công."
-                : message == ManageMessageId.SetPasswordSuccess ? "Bạn đã tạo mật khẩu cho tài khoản thành công."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Thiết lập đăng nhập thông qua 2 bước thành công."
-                : message == ManageMessageId.Error ? "Xảy ra lỗi khi xử lý."
-                : message == ManageMessageId.AddPhoneSuccess ? "Điện thoại đã được thêm thành công."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Gỡ bỏ điện thoại khỏi tài khoản thành công."
-                : message == ManageMessageId.UpdateInfoSuccess ? "Cập nhật thông tin thành công"
+                message == ManageMessageId.ChangePasswordSuccess ? "Change password success."
+                : message == ManageMessageId.SetPasswordSuccess ? "Set password success."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Set TwoFactor success."
+                : message == ManageMessageId.Error ? "An error occurred while processing."
+                : message == ManageMessageId.AddPhoneSuccess ? "Add phone number succes."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Remove phone number from account success."
+                : message == ManageMessageId.UpdateInfoSuccess ? "Updated information."
                 : "";
 
            

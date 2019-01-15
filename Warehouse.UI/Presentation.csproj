@@ -353,6 +353,16 @@
     </Compile>
     <Compile Include="Language\Menu\Menu.Designer.cs" />
     <Compile Include="Language\Menu\Menu.vi.Designer.cs" />
+    <Compile Include="Language\Order\History.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>History.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Language\Order\History.vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>History.vi.resx</DependentUpon>
+    </Compile>
     <Compile Include="Language\Product\Index.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -476,6 +486,7 @@
     <Content Include="Content\ps17\329-home_default\printed-summer-dress.jpg" />
     <Content Include="Content\ps17\333-home_default\printed-summer-dress.jpg" />
     <Content Include="Content\ps17\8-medium_default\printed-dress.jpg" />
+    <Content Include="Content\ps17\img\1.jpg" />
     <Content Include="Content\ps17\img\cms\imgs\dsadsa.jpg" />
     <Content Include="Content\ps17\img\cms\imgs\small.jpg" />
     <Content Include="Content\ps17\img\cms\imgs\small4.jpg" />
@@ -490,7 +501,12 @@
     <Content Include="Content\ps17\img\cms\people\snowboard1.png" />
     <Content Include="Content\ps17\img\cms\people\store1.jpg" />
     <Content Include="Content\ps17\img\cms\people\store2.jpg" />
+    <Content Include="Content\ps17\img\england.png" />
+    <Content Include="Content\ps17\img\espanol.png" />
+    <Content Include="Content\ps17\img\french.png" />
     <Content Include="Content\ps17\img\german.png" />
+    <Content Include="Content\ps17\img\italian.png" />
+    <Content Include="Content\ps17\img\japan.png" />
     <Content Include="Content\ps17\img\l\1.jpg" />
     <Content Include="Content\ps17\img\l\2.jpg" />
     <Content Include="Content\ps17\img\m\1-small_default.jpg" />
@@ -716,6 +732,7 @@
     <Content Include="Photos\Blogs\9-thumb.jpeg" />
     <Content Include="Photos\Blogs\best-gravel-bikes636787570745183234.jpg" />
     <Content Include="Photos\Blogs\no_photo.gif" />
+    <Content Include="Photos\Products\ai-tuan-1.jpg" />
     <Content Include="Photos\Products\back-bag-3.jpg" />
     <Content Include="Photos\Products\best-gravel-bikes636787570745183234.jpg" />
     <Content Include="Photos\Products\Black-bag-1.jpg" />
@@ -788,6 +805,9 @@
     <Content Include="Photos\Products\slide\leather-bag-3-3.jpg" />
     <Content Include="Photos\Products\slide\tuan-nguyen-1.jpg" />
     <Content Include="Photos\Products\slide\tuan-nguyen-2.jpg" />
+    <Content Include="Photos\Products\tuan-nguyen.jpg" />
+    <Content Include="Photos\Products\tuan-nguyen636780839258011782.jpg" />
+    <Content Include="Photos\Products\tuan-nguyen636780885162238103.jpg" />
     <Content Include="Photos\temp\31.jpg" />
     <Content Include="Photos\temp\32.jpg" />
     <Content Include="Photos\temp\33.jpg" />
@@ -1034,7 +1054,6 @@
     <Content Include="Views\Product\CompareProduct.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Result.cshtml" />
     <Content Include="Views\Product\_GridPartial.cshtml" />
     <Content Include="Views\Product\_ListPartial.cshtml" />
     <Content Include="Views\Article\Details.cshtml" />
@@ -1084,6 +1103,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Dashboard\" />
+    <Folder Include="Language\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1140,6 +1160,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Language\Menu\Menu.resx" />
     <EmbeddedResource Include="Language\Menu\Menu.vi.resx" />
+    <EmbeddedResource Include="Language\Order\History.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>History.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language\Order\History.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>History.vi.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Language\Product\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
