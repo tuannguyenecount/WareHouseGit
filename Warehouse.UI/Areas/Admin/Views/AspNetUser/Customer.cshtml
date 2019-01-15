@@ -1,0 +1,133 @@
+﻿@model List<ApplicationUser>
+@{
+    ViewBag.Title = "Khách Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section scripts{
+    <!-- DataTables -->
+    <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('#tblAspNetUser').DataTable({
+                'ordering': true,
+                'searching': true,
+                'lengthChange': true,
+                'info': true
+            });
+            $(document).on("show.bs.modal", "#modal-deleteUser", function (e) {
+                var link = $(e.relatedTarget);
+                $(this).find(".modal-content").load(link.attr("href"));
+            });
+            $(document).on("submit", "form[name=frm]", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("action"),
+                    method: "Post",
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.status == 1) {
+                            window.location.reload();
+                        }
+                        else {
+                            ShowPopUpError(result.message);
+                        }
+                    },
+                    error: function () {
+                        ShowPopUpError("Lỗi ajax!");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="tblAspNetUser" class="table table-bordered table-striped table-middle" method="post">
+                                    <thead>
+                                        <tr>
+                                            <th>Họ tên</th>
+                                            <th>Email</th>
+                                            <th>Điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (ApplicationUser applicationUser in Model) {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.FullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(m => applicationUser.PhoneNumber)
+                                                </td>
+                                                <td>
+                                                    @(applicationUser.Address + ", " + applicationUser.Ward.Name + ", " + applicationUser.District.Name + ", " + applicationUser.Province.Name)
+                                                </td>
+                                                <td>
+                                                    @if (applicationUser.LockoutEndDateUtc > DateTime.Now) {
+                                                        <label class="label label-danger">Bị khóa</label>
+                                                    }
+                                                    else {
+                                                        <label class="label label-success">Hoạt động</label>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem/Sửa </a>
+                                                    <a data-target="#modal-deleteUser" data-toggle="modal" href="@Url.Action("_DeleteModal", new { Id = applicationUser.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
+
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+<div class="modal fade" id="modal-deleteUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.row -->

@@ -237,7 +237,7 @@ namespace Warehouse.Areas.Admin.Controllers
         /// <returns></returns>
         public ActionResult Customer()
         {
-            List<ApplicationUser> applicationUsers = UserManager.Users.ToList();
+            List<ApplicationUser> applicationUsers = UserManager.Users.Include(m=>m.District).Include(m=>m.Ward).Include(m=>m.Province).ToList();
             return View(applicationUsers);
         }
 

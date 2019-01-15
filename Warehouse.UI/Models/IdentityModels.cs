@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System;
 using Warehouse.Core.Entities;
+using Warehouse.Entities;
 
 namespace Warehouse.Models
 {
@@ -19,15 +20,13 @@ namespace Warehouse.Models
         [StringLength(150)]
         [DefaultValue("user.png")]
         public string Avatar { get; set; }
-
         public DateTime DateRegister { get; set; }
-
         public int? ProvinceId { get; set; }
-
         public int? DistrictId { get; set; }
-
         public int? WardId { get; set; }
-
+        public virtual Province Province { get; set; }
+        public virtual District District { get; set; }
+        public virtual Ward Ward { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

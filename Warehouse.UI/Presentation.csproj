@@ -341,6 +341,10 @@
     <Compile Include="Migrations\201811181637370_addColumnLocationsForAspNetUsers.Designer.cs">
       <DependentUpon>201811181637370_addColumnLocationsForAspNetUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812310548268_update-virtual-applicationuser.cs" />
+    <Compile Include="Migrations\201812310548268_update-virtual-applicationuser.Designer.cs">
+      <DependentUpon>201812310548268_update-virtual-applicationuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
@@ -856,6 +860,7 @@
     <Content Include="Areas\Admin\Views\Article\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AspNetUser\Customer.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -1065,6 +1070,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811181637370_addColumnLocationsForAspNetUsers.resx">
       <DependentUpon>201811181637370_addColumnLocationsForAspNetUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812310548268_update-virtual-applicationuser.resx">
+      <DependentUpon>201812310548268_update-virtual-applicationuser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
