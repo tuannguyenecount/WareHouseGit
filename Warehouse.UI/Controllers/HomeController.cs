@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,7 +28,6 @@ namespace Warehouse.Controllers
             _orderService = orderService;
         }
 
-  
         public ActionResult Index()
         {
             ViewBag.NewProducts = _productService.GetNewProducts().Select(

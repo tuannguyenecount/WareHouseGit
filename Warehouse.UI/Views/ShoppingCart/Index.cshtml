@@ -1,6 +1,6 @@
 ﻿@model List<CartItem>
 @{
-    ViewBag.Title = "Giỏ hàng";
+    ViewBag.Title = Warehouse.Language.Header.Header.ShoppingCart;
     Layout = "~/Views/Shared/_Layout.cshtml";
     decimal totalMoney = Model.Sum(m => m.Subtotal);
     int totalCount = Model.Sum(m => m.Quantity);
@@ -25,7 +25,7 @@
 
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="/">
-                            <span itemprop="name">Trang chủ</span>
+                            <span itemprop="name">@Warehouse.Language.Header.Header.Home</span>
                         </a>
                     </li>
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
@@ -45,7 +45,7 @@
     <aside id="notifications"></aside>
     <div id="content-wrapper">
         <section id="main">
-            <h1 class="h1 page-title"><span>Giỏ Hàng Của Bạn </span></h1>
+            <h1 class="h1 page-title"><span>@ViewBag.Title </span></h1>
             <div class="cart-grid row">
                 <!-- Left Block: cart product informations & shpping -->
                 <div class="cart-grid-body col-12 col-lg-8">
@@ -54,7 +54,7 @@
                         <div class="cart-overview js-cart">
                             @if (Model.Count == 0)
                             {
-                                <div class="alert alert-warning">Không có sản phẩm trong giỏ hàng của bạn</div>
+                                <div class="alert alert-warning">@Warehouse.Language.Header.Header.EmptyCart</div>
                             }
                             else
                             {
@@ -62,12 +62,12 @@
                                     <li class="cart-item-header hidden-sm-down">
                                         <div class="row small-gutters">
 
-                                            <div class="col-6 text-center">Sản phẩm</div>
+                                            <div class="col-6 text-center">@Warehouse.Language.Product.Index.Product</div>
                                             <div class="col-6">
                                                 <div class="row small-gutters">
-                                                    <div class="col">Giá bán</div>
-                                                    <div class="col">Số lượng</div>
-                                                    <div class="col">Thành tiền</div>
+                                                    <div class="col">@Warehouse.Language.Product.Index.Price</div>
+                                                    <div class="col">@Warehouse.Language.ShoppingCart.Index.Amount</div>
+                                                    <div class="col">@Warehouse.Language.ShoppingCart.Index.Total</div>
                                                     <div class="col col-auto"><i class="fa fa-trash-o invisible" aria-hidden="true"></i></div>
                                                 </div>
                                             </div>
@@ -114,7 +114,7 @@
 
                                                         <div class="col col-auto">
                                                             <div class="cart-line-product-actions">
-                                                                <a class="remove-from-cart" rel="nofollow" href="@Url.Action("Delete", "ShoppingCart", new { Id = item.Id })" onclick="return confirm('Xác nhận xóa sản phẩm này khỏi giỏ?')">
+                                                                <a class="remove-from-cart" rel="nofollow" href="@Url.Action("Delete", "ShoppingCart", new { Id = item.Id })" onclick="return confirm('@Warehouse.Language.ShoppingCart.Index.DeleteConfirm?')">
                                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                                 </a>
                                                             </div>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <a class="btn btn-secondary mt-3 mb-3" href="/">
-                        <i class="fa fa-angle-left" aria-hidden="true"></i> Tiếp tục mua
+                        <i class="fa fa-angle-left" aria-hidden="true"></i> @Warehouse.Language.ShoppingCart.Index.ContinueToBuy
                     </a>
                     <!-- shipping informations -->
                 </div>
@@ -141,7 +141,7 @@
                             <div class="card-block">
                                 <div class="cart-summary-line" id="cart-subtotal-products">
                                     <span class="label js-subtotal">
-                                        @(Model.Sum(c => c.Quantity)) sản phẩm
+                                        @(Model.Sum(c => c.Quantity)) @Warehouse.Language.Product.Index.Product
                                     </span>
                                     @* <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Sum(s=>s.Subtotal)))</span>*@
                                 </div>
@@ -180,7 +180,7 @@
                             @*<hr>*@
                             <div class="card-block">
                                 <div class="cart-summary-line cart-total">
-                                    <span class="label">Tổng thành tiền</span>
+                                    <span class="label">@Warehouse.Language.ShoppingCart.Index.Total</span>
                                     <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.Sum(s => s.Subtotal)))</span>
                                 </div>
                                 <div class="cart-summary-line">
@@ -196,7 +196,7 @@
                         </div>
                         <div class="checkout cart-detailed-actions card-block">
                             <div class="text-xs-center">
-                                <a href="@Url.Action("Checkout", "Order")" class="btn btn-primary btn-lg btn-block">Tiến hành đặt hàng</a>
+                                <a href="@Url.Action("Checkout", "Order")" class="btn btn-primary btn-lg btn-block">@Warehouse.Language.ShoppingCart.Index.Checkout</a>
                             </div>
                         </div>
                     </div>
