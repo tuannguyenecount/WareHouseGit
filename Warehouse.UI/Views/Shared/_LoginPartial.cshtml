@@ -4,12 +4,12 @@
     using (Html.BeginForm("LogOff", "Account",new {area=""}, FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
     {
     @Html.AntiForgeryToken() 
-    <a data-toggle="tooltip" target="_blank" data-placement="bottom" title="Vào trang cá nhân" href="@Url.Action("Manage", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> Trang của bạn </a>
-    <a  href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Đăng xuất</a>
+    <a data-toggle="tooltip" target="_blank" data-placement="bottom"  href="@Url.Action("Manage", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> @Warehouse.Language.Header.Header.PersonPage </a>
+    <a  href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> @Warehouse.Language.Header.Header.Logout</a>
     }
 }
 else
 {
-    <a href="@Url.Action("Register", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> Đăng ký thành viên</a>
-    <a href="@Url.Action("Login", "Account", new { area=""})"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+    <a href="@Url.Action("Register", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> @Warehouse.Language.Header.Header.Register</a>
+    <a href="@Url.Action("Login", "Account", new { area=""})"><span class="glyphicon glyphicon-log-in"></span> @Warehouse.Language.Header.Header.Login</a>
 }

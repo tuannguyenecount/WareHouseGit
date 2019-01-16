@@ -106,7 +106,6 @@ namespace Warehouse.Controllers
             return PartialView();
         }
 
-        [OutputCache(Duration = 86400)]
         public PartialViewResult _GoogleMapPartial()
         {
             return PartialView();

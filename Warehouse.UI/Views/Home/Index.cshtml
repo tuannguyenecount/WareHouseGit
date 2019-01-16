@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Trang chủ";
+    ViewBag.Title = Warehouse.Language.Header.Header.Home;
     ViewBag.BodyId = "index";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-index tax-display-disabled body-desktop-header-style-w-4";
 }
@@ -7,17 +7,21 @@
 @section Styles{
 
 <style>
-        .popupSocial{
-z-index:999; text-align:center;
-background:#e0e0e0; position:fixed;
-top:45%; right:10px; padding:20px 10px;
-border:1px solid #333; border-radius:10px;
-  }
-    @@media screen and (max-width:768px) {
-        .popupSocial {
-            display: none;
-        }
+    .popupSocial {
+        z-index: 999;
+        text-align: center;
+        background: transparent;
+        position: fixed;
+        top: calc(50% - 75px);
+        right: -5px;
+        padding: 20px 5px; /* border-bottom: 2px solid #333; */
+        border-radius: 10px;
     }
+        @@media screen and (max-width:768px) {
+            .popupSocial {
+                display: none;
+            }
+        }
 </style>
 }
 
@@ -168,7 +172,7 @@ border:1px solid #333; border-radius:10px;
                 <ol itemscope itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="/">
-                            <span itemprop="name">Trang chủ</span>
+                            <span itemprop="name">@Warehouse.Language.Header.Header.Home</span>
                         </a>
                         <meta itemprop="position" content="1">
                     </li>

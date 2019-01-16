@@ -30,7 +30,7 @@ namespace Warehouse.Services.Services
         /// <returns></returns>
         public List<Category> GetAll()
         {
-            return _categoryDal.GetList();
+            return _categoryDal.GetList(c => c.Deleted == false && (c.Category2 != null ? (c.Category2.Deleted == false) : true )  );
         }
 
         /// <summary>

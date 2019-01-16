@@ -1,9 +1,9 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Lỗi";
+    ViewBag.Title = "Error";
 }
 
 <h1 class="text-danger">Lỗi</h1>
-<h2 class="text-danger">Xảy ra lỗi @Model.Exception.Message khi xử lý yêu cầu của bạn.</h2>
+<h2 class="text-danger">Error: @Model.Exception.Message when handler your request.</h2>
 

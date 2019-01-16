@@ -12,11 +12,7 @@
 
 @section meta
 {
-    @*<meta property="og:url" content="@Request.Url.ToString()" />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content="@Model.Name" />
-        <meta property="og:description" content="" />
-        <meta property="og:image" content="@Model.ImageCustom" />*@
+
 }
 <div id="fb-root"></div>
 <script>
@@ -35,7 +31,7 @@
                 <ol itemscope itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="/">
-                            <span itemprop="name">Trang chủ</span>
+                            <span itemprop="name">@Warehouse.Language.Header.Header.Home</span>
                         </a>
                     </li>
                     @if (ViewBag.CategoryParent != null)
@@ -130,22 +126,22 @@
                                     <div class="row extra-small-gutters product-quantity">
                                         <div class="col col-12 col-sm-auto">
                                             <div class="add">
-                                                <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">
+                                                <a href="@Url.Action("Add","ShoppingCart",new { id = Model.Id })" title="@Warehouse.Language.ShoppingCart.Index.AddToCart" data-toggle="modal" data-target="#blockcart-modal" class="btn btn-primary btn-lg add-to-cart">
                                                     <i class="fa fa-shopping-bag fa-fw bag-icon" aria-hidden="true"></i>
                                                     <i class="fa fa-circle-o-notch fa-spin fa-fw spinner-icon" aria-hidden="true"></i>
-                                                    Thêm vảo giỏ
+                                                    @Warehouse.Language.ShoppingCart.Index.AddToCart
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="col col-sm-auto">
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="Yêu thích"
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="@Warehouse.Language.Product.Index.AddFavorite"
                                                     class="btn btn-secondary btn-lg btn-iconic btn-iqitwishlist-add js-iqitwishlist-add" data-animation="false" id="iqit-wishlist-product-btn">
                                                 <i class="fa fa-heart-o not-added" aria-hidden="true"></i>
                                                 <i class="fa fa-heart added" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                         <div class="col col-sm-auto">
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="So sánh"
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="@Warehouse.Language.Header.Header.Compare"
                                                     class="btn btn-secondary btn-lg btn-iconic btn-iqitcompare-add js-iqitcompare-add" data-animation="false" id="iqit-compare-product-btn"
                                                     data-id-product="@Model.Id"
                                                     data-url="#">
@@ -191,18 +187,18 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab"
                                href="#description">
-                                Mô tả sản phẩm
+                                @Warehouse.Language.Product.Index.Description
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab"
                                href="#contentProduct">
-                                Thông tin chi tiết
+                                @Warehouse.Language.Product.Index.InformationDetails
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab"
-                               href="#extra-0">Nhận xét</a>
+                               href="#extra-0">@Warehouse.Language.Product.Index.Comment</a>
                         </li>
                     </ul>
                     <div id="product-infos-tabs-content" class="tab-content">
@@ -230,7 +226,7 @@
             <section class="category-products block block-section">
                 <h4 class="section-title">
                     <span>
-                        Sản Phẩm Liên Quan
+                        @Warehouse.Language.Product.Index.RelatedProducts.ToUpperInvariant()
                     </span>
                 </h4>
                 <div class="block-content">
@@ -268,23 +264,23 @@
                                                 <input type="hidden" name="id_product" value="94">
                                                 <div class="input-group input-group-add-cart">
                                                     <a href="@Url.Action("Add","ShoppingCart",new { Id = productrelated.Id })" class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal">
-                                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> Thêm vào giỏ
+                                                        <i class="fa fa-shopping-bag" aria-hidden="true"></i> @Warehouse.Language.ShoppingCart.Index.AddToCart
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="product-functional-buttons product-functional-buttons-overlay">
                                                 <div class="product-functional-buttons-links">
                                                     <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add"
-                                                       data-toggle="tooltip" title="Add to wishlist">
+                                                       data-toggle="tooltip" title="@Warehouse.Language.Shared.Index.AddFavoriteProduct">
                                                         <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
                                                     </a>
                                                     <a href="#" class="btn-iqitcompare-add js-iqitcompare-add"
-                                                       data-toggle="tooltip" title="Compare">
+                                                       data-toggle="tooltip" title="@Warehouse.Language.Header.Header.Compare">
                                                         <i class="fa fa-random" aria-hidden="true"></i>
                                                     </a>
 
                                                     <a class="js-quick-view-iqit" href="@Url.Action("_ContentQuickViewModal","Product",new { Id = productrelated.Id })" data-toggle="modal" data-target="#quickview-modal"
-                                                       title="Xem nhanh">
+                                                       title="@Warehouse.Language.Product.Index.QuickView">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </a>
 

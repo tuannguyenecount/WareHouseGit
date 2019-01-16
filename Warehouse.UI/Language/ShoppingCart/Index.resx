@@ -120,6 +120,9 @@
   <data name="AddSuccess" xml:space="preserve">
     <value>Add products to cart successfully</value>
   </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
@@ -131,6 +134,18 @@
   </data>
   <data name="DeleteConfirm" xml:space="preserve">
     <value>Confirm deleting the product from the shopping cart?</value>
+  </data>
+  <data name="GoToCart" xml:space="preserve">
+    <value>Go to cart</value>
+  </data>
+  <data name="OrderInformation" xml:space="preserve">
+    <value>Order information</value>
+  </data>
+  <data name="ShoppingCart" xml:space="preserve">
+    <value>Shopping Cart</value>
+  </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Show details</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>

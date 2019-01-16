@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Đặt hàng thành công";
+    ViewBag.Title = Warehouse.Language.Shared.Index.OrderSuccess;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,7 +9,7 @@
             <div class="col">
                 <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                        <a itemprop="item" href="/"><span itemprop="name">@Warehouse.Language.Header.Header.Home</span></a>
                         <meta itemprop="position" content="1">
                     </li>
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
@@ -29,7 +29,9 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <img src="~/images/dathangthanhcong.png" />
-                    <h5>Đặt hàng thành công. Chúng tôi sẽ liên hệ với bạn và giao hàng miễn phí trong vòng 3 ngày. Chúc bạn có 1 ngày mua sắm vui vẻ.</h5>
+                    <h5>
+                        @Warehouse.Language.Shared.Index.MessageOrderSuccess
+                    </h5>
                 </div>
             </div>
         </section>

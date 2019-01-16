@@ -7,7 +7,7 @@
             <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn" data-toggle="dropdown">
                 <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">@(ShoppingCart.Sum(c => c.Quantity))</span></i>
                 <span class="info-wrapper">
-                    <span class="title"></span>
+                    <span class="title">@Warehouse.Language.Header.Header.ShoppingCart</span>
                     <span class="cart-toggle-details">
                         <span class="text-faded cart-separator"> / </span>
                         <span class="cart-products-count">(@(ShoppingCart.Sum(c=>c.Quantity)))</span>
@@ -45,7 +45,7 @@
                                     <span>@(Warehouse.Common.Format.FormatCurrencyVND((int)cartItem.Subtotal))</span>
                                 </div>
                                 <div class="col col-auto">
-                                    <a class="remove-from-cart" rel="nofollow" href="@Url.Action("Delete","ShoppingCart",new { Id = cartItem.Id })" title="Xóa sản phẩm này khỏi giỏ">
+                                    <a class="remove-from-cart" rel="nofollow" href="@Url.Action("Delete","ShoppingCart",new { Id = cartItem.Id })" title="@Warehouse.Language.ShoppingCart.Index.DeleteConfirm">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </div>

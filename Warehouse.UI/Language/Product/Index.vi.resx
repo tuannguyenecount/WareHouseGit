@@ -117,10 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddFavorite" xml:space="preserve">
+    <value>Thêm vào sản phẩm yêu thích</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Nhận xét</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="InformationDetails" xml:space="preserve">
+    <value>Thông tin chi tiết</value>
+  </data>
+  <data name="OrderInformation" xml:space="preserve">
+    <value>Thông tin đặt hàng</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Giá bán</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Sản phẩm</value>
+  </data>
+  <data name="QuickView" xml:space="preserve">
+    <value>Xem nhanh</value>
+  </data>
+  <data name="RelatedProducts" xml:space="preserve">
+    <value>Sản phẩm Liên quan</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Kết quả tìm kiếm</value>
+  </data>
+  <data name="ShowProducts" xml:space="preserve">
+    <value>Xem sản phẩm</value>
   </data>
 </root>

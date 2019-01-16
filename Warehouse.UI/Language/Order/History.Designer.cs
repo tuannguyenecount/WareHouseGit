@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Warehouse.Language.ShoppingCart {
+namespace Warehouse.Language.Order {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Warehouse.Language.ShoppingCart {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Index {
+    public class History {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Index() {
+        internal History() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Warehouse.Language.ShoppingCart {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Warehouse.Language.ShoppingCart.Index", typeof(Index).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Warehouse.Language.Order.History", typeof(History).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,101 +61,56 @@ namespace Warehouse.Language.ShoppingCart {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add products to cart successfully.
+        ///   Looks up a localized string similar to Hủy đơn.
         /// </summary>
-        public static string AddSuccess {
+        public static string CancelOrder {
             get {
-                return ResourceManager.GetString("AddSuccess", resourceCulture);
+                return ResourceManager.GetString("CancelOrder", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to cart.
+        ///   Looks up a localized string similar to Do you confirm canceling this order?.
         /// </summary>
-        public static string AddToCart {
+        public static string CancelOrderConfirm {
             get {
-                return ResourceManager.GetString("AddToCart", resourceCulture);
+                return ResourceManager.GetString("CancelOrderConfirm", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amount.
+        ///   Looks up a localized string similar to Order date.
         /// </summary>
-        public static string Amount {
+        public static string OrderDate {
             get {
-                return ResourceManager.GetString("Amount", resourceCulture);
+                return ResourceManager.GetString("OrderDate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checkout.
+        ///   Looks up a localized string similar to Order Id.
         /// </summary>
-        public static string Checkout {
+        public static string OrderId {
             get {
-                return ResourceManager.GetString("Checkout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue to buy.
-        /// </summary>
-        public static string ContinueToBuy {
-            get {
-                return ResourceManager.GetString("ContinueToBuy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Confirm deleting the product from the shopping cart?.
-        /// </summary>
-        public static string DeleteConfirm {
-            get {
-                return ResourceManager.GetString("DeleteConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Go to cart.
-        /// </summary>
-        public static string GoToCart {
-            get {
-                return ResourceManager.GetString("GoToCart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Order information.
-        /// </summary>
-        public static string OrderInformation {
-            get {
-                return ResourceManager.GetString("OrderInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shopping Cart.
-        /// </summary>
-        public static string ShoppingCart {
-            get {
-                return ResourceManager.GetString("ShoppingCart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show details.
-        /// </summary>
-        public static string ShowDetails {
-            get {
-                return ResourceManager.GetString("ShowDetails", resourceCulture);
+                return ResourceManager.GetString("OrderId", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
-        public static string Total {
+        public static string TotalCount {
             get {
-                return ResourceManager.GetString("Total", resourceCulture);
+                return ResourceManager.GetString("TotalCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total money.
+        /// </summary>
+        public static string TotalMoney {
+            get {
+                return ResourceManager.GetString("TotalMoney", resourceCulture);
             }
         }
     }

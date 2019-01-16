@@ -73,6 +73,7 @@
                                             <th class="hidden">Parent Id</th>
                                             <th>Tên phân loại</th>
                                             <th>Bí danh</th>
+                                            <th>Phân loại cha</th>
                                             <th class="text-center">Thao tác</th>
                                         </tr>
                                     </thead>
@@ -86,6 +87,9 @@
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(model => category.Alias_SEO)
+                                                </td>
+                                                <td>
+                                                    @(category.Category2?.Deleted == false ? category.Category2?.Name  : "Không có")
                                                 </td>
                                                 <td class="text-center">
                                                     <a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = category.Id })" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Sửa</a>

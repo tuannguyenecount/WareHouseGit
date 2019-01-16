@@ -1,18 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "Compare Product";
+    ViewBag.Title = Warehouse.Language.Header.Header.Compare + " " + Warehouse.Language.Product.Index.Product;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "module-iqitcompare-comparator";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page- tax-display-disabled body-desktop-header-style-w-4";
 }
 
-<div class="container">
+@*<div class="container">
     <nav data-depth="1" class="breadcrumb">
         <div class="row align-items-center">
             <div class="col">
                 <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/"><span itemprop="name">Home</span></a>
+                        <a itemprop="item" href="/"><span itemprop="name">@Warehouse.Language.Header.Header.Home</span></a>
                         <meta itemprop="position" content="1">
                     </li>
                 </ol>
@@ -20,15 +20,15 @@
             <div class="col col-auto"> </div>
         </div>
     </nav>
-</div>
+</div>*@
 
-<div id="inner-wrapper" class="container">
+@*<div id="inner-wrapper" class="container">
     <aside id="notifications"></aside><div id="content-wrapper">
         <section id="main">
             <section id="content" class="page-content">
-                <h1 class="h1 page-title"><span>Products compare</span></h1><div id="iqitcompare-table">
+                <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1><div id="iqitcompare-table">
                     <div class="iqitcompare-table-actions text-right">
-                        <a href="#" class="js-iqitcompare-remove-all iqitcompare-remove-all" data-url="//iqit-commerce.com/ps17/en/module/iqitcompare/actions"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove all products</a>
+                        <a href="#" class="js-iqitcompare-remove-all iqitcompare-remove-all" data-url="#"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove all products</a>
                     </div>
                     <div class="iqitcompare-table-container">
                         <table class="table table-hover">
@@ -75,8 +75,7 @@
                 <p class="alert alert-warning hidden-xs-up" id="iqitcompare-warning">There is no products to compare.</p>
             </section>
             <footer class="page-footer">
-                <!-- Footer content -->
             </footer>
         </section>
     </div>
-</div>
+</div>*@

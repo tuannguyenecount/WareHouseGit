@@ -21,7 +21,7 @@ namespace Warehouse.Controllers
         }
 
         [ChildActionOnly]
-        //[OutputCache(Duration = 3600)]
+    
         public PartialViewResult _HeaderPartial()
         {
             // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
@@ -32,7 +32,7 @@ namespace Warehouse.Controllers
         }
 
         [ChildActionOnly]
-        //[OutputCache(Duration = 3600)]
+
         public PartialViewResult _FooterPartial()
         {
             ViewBag.Categories = _categoryService.GetParents();

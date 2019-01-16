@@ -1,7 +1,7 @@
 ﻿@using Warehouse.Models.Order
 @model OrderViewModel
 @{
-    ViewBag.Title = "Đặt hàng";
+    ViewBag.Title = Warehouse.Language.ShoppingCart.Index.Checkout;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.BodyId = "checkout";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-order tax-display-disabled body-desktop-header-style-w-4";
@@ -13,7 +13,7 @@
             <div class="col">
                 <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="https://iqit-commerce.com/ps17/en/"><span itemprop="name">Trang chủ</span></a>
+                        <a itemprop="item" href="/"><span itemprop="name">@Warehouse.Language.Header.Header.Home</span></a>
                         <meta itemprop="position" content="1">
                     </li>
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
@@ -26,27 +26,25 @@
     </nav>
 </div>
 <div id="inner-wrapper" class="container">
-    <aside id="notifications"></aside><div id="content-wrapper">
+    <aside id="notifications"></aside>
+    <div id="content-wrapper">
         <section id="main">
             <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1><div class="row">
                 <div class="col-md-8">
                     <section class="checkout-step -current -reachable js-current-step">
                         <h1 class="step-title h3">
-                           Thông Tin Đặt Hàng
+                           @Warehouse.Language.ShoppingCart.Index.OrderInformation
                         </h1>
                         <div class="content">
                             <div class="js-address-form">
                                 @using (Html.BeginForm("Checkout", "Order", FormMethod.Post))
                                 {
-                                    @*<p>
-                                        Địa chỉ được chọn sẽ được dùng làm địa chỉ cá nhân của bạn (cho hóa đơn) và làm địa chỉ giao hàng của bạn.
-                                    </p>*@
                                     <div id="delivery-address">
                                         <div class="js-address-form">
                                             <section class="form-fields">
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        @Html.DisplayNameFor(m => m.Name)
+                                                        @Warehouse.Language.Shared.Index.FullName
                                                     </label>
                                                     <div class="col-md-8">
                                                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
@@ -59,7 +57,7 @@
 
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        @Html.DisplayNameFor(m => m.Phone)
+                                                        @Warehouse.Language.Shared.Index.Phone
                                                     </label>
                                                     <div class="col-md-8">
                                                         @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
@@ -82,7 +80,7 @@
 
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        @Html.DisplayNameFor(m => m.Address)
+                                                        @Warehouse.Language.Shared.Index.Address
                                                     </label>
                                                     <div class="col-md-8">
                                                         @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
@@ -95,7 +93,7 @@
 
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        Tỉnh/Thành
+                                                        @Warehouse.Language.Shared.Index.City
                                                     </label>
                                                     <div class="col-md-8">
                                                         @Html.DropDownList("ProvinceId", null, new { @class = "form-control", required = "" })
@@ -108,7 +106,7 @@
 
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        Quận/Huyện
+                                                        @Warehouse.Language.Shared.Index.District
                                                     </label>
                                                     <div class="col-md-8" id="Districts">
                                                         @Html.DropDownList("DistrictId", null, new { @class = "form-control", required = "" })
@@ -121,7 +119,7 @@
 
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        Phường/Xã
+                                                        @Warehouse.Language.Shared.Index.Ward
                                                     </label>
                                                     <div class="col-md-8" id="Wards">
                                                         @Html.DropDownList("WardId", null, new { @class = "form-control", required = "" })
@@ -134,7 +132,7 @@
 
                                                 <div class="form-group row align-items-center ">
                                                     <label class="col-md-2 col-form-label required">
-                                                        @Html.DisplayNameFor(m=>m.Note)
+                                                        @Warehouse.Language.Shared.Index.Note
                                                     </label>
                                                     <div class="col-md-8" id="Wards">
                                                         @Html.TextAreaFor(m => m.Note, new { @class = "form-control" })
@@ -148,7 +146,7 @@
                                             </section>
                                             <footer class="form-footer text-center clearfix">
                                                 <button type="submit" class="continue btn btn-primary btn-block btn-lg" >
-                                                    Đặt hàng
+                                                    @Warehouse.Language.ShoppingCart.Index.Checkout
                                                 </button>
                                             </footer>
                                         </div>
@@ -159,56 +157,58 @@
                     </section>
                 </div>
                 <div class="col-md-4 cart-grid-right">
-                    <section id="js-checkout-summary" class="card cart-summary js-cart" data-refresh-url="https://iqit-commerce.com/ps17/en/cart?ajax=1&amp;action=refresh">
+                    <section id="js-checkout-summary" class="card cart-summary js-cart" data-refresh-url="#">
                         <div class="card-block">
                             <div class="cart-summary-products">
                                 <div>
-                                    @Model.TotalQuantity sản phẩm
-                                    <a href="#" data-toggle="collapse" class="text-muted pull-right" data-target="#cart-summary-product-list">show details <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    @Model.TotalQuantity @Warehouse.Language.Product.Index.Product.ToLower()
+                                    <a href="#" data-toggle="collapse" class="text-muted pull-right" data-target="#cart-summary-product-list">
+                                        @Warehouse.Language.ShoppingCart.Index.ShowDetails <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </a>
                                 </div>
                                 <div class="collapse" id="cart-summary-product-list">
-                                        <ul class="media-list">
-                                            <li class="media cart-summary-product">
-                                                <div class="media-left mr-3 align-self-center">
-                                                    <a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" title="Leather bag"><img class="media-object img-fluid" src="https://iqit-commerce.com/ps17/297-small_default/printed-summer-dress.jpg" alt="Leather bag"></a>
-                                                </div>
-                                                <div class="media-body align-self-center"><a href="https://iqit-commerce.com/ps17/en/accessories/89-printed-summer-dress.html" title="Leather bag"><span class="product-name">Leather bag</span></a><span class="pull-right"><span class="product-quantity text-muted">x1</span> $30.50</span></div>
-                                            </li>
-                                        </ul>
-                                        <div class="text-right"><a href="//iqit-commerce.com/ps17/en/cart?action=show"><span class="step-edit"><i class="fa fa-pencil" aria-hidden="true"></i> edit</span></a></div>
+                                    <ul class="media-list">
+                                        @foreach (CartItem cartItem in Session["ShoppingCart"] as List<CartItem>)
+                                        {
+                                        <li class="media cart-summary-product">
+                                            <div class="media-left mr-3 align-self-center">
+                                                <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })" title="@cartItem.Name">
+                                                    <img class="media-object img-fluid" src="@cartItem.FullUrlImage" alt="@cartItem.Name">
+                                                </a>
+                                            </div>
+                                            <div class="media-body align-self-center">
+                                                <a href="@Url.Action("Details","Product",new { alias = cartItem.Alias })" title="@cartItem.Name">
+                                                    <span class="product-name">@cartItem.Name</span>
+                                                </a>
+                                                <span class="pull-right">
+                                                    <span class="product-quantity text-muted">x@(cartItem.Quantity)</span> @Warehouse.Common.Format.FormatCurrencyVND((int)cartItem.Subtotal)</span>
+                                            </div>
+                                        </li>
+                                        }
+                                    </ul>
+                                    <div class="text-right">
+                                        <a href="@Url.Action("Index","ShoppingCart")">
+                                            <span class="step-edit">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i> 
+                                                @Warehouse.Language.Shared.Index.Edit
+                                            </span>
+                                        </a>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
                         <div class="card-block">
-                            <div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-products"><span class="label">Tổng cộng</span><span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.TotalMoney))</span></div>
-                            @*<div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-shipping"><span class="label">Phí vận chuyển</span><span class="value">@(Warehouse.Common.Format.FormatCurrencyVND(0))</span></div>*@
-                        </div>
-                        <hr>
-                        @*<div class="block-promo">
-                                <div class="cart-voucher">
-                                    <div class="cart-voucher-area">
-                                        <div class="promo-code" id="promo-code">
-                                            <div class="alert alert-danger js-error" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="m-l-1 js-error-text"></span></div>
-                                            <form action="https://iqit-commerce.com/ps17/en/cart" data-link-action="add-voucher" method="post" class="">
-                                                <div class="input-group">
-                                                    <i class="fa fa-tag btn voucher-icon" aria-hidden="true"></i>
-                                                    <input type="hidden" name="token" value="3e8cee7ca4392af7040793adb7288b50">
-                                                    <input type="hidden" name="addDiscount" value="1">
-                                                    <input class="form-control" type="text" name="discount_name" placeholder="Mã giảm giá">
-                                                    <button type="submit" class="btn btn-secondary">
-                                                        <span>Áp dụng</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="cart-summary-line cart-summary-subtotals" id="cart-subtotal-products">
+                                <span class="label">@Warehouse.Language.ShoppingCart.Index.Total</span>
+                                <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int)Model.TotalMoney))</span>
                             </div>
-                            <hr>*@
+                        </div>  
+                        <hr>
+                       
                         <div class="card-block cart-summary-totals">
                             <div class="cart-summary-line cart-total">
-                                <span class="label">Tổng tiền</span>
+                                <span class="label">@Warehouse.Language.ShoppingCart.Index.Total</span>
                                 <span class="value">@(Warehouse.Common.Format.FormatCurrencyVND((int?)Model.TotalMoney))</span>
                             </div>
                         </div>
