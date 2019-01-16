@@ -90,7 +90,7 @@
                                                     @Html.DisplayFor(m => applicationUser.PhoneNumber)
                                                 </td>
                                                 <td>
-                                                    @(applicationUser.Address + ", " + applicationUser.Ward.Name + ", " + applicationUser.District.Name + ", " + applicationUser.Province.Name)
+                                                    @(applicationUser.Address + ", " + applicationUser.Ward?.Name + ", " + applicationUser.District?.Name + ", " + applicationUser.Province?.Name)
                                                 </td>
                                                 <td>
                                                     @if (applicationUser.LockoutEndDateUtc > DateTime.Now) {
