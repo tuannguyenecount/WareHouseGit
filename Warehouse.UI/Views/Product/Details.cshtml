@@ -8,11 +8,77 @@
 }
 @section styles
 {
+    <style>
+        .show {
+            width: 400px;
+            height: 400px;
+        }
+
+        .small-img {
+            width: 350px;
+            height: 70px;
+            margin-top: 10px;
+            position: relative;
+            left: 25px;
+        }
+
+            .small-img .icon-left, .small-img .icon-right {
+                width: 12px;
+                height: 24px;
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto 0;
+            }
+
+            .small-img .icon-left {
+                transform: rotate(180deg)
+            }
+
+            .small-img .icon-right {
+                right: 0;
+            }
+
+                .small-img .icon-left:hover, .small-img .icon-right:hover {
+                    opacity: .5;
+                }
+
+        .small-container {
+            width: 310px;
+            height: 70px;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+
+            .small-container div {
+                width: 800%;
+                position: relative;
+            }
+
+            .small-container .show-small-img {
+                width: 70px;
+                height: 70px;
+                margin-right: 6px;
+                cursor: pointer;
+                float: left;
+            }
+
+                .small-container .show-small-img:last-of-type {
+                    margin-right: 0;
+                }
+    </style>
 }
 
 @section meta
 {
-
+}
+@section Scripts{
+    <script src="~/Scripts/zoom-image.js"></script>
+    <script src="~/Scripts/main-zoom-image.js"></script>
 }
 <div id="fb-root"></div>
 <script>
@@ -70,42 +136,151 @@
                             <div class="images-container images-container-bottom">
                                 <div class="product-cover">
                                     <ul class="product-flags">
-                                        <li class="product-flag" style="background:@Model.FlagColor">@Model.ProductFlag</li>
+                                        <li class="product-flag new">New</li>
                                     </ul>
 
+                                    <a class="expander" data-toggle="modal" data-target="#product-modal"><span>
+                                        <i class="fa fa-expand" aria-hidden="true"></i></span></a>      
                                     <div id="product-images-large" class="product-images-large slick-slider">
-                                        @foreach (var product in Model.imagesProducts.OrderBy(i => i.OrderNum))
+                                        @foreach (var item in Model.imagesProducts.OrderBy(i => i.OrderNum))
                                         {
-                                            <div>
-                                                <div>
-                                                    <a href="~/Photos/Products/slide/@product.Image"></a>
-                                                </div>
-                                                <img src="@Url.Content("~/Photos/Products/slide/" + product.Image)" alt="" title="" itemprop="image" class="img-fluid">
+                                        <div>
+                                            <div class="easyzoom easyzoom-product">
+                                                <a href="/Photos/Products/slide/@item.Image" class="js-easyzoom-trigger"></a>
                                             </div>
+                                            <img src="/Photos/Products/slide/@item.Image" data-image-large-src="/Photos/Products/slide/@item.Image"
+                                                 alt=""
+                                                 title=""
+                                                 itemprop="image"
+                                                 content="/Photos/Products/slide/@item.Image"
+                                                 width="605"
+                                                 height="782"
+                                                 class="img-fluid">
+                                        </div>
                                         }
                                     </div>
                                 </div>
-                                <div class="js-qv-mask mask">
 
+
+                                <div class="js-qv-mask mask">
                                     <div id="product-images-thumbs" class="product-images js-qv-product-images slick-slider">
-                                        @foreach (var product in Model.imagesProducts)
+                                        @foreach (var item in Model.imagesProducts.OrderBy(x => x.OrderNum))
                                         {
-                                            <div class="thumb-container">
-                                                <img class="thumb js-thumb  selected img-fluid"
-                                                     src="@Url.Content("~/Photos/Products/slide/" + product.Image)"
-                                                     alt=""
-                                                     title=""
-                                                     width="100"
-                                                     height="auto"
-                                                     itemprop="image">
-                                            </div>
+                                        <div class="thumb-container">
+                                            <img class="thumb js-thumb  selected img-fluid"
+                                                 data-image-medium-src="/Photos/Products/slide/@item.Image"
+                                                 data-image-large-src="/Photos/Products/slide/@item.Image"
+                                                 src="/Photos/Products/slide/@item.Image"
+                                                 alt=""
+                                                 title=""
+                                                 width="@HttpContext.Current.Application["WidthImageProduct"]"
+                                                 height="@HttpContext.Current.Application["HeightImageProduct"]"
+                                                 itemprop="image">
+                                        </div>
                                         }
+                                        @*<div class="thumb-container">
+                                            <img class="thumb js-thumb img-fluid"
+                                                 data-image-medium-src="ps17/290-medium_default/printed-summer-dress.jpg"
+                                                 data-image-large-src="ps17/290-thickbox_default/printed-summer-dress.jpg"
+                                                 src="ps17/290-medium_default/printed-summer-dress.jpg"
+                                                 alt=""
+                                                 title=""
+                                                 width="452"
+                                                 height="584"
+                                                 itemprop="image">
+                                        </div>
+                                        <div class="thumb-container">
+                                            <img class="thumb js-thumb img-fluid"
+                                                 data-image-medium-src="ps17/291-medium_default/printed-summer-dress.jpg"
+                                                 data-image-large-src="ps17/291-thickbox_default/printed-summer-dress.jpg"
+                                                 src="ps17/291-medium_default/printed-summer-dress.jpg"
+                                                 alt=""
+                                                 title=""
+                                                 width="452"
+                                                 height="584"
+                                                 itemprop="image">
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="after-cover-tumbnails text-center">
+                            </div>
                         </section>
                     </div>
+
+                    @*<div class="col-md-4 col-product-image">
+                        <section class="page-content" id="content">
+                            <div class="images-container images-container-bottom">
+                                <div class="product-cover">
+                                    <ul class="product-flags">
+                                        <li class="product-flag" style="background:@Model.FlagColor">@Model.ProductFlag</li>
+                                    </ul>
+
+                                    @*<div id="product-images-large" class="product-images-large slick-slider">
+            @foreach (var product in Model.imagesProducts.OrderBy(i => i.OrderNum))
+            {
+                <div class="show" href="@Url.Content("~/Photos/Products/slide/" + product.Image)">
+                    <img src="@Url.Content("~/Photos/Products/slide/" + product.Image)" alt="" title="" itemprop="image" class="img-fluid">
+                </div>
+            }
+        </div>*@
+                    @*<div id="product-images-large" class="product-images-large slick-slider slick-initialized">
+                            <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: block;">Previous</button><div class="slick-list draggable">
+                                <div class="slick-track" style="opacity: 1; width: 1179px;">
+                                    <div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 393px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+                                        <div>
+                                            <div style="width: 100%; display: inline-block;">
+                                                <div class="easyzoom easyzoom-product is-ready">
+                                                    <a href="https://iqit-commerce.com/ps17/289-thickbox_default/printed-summer-dress.jpg" class="js-easyzoom-trigger" tabindex="0"></a>
+                                                </div>
+                                                <img src="https://iqit-commerce.com/ps17/289-large_default/printed-summer-dress.jpg" data-image-large-src="https://iqit-commerce.com/ps17/289-thickbox_default/printed-summer-dress.jpg" alt="" title="" itemprop="image" content="https://iqit-commerce.com/ps17/289-large_default/printed-summer-dress.jpg" width="605" height="782" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div><div class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 393px; position: relative; left: -393px; top: 0px; z-index: 998; opacity: 0;">
+                                        <div>
+                                            <div style="width: 100%; display: inline-block;">
+                                                <div class="easyzoom easyzoom-product">
+                                                    <a href="https://iqit-commerce.com/ps17/290-thickbox_default/printed-summer-dress.jpg" class="js-easyzoom-trigger" tabindex="-1"></a>
+                                                </div>
+                                                <img data-image-large-src="https://iqit-commerce.com/ps17/290-thickbox_default/printed-summer-dress.jpg" alt="" title="" itemprop="image" content="https://iqit-commerce.com/ps17/290-large_default/printed-summer-dress.jpg" width="605" height="782" class="img-fluid slick-lazyload-error">
+                                            </div>
+                                        </div>
+                                    </div><div class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 393px; position: relative; left: -786px; top: 0px; z-index: 998; opacity: 0;">
+                                        <div>
+                                            <div style="width: 100%; display: inline-block;">
+                                                <div class="easyzoom easyzoom-product">
+                                                    <a href="https://iqit-commerce.com/ps17/291-thickbox_default/printed-summer-dress.jpg" class="js-easyzoom-trigger" tabindex="-1"></a>
+                                                </div>
+                                                <img data-image-large-src="https://iqit-commerce.com/ps17/291-thickbox_default/printed-summer-dress.jpg" alt="" title="" itemprop="image" content="https://iqit-commerce.com/ps17/291-large_default/printed-summer-dress.jpg" width="605" height="782" class="img-fluid slick-lazyload-error">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: block;">Next</button>
+                        </div>
+                    </div>
+                    <div class="js-qv-mask mask hidden">
+
+                            <div id="product-images-thumbs" class="product-images js-qv-product-images slick-slider">
+                                @foreach (var product in Model.imagesProducts.OrderBy(i => i.OrderNum))
+                                {
+                                    <div class="thumb-container">
+                                        <img class="thumb js-thumb  selected img-fluid"
+                                             src="@Url.Content("~/Photos/Products/slide/" + product.Image)"
+                                             alt=""
+                                             title=""
+                                             width="100"
+                                             height="auto"
+                                             itemprop="image">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                </div>
+
+            </section>
+        </div>*@
+
                     <div class="col-md-6 col-product-info">
                         <div class="product_header_container clearfix">
 
@@ -261,7 +436,6 @@
                                                 <span class="product-price">@Warehouse.Common.Format.FormatCurrencyVND(productrelated.Price)</span>
                                             </div>
                                             <div class="product-add-cart">
-                                                <input type="hidden" name="id_product" value="94">
                                                 <div class="input-group input-group-add-cart">
                                                     <a href="@Url.Action("Add","ShoppingCart",new { Id = productrelated.Id })" class="btn btn-product-list add-to-cart" data-toggle="modal" data-target="#blockcart-modal">
                                                         <i class="fa fa-shopping-bag" aria-hidden="true"></i> @Warehouse.Language.ShoppingCart.Index.AddToCart

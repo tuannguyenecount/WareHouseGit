@@ -39,5 +39,7 @@ namespace Warehouse.Entities
         [DefaultValue(false)]
         [Display(Name = "Bị xóa")]
         public bool Deleted { get; set; }
+
+        public virtual ICollection<ArticleTranslation> ArticleTranslations { get; set; }
     }
 }

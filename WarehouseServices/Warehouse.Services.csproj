@@ -73,7 +73,6 @@
     <Compile Include="Interface\IFavoriteProductService.cs" />
     <Compile Include="Interface\IInfoShopService.cs" />
     <Compile Include="Interface\IOrderDetailService.cs" />
-    <Compile Include="Interface\INewsService.cs" />
     <Compile Include="Interface\ISubscriberService.cs" />
     <Compile Include="Interface\ISlideService.cs" />
     <Compile Include="Interface\IProvinceService.cs" />
@@ -89,7 +88,6 @@
     <Compile Include="Services\FavoriteProductService.cs" />
     <Compile Include="Services\InfoShopService.cs" />
     <Compile Include="Services\OrderDetailService.cs" />
-    <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\SubscriberService.cs" />
     <Compile Include="Services\SlideService.cs" />
     <Compile Include="Services\ProvinceService.cs" />

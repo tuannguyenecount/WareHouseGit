@@ -88,11 +88,38 @@ namespace Warehouse.Language.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to City.
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Province.
         /// </summary>
         public static string City {
             get {
                 return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to devoted.
+        /// </summary>
+        public static string devoted {
+            get {
+                return ResourceManager.GetString("devoted", resourceCulture);
             }
         }
         
@@ -111,6 +138,15 @@ namespace Warehouse.Language.Shared {
         public static string District {
             get {
                 return ResourceManager.GetString("District", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you have account ?.
+        /// </summary>
+        public static string DoYouHaveAccount {
+            get {
+                return ResourceManager.GetString("DoYouHaveAccount", resourceCulture);
             }
         }
         
@@ -151,6 +187,15 @@ namespace Warehouse.Language.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go back.
+        /// </summary>
+        public static string GoBack {
+            get {
+                return ResourceManager.GetString("GoBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to has.
         /// </summary>
         public static string Has {
@@ -183,6 +228,33 @@ namespace Warehouse.Language.Shared {
         public static string InTotal {
             get {
                 return ResourceManager.GetString("InTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Likes.
+        /// </summary>
+        public static string Likes {
+            get {
+                return ResourceManager.GetString("Likes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account is currently locked. Contact the administrator for more information..
+        /// </summary>
+        public static string LockUserMessage {
+            get {
+                return ResourceManager.GetString("LockUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log In Now.
+        /// </summary>
+        public static string LoginNow {
+            get {
+                return ResourceManager.GetString("LoginNow", resourceCulture);
             }
         }
         
@@ -286,6 +358,15 @@ namespace Warehouse.Language.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share this post.
+        /// </summary>
+        public static string ShareThisPost {
+            get {
+                return ResourceManager.GetString("ShareThisPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort.
         /// </summary>
         public static string Sort {
@@ -300,6 +381,15 @@ namespace Warehouse.Language.Shared {
         public static string SpecificAddress {
             get {
                 return ResourceManager.GetString("SpecificAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics shop.
+        /// </summary>
+        public static string StatisticsShop {
+            get {
+                return ResourceManager.GetString("StatisticsShop", resourceCulture);
             }
         }
         
@@ -331,6 +421,33 @@ namespace Warehouse.Language.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the best.
+        /// </summary>
+        public static string TheBest {
+            get {
+                return ResourceManager.GetString("TheBest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to beautiful.
+        /// </summary>
+        public static string TheMostBeautiful {
+            get {
+                return ResourceManager.GetString("TheMostBeautiful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To.
         /// </summary>
         public static string To {
@@ -354,6 +471,15 @@ namespace Warehouse.Language.Shared {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View more.
+        /// </summary>
+        public static string ViewMore {
+            get {
+                return ResourceManager.GetString("ViewMore", resourceCulture);
             }
         }
         

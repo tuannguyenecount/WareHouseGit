@@ -19,11 +19,8 @@
                 'ordering': true,
                 'searching': true,
                 'lengthChange': true,
-                'info': true
-            });
-            $(document).on("show.bs.modal", "#modal-deleteUser", function (e) {
-                var link = $(e.relatedTarget);
-                $(this).find(".modal-content").load(link.attr("href"));
+                'info': true,
+                columnDefs: [{ orderable: false, targets: [0, 5] }],
             });
             $(document).on("submit", "form[name=frm]", function (e) {
                 e.preventDefault();
@@ -69,16 +66,17 @@
                                 <table id="tblAspNetUser" class="table table-bordered table-striped table-middle" method="post">
                                     <thead>
                                         <tr>
-                                            <th>Họ tên</th>
+                                            <th class="col-md-2 col-sm-4">Họ tên</th>
                                             <th>Email</th>
                                             <th>Điện thoại</th>
                                             <th>Địa chỉ</th>
                                             <th>Trạng thái</th>
-                                            <th>Thao tác</th>
+                                            <th class="col-md-2">Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (ApplicationUser applicationUser in Model) {
+                                        @foreach (ApplicationUser applicationUser in Model)
+                                        {
                                             <tr>
                                                 <td>
                                                     @Html.DisplayFor(m => applicationUser.FullName)
@@ -90,20 +88,21 @@
                                                     @Html.DisplayFor(m => applicationUser.PhoneNumber)
                                                 </td>
                                                 <td>
-                                                    @(applicationUser.Address + ", " + applicationUser.Ward.Name + ", " + applicationUser.District.Name + ", " + applicationUser.Province.Name)
+                                                    @((applicationUser.Address + ", " + applicationUser.Ward?.Name + ", " + applicationUser.District?.Name + ", " + applicationUser.Province?.Name).Replace(", , ,", "").Replace(", ,", ""))
                                                 </td>
                                                 <td>
-                                                    @if (applicationUser.LockoutEndDateUtc > DateTime.Now) {
+                                                    @if (applicationUser.LockoutEndDateUtc > DateTime.Now)
+                                                    {
                                                         <label class="label label-danger">Bị khóa</label>
                                                     }
-                                                    else {
+                                                    else
+                                                    {
                                                         <label class="label label-success">Hoạt động</label>
                                                     }
                                                 </td>
                                                 <td>
-                                                    <a href="@Url.Action("ProfileUser","AspNetUser",new { Id = applicationUser.Id })" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> Xem/Sửa </a>
+                                                    <a href="@Url.Action("_EditCustomerModal","AspNetUser",new { Id = applicationUser.Id })" data-toggle="modal" data-target="#modal-editCustomer" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Sửa </a>
                                                     <a data-target="#modal-deleteUser" data-toggle="modal" href="@Url.Action("_DeleteModal", new { Id = applicationUser.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
-
                                                 </td>
                                             </tr>
                                         }
@@ -121,7 +120,18 @@
     <!-- /.row -->
 </section>
 
-<div class="modal fade" id="modal-deleteUser">
+<div class="modal fade modal-ajax" id="modal-editCustomer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade modal-ajax" id="modal-deleteUser">
     <div class="modal-dialog">
         <div class="modal-content">
 

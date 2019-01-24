@@ -173,16 +173,18 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         @ViewBag.Title
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> @Warehouse.Language.Header.Header.Home</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ </a></li>
         <li class="active">@ViewBag.Title</li>
     </ol>
 </section>
+
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -193,7 +195,7 @@
                     <img style="cursor:pointer" title="Đổi hình" data-placement="bottom" class="profile-user-img img-responsive img-circle" src="~/Photos/Users/@Model.Avatar" alt="@Model.Avatar">
                     <h3 class="profile-username text-center">@Model.FullName</h3>
                     <h5 class="text-center text-info">@ViewBag.RoleId</h5>
-                    @if (User.IsInRole("Admin") || User.Identity.Name == Model.UserName)
+                    @if (User.Identity.Name == Model.UserName)
                     {
                         <p class="text-center">
                             <input id="avatar" type="hidden" name="avatar">
@@ -224,14 +226,11 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#settings" data-toggle="tab">Thông tin</a></li>
                     <li><a href="#product" data-toggle="tab">Sản phẩm đã đăng</a></li>
-                    @if (User.Identity.Name == Model.UserName)
-                    {
-                        <li><a href="#changepassword" data-toggle="tab">Đổi mật khẩu</a></li>
-                    }
-                    @if (User.IsInRole("Admin") && Model.RoleId != "Admin")
+                    <li><a href="#changepassword" data-toggle="tab">Đổi mật khẩu</a></li>
+                    @*@if (User.IsInRole("Admin") && Model.RoleId != "Admin")
                     {
                         <li><a href="#setpassword" data-toggle="tab">Đặt lại mật khẩu</a></li>
-                    }
+                    }*@
                 </ul>
 
                 <div class="tab-content">
@@ -240,7 +239,6 @@
                         <form action="@Url.Action("ProfileUser")" method="post" class="form-horizontal">
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
-                            @Html.HiddenFor(m => m.Id)
                             <div class="form-group">
                                 @Html.LabelFor(m => m.FullName, new { @class = "col-sm-3 control-label" })
                                 <div class="col-sm-6">
@@ -283,29 +281,8 @@
                                     @Html.DropDownList("WardId", null, new { @class = "form-control", required = "" })
                                 </div>
                             </div>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <input type="hidden" name="OldRole" value="@Model.RoleId" />
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Vai trò</label>
-                                    <div class="col-sm-6">
-                                        <select name="RoleId" class="form-control">
-                                            @if (Model.RoleId == "Admin")
-                                            {
-                                                <option value="Mod">Mod</option>
-                                                <option value="Admin" selected>Admin</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="Mod" selected>Mod</option>
-                                                <option value="Admin">Admin</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                            }
 
-                            @if (User.IsInRole("Admin") || User.Identity.Name == Model.UserName)
+                            @if (User.Identity.Name == Model.UserName)
                             {
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-6">
@@ -342,9 +319,7 @@
                         </div>
                     </div>
 
-                    @if (User.Identity.Name == Model.UserName)
-                    {
-                        <div id="changepassword" class="tab-pane">
+                    <div id="changepassword" class="tab-pane">
                             @using (Ajax.BeginForm("ChangePassword", "AspNetUser",null, new AjaxOptions { OnSuccess = "ChangePasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post", AllowCache = false }, new { @class = "form-horizontal", role = "form" }))
                             {
 
@@ -375,8 +350,8 @@
                                 </div>
                             }
                         </div>
-                    }
-                    @if (User.IsInRole("Admin") && Model.RoleId != "Admin")
+                    
+                    @*@if (User.IsInRole("Admin") && Model.RoleId != "Admin")
                     {
                         <div id="setpassword" class="tab-pane">
                             @using (Ajax.BeginForm("SetPassword", "AspNetUser",  new AjaxOptions { OnSuccess = "SetPasswordSuccess", OnFailure = "ShowPopUpError('Lỗi!')", HttpMethod = "Post", AllowCache = false }, new { @class = "form-horizontal", role = "form" }))
@@ -403,7 +378,7 @@
                                 </div>
                             }
                         </div>
-                    }
+                    }*@
                 </div>
                 <!-- /.tab-content -->
             </div>

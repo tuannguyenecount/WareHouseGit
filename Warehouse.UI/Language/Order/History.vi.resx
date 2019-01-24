@@ -123,6 +123,9 @@
   <data name="CancelOrderConfirm" xml:space="preserve">
     <value>Xác nhận hủy đặt đơn hàng này?</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>Đơn hàng</value>
+  </data>
   <data name="OrderDate" xml:space="preserve">
     <value>Ngày đặt hàng</value>
   </data>

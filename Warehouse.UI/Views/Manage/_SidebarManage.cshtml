@@ -1,34 +1,34 @@
 ﻿@model IndexViewModel
 <div class="my-account-side-links col-sm-3">
-    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="identity-link" href="@Url.Action("Index")" title="Thông tin cá nhân của bạn">
+    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="identity-link" href="@Url.Action("Index")" >
         <span class="link-item">
-            <i class="fa fa-user fa-fw" aria-hidden="true"></i>Thông tin cá nhân
+            <i class="fa fa-user fa-fw" aria-hidden="true"></i>@Warehouse.Language.Manage.LeftSidebar.MyInformation
         </span>
     </a>
-    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="history-link" href="@Url.Action("ViewHistory","Manage")" title="Xem và quản lý các đơn hàng bạn đã đặt">
+    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="history-link" href="@Url.Action("ViewHistory","Manage")" >
         <span class="link-item">
-            <i class="fa fa-history fa-fw" aria-hidden="true"></i>Lịch sử đặt hàng
+            <i class="fa fa-history fa-fw" aria-hidden="true"></i>@Warehouse.Language.Footer.Index.OrderHistory
         </span>
     </a>
 
-    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="iqitwishlist" href="@Url.Action("Index","FavoriteProduct")" title="Danh sách sản phẩm bạn yêu thích">
+    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="iqitwishlist" href="@Url.Action("Index","FavoriteProduct")">
         <span class="link-item">
-            <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i>Sản phẩm yêu thích
+            <i class="fa fa-heart-o fa-fw" aria-hidden="true"></i>@Warehouse.Language.Footer.Index.OrderHistory
         </span>
     </a>
     @if (Model.HasPassword)
     {
-        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="changepassword" href="@Url.Action("ChangePassword")" title="Sản phẩm yêu thích">
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="changepassword" href="@Url.Action("ChangePassword")" >
             <span class="link-item">
-                <i class="fa fa-key fa-fw" aria-hidden="true"></i>Đổi mật khẩu
+                <i class="fa fa-key fa-fw" aria-hidden="true"></i>@Warehouse.Language.Manage.Index.ChangePassword
             </span>
         </a>
     }
     else
     {
-        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="setpassword" href="@Url.Action("SetPassword")" title="Sản phẩm yêu thích">
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="setpassword" href="@Url.Action("SetPassword")" >
             <span class="link-item">
-                <i class="fa fa-key fa-fw" aria-hidden="true"></i>Tạo mật khẩu
+                <i class="fa fa-key fa-fw" aria-hidden="true"></i>@Warehouse.Language.Manage.Index.SetPassword
             </span>
         </a>
     }
@@ -36,9 +36,9 @@
     <form id="frmLogoff" action="@Url.Action("LogOff","Account")" method="post">
         @Html.AntiForgeryToken()
     </form>
-    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" href="javascript:document.getElementById('frmLogoff').submit()" title="Đăng xuất tài khoản" rel="nofollow">
+    <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" href="javascript:document.getElementById('frmLogoff').submit()"  rel="nofollow">
         <span class="link-item">
-            <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Đăng xuất
+            <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>@Warehouse.Language.Header.Header.Logout
         </span>
     </a>
 

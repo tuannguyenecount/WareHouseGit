@@ -25,7 +25,7 @@ namespace Warehouse.Entities
         public string Image { get; set; }
 
         [Display(Name = "Nội dung")]
-        [Required(ErrorMessage = "Bạn chưa nhập nội dung bài viết blog!")]
+        [Required(ErrorMessage = "Bạn chưa nhập {0}!")]
         public string Content { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -57,5 +57,6 @@ namespace Warehouse.Entities
         public bool Deleted { get; set; }
 
         public virtual AspNetUser User { get; set; }
+        public virtual ICollection<BlogTranslation> BlogTranslations { get; set; }
     }
 }

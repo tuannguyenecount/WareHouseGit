@@ -61,7 +61,7 @@ namespace Warehouse.Language.Order {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hủy đơn.
+        ///   Looks up a localized string similar to Cancel order.
         /// </summary>
         public static string CancelOrder {
             get {
@@ -75,6 +75,15 @@ namespace Warehouse.Language.Order {
         public static string CancelOrderConfirm {
             get {
                 return ResourceManager.GetString("CancelOrderConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
             }
         }
         

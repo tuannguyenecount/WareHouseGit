@@ -155,26 +155,6 @@ namespace Warehouse.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Revalidate(string password, string returnUrl)
-        {
-            var user = await UserManager.FindAsync(User.Identity.GetUserName(), password);
-            if (user != null)
-            {
-                if (Session["Revalidate"] == null)
-                {
-                    Session["Revalidate"] = true;
-                }
-            }
-            else
-            {
-                object thongbao = "Sai mật khẩu!";
-                return View("Error", new HandleErrorInfo(new Exception(thongbao.ToString()), "Account", "Revalidate"));
-            }
-            return Redirect(returnUrl);
-        }
-        //
         [AllowAnonymous]
         [Route("dang-nhap")]
         public ActionResult Login(string returnUrl)
@@ -209,7 +189,7 @@ namespace Warehouse.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");
+                    ModelState.AddModelError("", Warehouse.Language.Account.Index.WrongAccountOrPassword);
                     return View(model);
             }
         }
@@ -253,7 +233,7 @@ namespace Warehouse.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = Url.Action("Index", "Home", new { area = "Admin" }), RememberMe = false });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");
+                    ModelState.AddModelError("", Warehouse.Language.Account.Index.WrongAccountOrPassword);
                     return View(model);
             }
         }
@@ -279,19 +259,19 @@ namespace Warehouse.Controllers
             Province province = _provinceService.GetById(ProvinceId);
             if (province == null)
             {
-                ModelState.AddModelError("ProvinceId", "Tỉnh/Thành không tồn tại");
+                ModelState.AddModelError("ProvinceId", Warehouse.Language.Account.Index.NotExistProvince);
             }
 
             District district = _districtService.GetById(DistrictId);
             if (district == null)
             {
-                ModelState.AddModelError("DistrictId", "Quận/Huyện không tồn tại");
+                ModelState.AddModelError("DistrictId", Warehouse.Language.Account.Index.NotExistDistrict);
             }
 
             Ward ward = _wardService.GetById(WardId);
             if (province == null)
             {
-                ModelState.AddModelError("WardId", "Phường/Xã không tồn tại");
+                ModelState.AddModelError("WardId", Warehouse.Language.Account.Index.NotExistWard);
             }
 
             if (ModelState.IsValid)
@@ -367,7 +347,7 @@ namespace Warehouse.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Đặt lại mật khẩu", "Bạn có thể đặt lại mật khẩu của mình bằng cách click vào <a href=\"" + callbackUrl + "\">đây</a>");
+                await UserManager.SendEmailAsync(user.Id, "Đặt lại mật khẩu", "You can reset your password by clicking on <a href=\"" + callbackUrl + "\">it</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -407,7 +387,7 @@ namespace Warehouse.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Email không tồn tại.");
+                    ModelState.AddModelError("", Warehouse.Language.Account.Index.NotExistEmail);
                     return View();
                 }
                 IdentityResult result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
@@ -460,10 +440,10 @@ namespace Warehouse.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Thay đổi mật khẩu thành công."
-                : message == ManageMessageId.SetPasswordSuccess ? "Tạo mật khẩu thành công."
-                : message == ManageMessageId.RemoveLoginSuccess ? "Việc đăng nhập bên ngoài đã được gỡ bỏ."
-                : message == ManageMessageId.Error ? "Xảy ra lỗi."
+                message == ManageMessageId.ChangePasswordSuccess ? "Change password success."
+                : message == ManageMessageId.SetPasswordSuccess ? "Set password success."
+                : message == ManageMessageId.RemoveLoginSuccess ? "Remove login success."
+                : message == ManageMessageId.Error ? "An error occurred while processing."
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");

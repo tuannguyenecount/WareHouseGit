@@ -65,13 +65,13 @@
                                                 }
                                                 else
                                                 {
-                                                    <button onclick="alert('Không thể hủy đơn hàng này vì trạng thái đơn hàng là @listStatus[order.Status] ')" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> @(Warehouse.Language.Order.History.CancelOrder)</button>
+                                                    <button onclick="alert('@Warehouse.Language.Manage.Index.NotCancelOrderBecause @listStatus[order.Status] ')" class="btn btn-default btn-sm"><i class="fa fa-remove"></i> @(Warehouse.Language.Order.History.CancelOrder)</button>
                                                 }
                                                 <div class="modal fade" id="modal-ViewOrderDetails-@order.Id">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-blue">
-                                                                <h4 class="modal-title">Thông tin các sản phẩm của đơn hàng @order.Id</h4>
+                                                                <h4 class="modal-title">@Warehouse.Language.Manage.Index.ProductsOfOrder @order.Id</h4>
                                                             </div>
 
                                                             <div class="modal-body">
@@ -79,11 +79,11 @@
                                                                     <table class="table table-condensed table-middle">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th class="text-center">Hình ảnh</th>
-                                                                                <th>Tên sản phẩm</th>
-                                                                                <th class="text-center">Số lượng đặt</th>
-                                                                                <th class="text-center">Giá bán</th>
-                                                                                <th class="text-center">Thành tiền</th>
+                                                                                <th class="text-center">@Warehouse.Language.Product.Index.Image</th>
+                                                                                <th>@Warehouse.Language.Product.Index.NameProduct</th>
+                                                                                <th class="text-center">@Warehouse.Language.ShoppingCart.Index.Amount</th>
+                                                                                <th class="text-center">@Warehouse.Language.Product.Index.Price</th>
+                                                                                <th class="text-center">@Warehouse.Language.ShoppingCart.Index.Total</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>

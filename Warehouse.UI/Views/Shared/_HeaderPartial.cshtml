@@ -46,29 +46,29 @@
                                     }
                                     @if (Request.Cookies["lang"].Value == "de")
                                     {
-                                        <img src="~/Content/ps17/img/german.png" alt="Vietnamese" class="img-fluid lang-flag" />
+                                        <img src="~/Content/ps17/img/german.png" alt="german" class="img-fluid lang-flag" />
                                         <span>German</span>
                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     }
-                                    @if (Request.Cookies["lang"].Value == "italian")
+                                    @if (Request.Cookies["lang"].Value == "it")
                                     {
                                         <img src="~/Content/ps17/img/italian.png" alt="italian" class="img-fluid lang-flag" />
                                         <span>Italian</span>
                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     }
-                                    @if (Request.Cookies["lang"].Value == "japan")
+                                    @if (Request.Cookies["lang"].Value == "ja")
                                     {
                                         <img src="~/Content/ps17/img/japan.png" alt="japan" class="img-fluid lang-flag" />
                                         <span>Japan</span>
                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     }
-                                    @if (Request.Cookies["lang"].Value == "french")
+                                    @if (Request.Cookies["lang"].Value == "fr")
                                     {
                                         <img src="~/Content/ps17/img/french.png" alt="french" class="img-fluid lang-flag" />
                                         <span>French</span>
                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     }
-                                    @if (Request.Cookies["lang"].Value == "espanol")
+                                    @if (Request.Cookies["lang"].Value == "es")
                                     {
                                         <img src="~/Content/ps17/img/espanol.png" alt="espanol" class="img-fluid lang-flag" />
                                         <span>Espanol</span>
@@ -109,11 +109,11 @@
                             <i class="fa fa-heart-o" aria-hidden="true"></i> @Warehouse.Language.Header.Header.ProductFavorite (<span id="iqitwishlist-nb">0</span>)
                         </a>
                     </div>
-                    <div class="d-inline-block">
+                    @*<div class="d-inline-block">
                         <a href="@Url.Action("Index", "Compare")">
                             <i class="fa fa-random" aria-hidden="true"></i> <span>@Warehouse.Language.Header.Header.Compare (<span id="iqitcompare-nb">@((Session["CompareItem"] as List<DetailsProductViewModel>).Sum(c => c.Id))</span>)</span>
                         </a>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -140,72 +140,44 @@
                                                     <span class="cbp-tab-title">@Warehouse.Language.Header.Header.Home</span>
                                                 </a>
                                             </li>
-                                            <li id="cbp-hrmenu-tab-8" class="cbp-hrmenu-tab  cbp-has-submeu">
+                                            <li id="cbp-hrmenu-tab-3" class="cbp-hrmenu-tab cbp-hrmenu-tab-3  cbp-has-submeu">
                                                 <a role="button" class="cbp-empty-mlink nav-link">
                                                     <span class="cbp-tab-title">
                                                         @Warehouse.Language.Header.Header.ProductCategory <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
                                                     </span>
-
                                                 </a>
-                                                <div class="cbp-hrsub col-12">
+                                                <div class="cbp-hrsub col-12 cbp-show cbp-notfit" style="left: 0; /*width: 100%;*/ ">
                                                     <div class="cbp-hrsub-inner">
                                                         <div class="container iqitmegamenu-submenu-container">
                                                             <div class="row menu_row menu-element  first_rows menu-element-id-1">
-                                                                <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-2 cbp-empty-column">
+                                                                @foreach (Category category in categories.Where(c => c.ParentId == null))
+                                                                {
+                                                                <div class="col-3 cbp-menu-column  ">
                                                                     <div class="cbp-menu-column-inner">
-                                                                        @{ int z = 0;
-                                            int count = categories.Count;
-                                            int take = count / 4;
-                                        }
-                                        @for (int i = 0; i < 2; i++)
-                                                                        {
-                                                                            <div class="row menu_row menu-element  menu-element-id-3">
-                                                                                @for (int j = 0; j < 2; j++)
-                                                                                {
-                                                                                    if (count < 4)
-                                                                                    {
-                                                                                        take = count % 4;
-                                                                                    }
+                                                                        <div class="row cbp-categories-row">
+                                                                            <div class="col-12">
+                                                                                <div class="cbp-category-link-w">
+                                                                                    <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@category.Name</a>
 
-                                                                                    foreach (Category category in categories.Where(c => c.ParentId == null).Skip(z * take).Take(take).OrderBy(c => c.OrderNum))
-                                                                                    {
-                                                                                        <div class="col-6 cbp-menu-column cbp-menu-element menu-element-id-4 ">
-                                                                                            <div class="cbp-menu-column-inner">
-                                                                                                <div class="row cbp-categories-row">
-                                                                                                    <div class="col-12">
-                                                                                                        <div class="cbp-category-link-w">
-                                                                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@category.Name</a>
-                                                                                                            <ul class="cbp-links cbp-category-tree">
-                                                                                                                @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
-                                                                                                                {
-                                                                                                                    <li>
-                                                                                                                        <div class="cbp-category-link-w">
-                                                                                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a>
-                                                                                                                        </div>
-                                                                                                                    </li>
-                                                                                                                }
-
-                                                                                                            </ul>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    }
-                                                                                    z++;
-                                                                                    count -= take;
-
-                                                                                }
-
+                                                                                    <ul class="cbp-links cbp-category-tree">
+                                                                                        @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
+                                                                                        {
+                                                                                        <li><div class="cbp-category-link-w"><a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a></div></li>
+                                                                                        }
+                                                                                       
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
-                                                                        }
-
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                                }
+                                                             
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                              
                                             </li>
                                             <li class="cbp-hrmenu-tab cbp-has-submeu">
                                                 <a href="javascript:void(0)" class="nav-link">

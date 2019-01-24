@@ -80,7 +80,6 @@
     <Compile Include="Data\CategoryDal.cs" />
     <Compile Include="Data\DistrictDal.cs" />
     <Compile Include="Data\InfoShopDal.cs" />
-    <Compile Include="Data\NewsDal.cs" />
     <Compile Include="Data\ImagesProductDal.cs" />
     <Compile Include="Data\SubscriberDal.cs" />
     <Compile Include="Data\SlideDal.cs" />
@@ -97,7 +96,6 @@
     <Compile Include="Interface\IImagesProductDal.cs" />
     <Compile Include="Interface\IFavoriteProductDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
-    <Compile Include="Interface\INewsDal.cs" />
     <Compile Include="Interface\ISubscriberDal.cs" />
     <Compile Include="Interface\ISlideDal.cs" />
     <Compile Include="Interface\IProvinceDal.cs" />
@@ -213,6 +211,26 @@
     <Compile Include="Migrations\201812100453242_addColumnDeleted4.Designer.cs">
       <DependentUpon>201812100453242_addColumnDeleted4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901231444518_addTableProductTranslation.cs" />
+    <Compile Include="Migrations\201901231444518_addTableProductTranslation.Designer.cs">
+      <DependentUpon>201901231444518_addTableProductTranslation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231455368_add-table-CategoryTranslation.cs" />
+    <Compile Include="Migrations\201901231455368_add-table-CategoryTranslation.Designer.cs">
+      <DependentUpon>201901231455368_add-table-CategoryTranslation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231503131_create-table-ArticleTranslation.cs" />
+    <Compile Include="Migrations\201901231503131_create-table-ArticleTranslation.Designer.cs">
+      <DependentUpon>201901231503131_create-table-ArticleTranslation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231510232_create-table-BlogTranslation.cs" />
+    <Compile Include="Migrations\201901231510232_create-table-BlogTranslation.Designer.cs">
+      <DependentUpon>201901231510232_create-table-BlogTranslation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901231534144_add-list-table-Translation3.cs" />
+    <Compile Include="Migrations\201901231534144_add-list-table-Translation3.Designer.cs">
+      <DependentUpon>201901231534144_add-list-table-Translation3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -315,6 +333,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812100453242_addColumnDeleted4.resx">
       <DependentUpon>201812100453242_addColumnDeleted4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231444518_addTableProductTranslation.resx">
+      <DependentUpon>201901231444518_addTableProductTranslation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231455368_add-table-CategoryTranslation.resx">
+      <DependentUpon>201901231455368_add-table-CategoryTranslation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231503131_create-table-ArticleTranslation.resx">
+      <DependentUpon>201901231503131_create-table-ArticleTranslation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231510232_create-table-BlogTranslation.resx">
+      <DependentUpon>201901231510232_create-table-BlogTranslation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901231534144_add-list-table-Translation3.resx">
+      <DependentUpon>201901231534144_add-list-table-Translation3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

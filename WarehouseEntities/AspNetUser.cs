@@ -13,7 +13,6 @@ namespace Warehouse.Entities
         public AspNetUser()
         {
             Orders = new HashSet<Order>();
-            News = new HashSet<News>();
             AspNetRoles = new HashSet<AspNetRole>();
         }
 
@@ -62,8 +61,6 @@ namespace Warehouse.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<News> News { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }

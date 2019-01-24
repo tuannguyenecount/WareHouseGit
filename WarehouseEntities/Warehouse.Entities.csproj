@@ -68,26 +68,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Article.cs" />
+    <Compile Include="ArticleTranslation.cs" />
     <Compile Include="AspNetRole.cs" />
     <Compile Include="AspNetUser.cs" />
     <Compile Include="Blog.cs" />
+    <Compile Include="BlogTranslation.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="CategoryTranslation.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="District.cs" />
     <Compile Include="FavoriteProduct.cs" />
     <Compile Include="historyBankCharging.cs" />
     <Compile Include="ImagesProduct.cs" />
     <Compile Include="InfoShop.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="MailBox.cs" />
-    <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ProductTranslation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Property_Product.cs" />
     <Compile Include="Province.cs" />
     <Compile Include="Slide.cs" />
+    <Compile Include="SlideTranslation.cs" />
     <Compile Include="Subscriber.cs" />
     <Compile Include="Ward.cs" />
   </ItemGroup>

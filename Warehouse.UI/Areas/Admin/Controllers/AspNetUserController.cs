@@ -101,22 +101,11 @@ namespace Warehouse.Areas.Admin.Controllers
             return PartialView(applicationUser);
         }
 
-        public ViewResult ProfileUser(string Id)
+        public ViewResult ProfileUser()
         {
-            if (Id == null)
-            {
-                Id = UserId;
-            }
-
-            ApplicationUser model = UserManager.FindById(Id);
-            ViewBag.RoleId = model.Roles.First().RoleId;
-            ViewBag.Title = "Thông tin nhân viên";
-
-            if (Id == UserId)
-            {
-                ViewBag.Title = "Hồ sơ cá nhân";
-            }
-
+            ApplicationUser model = UserManager.FindById(UserId);
+            ViewBag.RoleId = model.Roles.FirstOrDefault()?.RoleId;
+            ViewBag.Title = "Hồ sơ cá nhân";
             UpdateInfoViewModel updateInfoViewModel = new UpdateInfoViewModel()
             {
                 Address = model.Address,
@@ -142,11 +131,7 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProfileUser([Bind(Exclude = "UserName")] UpdateInfoViewModel updateInfoViewModel, string OldRole, string RoleId)
         {
-            if (User.IsInRole("Admin") == false)
-            {
-                updateInfoViewModel.Id = UserId;
-            }
-            var model = UserManager.FindById(updateInfoViewModel.Id);
+            var model = UserManager.FindById(UserId);
             if (ModelState.IsValid)
             {
                 model.FullName = updateInfoViewModel.FullName;
@@ -156,23 +141,11 @@ namespace Warehouse.Areas.Admin.Controllers
                 model.ProvinceId = updateInfoViewModel.ProvinceId;
                 model.DistrictId = updateInfoViewModel.DistrictId;
                 model.WardId = updateInfoViewModel.WardId;
-                if (User.IsInRole("Admin"))
-                {
-                    if (OldRole != RoleId)
-                    {
-                        model.Roles.Clear();
-                        model.Roles.Add(new IdentityUserRole { RoleId = RoleId });
-                    }
-                }
                 UserManager.Update(model);
                 return RedirectToAction("ProfileUser", new { Id = updateInfoViewModel.Id });
             }
-            ViewBag.RoleId = RoleId;
-            ViewBag.Title = "Thông tin nhân viên";
-            if (updateInfoViewModel.Id == UserId)
-            {
-                ViewBag.Title = "Hồ sơ cá nhân";
-            }
+            ViewBag.RoleId = model.Roles.FirstOrDefault()?.RoleId;
+            ViewBag.Title = "Hồ sơ cá nhân";
             ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", updateInfoViewModel.ProvinceId);
             ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", updateInfoViewModel.DistrictId);
             ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", updateInfoViewModel.WardId);
@@ -220,18 +193,6 @@ namespace Warehouse.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// Danh sách Mod
-        /// </summary>
-        /// <param name="afterInsert">Vừa hoàn thành thao tác thêm?</param>
-        /// <returns></returns>
-        public async Task<ActionResult> ListMod(int? afterInsert)
-        {
-            List<ApplicationUser> applicationUsers = await UserManager.Users.ToListAsync();
-            applicationUsers = applicationUsers.Where(u => u.Roles != null && u.Roles.FirstOrDefault(r => r.RoleId == "Mod") != null).ToList();
-            return View(applicationUsers);
-        }
-
-        /// <summary>
         /// Danh sách khách hàng
         /// </summary>
         /// <returns></returns>
@@ -241,11 +202,62 @@ namespace Warehouse.Areas.Admin.Controllers
             return View(applicationUsers);
         }
 
+
+        // GET: Expense/Edit/5
+        public ActionResult _EditCustomerModal(string Id)
+        {
+            ApplicationUser applicationUser = UserManager.FindById(Id);
+            if (applicationUser == null)
+            {
+                return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
+            }
+            ViewBag.ProvinceId = new SelectList(_provinceService.GetAll(), "Id", "Name", applicationUser.ProvinceId);
+            ViewBag.DistrictId = new SelectList(_districtService.GetAll(), "Id", "Name", applicationUser.DistrictId);
+            ViewBag.WardId = new SelectList(_wardService.GetAll(), "Id", "Name", applicationUser.WardId);
+            return PartialView(applicationUser);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult EditCustomer([Bind(Include = "Id,FullName,PhoneNumber,Address,ProvinceId,DistrictId,WardId")] ApplicationUser applicationUser, bool Status)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = UserManager.FindById(applicationUser.Id);
+                try
+                {
+                    user.FullName = applicationUser.FullName;
+                    user.PhoneNumber = applicationUser.PhoneNumber;
+                    user.Address = applicationUser.Address;
+                    user.ProvinceId = applicationUser.ProvinceId;
+                    user.DistrictId = applicationUser.DistrictId;
+                    user.WardId = applicationUser.WardId;
+                    user.LockoutEndDateUtc = Status == true ? DateTime.Now.AddDays(-1) : DateTime.Now.AddYears(200);
+                    UserManager.Update(user);
+                    return Json(new { status = 1, message = "Update success." }, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(this.ModelState) });
+        }
+
+        /// <summary>
+        /// Thêm Quản trị viên
+        /// </summary>
+        /// <returns></returns>
         public ActionResult _CreateModal()
         {
             return PartialView(new CreateUserViewModel());
         }
 
+        /// <summary>
+        /// Thêm Quản trị viên
+        /// </summary>
+        /// <param name="createUserViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> Create(CreateUserViewModel createUserViewModel)
@@ -264,7 +276,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     IdentityResult result = await UserManager.CreateAsync(user, createUserViewModel.Password);
-                    user.Roles.Add(new IdentityUserRole() { RoleId = createUserViewModel.RoleId, UserId = user.Id });
+                    user.Roles.Add(new IdentityUserRole() { RoleId = "Admin", UserId = user.Id });
                     UserManager.Update(user);
                     if (result.Succeeded)
                     {
@@ -283,38 +295,6 @@ namespace Warehouse.Areas.Admin.Controllers
             return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
         }
 
-        // GET: Expense/Edit/5
-        public ActionResult _EditModal(string Id)
-        {
-            ApplicationUser applicationUser = UserManager.FindById(Id); 
-            if (applicationUser == null)
-            {
-                return Content("<p>Dữ liệu không tồn tại trong hệ thống!</p>");
-            }
-            return PartialView(applicationUser);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FullName,PhoneNumber,Address")] ApplicationUser applicationUser)
-        {
-            ApplicationUser user = UserManager.FindById(applicationUser.Id);
-            try
-            {
-                user.FullName = applicationUser.FullName;
-                user.PhoneNumber = applicationUser.PhoneNumber;
-                user.Address = applicationUser.Address;
-                UserManager.Update(user);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(user);
-            }
-
-        }
-
-
         public ActionResult _DeleteModal(string Id)
         {
             ApplicationUser applicationUser = UserManager.FindById(Id);
@@ -327,11 +307,19 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(string Id)
+        public async Task<JsonResult> Delete(string Id)
         {
-            ApplicationUser user = await UserManager.FindByIdAsync(Id);
-            await UserManager.DeleteAsync(user);
-            return RedirectToAction("Manage");
+            try
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(Id);
+                await UserManager.DeleteAsync(user);
+                return Json(new { status = 1, message = "Update success" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return Json(new { status = 0, message = Functions.GetAllErrorsPage(this.ModelState) }, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -19,7 +19,6 @@ namespace Warehouse.Data.Data
         public virtual DbSet<historyBankCharging> historyBankChargings { get; set; }
         public virtual DbSet<InfoShop> InfoShops { get; set; }
         public virtual DbSet<MailBox> MailBoxes { get; set; }
-        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -33,6 +32,12 @@ namespace Warehouse.Data.Data
         public virtual DbSet<ImagesProduct> ImagesProducts { get; set; }
         public virtual DbSet<FavoriteProduct> FavoriteProducts { get; set; }
         public virtual DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<ProductTranslation> ProductTranslations { get; set; }
+        public virtual DbSet<CategoryTranslation> CategoryTranslations { get; set; }
+        public virtual DbSet<ArticleTranslation> ArticleTranslations { get; set; }
+        public virtual DbSet<BlogTranslation> BlogTranslations { get; set; }
+        public virtual DbSet<SlideTranslation> SlideTranslations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -45,11 +50,6 @@ namespace Warehouse.Data.Data
                 .HasMany(e => e.Orders)
                 .WithOptional(e => e.AspNetUser)
                 .HasForeignKey(e => e.UserId);
-
-            modelBuilder.Entity<AspNetUser>()
-                .HasMany(e => e.News)
-                .WithOptional(e => e.AspNetUser)
-                .HasForeignKey(e => e.Poster);
 
             modelBuilder.Entity<Category>()
                 .Property(e => e.Alias_SEO)
@@ -83,14 +83,6 @@ namespace Warehouse.Data.Data
 
             modelBuilder.Entity<InfoShop>()
                 .Property(e => e.GoogleAnalytics)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<News>()
-                .Property(e => e.Image)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<News>()
-                .Property(e => e.Alias_SEO)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Order>()
@@ -147,6 +139,10 @@ namespace Warehouse.Data.Data
 
             modelBuilder.Entity<Subscriber>()
                 .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ProductTranslation>()
+                .Property(e => e.Alias_SEO)
                 .IsUnicode(false);
         }
     }

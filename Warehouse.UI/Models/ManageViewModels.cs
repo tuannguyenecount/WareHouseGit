@@ -19,34 +19,29 @@ namespace Warehouse.Models
 
     public class SetPasswordViewModel
     {
-        [Required(ErrorMessage = "Bạn chưa nhập {0}.")]
-        [MinLength(6, ErrorMessage = "Mật khẩu mới phải tối thiếu {0} ký tự.")]
+        [Required]
+        [MinLength(6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Mật khẩu mới")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Nhập lại mật khẩu mới")]
-        [Compare("NewPassword", ErrorMessage = "Nhập lại mật khẩu không khớp.")]
+        [Compare("NewPassword")]
         public string ConfirmPassword { get; set; }
     }
 
     public class ChangePasswordViewModel
     {
-        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu hiện tại.")]
+        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Mật khẩu hiện tại")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu hiện mới.")]
-        [MinLength(6, ErrorMessage = "Mật khẩu mới phải tối thiếu {0} ký tự.")]
+        [Required]
+        [MinLength(6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Mật khẩu mới")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Nhập lại mật khẩu mới")]
-        [Compare("NewPassword", ErrorMessage = "Nhập lại mật khẩu không khớp.")]
+        [Compare("NewPassword")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -54,36 +49,28 @@ namespace Warehouse.Models
     {
         public string Id { get; set; }
 
-        [Display(Name = "Tài khoản")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Email chưa có giá trị!")]
+        [Required]
         public string Email { get; set; }
 
-        [Display(Name = "Họ tên")]
-        [Required(ErrorMessage = "Bạn chưa nhập họ tên!")]
+        [Required]
         public string FullName { get; set; }
 
-        [Display(Name = "Địa chỉ")]
-        [Required(ErrorMessage = "Bạn chưa nhập địa chỉ!")]
+        [Required]
         public string Address { get; set; }
 
-        [Display(Name = "Điện thoại")]
-        [Required(ErrorMessage = "Bạn chưa nhập điện thoại!")]
+        [Required]
         public string PhoneNumber { get; set; }
 
         public string Avatar { get; set; }
 
-        [Display(Name = "Vai trò")]
         public string RoleId { get; set; }
 
-        [Display(Name = "Tỉnh/Thành")]
         public int? ProvinceId { get; set; }
 
-        [Display(Name = "Quận/Huyện")]
         public int? DistrictId { get; set; }
 
-        [Display(Name = "Phường/Xã")]
         public int? WardId { get; set; }
     }
 
@@ -91,7 +78,6 @@ namespace Warehouse.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
         public string Number { get; set; }
     }
 

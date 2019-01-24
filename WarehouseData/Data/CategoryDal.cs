@@ -27,8 +27,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Where(c => c.Deleted == false).FirstOrDefault()
-                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Where(c => c.Deleted == false).FirstOrDefault(filter);
+                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(c => c.Deleted == false).FirstOrDefault()
+                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(c => c.Deleted == false).FirstOrDefault(filter);
             }
         }
         public override Category GetSingle(Expression<Func<Category, bool>> filter)
@@ -36,8 +36,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Where(p => p.Deleted == false).SingleOrDefault()
-                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Where(c => c.Deleted == false).SingleOrDefault(filter);
+                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(p => p.Deleted == false).SingleOrDefault()
+                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(c => c.Deleted == false).SingleOrDefault(filter);
             }
         }
 

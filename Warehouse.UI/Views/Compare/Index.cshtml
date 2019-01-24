@@ -1,6 +1,6 @@
 ﻿@model List<DetailsProductViewModel>
 @{
-    ViewBag.Title = "So sánh";
+    ViewBag.Title = @Warehouse.Language.Header.Header.Compare;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -33,12 +33,12 @@
     <div id="content-wrapper">
         <section id="main">
             <section id="content" class="page-content">
-                <h1 class="h1 page-title"><span>So sánh sản phẩm</span></h1>
+                <h1 class="h1 page-title"><span>@ViewBag.Title</span></h1>
                 @if (Model.Count > 0) {
                 <div id="iqitcompare-table">
                     <div class="iqitcompare-table-actions text-right">
                         <a href="@Url.Action("DeleteAll", "Compare")" class="">
-                            <i class="fa fa-trash-o" aria-hidden="true"></i> Xóa tất cả sản phẩm
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> @Warehouse.Language.Product.Index.DeleteAllProduct
                         </a>
                     </div>
                     <div class="iqitcompare-table-container">
@@ -60,7 +60,7 @@
                                                         <a href="@Url.Action("Details", "Product", new { alias = product.Alias })">@product.Name</a>
                                                     </div>
                                                     <div class="product-price">
-                                                        <span class="product-price">$30.50</span>
+                                                        <span class="product-price">@Warehouse.Common.Format.FormatCurrencyVND(product.Price)</span>
                                                     </div>
 
                                                     <a class="iqitcompare-remove" href="@Url.Action("Delete", "Compare", new { Id = product.Id })">
@@ -72,7 +72,7 @@
                                     }
                                 </tr>
 
-                                <tr>
+                                @*<tr>
                                     <td class="comparison_feature_odd feature-name">
                                         <strong>Compositions</strong>
                                     </td>
@@ -101,7 +101,7 @@
                                             ---
                                         </td>
                                     }
-                                </tr>
+                                </tr>*@
                             </tbody>
                         </table>
                     </div>

@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group row align-items-center ">
                                     <label class="col-md-2 col-form-label required">
-                                        @Html.DisplayNameFor(m => m.Password)
+                                        @Warehouse.Language.Account.Index.Password
                                     </label>
                                     <div class="col-md-8">
                                         <div class="input-group js-parent-focus">
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="forgot-password">
-                                    @Html.ActionLink("Quên mật khẩu", "ForgotPassword", "Account", new { rel = "nofollow", @class="text-primary" })
+                                    @Html.ActionLink(Warehouse.Language.Account.Index.ForgotPassword, "ForgotPassword", "Account", new { rel = "nofollow", @class="text-primary" })
                                 </div>
                             </section>
                             <footer class="form-footer text-center clearfix">
@@ -69,7 +69,7 @@
                     <hr>
                     <div class="no-account">
                         <a class="text-danger" href="@Url.Action("Register","Account",new { area="" })" data-link-action="display-register-form">
-                            Bạn chưa có tài khoản? Tạo ngay tại khoản tại đây <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            @Warehouse.Language.Shared.Index.DoYouHaveAccount @Warehouse.Language.Account.Index.RegisterNow <i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
                     </div>
                 </section>

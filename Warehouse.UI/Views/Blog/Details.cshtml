@@ -57,11 +57,11 @@
                         <span class="post-likes">
                             <a href="@Url.Action("LikeArticle",new { Id = Model.Id })" class="simpleblog-like-button">
                                 <i class="fa fa-heart"></i>
-                                <span>@Model.LikeCount</span> lượt thích
+                                <span>@Model.LikeCount</span> @Warehouse.Language.Shared.Index.Likes.ToLower()
                             </a>
                         </span>
                         <span class="post-views">
-                            <i class="fa fa-eye"></i> @Model.ViewCount lượt xem
+                            <i class="fa fa-eye"></i> @Model.ViewCount @Warehouse.Language.Shared.Index.View.ToLower()
                         </span>
                     </div>
 
@@ -73,7 +73,7 @@
                     <div id="displayPrestaHomeBlogAfterPostContent">
                         <div class="block-section simpleblog-socialshare">
                             <h4 class="section-title">
-                                <span>Chia sẻ bài viết này</span>
+                                <span>@Warehouse.Language.Shared.Index.ShareThisPost</span>
                             </h4>
                             <div class="block-content">
 

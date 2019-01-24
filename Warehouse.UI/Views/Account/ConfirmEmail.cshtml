@@ -1,15 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Xác thực thành công";
+    ViewBag.Title = Warehouse.Language.Account.Index.ValidateEmailSuccessfully;
 }
 <div class="content-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
                 <img width="320" height="auto" src="~/images/like.jpg" id="likepic" />
-                <h2>Đăng ký thành công</h2>
+                <h2>@ViewBag.Title</h2>
                 <div>
                     <label class="text-success">
-                        Chúc mừng bạn đã đăng ký thành viên thành công. Chúc bạn có những giờ phút mua sắm vui vẻ tại website của chúng tôi. @Html.ActionLink("Click vào đây để đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        @Html.ActionLink(Warehouse.Language.Account.Index.ClickHereToSignIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
                     </label>
                 </div>
             </div>

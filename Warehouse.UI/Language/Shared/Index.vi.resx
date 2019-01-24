@@ -219,4 +219,46 @@
   <data name="Manage" xml:space="preserve">
     <value>Quản lý</value>
   </data>
+  <data name="ViewMore" xml:space="preserve">
+    <value>Xem thêm</value>
+  </data>
+  <data name="StatisticsShop" xml:space="preserve">
+    <value>Thống kê shop</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Phân loại</value>
+  </data>
+  <data name="devoted" xml:space="preserve">
+    <value>tận tình</value>
+  </data>
+  <data name="LockUserMessage" xml:space="preserve">
+    <value>Tài khoản này hiện đang bị khóa. Liên hệ quản trị viên để biết thêm thông tin.</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Hỗ trợ</value>
+  </data>
+  <data name="TheBest" xml:space="preserve">
+    <value>tốt nhất</value>
+  </data>
+  <data name="TheMostBeautiful" xml:space="preserve">
+    <value>đẹp nhất</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="DoYouHaveAccount" xml:space="preserve">
+    <value>Bạn đã có tài khoản?</value>
+  </data>
+  <data name="LoginNow" xml:space="preserve">
+    <value>Đăng nhập ngay</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Trở về</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Lượt thích</value>
+  </data>
+  <data name="ShareThisPost" xml:space="preserve">
+    <value>Chia sẻ bài viết này</value>
+  </data>
 </root>

@@ -1,7 +1,7 @@
 ﻿@model RegisterViewModel
 
 @{
-    ViewBag.Title = "Tạo tài khoản";
+    ViewBag.Title = Warehouse.Language.Header.Header.Register;
     ViewBag.BodyId = "index";
     ViewBag.BodyClass = "lang-en country-us currency-usd layout-full-width page-authentication tax-display-disabled page-customer-account body-desktop-header-style-w-4";
 }
@@ -14,13 +14,13 @@
             <header class="page-header">
                 <h1 class="h1 page-title">
                     <span>
-                        Tạo tài khoản
+                        @ViewBag.Title
                     </span>
                 </h1>
             </header>
             <section id="content" class="page-content">
                 <section>
-                    <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> Bạn đã có tài khoản ở shop ? <a href="@Url.Action("Login")" class="text-danger"><u>Đăng nhập ngay!</u></a></p>
+                    <p><i class="fa fa-question-circle-o" aria-hidden="true"></i> @Warehouse.Language.Shared.Index.DoYouHaveAccount ? <a href="@Url.Action("Login")" class="text-danger"><u>@Warehouse.Language.Shared.Index.LoginNow!</u></a></p>
                     <form action="@Url.Action("Register")" method="post">
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -28,7 +28,7 @@
 
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label required">
-                                    Họ tên
+                                    @Warehouse.Language.Shared.Index.FullName
                                 </label>
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control", required = "" })
@@ -52,7 +52,7 @@
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label required">
-                                    Mật khẩu
+                                    @Warehouse.Language.Account.Index.Password
                                 </label>
                                 <div class="col-md-8">
                                     <div class="input-group js-parent-focus">
@@ -71,7 +71,7 @@
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label required">
-                                    Xác thực mật khẩu
+                                    @Warehouse.Language.Manage.Index.ConfirmPassword
                                 </label>
                                 <div class="col-md-8">
                                     <div class="input-group js-parent-focus">
@@ -90,7 +90,7 @@
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label">
-                                    Điện thoại
+                                    @Warehouse.Language.Shared.Index.Phone
                                 </label>
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
@@ -101,28 +101,28 @@
                                     </span>
                                 </div>
                                 <div class="col-md-2 form-control-comment">
-                                    Nhập số điện thoại bạn đang dùng
+                                    @*hập số điện thoại bạn đang dùng*@
                                 </div>
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label">
-                                    Địa chỉ
+                                    @Warehouse.Language.Shared.Index.Address
                                 </label>
                                 <div class="col-md-8">
                                     @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
 
                                     <span class="form-control-comment">
-                                        Số nhà/Khu phố/Đường
+                                        @Warehouse.Language.Shared.Index.SpecificAddress
                                     </span>
                                 </div>
                                 <div class="col-md-2 form-control-comment">
-                                    Nhập chính xác để chúng tôi dễ dàng giao hàng cho bạn
+                                   @* Nhập chính xác để chúng tôi dễ dàng giao hàng cho bạn*@
                                 </div>
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label">
-                                    Tỉnh/Thành
+                                    @Warehouse.Language.Shared.Index.City
                                 </label>
                                 <div class="col-md-8">
                                     @Html.DropDownList("ProvinceId", null, new { @class = "form-control", required = "" })
@@ -131,7 +131,7 @@
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label">
-                                    Quận/Huyện
+                                    @Warehouse.Language.Shared.Index.District
                                 </label>
                                 <div class="col-md-8" id="Districts">
                                     @Html.DropDownList("DistrictId", null, new { @class = "form-control", required = "" })
@@ -140,7 +140,7 @@
                             </div>
                             <div class="form-group row align-items-center ">
                                 <label class="col-md-2 col-form-label">
-                                    Phường/Xã
+                                    @Warehouse.Language.Shared.Index.Ward
                                 </label>
                                 <div class="col-md-8" id="Wards">
                                     @Html.DropDownList("WardId", null, new { @class = "form-control", required = "" })
@@ -150,7 +150,7 @@
                         </section>
                         <footer class="form-footer text-center clearfix">
                             <button class="btn btn-primary" type="submit">
-                                Hoàn Thành
+                                @Warehouse.Language.Shared.Index.Confirm
                             </button>
 
                         </footer>

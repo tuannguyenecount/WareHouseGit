@@ -123,16 +123,37 @@
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="DeleteAllProduct" xml:space="preserve">
+    <value>Delete all product</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DiscountProducts" xml:space="preserve">
+    <value>Discount Product</value>
+  </data>
+  <data name="FeaturedProductsOfWeek" xml:space="preserve">
+    <value>Highlights Of The Week</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
   <data name="InformationDetails" xml:space="preserve">
     <value>Information Details</value>
+  </data>
+  <data name="NameProduct" xml:space="preserve">
+    <value>Product name</value>
+  </data>
+  <data name="NewProduct" xml:space="preserve">
+    <value>New Product</value>
   </data>
   <data name="OrderInformation" xml:space="preserve">
     <value>Order information</value>
   </data>
   <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Price2" xml:space="preserve">
     <value>Price</value>
   </data>
   <data name="Product" xml:space="preserve">

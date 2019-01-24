@@ -169,7 +169,7 @@
     <value>Address</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>City</value>
+    <value>Province</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>District</value>
@@ -218,5 +218,47 @@
   </data>
   <data name="Manage" xml:space="preserve">
     <value>Manage</value>
+  </data>
+  <data name="ViewMore" xml:space="preserve">
+    <value>View more</value>
+  </data>
+  <data name="StatisticsShop" xml:space="preserve">
+    <value>Statistics shop</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="devoted" xml:space="preserve">
+    <value>devoted</value>
+  </data>
+  <data name="LockUserMessage" xml:space="preserve">
+    <value>This account is currently locked. Contact the administrator for more information.</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="TheBest" xml:space="preserve">
+    <value>the best</value>
+  </data>
+  <data name="TheMostBeautiful" xml:space="preserve">
+    <value>beautiful</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="DoYouHaveAccount" xml:space="preserve">
+    <value>Do you have account ?</value>
+  </data>
+  <data name="LoginNow" xml:space="preserve">
+    <value>Log In Now</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Go back</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Likes</value>
+  </data>
+  <data name="ShareThisPost" xml:space="preserve">
+    <value>Share this post</value>
   </data>
 </root>

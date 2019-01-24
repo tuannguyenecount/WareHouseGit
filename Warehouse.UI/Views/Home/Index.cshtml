@@ -6,26 +6,28 @@
 
 @section Styles{
 
-<style>
-    .popupSocial {
-        z-index: 999;
-        text-align: center;
-        background: transparent;
-        position: fixed;
-        top: calc(50% - 75px);
-        right: -5px;
-        padding: 20px 5px; /* border-bottom: 2px solid #333; */
-        border-radius: 10px;
-    }
+    <style>
+        .popupSocial {
+            z-index: 999;
+            text-align: center;
+            background: transparent;
+            position: fixed;
+            top: calc(50% - 75px);
+            right: -5px;
+            padding: 20px 5px; /* border-bottom: 2px solid #333; */
+            border-radius: 10px;
+        }
+
         @@media screen and (max-width:768px) {
             .popupSocial {
                 display: none;
             }
         }
-</style>
+    </style>
 }
 
 @section Scripts{
+
     <script>
         var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var htmlDivCss = ".tp-caption.Gym-Display,.Gym-Display{}.tp-caption.Gym-Subline,.Gym-Subline{color:rgba(255,255,255,1.00);font-size:30px;line-height:30px;font-weight:100;font-style:normal;font-family:Raleway;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px;letter-spacing:5px}.tp-caption.Gym-SmallText,.Gym-SmallText{color:rgba(255,255,255,1.00);font-size:17px;line-height:22px;font-weight:300;font-style:normal;font-family:Raleway;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px;text-shadow:none}.tp-caption.Gym-Button,.Gym-Button{letter-spacing:1px}.tp-caption.Gym-Button:hover,.Gym-Button:hover{color:rgba(255,255,255,1.00);text-decoration:none;background-color:rgba(158,69,65,1.00);border-color:rgba(0,0,0,0);border-style:solid;border-width:0px;border-radius:30px 30px 30px 30px}.tp-caption.gym-display-black,.gym-display-black{color:rgba(0,0,0,1.00);font-size:80px;line-height:70px;font-weight:900;font-style:normal;font-family:Raleway;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px}.tp-caption.gym-subline-black,.gym-subline-black{color:rgba(0,0,0,1.00);font-size:20px;line-height:30px;font-weight:300;font-style:normal;font-family:Raleway;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px}";
         if (htmlDiv) {
@@ -149,13 +151,13 @@
 
 <div id="fb-root"></div>
 <script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1932380583495333";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1932380583495333";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <div class="popupSocial">
     <div class="fb-like" data-href="UrlTrangweb" data-layout="box_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
     <br /><br />
@@ -1975,7 +1977,7 @@
                                                 <div class="elementor-widget-wrap">
                                                     <div class="elementor-widget elementor-element elementor-element-vzz5uq0 elementor-widget-heading" data-element_type="heading">
                                                         <div class="elementor-widget-container">
-                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>Nổi Bật Trong Tuần</span></h2>
+                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>@Warehouse.Language.Product.Index.FeaturedProductsOfWeek</span></h2>
                                                         </div>
                                                     </div>
                                                     <div class="elementor-widget elementor-element elementor-element-1ax7n11 elementor-widget-divider" data-element_type="divider">
@@ -2012,7 +2014,7 @@
                                                 <div class="elementor-widget-wrap">
                                                     <div class="elementor-widget elementor-element elementor-element-vzz5uq0 elementor-widget-heading" data-element_type="heading">
                                                         <div class="elementor-widget-container">
-                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>Sản Phẩm Mới</span></h2>
+                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>@Warehouse.Language.Product.Index.NewProduct</span></h2>
                                                         </div>
                                                     </div>
                                                     <div class="elementor-widget elementor-element elementor-element-1ax7n11 elementor-widget-divider" data-element_type="divider">
@@ -2049,7 +2051,7 @@
                                                 <div class="elementor-widget-wrap">
                                                     <div class="elementor-widget elementor-element elementor-element-vzz5uq0 elementor-widget-heading" data-element_type="heading">
                                                         <div class="elementor-widget-container">
-                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>Sản Phẩm Giảm Giá</span></h2>
+                                                            <h2 class="elementor-heading-title elementor-size-default none"><span>@Warehouse.Language.Product.Index.DiscountProducts</span></h2>
                                                         </div>
                                                     </div>
                                                     <div class="elementor-widget elementor-element elementor-element-1ax7n11 elementor-widget-divider" data-element_type="divider">
@@ -2080,7 +2082,7 @@
                             @Html.Action("_StatisticalPartial", "Home")
                             @Html.Partial("_CustomersTestimonialsPartial")
                             @Html.Action("_GoogleMapPartial", "Home")
-                            @Html.Action("_BlogPartial","Home")
+                            @Html.Action("_BlogPartial", "Home")
                         </div>
                     </div>
                 </div>

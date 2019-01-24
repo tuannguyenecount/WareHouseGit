@@ -2,14 +2,14 @@
 @model List<ListFavoriteProductViewModel>
 
 @{
-    ViewBag.Title = "Sản phẩm bạn thích";
+    ViewBag.Title = @Warehouse.Language.Header.Header.ProductFavorite;
 }
 
 <div id="inner-wrapper" class="container">
     <div id="content-wrapper">
         <section id="main">
             <header class="page-header">
-                <h1 class="h1 page-title"><span>Trang cá nhân</span></h1>
+                <h1 class="h1 page-title"><span>@Warehouse.Language.Header.Header.PersonPage</span></h1>
             </header>
             <section id="content" class="page-content my-account-page-content-wrapper">
                 <div class="row">

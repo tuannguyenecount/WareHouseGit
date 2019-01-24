@@ -20,8 +20,8 @@
 
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Tên sản phẩm không được để trống!")]
-        [StringLength(256,ErrorMessage = "Tên sản phẩm không được vượt quá 256 ký tự")]
+        [Required(ErrorMessage = "{0} không được để trống!")]
+        [StringLength(256,ErrorMessage = "{0} không được vượt quá {0} ký tự")]
         [Display(Name = "Tên sản phẩm")]
         public string Name { get; set; }
 
@@ -41,7 +41,7 @@
         [Display(Name = "Hình ảnh")]
         public string Image { get; set; }
 
-        [StringLength(500, ErrorMessage = "Mô tả không được vượt quá 500 ký tự!")]
+        [StringLength(500, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
         [Display(Name = "Mô tả")]
         public string Description { get; set; }
 
@@ -83,5 +83,7 @@
         public virtual ICollection<Property_Product> Property_Product { get; set; }
 
         public virtual ICollection<ImagesProduct> ImagesProducts { get; set; }
+
+        public virtual ICollection<ProductTranslation> ProductTranslations { get; set; }
     }
 }

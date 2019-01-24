@@ -97,7 +97,7 @@ namespace Warehouse.Controllers
             return PartialView();
         }
 
-        [OutputCache(Duration = 86400)]
+        
         public PartialViewResult _StatisticalPartial()
         {
             ViewBag.CountAllProduct = _productService.CountDisplay();

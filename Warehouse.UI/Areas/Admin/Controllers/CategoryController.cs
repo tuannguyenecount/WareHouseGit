@@ -140,14 +140,21 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Đang có phân loại con tham chiếu. Bạn hãy xóa phân loại con trước!");
             }
-            try
+            else if(category.Products != null && category.Products.Count > 0)
             {
-                _categoryService.Delete(category);
-                return Json(new { status = 1, message = "Xoá thành công." });
+                ModelState.AddModelError("", "Phân loại này đang chứa sản phẩm. Không thể xóa bây giờ!");
             }
-            catch (Exception ex)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", ex.Message);
+                try
+                {
+                    _categoryService.Delete(category);
+                    return Json(new { status = 1, message = "Xoá thành công." });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
             
             return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });

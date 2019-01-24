@@ -79,6 +79,15 @@ namespace Warehouse.Language.Product {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete all product.
+        /// </summary>
+        public static string DeleteAllProduct {
+            get {
+                return ResourceManager.GetString("DeleteAllProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
@@ -88,11 +97,56 @@ namespace Warehouse.Language.Product {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discount Product.
+        /// </summary>
+        public static string DiscountProducts {
+            get {
+                return ResourceManager.GetString("DiscountProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlights Of The Week.
+        /// </summary>
+        public static string FeaturedProductsOfWeek {
+            get {
+                return ResourceManager.GetString("FeaturedProductsOfWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Image {
+            get {
+                return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information Details.
         /// </summary>
         public static string InformationDetails {
             get {
                 return ResourceManager.GetString("InformationDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product name.
+        /// </summary>
+        public static string NameProduct {
+            get {
+                return ResourceManager.GetString("NameProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Product.
+        /// </summary>
+        public static string NewProduct {
+            get {
+                return ResourceManager.GetString("NewProduct", resourceCulture);
             }
         }
         
@@ -111,6 +165,15 @@ namespace Warehouse.Language.Product {
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        public static string Price2 {
+            get {
+                return ResourceManager.GetString("Price2", resourceCulture);
             }
         }
         

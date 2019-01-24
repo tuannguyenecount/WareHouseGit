@@ -39,9 +39,6 @@ namespace Warehouse
             container.RegisterType<ISlideService, SlideService>();
             container.RegisterType<ISlideDal, SlideDal>();
 
-            container.RegisterType<INewsService, NewsService>();
-            container.RegisterType<INewsDal, NewsDal>();
-
             container.RegisterType<IOrderService, OrderService>();
             container.RegisterType<IOrderDal, OrderDal>();
             container.RegisterType<IOrderDetailService, OrderDetailService>();
