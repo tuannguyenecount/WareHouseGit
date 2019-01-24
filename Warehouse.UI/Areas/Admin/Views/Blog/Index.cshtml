@@ -91,7 +91,6 @@
                                         </td>
                                         <td class="text-center">
                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
-                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
                                             <form class="hidden" id="frmDelete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                 @Html.AntiForgeryToken()
                                             </form>

@@ -38,7 +38,7 @@ namespace Warehouse.Controllers
             {
                 return Redirect("/pages/404");
             }
-            ViewBag.Name = aliasCategory;
+            ViewBag.Name = category.Name;
             var products = _productService.GetByCategory(category.Id);
             if(category.Category1 != null && category.Category1.Count > 0)
             {

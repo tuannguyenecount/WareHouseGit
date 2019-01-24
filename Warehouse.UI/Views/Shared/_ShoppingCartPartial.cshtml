@@ -7,7 +7,7 @@
             <a id="cart-toogle" class="cart-toogle header-btn header-cart-btn" data-toggle="dropdown">
                 <i class="fa fa-shopping-bag fa-fw icon" aria-hidden="true"><span class="cart-products-count-btn">@(ShoppingCart.Sum(c => c.Quantity))</span></i>
                 <span class="info-wrapper">
-                    <span class="title">@Warehouse.Language.Header.Header.ShoppingCart</span>
+                    <span class="title text-capitalize">@Warehouse.Language.Header.Header.ShoppingCart</span>
                     <span class="cart-toggle-details">
                         <span class="text-faded cart-separator"> / </span>
                         <span class="cart-products-count">(@(ShoppingCart.Sum(c=>c.Quantity)))</span>
@@ -18,7 +18,7 @@
             <div id="_desktop_blockcart-content">
                 <div id="blockcart-content" class="blockcart-content">
                     <div class="cart-title">
-                        <span class="modal-title">@Warehouse.Language.Header.Header.ShoppingCart</span>
+                        <span class="modal-title text-capitalize">@Warehouse.Language.Header.Header.ShoppingCart</span>
                         <button type="button" id="js-cart-close" class="close">
                             <span>×</span>
                         </button>

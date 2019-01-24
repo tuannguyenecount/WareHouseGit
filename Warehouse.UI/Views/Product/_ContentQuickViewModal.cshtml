@@ -54,16 +54,6 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col col-sm-auto">
-                                <a href="#" class="btn-iqitwishlist-add js-iqitwishlist-add" data-toggle="tooltip" title="" data-original-title="@Warehouse.Language.Shared.Index.AddFavoriteProduct" onclick="Fav(@Model.Id)">
-                                    <i class="fa fa-heart-o not-added" aria-hidden="true"></i> <i class="fa fa-heart added" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="col col-sm-auto">
-                                <a href="#" class="btn-iqitcompare-add js-iqitcompare-add" data-toggle="tooltip" title="" data-original-title="@Warehouse.Language.Header.Header.Compare" onclick="Compare(@Model.Id)">
-                                    <i class="fa fa-random not-added" aria-hidden="true"></i><i class="fa fa-check added" aria-hidden="true"></i>
-                                </a>
-                            </div>
                         </div>
                         <p class="product-minimal-quantity">
                         </p>
@@ -75,22 +65,22 @@
                 <div class="social-sharing">
                     <ul>
                         <li class="facebook">
-                            <a href="http://www.facebook.com/sharer.php?u=@(Request.Url)" title="Share" target="_blank">
+                            <a href="http://www.facebook.com/sharer.php?u=@(Url.Action("Details","Product",new { alias = Model.Alias }, Request.Url.Scheme ))" title="Share" target="_blank">
                                 <i class="fa fa-facebook" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="twitter">
-                            <a href="https://twitter.com/intent/tweet?text=@Model.Name @(Request.Url)" title="Tweet" target="_blank">
+                            <a href="https://twitter.com/intent/tweet?text=@Model.Name @(Url.Action("Details","Product",new { alias = Model.Alias }, Request.Url.Scheme))" title="Tweet" target="_blank">
                                 <i class="fa fa-twitter" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="googleplus">
-                            <a href="https://plus.google.com/share?url=@Request.Url" title="Google+" target="_blank">
+                            <a href="https://plus.google.com/share?url=@(Url.Action("Details","Product",new { alias = Model.Alias }, Request.Url.Scheme))" title="Google+" target="_blank">
                                 <i class="fa fa-google-plus" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="pinterest">
-                            <a href="http://www.pinterest.com/pin/create/button/?media=@(Model.FullUrlImage)&amp;url=@(Request.Url)" title="Pinterest" target="_blank">
+                            <a href="http://www.pinterest.com/pin/create/button/?media=@(Model.FullUrlImage)&amp;url=@(Url.Action("Details","Product",new { alias = Model.Alias }, Request.Url.Scheme))" title="Pinterest" target="_blank">
                                 <i class="fa fa-pinterest-p" aria-hidden="true"></i>
                             </a>
                         </li>

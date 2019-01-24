@@ -9,6 +9,9 @@ using System.Configuration;
 using Warehouse.Services.Interface;
 using Warehouse.Entities;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
+using System.ComponentModel;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
@@ -34,17 +37,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         #region Export Data
 
-
-        public ActionResult ExportToExcel()
-        {
-            var data = _productService.GetAll();
-            Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment;filename=sanpham.xls");
-            Response.AddHeader("Content-Type", "application/vnd.ms-excel");
-            Warehouse.Common.File.WriteHtmlTable(data, Response.Output);
-            Response.End();
-            return Redirect(Request.UrlReferrer.ToString());
-        }
         #endregion
 
         #region CRUD

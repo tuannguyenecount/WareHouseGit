@@ -104,7 +104,6 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
-                                                            <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
                                                             <form class="hidden" id="frmTab1Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                                 @Html.AntiForgeryToken()
                                                                 <input name="tabActive" value="tab_1" />
@@ -170,7 +169,6 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 <a class="btn bg-blue btn-xs" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
-                                                                <a class="btn bg-blue btn-xs" href="@Url.Action("Edit", new { Id = item.Id })"><i class="fa fa-edit"></i> Sửa</a>
                                                                 <form class="hidden" id="frmTab2Delete_@item.Id" action="@Url.Action("Delete",new { Id = item.Id })" method="post">
                                                                     @Html.AntiForgeryToken()
                                                                     <input name="tabActive" value="tab_2" />
@@ -192,9 +190,9 @@
                     </div>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix">
+                @*<div class="box-footer clearfix">
                     <a onclick="return confirm('Xác nhận xuất dữ liệu ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("ExportToExcel")" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</a>
-                </div>
+                </div>*@
             </div>
         </div>
         <!-- /.col -->

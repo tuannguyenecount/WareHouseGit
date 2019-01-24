@@ -1113,7 +1113,6 @@
     <Content Include="Views\Home\_WidgetPartial.cshtml" />
     <Content Include="Views\Home\_GridProductPartial.cshtml" />
     <Content Include="Views\Home\_StatisticalPartial.cshtml" />
-    <Content Include="Views\Home\_CustomersTestimonialsPartial.cshtml" />
     <Content Include="Views\Home\_GoogleMapPartial.cshtml" />
     <Content Include="Views\Home\_BlogPartial.cshtml" />
     <Content Include="Views\Product\_FilterPartial.cshtml" />

@@ -10614,7 +10614,8 @@ hr {
 }
 
 .page-title {
-    position: relative
+    position: relative;
+    text-transform: capitalize;
 }
 
 .dropdown-menu {
@@ -13720,7 +13721,8 @@ li.product-flag {
     border: none;
     padding: 0;
     text-align: inherit;
-    width: auto
+    width: auto;
+    text-transform: capitalize;
 }
 
     #content-wrapper .product_header_container .page-title span {
@@ -21998,10 +22000,10 @@ ul.slick-dots li button:before, ul.slick-dots li.slick-active button:before {
     font-size: 1.57143rem;
     font-style: normal;
     font-weight: 700;
-    text-transform: none;
     border-bottom: solid 2px #595050;
     margin-bottom: .8em;
-    padding-bottom: .5em
+    padding-bottom: .5em;
+    text-transform: capitalize;
 }
 
     #content-wrapper .page-title a:link, #content-wrapper .page-title a:visited {
