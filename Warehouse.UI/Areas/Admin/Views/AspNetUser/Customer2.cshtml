@@ -88,7 +88,11 @@
                                                     @Html.DisplayFor(m => applicationUser.PhoneNumber)
                                                 </td>
                                                 <td>
+<<<<<<< HEAD
                                                     @((applicationUser.Address + ", " + applicationUser.Ward?.Name + ", " + applicationUser.District?.Name + ", " + applicationUser.Province?.Name).Replace(", , ,", "").Replace(", ,", ""))
+=======
+                                                    @(applicationUser.Address + ", " + applicationUser.Ward?.Name + ", " + applicationUser.District?.Name + ", " + applicationUser.Province?.Name)
+>>>>>>> 88d5543bfd6d831a7386bbe20889130c639670ef
                                                 </td>
                                                 <td>
                                                     @if (applicationUser.LockoutEndDateUtc > DateTime.Now)
