@@ -5,6 +5,113 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+@section Styles{
+
+    <link href="~/Content/customSelect.jquery.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-family: "Roboto";
+            background-color: #fafafa;
+        }
+
+        .container {
+            margin: 150px auto;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #languageform {
+            box-sizing: border-box;
+        }
+
+            #languageform h2 {
+                text-align: center;
+                font-weight: 500;
+                font-size: 32px;
+                color: #636363;
+            }
+
+            #languageform p.input {
+                margin-top: 20px;
+            }
+
+            #languageform input, #languageform textarea {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px 10px;
+            }
+
+            #languageform textarea {
+                max-width: 100%;
+                height: 100px;
+            }
+
+            #languageform input.button {
+                background: #52b2ff;
+                color: #FFF;
+                border: 0;
+                padding: 9px 0px;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+                #languageform input.button:hover, #languageform input.button:active {
+                    background: #1f81d0;
+                }
+
+        #currentValue {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        #jqcs_s_demo {
+            height: 35px;
+            margin-top: 20px;
+        }
+
+            #jqcs_o_demo .jqcs_option, #jqcs_s_demo .jqcs_option {
+                background-repeat: no-repeat;
+                background-size: 23px 17px;
+                background-position: 5px center;
+                padding: 2.5px 10px 2.5px 35px;
+            }
+    </style>
+}
+@section Scripts{
+    <script src="~/Scripts/jquery.responsivetabs.js"></script>
+    <script>
+        $('.nav-tabs').responsiveTabs();
+    </script>
+    <script src="~/Scripts/customSelect.jquery.min.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $.customSelect({
+                identifier: 'demo',
+                selector: '#countrySelect',
+                placeholder: 'Chọn ngôn ngữ',
+                options: [
+                    @foreach(Language item in ViewBag.Languages)
+                    {
+                        WriteLiteral("['"+item.Id+"', '"+item.Id+".png', '"+item.Name+"'],");
+                    }
+                ],
+                template: "<div class='jqcs_option' data-select-value='$0' style='background-image:url(/Scripts/country_icons/$1);'>$2</div>"
+            });
+
+
+            //Just to display the country selected (stored in a hidden input)
+            $(window).click(function (e) {
+                $('#currentValue').html('Current value is: \'' + $('input#countrySelect')[0].value + '\'');
+            });
+        })(jQuery);
+
+    </script>
+}
+
 <section class="content-header">
     <h1>
         @ViewBag.Title
@@ -20,109 +127,125 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    <div class="col-md-3 text-center">
-                        <p>
-                            <img src="~/Photos/Products/@Model.Image" width="200" height="auto" />
-                        </p>
-                        <h3>
-                            @Html.DisplayFor(m=>m.Name)
-                        </h3>
+                    <ul class="nav nav-tabs bg-gray" role="tablist">
+                        @foreach(Language item in ViewBag.Languages)
+                        {
+                            <li role="presentation" class="@(item.Id == "vi" ? "active" :"")"><a href="#tab-@item.Id" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/@(item.Id).png" /> @item.Name</a></li>
+                        }
+                    </ul>
+
+                    <div class="tab-content">
+                        
+                        @foreach (Language item in ViewBag.Languages)
+                        {
+                        <div role="tabpanel" class="tab-pane @(item.Id == "vi" ? "active" : "")" id="tab-@item.Id">
+                            <div>&nbsp;</div>
+                            <div class="col-md-3 text-center">
+                                <p>
+                                    <img style="margin-top:0px" src="~/Photos/Products/@Model.Image" width="200" height="auto" />
+                                </p>
+                                <h4>
+                                    @Html.DisplayFor(m => m.Name)
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-hover table-info table-border-none">
+                                    <tr>
+                                        <td>Phân loại:</td>
+                                        <td>@Html.DisplayFor(model => model.Category.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Name)</td>
+                                        <td>@Html.DisplayFor(model => model.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Price)</td>
+                                        <td>@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.PriceNew)</td>
+                                        <td>@(Warehouse.Common.Format.FormatCurrencyVND(Model.PriceNew))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
+                                        <td>@Html.DisplayFor(model => model.Alias_SEO)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Status)</td>
+                                        <td>
+                                            @if (Model.Status)
+                                            {
+                                                <span class="text-success">Còn hàng</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Hết hàng</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Display)</td>
+                                        <td>
+                                            @if (Model.Display)
+                                            {
+                                                <span class="text-success">Hiển thị</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Ẩn</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-hover table-info table-border-none">
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Description)</td>
+                                        <td>@Html.DisplayFor(model => model.Description)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Content)</td>
+                                        <td>
+                                            <a href="#modalViewContent" data-toggle="modal">Xem nội dung</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.UserCreated)</td>
+                                        <td>@Html.DisplayFor(model => model.UserCreated)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
+                                        <td>
+                                            @Warehouse.Common.Format.FormatDateTime(Model.DateCreated)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.DateUpdated)</td>
+                                        <td>
+                                            @if (Model.DateUpdated.HasValue == true)
+                                            {
+                                                @Warehouse.Common.Format.FormatDateTime(Model.DateUpdated.Value)
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hình đi kèm</td>
+                                        <td>
+                                            <a href="#modalViewImages" data-toggle="modal">Xem @(Model.ImagesProducts != null ? Model.ImagesProducts.Count : 0) hình</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        }
                     </div>
-                    <div class="col-md-4">
-                        <table class="table table-hover table-info table-border-none">
-                            <tr>
-                                <td>Phân loại:</td>
-                                <td>@Html.DisplayFor(model => model.Category.Name)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Name)</td>
-                                <td>@Html.DisplayFor(model => model.Name)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Price)</td>
-                                <td>@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.PriceNew)</td>
-                                <td>@(Warehouse.Common.Format.FormatCurrencyVND(Model.PriceNew))</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
-                                <td>@Html.DisplayFor(model => model.Alias_SEO)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Status)</td>
-                                <td>
-                                    @if (Model.Status)
-                                    {
-                                        <span class="text-success">Còn hàng</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-danger">Hết hàng</span>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Display)</td>
-                                <td>
-                                    @if (Model.Display)
-                                    {
-                                        <span class="text-success">Hiển thị</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-danger">Ẩn</span>
-                                    }
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-4">
-                        <table class="table table-hover table-info table-border-none">
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Description)</td>
-                                <td>@Html.DisplayFor(model => model.Description)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Content)</td>
-                                <td>
-                                    <a href="#modalViewContent" data-toggle="modal">Xem nội dung</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.UserCreated)</td>
-                                <td>@Html.DisplayFor(model => model.UserCreated)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
-                                <td>
-                                    @Warehouse.Common.Format.FormatDateTime(Model.DateCreated)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.DateUpdated)</td>
-                                <td>
-                                    @if (Model.DateUpdated.HasValue == true)
-                                    {
-                                        @Warehouse.Common.Format.FormatDateTime(Model.DateUpdated.Value)
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Hình đi kèm</td>
-                                <td>
-                                    <a href="#modalViewImages" data-toggle="modal">Xem @(Model.ImagesProducts != null ? Model.ImagesProducts.Count : 0) hình</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix text-right">
-                    <a href="@Url.Action("Edit",new { Id = Model.Id })" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Sửa</a>
-                    @Html.ActionLink("Về danh sách", "Index",null, new { @class = "btn btn-default btn-sm" })
+                    <a href="@Url.Action("Edit",new { Id = Model.Id })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                    <button class="btn bg-blue btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal">Tạo bản dịch</button>
+                    @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
                 </div>
             </div>
         </div>
@@ -185,6 +308,35 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="modal-footer text-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modalCreateTranslation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-blue">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Tạo bản dịch</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body" id="languageform">
+                    <form action="@Url.Action("CreateTranslation")" method="post">
+                        <input type="hidden" id="countrySelect" value="" />
+                        <p class="input">
+                            <input type="submit" class="button" value="Chọn" />
+                        </p>
+                    </form>
+                </div>
+
             </div>
             <div class="modal-footer text-right">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

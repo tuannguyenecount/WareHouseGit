@@ -80,6 +80,9 @@ namespace Warehouse
             container.RegisterType<ISubscriberService, SubscriberService>();
             container.RegisterType<ISubscriberDal, SubscriberDal>();
 
+            container.RegisterType<ILanguageService, LanguageService>();
+            container.RegisterType<ILanguageDal, LanguageDal>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -23,14 +23,16 @@ namespace Warehouse.Areas.Admin.Controllers
         private IProductService _productService;
         private ICategoryService _categoryService;
         private IImagesProductService _imagesProductService;
+        private ILanguageService _languageService;
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
         #endregion
 
-        public ProductController(IProductService productService, ICategoryService categoryService, IImagesProductService imagesProductService)
+        public ProductController(IProductService productService, ICategoryService categoryService, IImagesProductService imagesProductService, ILanguageService languageService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _imagesProductService = imagesProductService;
+            _languageService = languageService;
             this.WidthResize = int.Parse(ConfigurationManager.AppSettings["WidthImageProduct"]);
             this.HeightResize = int.Parse(ConfigurationManager.AppSettings["HeightImageProduct"]);
         }
@@ -57,7 +59,8 @@ namespace Warehouse.Areas.Admin.Controllers
             if(product == null)
             {
                 return Redirect("/pages/404");
-            }            
+            }
+            ViewBag.Languages = _languageService.GetAll().OrderBy(x => x.SortOrder).ToList();
             return View(product);
         }
 

@@ -14,6 +14,7 @@ namespace Warehouse.Entities
         public string Id { get; set; }
         public string Name { get; set; }
         public string Use { get; set; }
+        public Nullable<byte> SortOrder { get; set; }
 
         public virtual ICollection<ProductTranslation> ProductTranslations { get; set; }
         public virtual ICollection<CategoryTranslation> CategoryTranslations { get; set; }

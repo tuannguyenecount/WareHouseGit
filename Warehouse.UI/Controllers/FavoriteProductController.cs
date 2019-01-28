@@ -16,7 +16,6 @@ using Warehouse.Entities;
 namespace Warehouse.Controllers
 {
     [RoutePrefix("san-pham-yeu-thich")]
-    
     public class FavoriteProductController : Controller
     {
         readonly IFavoriteProductService _ifavoriteProductService;
