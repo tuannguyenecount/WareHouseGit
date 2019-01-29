@@ -8,8 +8,7 @@ namespace Warehouse.Models
 {
     public class ProductAddViewModel
     {
-        public List<Category> Categories { get; internal set; }
+        public List<Category> Categories { get; set; }
         public Product Product { get; set; }
-
     }
 }

@@ -456,6 +456,7 @@
     <Compile Include="Models\Category\CategoryAddModel.cs" />
     <Compile Include="Models\Category\CategoryUpdateModel.cs" />
     <Compile Include="Models\Category\CategoryListModel.cs" />
+    <Compile Include="Models\Category\CategoryTranslationViewModel.cs" />
     <Compile Include="Models\FavoriteProduct\ListFavoriteProductViewModel.cs" />
     <Compile Include="Models\Functions.cs" />
     <Compile Include="Models\CartItem.cs" />
@@ -469,6 +470,7 @@
     <Compile Include="Models\Product\GridProductViewModel.cs" />
     <Compile Include="Models\Product\ProductAddViewModel.cs" />
     <Compile Include="Models\Product\ProductListModel.cs" />
+    <Compile Include="Models\Product\ProductTranslationViewModel.cs" />
     <Compile Include="Models\Product\ProductUpdateViewModel.cs" />
     <Compile Include="Models\Product\QuickViewProductViewModel.cs" />
     <Compile Include="Models\RecaptchaResult.cs" />
@@ -491,6 +493,7 @@
     <Content Include="Content\customSelect.jquery.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\home.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\login-form_2\css\style.css" />
@@ -995,6 +998,11 @@
     <Content Include="Areas\Admin\Views\Article\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AspNetUser\Customer.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\CreateTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\EditTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\CreateTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\EditTranslation.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -1151,6 +1159,7 @@
     <Content Include="Views\Manage\ViewHistory.cshtml" />
     <Content Include="Views\Manage\_PagedListHistory.cshtml" />
     <Content Include="Views\Compare\Index.cshtml" />
+    <Content Include="Views\Shared\_LanguagePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

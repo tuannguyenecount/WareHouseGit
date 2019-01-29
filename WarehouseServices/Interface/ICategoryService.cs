@@ -21,6 +21,7 @@ namespace Warehouse.Services.Interface
         void Add(Category category);
         void Update(Category category);
         void Delete(Category category);
-
+        void CreateTranslation(CategoryTranslation categoryTranslation);
+        void EditTranslation(CategoryTranslation CategoryTranslation);
     }
 }

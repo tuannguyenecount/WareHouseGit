@@ -130,5 +130,28 @@ namespace Warehouse.Services.Services
             return _productDal.GetFirst(p => p.Alias_SEO == Alias) == null;
         }
 
+        public void CreateTranslation(ProductTranslation productTranslation)
+        {
+            try
+            {
+                _productDal.CreateTranslation(productTranslation);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void EditTranslation(ProductTranslation productTranslation)
+        {
+            try
+            {
+                _productDal.EditTranslation(productTranslation);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

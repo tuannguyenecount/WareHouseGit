@@ -1,0 +1,100 @@
+﻿@model ProductTranslationViewModel
+@{
+    Language languageSelected = ViewBag.LanguageSelected;
+    ViewBag.Title = "Sửa Sản Phẩm (bản dịch " + languageSelected.Name + ")";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Sửa Sản Phẩm (bản dịch @languageSelected.Name)
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Html.BeginForm())
+            {
+                <div class="box">
+                    <div class="box-body">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+                        <input type="hidden" name="LanguageId" value="@Model.LanguageId" />
+                        <div class="col-md-12">
+                            <table class="table table-border-none table-middle">
+                                <tr>
+                                    <td class="col-sm-2 text-right">
+                                        Ngôn ngữ
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" readonly value="@languageSelected.Name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2 text-right">@Html.DisplayNameFor(model => model.Name)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2 text-right">@Html.DisplayNameFor(model => model.Alias_SEO)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Alias_SEO, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Alias_SEO, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2 text-right">@Html.DisplayNameFor(model => model.Description)</td>
+                                    <td>
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2 text-right">@Html.DisplayNameFor(model => model.Content)</td>
+                                    <td>
+                                        @Html.TextAreaFor(m => m.Content)
+                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix text-right">
+                        <button type="submit" class="btn bg-green btn-sm"><i class="fa fa-save"></i> Lưu</button>
+                        @Html.ActionLink("Trở về", "Details", new { Id = Model.ProductId, languageSelected = Model.LanguageId }, new { @class = "btn btn-default btn-sm" })
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section styles{
+    <link rel="stylesheet" href="~/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <!-- CK Editor -->
+    <script src="~/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="~/ckfinder/ckfinder.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            CKEDITOR.replace('Content');
+            CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+        })
+    </script>
+}
+

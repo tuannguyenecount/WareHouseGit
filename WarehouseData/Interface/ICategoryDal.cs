@@ -11,5 +11,7 @@ namespace Warehouse.Data.Interface
 {
     public interface ICategoryDal:IEntityRepository<Category>
     {
+        void CreateTranslation(CategoryTranslation categoryTranslation);
+        void EditTranslation(CategoryTranslation categoryTranslation);
     }
 }

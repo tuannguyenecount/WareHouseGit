@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Xem Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Dictionary<string, string> languages = ViewBag.Languages as Dictionary<string, string>;
 }
 
 @section Styles{
@@ -70,7 +71,6 @@
 
         #jqcs_s_demo {
             height: 35px;
-            margin-top: 20px;
         }
 
             #jqcs_o_demo .jqcs_option, #jqcs_s_demo .jqcs_option {
@@ -94,9 +94,9 @@
                 selector: '#countrySelect',
                 placeholder: 'Chọn ngôn ngữ',
                 options: [
-                    @foreach(Language item in ViewBag.Languages)
+                    @foreach(var item in languages.Where(x => Model.ProductTranslations.Count(y => y.LanguageId == x.Key) == 0))
                     {
-                        WriteLiteral("['"+item.Id+"', '"+item.Id+".png', '"+item.Name+"'],");
+                        WriteLiteral("['"+item.Key+"', '"+item.Key + ".png', '"+ item.Value +"'],");
                     }
                 ],
                 template: "<div class='jqcs_option' data-select-value='$0' style='background-image:url(/Scripts/country_icons/$1);'>$2</div>"
@@ -107,6 +107,13 @@
             $(window).click(function (e) {
                 $('#currentValue').html('Current value is: \'' + $('input#countrySelect')[0].value + '\'');
             });
+            var languageSelected = "@(Request.QueryString["languageSelected"])";
+            if (languageSelected != "") {
+                $("ul[role='tablist'] li").removeClass("active");
+                $("div[role='tabpanel']").removeClass("active");
+                $("ul[role='tablist'] li a[href='#tab-" + languageSelected + "']").parent().addClass("active");
+                $("div#tab-" + languageSelected + "").addClass("active");
+            }
         })(jQuery);
 
     </script>
@@ -128,17 +135,17 @@
             <div class="box">
                 <div class="box-body">
                     <ul class="nav nav-tabs bg-gray" role="tablist">
-                        @foreach(Language item in ViewBag.Languages)
+                        <li role="presentation" class="active"><a href="#tab-vi" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/vi.png" /> Việt Nam</a></li>
+                        @foreach (var item in Model.ProductTranslations)
                         {
-                            <li role="presentation" class="@(item.Id == "vi" ? "active" :"")"><a href="#tab-@item.Id" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/@(item.Id).png" /> @item.Name</a></li>
+                            <li role="presentation">
+                                <a href="#tab-@item.LanguageId" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/@(item.LanguageId).png" /> @languages[item.LanguageId] </a>
+                           </li>
                         }
                     </ul>
 
                     <div class="tab-content">
-                        
-                        @foreach (Language item in ViewBag.Languages)
-                        {
-                        <div role="tabpanel" class="tab-pane @(item.Id == "vi" ? "active" : "")" id="tab-@item.Id">
+                        <div role="tabpanel" class="tab-pane active" id="tab-vi">
                             <div>&nbsp;</div>
                             <div class="col-md-3 text-center">
                                 <p>
@@ -237,16 +244,152 @@
                                     </tr>
                                 </table>
                             </div>
+                            <div class="clearfix text-right">
+                                <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
+                                <a href="@Url.Action("Edit",new { Id = Model.Id })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                                @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
+                            </div>
+                        </div>
+                        @foreach (var item in Model.ProductTranslations)
+                        {
+                        <div role="tabpanel" class="tab-pane" id="tab-@item.LanguageId">
+                            <div>&nbsp;</div>
+                            <div class="col-md-3 text-center">
+                                <p>
+                                    <img style="margin-top:0px" src="~/Photos/Products/@Model.Image" width="200" height="auto" />
+                                </p>
+                                <h4>
+                                    @Html.DisplayFor(m => item.Name)
+                                </h4>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-hover table-info table-border-none">
+                                    <tr>
+                                        <td>Phân loại:</td>
+                                        <td>@Html.DisplayFor(model => model.Category.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Name)</td>
+                                        <td>@Html.DisplayFor(model => item.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Price)</td>
+                                        <td>@(Warehouse.Common.Format.FormatCurrencyVND(Model.Price))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.PriceNew)</td>
+                                        <td>@(Warehouse.Common.Format.FormatCurrencyVND(Model.PriceNew))</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
+                                        <td>@Html.DisplayFor(model => item.Alias_SEO)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Status)</td>
+                                        <td>
+                                            @if (Model.Status)
+                                            {
+                                                <span class="text-success">Còn hàng</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Hết hàng</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Display)</td>
+                                        <td>
+                                            @if (Model.Display)
+                                            {
+                                                <span class="text-success">Hiển thị</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Ẩn</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-hover table-info table-border-none">
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Description)</td>
+                                        <td>@Html.DisplayFor(model => item.Description)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Content)</td>
+                                        <td>
+                                            <a href="#modalViewContent-@item.LanguageId" data-toggle="modal">Xem nội dung</a>
+                                            <div class="modal fade" id="modalViewContent-@item.LanguageId">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-blue">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <h4 class="modal-title">Xem nội dung</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="box-body">
+                                                                <article>
+                                                                    @Html.Raw(item.Content)
+                                                                </article>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer text-right">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.UserCreated)</td>
+                                        <td>@Html.DisplayFor(model => model.UserCreated)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
+                                        <td>
+                                            @Warehouse.Common.Format.FormatDateTime(Model.DateCreated)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.DateUpdated)</td>
+                                        <td>
+                                            @if (Model.DateUpdated.HasValue == true)
+                                            {
+                                                @Warehouse.Common.Format.FormatDateTime(Model.DateUpdated.Value)
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hình đi kèm</td>
+                                        <td>
+                                            <a href="#modalViewImages" data-toggle="modal">Xem @(Model.ImagesProducts != null ? Model.ImagesProducts.Count : 0) hình</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="clearfix text-right">
+                                <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
+                                <a href="@Url.Action("EditTranslation",new { ProductId = Model.Id, LanguageId = item.LanguageId })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa bản dịch</a>
+                                @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
+                            </div>
                         </div>
                         }
                     </div>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix text-right">
+                @*<div class="box-footer clearfix text-right">
                     <a href="@Url.Action("Edit",new { Id = Model.Id })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa</a>
                     <button class="btn bg-blue btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal">Tạo bản dịch</button>
                     @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
-                </div>
+                </div>*@
             </div>
         </div>
         <!-- /.col -->
@@ -308,35 +451,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="modal-footer text-right">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade" id="modalCreateTranslation">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-blue">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Tạo bản dịch</h4>
-            </div>
-            <div class="modal-body">
-                <div class="box-body" id="languageform">
-                    <form action="@Url.Action("CreateTranslation")" method="post">
-                        <input type="hidden" id="countrySelect" value="" />
-                        <p class="input">
-                            <input type="submit" class="button" value="Chọn" />
-                        </p>
-                    </form>
-                </div>
-
             </div>
             <div class="modal-footer text-right">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

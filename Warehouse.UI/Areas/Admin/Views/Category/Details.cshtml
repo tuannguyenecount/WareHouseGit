@@ -1,0 +1,248 @@
+﻿@model Category
+
+@{
+    ViewBag.Title = "Xem Phân Loại";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Dictionary<string, string> languages = ViewBag.Languages as Dictionary<string, string>;
+}
+
+@section Styles{
+
+    <link href="~/Content/customSelect.jquery.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-family: "Roboto";
+            background-color: #fafafa;
+        }
+
+        .container {
+            margin: 150px auto;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #languageform {
+            box-sizing: border-box;
+        }
+
+            #languageform h2 {
+                text-align: center;
+                font-weight: 500;
+                font-size: 32px;
+                color: #636363;
+            }
+
+            #languageform p.input {
+                margin-top: 20px;
+            }
+
+            #languageform input, #languageform textarea {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px 10px;
+            }
+
+            #languageform textarea {
+                max-width: 100%;
+                height: 100px;
+            }
+
+            #languageform input.button {
+                background: #52b2ff;
+                color: #FFF;
+                border: 0;
+                padding: 9px 0px;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+                #languageform input.button:hover, #languageform input.button:active {
+                    background: #1f81d0;
+                }
+
+        #currentValue {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        #jqcs_s_demo {
+            height: 35px;
+        }
+
+            #jqcs_o_demo .jqcs_option, #jqcs_s_demo .jqcs_option {
+                background-repeat: no-repeat;
+                background-size: 23px 17px;
+                background-position: 5px center;
+                padding: 2.5px 10px 2.5px 35px;
+            }
+    </style>
+}
+@section Scripts{
+    <script src="~/Scripts/jquery.responsivetabs.js"></script>
+    <script>
+        $('.nav-tabs').responsiveTabs();
+    </script>
+    <script src="~/Scripts/customSelect.jquery.min.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $.customSelect({
+                identifier: 'demo',
+                selector: '#countrySelect',
+                placeholder: 'Chọn ngôn ngữ',
+                options: [
+                    @foreach(var item in languages.Where(x => Model.CategoryTranslations.Count(y => y.LanguageId == x.Key) == 0))
+                    {
+                        WriteLiteral("['"+item.Key+"', '"+item.Key + ".png', '"+ item.Value +"'],");
+                    }
+                ],
+                template: "<div class='jqcs_option' data-select-value='$0' style='background-image:url(/Scripts/country_icons/$1);'>$2</div>"
+            });
+
+
+            //Just to display the country selected (stored in a hidden input)
+            $(window).click(function (e) {
+                $('#currentValue').html('Current value is: \'' + $('input#countrySelect')[0].value + '\'');
+            });
+            var languageSelected = "@(Request.QueryString["languageSelected"])";
+            if (languageSelected != "") {
+                $("ul[role='tablist'] li").removeClass("active");
+                $("div[role='tabpanel']").removeClass("active");
+                $("ul[role='tablist'] li a[href='#tab-" + languageSelected + "']").parent().addClass("active");
+                $("div#tab-" + languageSelected + "").addClass("active");
+            }
+        })(jQuery);
+
+    </script>
+    <script>
+        $(function () {
+            $(document).on("submit", "form[name=frm]", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("action"),
+                    method: "Post",
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.status == 1) {
+                            window.location.reload();
+                        }
+                        else {
+                            ShowPopUpError(result.message);
+                        }
+                    },
+                    error: function () {
+                        ShowPopUpError("Lỗi ajax!");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<section class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="box">
+                <div class="box-body">
+                    <ul class="nav nav-tabs bg-gray" role="tablist">
+                        <li role="presentation" class="active"><a href="#tab-vi" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/vi.png" /> Việt Nam</a></li>
+                        @foreach (var item in Model.CategoryTranslations)
+                        {
+                            <li role="presentation">
+                                <a href="#tab-@item.LanguageId" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/@(item.LanguageId).png" /> @languages[item.LanguageId] </a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tab-vi">
+                            <div>&nbsp;</div>
+                            <div class="col-md-12">
+                                <table class="table table-hover table-info table-border-none">
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Id)</td>
+                                        <td>@Html.DisplayFor(model => model.Id)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Name)</td>
+                                        <td>@Html.DisplayFor(model => model.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.OrderNum)</td>
+                                        <td>@Html.DisplayFor(model => model.OrderNum)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
+                                        <td>@Html.DisplayFor(model => model.Alias_SEO)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="clearfix text-center">
+                                <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
+                                <a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = Model.Id })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                                @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
+                            </div>
+                        </div>
+                        @foreach (var item in Model.CategoryTranslations)
+                        {
+                            <div role="tabpanel" class="tab-pane" id="tab-@item.LanguageId">
+                                <div>&nbsp;</div>
+                                <div class="col-md-12">
+                                    <table class="table table-hover table-info table-border-none">
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.Id)</td>
+                                            <td>@Html.DisplayFor(model => model.Id)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.Name)</td>
+                                            <td>@Html.DisplayFor(model => item.Name)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.OrderNum)</td>
+                                            <td>@Html.DisplayFor(model => model.OrderNum)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.Alias_SEO)</td>
+                                            <td>@Html.DisplayFor(model => item.Alias_SEO)</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="clearfix text-center">
+                                    <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
+                                    <a href="@Url.Action("EditTranslation",new { CategoryId = Model.Id, LanguageId = item.LanguageId })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa bản dịch</a>
+                                    @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+<div class="modal fade modal-ajax" id="modal-editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

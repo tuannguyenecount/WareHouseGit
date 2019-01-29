@@ -44,5 +44,9 @@ namespace Warehouse.Services.Interface
         int CountDisplay();
 
         int CountHide();
+
+        void CreateTranslation(ProductTranslation productTranslation);
+
+        void EditTranslation(ProductTranslation productTranslation);
     }
 }

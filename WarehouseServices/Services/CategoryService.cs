@@ -96,6 +96,30 @@ namespace Warehouse.Services.Services
         {
             _categoryDal.Delete(category);
         }
+
+        public void CreateTranslation(CategoryTranslation categoryTranslation)
+        {
+            try
+            {
+                _categoryDal.CreateTranslation(categoryTranslation);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void EditTranslation(CategoryTranslation categoryTranslation)
+        {
+            try
+            {
+                _categoryDal.EditTranslation(categoryTranslation);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         #endregion
     }
 }

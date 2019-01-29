@@ -157,6 +157,34 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
+            <div class="modal fade" id="modalCreateTranslation">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-blue">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Tạo bản dịch</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box-body" id="languageform">
+                                <form action="@Url.Action("CreateTranslation",new { Id = Url.RequestContext.RouteData.Values["Id"] })" method="get">
+                                    <input type="hidden" name="countrySelect" id="countrySelect" value="" />
+                                    <p class="input">
+                                        <input type="submit" class="button" value="Chọn" />
+                                    </p>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer text-right">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
             <!-- The Modal Show Popup Image -->
             <div id="modalShowImage" class="modal-Image">
                 <!-- The Close Button -->

@@ -6,15 +6,18 @@ namespace Warehouse.Models
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập họ tên")]
+        [Display(Name = "Họ tên")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập số điện thoại.")]
+        [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập địa chỉ.")]
         public string Address { get; set; }
     }
 
@@ -26,27 +29,33 @@ namespace Warehouse.Models
 
     public class EditInformationViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập họ tên")]
+        [Display(Name = "Họ tên")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập số điện thoại.")]
+        [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
 
-        [Required]
+        [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Địa chỉ không được bỏ trống")]
         public string Address { get; set; }
 
+        [Display(Name = "Giới tính")]
         public bool? Gender { get; set; }
 
     }
 
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Bạn chưa nhập email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu")]
         [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [Display(Name = "Ghi nhớ?")]
@@ -55,77 +64,97 @@ namespace Warehouse.Models
 
     public class AdminLoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập tài khoản")]
+        [Display(Name = "Email")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu")]
         [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Bạn chưa nhập email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [MinLength(6)]
+        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu")]
+        [MinLength(6, ErrorMessage = "Mật khẩu phải tối thiếu {0} ký tự.")]
         [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "Mật khẩu và nhập lại mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập họ tên")]
+        [Display(Name = "Họ tên")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập số điện thoại.")]
+        [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
 
-        [Required]
+        [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Bạn chưa nhập địa chỉ.")]
         public string Address { get; set; }
 
-        
+
     }
 
     public class CreateUserViewModel
     {
-        [Required]
-        [StringLength(256)]
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [Display(Name = "Tài khoản")]
+        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự")]
         public string UserName { get; set; }
 
-        [Required]
-        [MinLength(6)]
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [MinLength(6, ErrorMessage = "{0} phải tối thiếu {1} ký tự")]
         [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Display(Name = "Nhập lại mật khẩu")]
+        [Compare("Password", ErrorMessage = "Mật khẩu và nhập lại mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [Display(Name = "Họ tên")]
         public string FullName { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Bạn chưa nhập {0}")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Bạn chưa xác định vai trò của người dùng này")]
+        [Display(Name = "Vai trò")]
+        public string RoleId { get; set; }
+
     }
 
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Bạn chưa nhập email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [MinLength(6)]
+        [Required(ErrorMessage = "Bạn chưa nhập mật khẩu mới")]
+        [MinLength(6, ErrorMessage = "{0} phải tối thiếu {1} ký tự")]
         [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu mới")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Display(Name = "Nhập lại mật khẩu mới")]
+        [Compare("Password", ErrorMessage = "Nhập lại mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -133,8 +162,9 @@ namespace Warehouse.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Bạn chưa nhập email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
     }
 }

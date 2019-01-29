@@ -92,7 +92,8 @@
                                                     @(category.Category2?.Deleted == false ? category.Category2?.Name  : "Không có")
                                                 </td>
                                                 <td class="text-center">
-                                                    <a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = category.Id })" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Sửa</a>
+                                                    <a href="@Url.Action("Details",new { Id = category.Id })" class="btn bg-blue btn-xs"><i class="fa fa-eye"></i> Xem</a>
+                                                    @*<a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = category.Id })" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Sửa</a>*@
                                                     <a data-toggle="modal" data-target="#modal-deleteModal" href="@Url.Action("_DeleteModal", new { Id = category.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
                                                 </td> 
                                             </tr>

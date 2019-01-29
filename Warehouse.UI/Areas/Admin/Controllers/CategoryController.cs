@@ -16,10 +16,12 @@ namespace Warehouse.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         ICategoryService _categoryService;
+        private ILanguageService _languageService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, ILanguageService languageService)
         {
             _categoryService = categoryService;
+            _languageService = languageService;
         }
 
         #region CRUD
@@ -35,6 +37,20 @@ namespace Warehouse.Areas.Admin.Controllers
                     }
             }
             return View(_categoryService.GetParents());
+        }
+
+        public ActionResult Details(int Id)
+        {
+            Category category = _categoryService.GetById(Id);
+            if (category == null)
+            {
+                return Redirect("/pages/404");
+            }
+            Dictionary<string, string> languages = new Dictionary<string, string>();
+            _languageService.GetAll().Where(x => x.Id != "vi")
+                            .OrderBy(x => x.SortOrder).ToList().ForEach(x => languages.Add(x.Id, x.Name));
+            ViewBag.Languages = languages;
+            return View(category);
         }
 
         public ActionResult _CreateModal()
@@ -160,6 +176,86 @@ namespace Warehouse.Areas.Admin.Controllers
             return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
         }
         #endregion
+        #region Create Translation
+        public ActionResult CreateTranslation(int Id, string countrySelect)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(countrySelect);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
 
+            return View(new CategoryTranslationViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult CreateTranslation(CategoryTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _categoryService.CreateTranslation(new CategoryTranslation()
+                    {
+                        CategoryId = model.CategoryId,
+                        Alias_SEO = model.Alias_SEO,
+                        LanguageId = model.LanguageId,
+                        Name = model.Name
+                    });
+                    return RedirectToAction("Details", new { id = model.CategoryId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
+        #endregion
+
+        #region Edit Translation
+        public ActionResult EditTranslation(int CategoryId, string LanguageId)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(LanguageId);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+            CategoryTranslation categoryTranslation = _categoryService.GetById(CategoryId).CategoryTranslations.FirstOrDefault(x => x.LanguageId == LanguageId);
+            if (categoryTranslation == null)
+                return Redirect("/pages/404");
+            CategoryTranslationViewModel model = new CategoryTranslationViewModel()
+            {
+                LanguageId = LanguageId,
+                CategoryId = CategoryId,
+                Alias_SEO = categoryTranslation.Alias_SEO,
+                Name = categoryTranslation.Name
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult EditTranslation(CategoryTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _categoryService.EditTranslation(new CategoryTranslation()
+                    {
+                        CategoryId = model.CategoryId,
+                        Alias_SEO = model.Alias_SEO,
+                        LanguageId = model.LanguageId,
+                        Name = model.Name
+                    });
+                    return RedirectToAction("Details", new { id = model.CategoryId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
+        #endregion
     }
 }

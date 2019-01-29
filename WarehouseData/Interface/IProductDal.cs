@@ -14,5 +14,7 @@ namespace Warehouse.Data.Interface
         IQueryable<Product> SortList(IQueryable<Product> entities, Expression<Func<Product, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending);
         List<Product> GetHotProductsInWeek();
         List<Product> GetByCategory(int Id);
+        void CreateTranslation(ProductTranslation productTranslation);
+        void EditTranslation(ProductTranslation productTranslation);
     }
 }

@@ -28,82 +28,9 @@
                 <div class="col col-auto center-nav text-center">
                 </div>
                 <div class="col col-auto col-md right-nav text-right">
-                    <div id="language_selector" class="d-inline-block">
-                        <div class="language-selector-wrapper d-inline-block">
-                            <div class="language-selector dropdown js-dropdown">
-                                <a class="expand-more" data-toggle="dropdown">
-                                    @if (Request.Cookies["lang"].Value == "vi")
-                                    {
-                                        <img src="~/Scripts/country_icons/vi.jpg" alt="Vietnamese" class="img-fluid lang-flag" />
-                                        <span>Vietnamese</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                    @if (Request.Cookies["lang"].Value == "en")
-                                    {
-                                        <img src="~/Scripts/country_icons/gb.png" alt="england" class="img-fluid lang-flag" />
-                                        <span>England</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                    @if (Request.Cookies["lang"].Value == "de")
-                                    {
-                                        <img src="~/Scripts/country_icons/de.png" alt="german" class="img-fluid lang-flag" />
-                                        <span>German</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                    @if (Request.Cookies["lang"].Value == "it")
-                                    {
-                                        <img src="~/Scripts/country_icons/it.png" alt="italian" class="img-fluid lang-flag" />
-                                        <span>Italy</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                    @if (Request.Cookies["lang"].Value == "ja")
-                                    {
-                                        <img src="~/Scripts/country_icons/ja.png" alt="japan" class="img-fluid lang-flag" />
-                                        <span>Japan</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                    @if (Request.Cookies["lang"].Value == "fr")
-                                    {
-                                        <img src="~/Scripts/country_icons/fr.png" alt="french" class="img-fluid lang-flag" />
-                                        <span>French</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                    @if (Request.Cookies["lang"].Value == "es")
-                                    {
-                                        <img src="~/Scripts/country_icons/es.png" alt="espanol" class="img-fluid lang-flag" />
-                                        <span>Spain</span>
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    }
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="vi" class="dropdown-item"><img src="~/Content/ps17/img/1.jpg" alt="Vietnamese" class="img-fluid lang-flag"> Vietnamese</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="en" class="dropdown-item"><img src="~/Content/ps17/img/england.png" alt="England" class="img-fluid lang-flag"> England</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="de" class="dropdown-item"><img src="~/Content/ps17/img/german.png" alt="German" class="img-fluid lang-flag"> German</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="italian" class="dropdown-item"><img src="~/Content/ps17/img/italian.png" alt="Italian" class="img-fluid lang-flag"> Italian</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="japan" class="dropdown-item"><img src="~/Content/ps17/img/japan.png" alt="Japan" class="img-fluid lang-flag"> Japan</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="french" class="dropdown-item"><img src="~/Content/ps17/img/french.png" alt="Japan" class="img-fluid lang-flag"> French</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)" rel="alternate" data-lang="espanol" class="dropdown-item"><img src="~/Content/ps17/img/espanol.png" alt="espanol" class="img-fluid lang-flag"> Espanol</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    @{ 
+                        Html.RenderAction("_LanguagePartial", "Shared");
+                    }
                     <div class="d-inline-block">
                         <a href="@Url.Action("Index", "FavoriteProduct")">
                             <i class="fa fa-heart-o" aria-hidden="true"></i> @Warehouse.Language.Header.Header.ProductFavorite (<span id="iqitwishlist-nb">0</span>)

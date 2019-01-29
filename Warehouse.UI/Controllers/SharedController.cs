@@ -11,17 +11,16 @@ namespace Warehouse.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IArticleService _articleService;
+        private readonly ILanguageService _languageService;
 
-       
-
-        public SharedController(ICategoryService categoryService, IArticleService articleService)
+        public SharedController(ICategoryService categoryService, IArticleService articleService, ILanguageService languageService)
         {
             _categoryService = categoryService;
             _articleService = articleService;
+            _languageService = languageService;
         }
 
         [ChildActionOnly]
-    
         public PartialViewResult _HeaderPartial()
         {
             // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
@@ -32,11 +31,19 @@ namespace Warehouse.Controllers
         }
 
         [ChildActionOnly]
-
         public PartialViewResult _FooterPartial()
         {
             ViewBag.Categories = _categoryService.GetParents();
             return PartialView(Session["InfoShop"]);
+        }
+
+        [ChildActionOnly]
+        [OutputCache(Duration = 86400)]
+        public PartialViewResult _LanguagePartial()
+        {
+            var language = _languageService.GetById(Request.Cookies["lang"].Value);
+            ViewBag.Language = language;
+            return PartialView(_languageService.GetAll().OrderBy(x => x.SortOrder).ToList());
         }
     }
 }

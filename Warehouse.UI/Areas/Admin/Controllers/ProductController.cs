@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
 using System.ComponentModel;
+using System.Collections;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
@@ -60,7 +61,11 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 return Redirect("/pages/404");
             }
-            ViewBag.Languages = _languageService.GetAll().OrderBy(x => x.SortOrder).ToList();
+            Dictionary<string, string> languages = new Dictionary<string, string>();
+
+            _languageService.GetAll().Where(x => x.Id != "vi")
+                            .OrderBy(x => x.SortOrder).ToList().ForEach(x => languages.Add(x.Id, x.Name));
+            ViewBag.Languages = languages;
             return View(product);
         }
 
@@ -472,6 +477,94 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             _imagesProductService.DeleteImage(ImageId);
             return RedirectToAction("Edit", new { Id = ProductId });
+        }
+        #endregion
+
+        #region Create Translation
+        public ActionResult CreateTranslation(int Id, string countrySelect)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(countrySelect);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            return View(new ProductTranslationViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult CreateTranslation(ProductTranslationViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    _productService.CreateTranslation(new ProductTranslation()
+                    {
+                        ProductId = model.ProductId,
+                        Content = model.Content,
+                        Description = model.Description,
+                        Alias_SEO = model.Alias_SEO,
+                        LanguageId = model.LanguageId,
+                        Name = model.Name
+                    });
+                    return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
+        #endregion
+
+        #region Edit Translation
+        public ActionResult EditTranslation(int ProductId, string LanguageId)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(LanguageId);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+            ProductTranslation productTranslation = _productService.GetById(ProductId).ProductTranslations.FirstOrDefault(x => x.LanguageId == LanguageId);
+            if (productTranslation == null)
+                return Redirect("/pages/404");
+            ProductTranslationViewModel model = new ProductTranslationViewModel()
+            {
+                LanguageId = LanguageId,
+                ProductId = ProductId,
+                Alias_SEO = productTranslation.Alias_SEO,
+                Content = productTranslation.Content,
+                Description = productTranslation.Description,
+                Name = productTranslation.Name
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult EditTranslation(ProductTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _productService.EditTranslation(new ProductTranslation()
+                    {
+                        ProductId = model.ProductId,
+                        Content = model.Content,
+                        Description = model.Description,
+                        Alias_SEO = model.Alias_SEO,
+                        LanguageId = model.LanguageId,
+                        Name = model.Name
+                    });
+                    return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
         }
         #endregion
     }

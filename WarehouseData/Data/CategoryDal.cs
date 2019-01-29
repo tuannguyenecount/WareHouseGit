@@ -18,8 +18,8 @@ namespace Warehouse.Data.Data
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Where(c=> c.Deleted == false).ToList()
-                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Where(c => c.Deleted == false).Where(filter).ToList();
+                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.CategoryTranslations).Where(c=> c.Deleted == false).ToList()
+                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.CategoryTranslations).Where(c => c.Deleted == false).Where(filter).ToList();
             }
         }
         public override Category GetFirst(Expression<Func<Category, bool>> filter)
@@ -27,8 +27,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(c => c.Deleted == false).FirstOrDefault()
-                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(c => c.Deleted == false).FirstOrDefault(filter);
+                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Include(c => c.CategoryTranslations).Where(c => c.Deleted == false).FirstOrDefault()
+                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Include(c => c.CategoryTranslations).Where(c => c.Deleted == false).FirstOrDefault(filter);
             }
         }
         public override Category GetSingle(Expression<Func<Category, bool>> filter)
@@ -36,8 +36,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(p => p.Deleted == false).SingleOrDefault()
-                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Where(c => c.Deleted == false).SingleOrDefault(filter);
+                    ? context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Include(c => c.CategoryTranslations).Where(p => p.Deleted == false).SingleOrDefault()
+                    : context.Set<Category>().Include(c => c.Category1).Include(c => c.Category2).Include(c => c.Products).Include(c => c.CategoryTranslations).Where(c => c.Deleted == false).SingleOrDefault(filter);
             }
         }
 
@@ -55,6 +55,25 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext()) {
                 entity.Deleted = true;
                 context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+
+        public void CreateTranslation(CategoryTranslation categoryTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.CategoryTranslations.Add(categoryTranslation);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditTranslation(CategoryTranslation categoryTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.Entry(categoryTranslation).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }
