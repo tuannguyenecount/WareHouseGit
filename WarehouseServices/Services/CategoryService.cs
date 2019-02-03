@@ -74,12 +74,12 @@ namespace Warehouse.Services.Services
 
         public bool CheckExistName(string Name)
         {
-            return _categoryDal.GetFirst(c => c.Name == Name) == null;
+            return _categoryDal.GetFirst(c => c.Name == Name) != null;
         }
 
         public bool CheckExistAlias(string Alias)
         {
-            return _categoryDal.GetFirst(c => c.Alias_SEO == Alias) == null;
+            return _categoryDal.GetFirst(c => c.Alias_SEO == Alias) != null;
         }
 
         public void Add(Category category)
@@ -120,6 +120,25 @@ namespace Warehouse.Services.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public void DeleteTranslation(int CategoryId, string LanguageId)
+        {
+            try
+            {
+                _categoryDal.DeleteTranslation(CategoryId, LanguageId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public int CountByAlias(string alias)
+        {
+            return _categoryDal.Count(c => c.Alias_SEO == alias);
+        }
+
+
         #endregion
     }
 }

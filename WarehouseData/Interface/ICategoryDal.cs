@@ -13,5 +13,6 @@ namespace Warehouse.Data.Interface
     {
         void CreateTranslation(CategoryTranslation categoryTranslation);
         void EditTranslation(CategoryTranslation categoryTranslation);
+        void DeleteTranslation(int CategoryId, string LanguageId);
     }
 }

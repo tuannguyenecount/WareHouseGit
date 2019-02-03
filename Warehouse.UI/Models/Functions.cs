@@ -111,5 +111,47 @@ namespace Warehouse.Models
                 return false;
             }
         }
+
+        const string UniChars = "àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲẴẶÈÉẺẼẸÊỀẾỂỄỆĐÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴÂĂĐÔƠƯ";
+        const string KoDauChars = "aaaaaaaaaaaaaaaaaeeeeeeeeeeediiiiiooooooooooooooooouuuuuuuuuuuyyyyyAAAAAAAAAAAAAAAAAEEEEEEEEEEEDIIIIIOOOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYAADOOU";
+
+        public static string UnicodeToKoDau(string s)
+        {
+            string retVal = string.Empty;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int pos = UniChars.IndexOf(s[i].ToString());
+                if (pos >= 0)
+                    retVal += KoDauChars[pos];
+                else
+                    retVal += s[i];
+            }
+            return retVal.ToLower();
+        }
+
+        public static string UnicodeToKoDauAndGach(string s)
+        {
+            const string strChar = "abcdefghijklmnopqrstxyzuvxw0123456789- ";
+            s = UnicodeToKoDau(s.ToLower().Trim());
+            string sReturn = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (strChar.IndexOf(s[i]) > -1)
+                {
+                    if (s[i] != ' ')
+                        sReturn += s[i];
+                    else if (i > 0 && s[i - 1] != ' ')
+                        sReturn += "-";
+                }
+            }
+            return sReturn.Replace("--", "-").ToLower();
+
+            //s = UnicodeToKoDau(s.Trim().ToLower());
+            //var regex = new Regex("[^a-z0-9\\-]");
+            //s = regex.Replace(s, "-");
+            //regex = new Regex("[\\-]{2,}");
+
+            //return regex.Replace(s, "-").Trim('-');
+        }
     }
 }

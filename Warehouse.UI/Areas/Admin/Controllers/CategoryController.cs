@@ -66,14 +66,12 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Create(Category category)
         {
-            if (!_categoryService.CheckExistName(category.Name))
+            category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name);
+            if (_categoryService.CheckExistName(category.Name))
             {
-                ModelState.AddModelError("", "Tên phân loại bị trùng. Vui lòng chọn tên khác.");
+                category.Alias_SEO = category.Alias_SEO + "-" + _categoryService.CountByAlias(category.Alias_SEO);
             }
-            if (!_categoryService.CheckExistName(category.Alias_SEO))
-            {
-                ModelState.AddModelError("", "Bí danh bị trùng. Vui lòng chọn bí danh khác.");
-            }
+            
             if (category.ParentId == 0)
                 category.ParentId = null;
             try
@@ -111,22 +109,19 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Edit(Category category,string OldName, string OldAlias)
         {
-            if(OldName != category.Name)
+            category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name);
+
+            if (OldName != category.Name)
             {
-                if (!_categoryService.CheckExistName(category.Name))
+                if (_categoryService.CheckExistName(category.Name))
                 {
-                    ModelState.AddModelError("", "Tên phân loại bị trùng. Vui lòng chọn tên khác.");
+                    category.Alias_SEO = category.Alias_SEO + "-" + _categoryService.CountByAlias(category.Alias_SEO);
                 }
             }
-            if (OldAlias != category.Alias_SEO)
-            {
-                if (!_categoryService.CheckExistName(category.Alias_SEO))
-                {
-                    ModelState.AddModelError("", "Bí danh bị trùng. Vui lòng chọn bí danh khác.");
-                }
-            }
+
             if (category.ParentId == 0)
                 category.ParentId = null;
+
             if (ModelState.IsValid)
             {
                 _categoryService.Update(category);
@@ -184,6 +179,7 @@ namespace Warehouse.Areas.Admin.Controllers
         }
 
         #endregion
+
         #region Create Translation
         public ActionResult CreateTranslation(int Id, string countrySelect)
         {
@@ -198,6 +194,8 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult CreateTranslation(CategoryTranslationViewModel model)
         {
+            model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name);
+
             if (ModelState.IsValid)
             {
                 try
@@ -226,11 +224,14 @@ namespace Warehouse.Areas.Admin.Controllers
         public ActionResult EditTranslation(int CategoryId, string LanguageId)
         {
             ViewBag.LanguageSelected = _languageService.GetById(LanguageId);
+
             if (ViewBag.LanguageSelected == null)
                 return Redirect("/pages/404");
+
             CategoryTranslation categoryTranslation = _categoryService.GetById(CategoryId).CategoryTranslations.FirstOrDefault(x => x.LanguageId == LanguageId);
             if (categoryTranslation == null)
                 return Redirect("/pages/404");
+
             CategoryTranslationViewModel model = new CategoryTranslationViewModel()
             {
                 LanguageId = LanguageId,
@@ -238,6 +239,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 Alias_SEO = categoryTranslation.Alias_SEO,
                 Name = categoryTranslation.Name
             };
+
             return View(model);
         }
 
@@ -246,6 +248,8 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult EditTranslation(CategoryTranslationViewModel model)
         {
+            model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name);
+
             if (ModelState.IsValid)
             {
                 try
@@ -267,6 +271,26 @@ namespace Warehouse.Areas.Admin.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTranslation(int CategoryId, string LanguageId)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _categoryService.DeleteTranslation(CategoryId, LanguageId);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Shared", "_HeaderMenuPartial");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return RedirectToAction("Details", new { id = CategoryId, languageSelected = LanguageId });
         }
         #endregion
     }

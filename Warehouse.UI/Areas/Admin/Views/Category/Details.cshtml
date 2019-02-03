@@ -223,6 +223,10 @@
                                 <div class="clearfix text-center">
                                     <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
                                     <a href="@Url.Action("EditTranslation",new { CategoryId = Model.Id, LanguageId = item.LanguageId })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa bản dịch</a>
+                                    <form class="hidden" action="@Url.Action("DeleteTranslation",new { CategoryId = Model.Id, LanguageId = item.LanguageId })" method="post">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                    <a href="javascript:if(confirm('Xác nhận xoá bản dịch này?')) { $(this).parent().child('form').submit(); }" class="btn bg-danger btn-sm"><i class="fa fa-remove"></i> Xoá bản dịch</a>
                                     <a href="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() :  Url.Action("Index"))" class="btn btn-default btn-sm">Trở về</a>
                                 </div>
                             </div>

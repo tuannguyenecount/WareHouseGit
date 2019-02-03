@@ -17,7 +17,7 @@ namespace Warehouse.Services.Services
 
         public List<Slide> GetAll()
         {
-            return _slideDal.GetList().OrderBy(s => s.Order).ToList(); ;
+            return _slideDal.GetList();
         }
 
         public Slide GetById(int id)

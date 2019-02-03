@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevTrends.MvcDonutCaching;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
@@ -28,9 +29,11 @@ namespace Warehouse.Controllers
             _orderService = orderService;
         }
 
+        [DonutOutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             string languageId = Request.Cookies["lang"].Value;
+
             ViewBag.NewProducts = _productService.GetNewProducts().Select(
                 p => new GridProductViewModel()
                 {
@@ -70,18 +73,7 @@ namespace Warehouse.Controllers
                     ProductFlag = "<span style='text-decoration:line-through'>" + Warehouse.Common.Format.FormatCurrencyVND(p.Price) + "</span>"
                 }).ToList();
 
-
-            ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true);
-
-            ViewBag.Blogs = _blogService.GetListByDisplay(true).Take(8).Select(b => new ListBlogViewModel()
-            {
-                Id = b.Id,
-                Alias = b.Alias,
-                Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/News/" + b.Image,
-                Description = b.Description,
-                Title = b.Title,
-                DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
-            });
+            ViewBag.Slides = _slideService.GetAll().Where(s => s.Status == true).OrderBy(x => x.Order);
 
             return View();
         }
@@ -99,7 +91,7 @@ namespace Warehouse.Controllers
             return PartialView();
         }
 
-        
+        [DonutOutputCache(Duration = 86400)]
         public PartialViewResult _StatisticalPartial()
         {
             ViewBag.CountAllProduct = _productService.CountDisplay();
