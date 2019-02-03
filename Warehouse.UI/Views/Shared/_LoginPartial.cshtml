@@ -1,15 +1,33 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account",new {area=""}, FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+﻿@*@using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
     {
-    @Html.AntiForgeryToken() 
-    <a data-toggle="tooltip" target="_blank" data-placement="bottom"  href="@Url.Action("Manage", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> @Warehouse.Language.Header.Header.PersonPage </a>
-    <a  href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> @Warehouse.Language.Header.Header.Logout</a>
+        using (Html.BeginForm("LogOff", "Account",new {area=""}, FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+        {
+        @Html.AntiForgeryToken()
+        <a data-toggle="tooltip" target="_blank" data-placement="bottom"  href="@Url.Action("Manage", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> @Warehouse.Language.Header.Header.PersonPage </a>
+        <a  href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> @Warehouse.Language.Header.Header.Logout</a>
+        }
     }
-}
-else
-{
-    <a href="@Url.Action("Register", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> @Warehouse.Language.Header.Header.Register</a>
-    <a href="@Url.Action("Login", "Account", new { area=""})"><span class="glyphicon glyphicon-log-in"></span> @Warehouse.Language.Header.Header.Login</a>
-}
+    else
+    {
+        <a href="@Url.Action("Register", "Account", new { area=""})"><span class="glyphicon glyphicon-user"></span> @Warehouse.Language.Header.Header.Register</a>
+        <a href="@Url.Action("Login", "Account", new { area=""})"><span class="glyphicon glyphicon-log-in"></span> @Warehouse.Language.Header.Header.Login</a>
+    }*@
+@using Microsoft.AspNet.Identity
+<div id="header-user-btn" class="col col-auto header-btn-w header-user-btn-w">
+    @if (User.Identity.IsAuthenticated == false)
+    {
+        <a href="@Url.Action("Login", "Account")" title="@Warehouse.Language.Header.Header.Login" rel="nofollow" class="header-btn header-user-btn">
+            <i class="fa fa-sign-in fa-fw icon" aria-hidden="true"></i>
+            <span class="title">@Warehouse.Language.Header.Header.Login</span>
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action("Index", "Manage")" title="@Warehouse.Language.Header.Header.PersonPage" rel="nofollow" class="header-btn header-user-btn">
+            <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
+            <span class="title">@Warehouse.Language.Header.Header.PersonPage</span>
+        </a>
+
+    }
+</div>

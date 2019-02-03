@@ -21,7 +21,7 @@ namespace Warehouse.Entities
         public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} không được để trống!")]
-        [StringLength(256,ErrorMessage = "{0} không được vượt quá {0} ký tự")]
+        [StringLength(256, ErrorMessage = "{0} không được vượt quá {0} ký tự")]
         [Display(Name = "Tên sản phẩm")]
         public string Name { get; set; }
 
@@ -85,5 +85,6 @@ namespace Warehouse.Entities
         public virtual ICollection<ImagesProduct> ImagesProducts { get; set; }
 
         public virtual ICollection<ProductTranslation> ProductTranslations { get; set; }
+
     }
 }

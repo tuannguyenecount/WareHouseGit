@@ -32,17 +32,9 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).Include(p => p.ProductTranslations).Where(p => p.Deleted == false).ToList()
-                    : context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).Include(p => p.ProductTranslations).Where(p => p.Deleted == false).Where(filter).ToList();
+                    ? context.Set<Product>().Include(p => p.OrderDetails).Include(p => p.Category).Include(p => p.ImagesProducts).Include(p => p.ProductTranslations).Where(p => p.Deleted == false).ToList()
+                    : context.Set<Product>().Include(p => p.OrderDetails).Include(p => p.Category).Include(p => p.ImagesProducts).Include(p => p.ProductTranslations).Where(p => p.Deleted == false).Where(filter).ToList();
             }
-        }
-
-        public List<Product> GetByCategory(int Id)
-        {
-            using (var context = new WarehouseContext())
-            {
-                return context.Set<Product>().Include(p=>p.Category).Include(p => p.ImagesProducts).Include(p => p.ProductTranslations).Where(p=>p.CategoryId == Id && p.Deleted == false).ToList();
-            }           
         }
 
         public IQueryable<Product> SortList(IQueryable<Product> entities, Expression<Func<Product, dynamic>> sorting = null, ENUM.SORT_TYPE sortType = ENUM.SORT_TYPE.Descending)
@@ -52,22 +44,6 @@ namespace Warehouse.Data.Data
                 return sortType == ENUM.SORT_TYPE.Ascending
                     ? entities.OrderBy(sorting)
                     : entities.OrderByDescending(sorting);
-            }
-        }
-
-        Func<DateTime, int> weekProjector = d => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                                         d,
-                                         CalendarWeekRule.FirstFourDayWeek,
-                                         DayOfWeek.Sunday);
-
-        public List<Product> GetHotProductsInWeek()
-        {
-            using (var context = new WarehouseContext())
-            {
-                return context.Set<Product>().Include(p => p.Category).Include(p => p.ImagesProducts).Include(p => p.OrderDetails)
-                        .Include(p => p.ProductTranslations).Where(p => p.Display == true && p.Deleted == false).AsEnumerable()
-                        .OrderByDescending(p => p.OrderDetails.GroupBy(o => weekProjector(o.Order.DateOrder)).Count())
-                        .ToList();
             }
         }
 

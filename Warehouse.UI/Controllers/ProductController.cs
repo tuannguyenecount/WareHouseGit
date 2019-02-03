@@ -105,7 +105,7 @@ namespace Warehouse.Controllers
                 SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                 Price = (int)(p.PriceNew ?? p.Price),
                 FlagColor = "#eba53d",
-                ProductFlag = "Sản phẩm liên quan"
+                ProductFlag = Warehouse.Language.Product.Index.RelatedProducts
             });
 
             DetailsProductViewModel _detail = new DetailsProductViewModel()
@@ -132,7 +132,7 @@ namespace Warehouse.Controllers
         {
             Product product = _productService.GetById(Id);
             if (product == null || product.Display == false)
-                return Content("<p>Sản phẩm không tồn tại!</p>");
+                return Content("<p>Not Found</p>");
             QuickViewProductViewModel quickViewProductViewModel = new QuickViewProductViewModel()
             {
                 Id = product.Id,
@@ -146,6 +146,7 @@ namespace Warehouse.Controllers
             };
             return PartialView(quickViewProductViewModel);
         }
+
         /// <summary>
         /// tìm kiếm sản phẩm
         /// </summary>
@@ -173,19 +174,5 @@ namespace Warehouse.Controllers
 
         }
 
-        //public ActionResult _ListPartial(int curentpage = 1)
-        //{
-        //    int pageSize = 5; // số dòng trên 1 trang
-        //    var products = _productService.GetAll().Where(m => m.Display == true).OrderByDescending(m => m.Id).AsQueryable();
-        //    ProductListModel model = new ProductListModel
-        //    {
-        //        Products = products.ToPagedList(curentpage, pageSize),
-        //        PageCount = (int)Math.Ceiling(products.Count() / (double)pageSize),
-        //        PageSize = pageSize,
-        //        CurrentPage = curentpage
-        //    };
-
-        //    return PartialView(model);
-        //}
     }
 }

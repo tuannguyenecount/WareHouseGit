@@ -223,7 +223,7 @@
                                 <div class="clearfix text-center">
                                     <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
                                     <a href="@Url.Action("EditTranslation",new { CategoryId = Model.Id, LanguageId = item.LanguageId })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa bản dịch</a>
-                                    @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
+                                    <a href="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() :  Url.Action("Index"))" class="btn btn-default btn-sm">Trở về</a>
                                 </div>
                             </div>
                         }

@@ -1,8 +1,6 @@
 ﻿
 @model InfoShop
-@{
-    List<Category> categories = ViewBag.Categories;
-}
+
 <header id="header" class="desktop-header-style-w-4">
     <div class="header-banner">
     </div>
@@ -28,9 +26,9 @@
                 <div class="col col-auto center-nav text-center">
                 </div>
                 <div class="col col-auto col-md right-nav text-right">
-                    @{ 
-                        Html.RenderAction("_LanguagePartial", "Shared");
-                    }
+                    <div id="language_selector" class="d-inline-block">
+
+                    </div>
                     <div class="d-inline-block">
                         <a href="@Url.Action("Index", "FavoriteProduct")">
                             <i class="fa fa-heart-o" aria-hidden="true"></i> @Warehouse.Language.Header.Header.ProductFavorite (<span id="iqitwishlist-nb">0</span>)
@@ -56,148 +54,8 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col col-header-center col-header-menu">
-                        <div id="iqitmegamenu-wrapper" class="iqitmegamenu-wrapper iqitmegamenu-all">
-                            <div class="container container-iqitmegamenu">
-                                <div id="iqitmegamenu-horizontal" class="iqitmegamenu  clearfix" role="navigation">
-                                    <nav id="cbp-hrmenu" class="cbp-hrmenu cbp-horizontal cbp-hrsub-narrow">
-                                        <ul>
-                                            <li class="cbp-hrmenu-tab">
-                                                <a class="nav-link" href="/">
-                                                    <span class="cbp-tab-title">@Warehouse.Language.Header.Header.Home</span>
-                                                </a>
-                                            </li>
-                                            <li id="cbp-hrmenu-tab-3" class="cbp-hrmenu-tab cbp-hrmenu-tab-3  cbp-has-submeu">
-                                                <a role="button" class="cbp-empty-mlink nav-link">
-                                                    <span class="cbp-tab-title">
-                                                        @Warehouse.Language.Header.Header.ProductCategory <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
-                                                    </span>
-                                                </a>
-                                                <div class="cbp-hrsub col-12 cbp-show cbp-notfit" style="left: 0; /*width: 100%;*/ ">
-                                                    <div class="cbp-hrsub-inner">
-                                                        <div class="container iqitmegamenu-submenu-container">
-                                                            <div class="row menu_row menu-element  first_rows menu-element-id-1">
-                                                                @foreach (Category category in categories.Where(c => c.ParentId == null))
-                                                                {
-                                                                <div class="col-3 cbp-menu-column  ">
-                                                                    <div class="cbp-menu-column-inner">
-                                                                        <div class="row cbp-categories-row">
-                                                                            <div class="col-12">
-                                                                                <div class="cbp-category-link-w">
-                                                                                    <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@category.Name</a>
+                    <div class="col col-header-center col-header-menu" id="col-header-menu">
 
-                                                                                    <ul class="cbp-links cbp-category-tree">
-                                                                                        @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
-                                                                                        {
-                                                                                        <li><div class="cbp-category-link-w"><a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a></div></li>
-                                                                                        }
-                                                                                       
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                }
-                                                             
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                              
-                                            </li>
-                                            <li class="cbp-hrmenu-tab cbp-has-submeu">
-                                                <a href="javascript:void(0)" class="nav-link">
-                                                    <span class="cbp-tab-title">
-                                                        @Warehouse.Language.Header.Header.InfoShop <i class="fa fa-angle-down cbp-submenu-aindicator"></i>
-                                                    </span>
-                                                </a>
-                                                <div class="cbp-hrsub col-4 cbp-show">
-                                                    <div class="cbp-hrsub-inner">
-                                                        <div class="container iqitmegamenu-submenu-container">
-                                                            <div class="row menu_row menu-element  first_rows menu-element-id-1">
-                                                                <div class="col-12 cbp-menu-column cbp-menu-element menu-element-id-2 ">
-                                                                    <div class="cbp-menu-column-inner">
-                                                                        <div class="row cbp-categories-row">
-                                                                            <div class="col-12">
-                                                                                <div class="cbp-category-link-w">
-                                                                                    @foreach (Article article in ViewBag.Articles)
-                                    {
-                                                                                        <a href="@Url.Action("Details", "Article", new { alias = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
-                                                                                    }
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="cbp-hrmenu-tab">
-                                                <a class="nav-link" href="@Url.Action("Index","Blog")">
-                                                    <span class="cbp-tab-title">Blog</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div id="sticky-cart-wrapper"></div>
-                        </div>
-                        <div id="_desktop_iqitmegamenu-mobile">
-                            <ul id="iqitmegamenu-mobile">
-                                <li>
-                                    <a href="@Url.Action("Index","Home",new { area = "" })">@Warehouse.Language.Header.Header.Home</a>
-                                </li>
-                                @foreach (Category category in categories.Where(c => c.ParentId == null).OrderBy(c => c.OrderNum))
-                                {
-                                    <li>
-                                        <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
-                                        <a href="@Url.Action("Index", "Product", new { aliasCategory = category.Alias_SEO })">@category.Name</a>
-                                        @if (category.Category1 != null && category.Category1.Count > 0)
-                                    {
-                                            <ul>
-                                                @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
-                                                {
-                                                    <li>
-                                                        @if (subCategory.Category1 == null || subCategory.Category1.Count == 0)
-                                                        {
-                                                            <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subCategory.Name</a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
-                                                            <a href="https://iqit-commerce.com/ps17/en/4-tops">@subCategory.Name</a>
-                                                            <ul>
-                                                                @foreach (Category subSubCategory in subCategory.Category1.OrderBy(c => c.OrderNum))
-                                                                {
-                                                                    <li>
-                                                                        <a href="@Url.Action("Index", "Product", new { aliasCategory = subCategory.Alias_SEO })">@subSubCategory.Name</a>
-                                                                    </li>
-                                                                }
-                                                            </ul>
-
-                                                        }
-                                                    </li>
-                                                }
-                                            </ul>
-                                        }
-                                    </li>
-                                }
-                                @foreach (Article article in ViewBag.Articles)
-                                    {
-                                    <li>
-                                        <a href="@Url.Action("Details", "Article", new { alias = article.Alias })">@article.Title</a>
-                                    </li>
-                                }
-                                <li>
-                                    <a href="@Url.Action("Index", "Blog", new { area = "" })">Blog</a>
-                                </li>
-
-                            </ul>
-                        </div>
                     </div>
                     <div class="col col-auto col-header-right">
                         <div class="row no-gutters justify-content-end">
@@ -222,23 +80,7 @@
                                     <div id="fullscreen-search-backdrop"></div>
                                 </div>
                             </div>
-                            <div id="header-user-btn" class="col col-auto header-btn-w header-user-btn-w">
-                                @if (User.Identity.IsAuthenticated == false)
-                                    {
-                                    <a href="@Url.Action("Login", "Account")" title="@Warehouse.Language.Header.Header.Login" rel="nofollow" class="header-btn header-user-btn">
-                                        <i class="fa fa-sign-in fa-fw icon" aria-hidden="true"></i>
-                                        <span class="title">@Warehouse.Language.Header.Header.Login</span>
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a href="@Url.Action("Index", "Manage")" title="@Warehouse.Language.Header.Header.PersonPage" rel="nofollow" class="header-btn header-user-btn">
-                                        <i class="fa fa-user fa-fw icon" aria-hidden="true"></i>
-                                        <span class="title">@Warehouse.Language.Header.Header.PersonPage</span>
-                                    </a>
-
-                                }
-                            </div>
+                            @Html.Partial("_LoginPartial")
                             @Html.Partial("_ShoppingCartPartial")
                         </div>
                     </div>

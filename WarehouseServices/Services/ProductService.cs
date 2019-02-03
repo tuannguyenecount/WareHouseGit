@@ -5,13 +5,15 @@ using Warehouse.Services.Interface;
 using Warehouse.Data.Interface;
 using System.Linq;
 using Warehouse.Common;
-
+using System.Globalization;
 
 namespace Warehouse.Services.Services
 {
     public class ProductService : IProductService 
     {
         private IProductDal _productDal;
+
+        public bool HttpContext { get; private set; }
 
         public ProductService(IProductDal productDal)
         {
@@ -93,9 +95,19 @@ namespace Warehouse.Services.Services
             return _productDal.GetList(p=>p.Display == true).OrderByDescending(p=>p.Id).Take(8).ToList();
         }
 
+        Func<DateTime, int> weekProjector = d => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                                 d,
+                                 CalendarWeekRule.FirstFourDayWeek,
+                                 DayOfWeek.Sunday);
+
         public List<Product> GetHotProductsInWeek()
         {
-            return _productDal.GetHotProductsInWeek();
+            return _productDal.GetList(p => p.Display == true).OrderByDescending(p => p.OrderDetails.Count()).ToList();
+        }
+
+        public List<Product> GetSaleProducts()
+        {
+            return _productDal.GetList(p => p.Display == true && p.PriceNew != null).OrderByDescending(p => p.Id).ToList();
         }
 
         public int CountDisplay()

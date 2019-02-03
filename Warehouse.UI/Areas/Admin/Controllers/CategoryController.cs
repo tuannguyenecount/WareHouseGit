@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Warehouse.Models;
 using Warehouse.Entities;
 using Warehouse.Services.Interface;
+using DevTrends.MvcDonutCaching;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
@@ -80,6 +81,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     _categoryService.Add(category);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Shared", "_HeaderMenuPartial");
                     return Json(new { status = 1, message = "Thêm thành công" });
                 }
             }
@@ -127,6 +130,8 @@ namespace Warehouse.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _categoryService.Update(category);
+                var cacheManager = new OutputCacheManager();
+                cacheManager.RemoveItems("Shared", "_HeaderMenuPartial");
                 return Json(new { status = 1, message = "Sửa thành công" });
             }
 
@@ -165,6 +170,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _categoryService.Delete(category);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Shared", "_HeaderMenuPartial");
                     return Json(new { status = 1, message = "Xoá thành công." });
                 }
                 catch (Exception ex)
@@ -175,6 +182,7 @@ namespace Warehouse.Areas.Admin.Controllers
             
             return Json(new { status = 0, message = Functions.GetAllErrorsPage(ModelState) });
         }
+
         #endregion
         #region Create Translation
         public ActionResult CreateTranslation(int Id, string countrySelect)
@@ -201,6 +209,8 @@ namespace Warehouse.Areas.Admin.Controllers
                         LanguageId = model.LanguageId,
                         Name = model.Name
                     });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Shared", "_HeaderMenuPartial");
                     return RedirectToAction("Details", new { id = model.CategoryId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -247,6 +257,8 @@ namespace Warehouse.Areas.Admin.Controllers
                         LanguageId = model.LanguageId,
                         Name = model.Name
                     });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Shared", "_HeaderMenuPartial");
                     return RedirectToAction("Details", new { id = model.CategoryId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)

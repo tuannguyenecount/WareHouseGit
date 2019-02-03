@@ -2,26 +2,25 @@
 @{ 
     Language language = ViewBag.Language;
 }
-<div id="language_selector" class="d-inline-block">
-    <div class="language-selector-wrapper d-inline-block">
-        <div class="language-selector dropdown js-dropdown">
-            <a class="expand-more" data-toggle="dropdown">
-                <img src="~/Scripts/country_icons/@(language.Id).png" alt="@language.Name" class="img-fluid lang-flag" />
-                <span>@language.Name</span>
-                <i class="fa fa-angle-down" aria-hidden="true"></i>
-            </a>
-            <div class="dropdown-menu">
-                <ul>
-                    @foreach (Language item in Model)
-                    {
-                    <li>
-                        <a href="javascript:void(0)" rel="alternate" data-lang="@item.Id" class="dropdown-item">
-                        <img src="~/Scripts/country_icons/@(item.Id).png" alt="@item.Name" class="img-fluid lang-flag" /> @item.Name
-                        </a>
-                    </li>
-                    }
-                </ul>
-            </div>
+
+<div class="language-selector-wrapper d-inline-block">
+    <div class="language-selector dropdown js-dropdown">
+        <a class="expand-more" data-toggle="dropdown">
+            <img src="~/Scripts/country_icons/@(language.Id).png" alt="@language.Name" class="img-fluid lang-flag" />
+            <span>@language.Name</span>
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+            <ul>
+                @foreach (Language item in Model)
+                {
+                <li>
+                    <a href="javascript:void(0)" rel="alternate" data-lang="@item.Id" class="dropdown-item">
+                    <img src="~/Scripts/country_icons/@(item.Id).png" alt="@item.Name" class="img-fluid lang-flag" /> @item.Name
+                    </a>
+                </li>
+                }
+            </ul>
         </div>
     </div>
 </div>

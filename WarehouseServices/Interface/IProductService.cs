@@ -25,6 +25,8 @@ namespace Warehouse.Services.Interface
 
         List<Product> GetHotProductsInWeek();
 
+        List<Product> GetSaleProducts();
+
         List<Product> Search(string keyword);
 
         IQueryable<Product> Sorting(IQueryable<Product> products, string sortName, ENUM.SORT_TYPE sortType);

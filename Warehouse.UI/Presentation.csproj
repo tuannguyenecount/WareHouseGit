@@ -59,6 +59,9 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.11\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="DevTrends.MvcDonutCaching, Version=1.3.0.0, Culture=neutral, PublicKeyToken=73c58d802958a09f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcDonutCaching.1.3.0\lib\net40\DevTrends.MvcDonutCaching.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -645,6 +648,7 @@
     <Content Include="Content\uploads\_thumbs\Images\huyen-my-1-3385-1460083939.jpg" />
     <Content Include="Content\uploads\_thumbs\Images\huyen-my-2-2340-1460083939.jpg" />
     <Content Include="Content\uploads\_thumbs\Images\huyen-my-3-9578-1460083940.jpg" />
+    <Content Include="DevTrends.MvcDonutCaching.README.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Files\dsnhantin.txt" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -900,6 +904,7 @@
     <Content Include="Photos\Blogs\TinTT_02.jpg" />
     <Content Include="Photos\Blogs\TinTT_03.jpg" />
     <Content Include="Plugin\moment-vi.js" />
+    <Content Include="Scripts\bindingpartial.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-off-canvas-nav.js" />
     <Content Include="ApplicationInsights.config">
@@ -1160,6 +1165,7 @@
     <Content Include="Views\Manage\_PagedListHistory.cshtml" />
     <Content Include="Views\Compare\Index.cshtml" />
     <Content Include="Views\Shared\_LanguagePartial.cshtml" />
+    <Content Include="Views\Shared\_HeaderMenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

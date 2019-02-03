@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevTrends.MvcDonutCaching;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,10 +24,6 @@ namespace Warehouse.Controllers
         [ChildActionOnly]
         public PartialViewResult _HeaderPartial()
         {
-            // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
-            ViewBag.Categories = _categoryService.GetAll().OrderBy(p=>p.OrderNum).ToList();
-            ViewBag.Articles = _articleService.GetListByDisplay(true).OrderBy(a => a.OrderNum).ToList();
-
             return PartialView(Session["InfoShop"]);  // truyền thêm Session lưu thông tin của shop
         }
 
@@ -37,13 +34,30 @@ namespace Warehouse.Controllers
             return PartialView(Session["InfoShop"]);
         }
 
-        [ChildActionOnly]
-        [OutputCache(Duration = 86400)]
+       // [ChildActionOnly]
+        [DonutOutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.Server)]
         public PartialViewResult _LanguagePartial()
         {
             var language = _languageService.GetById(Request.Cookies["lang"].Value);
             ViewBag.Language = language;
             return PartialView(_languageService.GetAll().OrderBy(x => x.SortOrder).ToList());
+        }
+
+        [HttpPost]
+        public ContentResult ChangeLanguage()
+        {
+            var cacheManager = new OutputCacheManager();
+            cacheManager.RemoveItems();
+            return Content("success");
+        }
+
+        [DonutOutputCache(Duration = 86400 * 30, Location = System.Web.UI.OutputCacheLocation.Server)]
+        public PartialViewResult _HeaderMenuPartial()
+        {
+            // Lấy danh sách danh mục để hiện ra menu. Danh sách category được sắp xếp tăng dần theo cột OrderNum
+            ViewBag.Categories = _categoryService.GetAll().OrderBy(p => p.OrderNum).ToList();
+            ViewBag.Articles = _articleService.GetListByDisplay(true).OrderBy(a => a.OrderNum).ToList();
+            return PartialView();
         }
     }
 }

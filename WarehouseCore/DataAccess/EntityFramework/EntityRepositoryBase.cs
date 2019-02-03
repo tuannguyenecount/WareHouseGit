@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using Warehouse.Core.Entities;
@@ -79,5 +80,6 @@ namespace Warehouse.Core.DataAccess.EntityFramework
                 return filter != null ? context.Set<TEntity>().Count(filter) : context.Set<TEntity>().Count();
             }
         }
+
     }
 }

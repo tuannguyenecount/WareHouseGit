@@ -30,12 +30,13 @@ namespace Warehouse.Controllers
 
         public ActionResult Index()
         {
+            string languageId = Request.Cookies["lang"].Value;
             ViewBag.NewProducts = _productService.GetNewProducts().Select(
                 p => new GridProductViewModel()
                 {
                     Id = p.Id,
-                    Name = p.Name,
-                    Alias = p.Alias_SEO,
+                    Name = languageId == "vi" ? p.Name : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                    Alias = languageId == "vi" ? p.Alias_SEO :  (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                     Image = p.Image,
                     SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null), 
                     Price = (int)(p.PriceNew ?? p.Price),
@@ -47,8 +48,8 @@ namespace Warehouse.Controllers
                 p => new GridProductViewModel()
                 {
                     Id = p.Id,
-                    Name = p.Name,
-                    Alias = p.Alias_SEO,
+                    Name = languageId == "vi" ? p.Name :(p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                    Alias = languageId == "vi" ? p.Alias_SEO : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                     Image =  p.Image,
                     SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                     Price = (int)(p.PriceNew ?? p.Price),
@@ -56,12 +57,12 @@ namespace Warehouse.Controllers
                     ProductFlag = "hot"
                 }).ToList(); ;
 
-            ViewBag.SaleProduct = _productService.GetAll().Where(p=> p.Display == true && p.PriceNew != null).OrderByDescending(p=>p.Id).Select(
+            ViewBag.SaleProduct = _productService.GetSaleProducts().Select(
                 p => new GridProductViewModel()
                 {
                     Id = p.Id,
-                    Name = p.Name,
-                    Alias = p.Alias_SEO,
+                    Name = languageId == "vi" ? p.Name : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                    Alias = languageId == "vi" ? p.Alias_SEO : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO ),
                     Image = p.Image,
                     SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                     Price = p.PriceNew.Value,
@@ -81,6 +82,7 @@ namespace Warehouse.Controllers
                 Title = b.Title,
                 DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
             });
+
             return View();
         }
 
