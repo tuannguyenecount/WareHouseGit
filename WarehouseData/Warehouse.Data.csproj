@@ -237,6 +237,10 @@
     <Compile Include="Migrations\201901281641198_addColumnSortOrderToTableLanguage.Designer.cs">
       <DependentUpon>201901281641198_addColumnSortOrderToTableLanguage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902050928200_changetableCategory#3.cs" />
+    <Compile Include="Migrations\201902050928200_changetableCategory#3.Designer.cs">
+      <DependentUpon>201902050928200_changetableCategory#3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -357,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901281641198_addColumnSortOrderToTableLanguage.resx">
       <DependentUpon>201901281641198_addColumnSortOrderToTableLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050928200_changetableCategory#3.resx">
+      <DependentUpon>201902050928200_changetableCategory#3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -66,10 +66,13 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Create(Category category)
         {
-            category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name);
             if (_categoryService.CheckExistName(category.Name))
             {
-                category.Alias_SEO = category.Alias_SEO + "-" + _categoryService.CountByAlias(category.Alias_SEO);
+                category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name) + "-" + _categoryService.CountByName(category.Name);
+            }
+            else
+            {
+                category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name);
             }
             
             if (category.ParentId == 0)
@@ -110,12 +113,11 @@ namespace Warehouse.Areas.Admin.Controllers
         public JsonResult Edit(Category category,string OldName, string OldAlias)
         {
             category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name);
-
             if (OldName != category.Name)
             {
                 if (_categoryService.CheckExistName(category.Name))
                 {
-                    category.Alias_SEO = category.Alias_SEO + "-" + _categoryService.CountByAlias(category.Alias_SEO);
+                    category.Alias_SEO = Functions.UnicodeToKoDauAndGach(category.Name) + "-" + _categoryService.CountByName(category.Name);
                 }
             }
 

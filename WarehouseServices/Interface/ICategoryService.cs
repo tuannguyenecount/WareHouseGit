@@ -15,6 +15,7 @@ namespace Warehouse.Services.Interface
         Category GetByAlias(string alias);
         int CountAll();
         int CountByAlias(string alias);
+        int CountByName(string Name);
         List<Category> GetParents();
         List<Category> GetChilds(int Id);
         bool CheckExistName(string Name);

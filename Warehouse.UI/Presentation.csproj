@@ -450,6 +450,18 @@
     <Compile Include="Migrations\201901281648555_addColumnSortOrderToTableLanguage.Designer.cs">
       <DependentUpon>201901281648555_addColumnSortOrderToTableLanguage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902050908328_changetableCategory#1.cs" />
+    <Compile Include="Migrations\201902050908328_changetableCategory#1.Designer.cs">
+      <DependentUpon>201902050908328_changetableCategory#1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902050913430_changetableCategory#2.cs" />
+    <Compile Include="Migrations\201902050913430_changetableCategory#2.Designer.cs">
+      <DependentUpon>201902050913430_changetableCategory#2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902050919399_changetableCategory#3.cs" />
+    <Compile Include="Migrations\201902050919399_changetableCategory#3.Designer.cs">
+      <DependentUpon>201902050919399_changetableCategory#3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
@@ -1299,6 +1311,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901281648555_addColumnSortOrderToTableLanguage.resx">
       <DependentUpon>201901281648555_addColumnSortOrderToTableLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050908328_changetableCategory#1.resx">
+      <DependentUpon>201902050908328_changetableCategory#1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050913430_changetableCategory#2.resx">
+      <DependentUpon>201902050913430_changetableCategory#2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050919399_changetableCategory#3.resx">
+      <DependentUpon>201902050919399_changetableCategory#3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

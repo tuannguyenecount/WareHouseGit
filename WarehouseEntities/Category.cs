@@ -26,7 +26,6 @@
         [Display(Name = "Tên phân loại")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Bí danh phân loại không được để trống!")]
         [StringLength(256, ErrorMessage = "Bí danh phân loại chỉ được phép tối đa 256 ký tự!")]
         [Display(Name = "Bí danh phân loại")]
         public string Alias_SEO { get; set; }

@@ -138,6 +138,11 @@ namespace Warehouse.Services.Services
             return _categoryDal.Count(c => c.Alias_SEO == alias);
         }
 
+        public int CountByName(string Name)
+        {
+            return _categoryDal.Count(c => c.Name == Name);
+        }
+
 
         #endregion
     }
