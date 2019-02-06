@@ -13,12 +13,14 @@ namespace Warehouse.Services.Services
     {
         #region Private property
         private ICategoryDal _categoryDal;
+        private ICategoryTranslationDal _categoryTranslationDal;
         #endregion
 
         #region Constructor
-        public CategoryService(ICategoryDal categoryDal)
+        public CategoryService(ICategoryDal categoryDal, ICategoryTranslationDal categoryTranslationDal)
         {
             _categoryDal = categoryDal;
+            _categoryTranslationDal = categoryTranslationDal;
         }
         #endregion
 
@@ -74,12 +76,12 @@ namespace Warehouse.Services.Services
 
         public bool CheckExistName(string Name)
         {
-            return _categoryDal.GetFirst(c => c.Name == Name) != null;
+            return _categoryDal.GetFirst(c => c.Name == Name) != null || _categoryTranslationDal.GetFirst(c => c.Name == Name) != null;
         }
 
         public bool CheckExistAlias(string Alias)
         {
-            return _categoryDal.GetFirst(c => c.Alias_SEO == Alias) != null;
+            return _categoryDal.GetFirst(c => c.Alias_SEO == Alias) != null || _categoryTranslationDal.GetFirst(c => c.Alias_SEO == Alias) != null;
         }
 
         public void Add(Category category)
@@ -135,12 +137,12 @@ namespace Warehouse.Services.Services
 
         public int CountByAlias(string alias)
         {
-            return _categoryDal.Count(c => c.Alias_SEO == alias);
+            return _categoryDal.Count(c => c.Alias_SEO == alias) + _categoryTranslationDal.Count(c => c.Alias_SEO == alias);
         }
 
         public int CountByName(string Name)
         {
-            return _categoryDal.Count(c => c.Name == Name);
+            return _categoryDal.Count(c => c.Name == Name) + _categoryTranslationDal.Count(c => c.Name == Name);
         }
 
 

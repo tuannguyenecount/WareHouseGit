@@ -193,10 +193,14 @@ namespace Warehouse.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
         public ActionResult CreateTranslation(CategoryTranslationViewModel model)
         {
-            model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name);
+            if (_categoryService.CheckExistName(model.Name))
+            {
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name) + "-" + _categoryService.CountByName(model.Name);
+            }
+            else 
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name);
 
             if (ModelState.IsValid)
             {
@@ -218,6 +222,10 @@ namespace Warehouse.Areas.Admin.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
+            ViewBag.LanguageSelected = _languageService.GetById(model.LanguageId);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
             return View(model);
         }
         #endregion
@@ -250,7 +258,12 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult EditTranslation(CategoryTranslationViewModel model)
         {
-            model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name);
+            if (_categoryService.CheckExistName(model.Name))
+            {
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name) + "-" + _categoryService.CountByName(model.Name);
+            }
+            else
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name);
 
             if (ModelState.IsValid)
             {
@@ -272,6 +285,15 @@ namespace Warehouse.Areas.Admin.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
+            ViewBag.LanguageSelected = _languageService.GetById(model.LanguageId);
+
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            CategoryTranslation categoryTranslation = _categoryService.GetById(model.CategoryId).CategoryTranslations.FirstOrDefault(x => x.LanguageId == model.LanguageId);
+            if (categoryTranslation == null)
+                return Redirect("/pages/404");
+
             return View(model);
         }
 
@@ -292,7 +314,7 @@ namespace Warehouse.Areas.Admin.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
-            return RedirectToAction("Details", new { id = CategoryId, languageSelected = LanguageId });
+            return RedirectToAction("Details", new { id = CategoryId });
         }
         #endregion
     }

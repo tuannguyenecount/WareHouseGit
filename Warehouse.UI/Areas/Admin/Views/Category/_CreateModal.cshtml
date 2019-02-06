@@ -16,7 +16,7 @@
     <div class="modal-body form-horizontal">
         <!-- form start -->
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true,"", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.OrderNum, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-6">
