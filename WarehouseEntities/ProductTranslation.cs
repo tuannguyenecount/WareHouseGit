@@ -21,7 +21,7 @@ namespace Warehouse.Entities
         public string LanguageId { get; set; }
 
         [Required(ErrorMessage = "Tên sản phẩm không được để trống!")]
-        [StringLength(256, ErrorMessage = "Tên sản phẩm không được vượt quá {0} ký tự")]
+        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự")]
         [Display(Name = "Tên sản phẩm")]
         public string Name { get; set; }
 
@@ -32,10 +32,15 @@ namespace Warehouse.Entities
         [Display(Name = "Nội dung")]
         public string Content { get; set; }
 
-        [Required(ErrorMessage = "{0} không được bỏ trống")]
-        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
+        [StringLength(300, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
         [Display(Name = "Bí danh")]
         public string Alias_SEO { get; set; }
+
+        [Display(Name = "Ngày tạo")]
+        public DateTime? DateCreated { get; set; }
+
+        [Display(Name = "Ngày sửa")]
+        public DateTime? DateUpdated { get; set; }
 
         public virtual Language Language { get; set; }
         public virtual Product Product { get; set; }

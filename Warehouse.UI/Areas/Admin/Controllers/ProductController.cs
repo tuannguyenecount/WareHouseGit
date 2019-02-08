@@ -13,6 +13,7 @@ using System.IO;
 using System.Web.UI;
 using System.ComponentModel;
 using System.Collections;
+using DevTrends.MvcDonutCaching;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
@@ -69,6 +70,11 @@ namespace Warehouse.Areas.Admin.Controllers
             return View(product);
         }
 
+        public ContentResult GetAlias(string Name)
+        {
+            return Content(Functions.UnicodeToKoDauAndGach(Name));
+        }
+
         public ViewResult Create()
         {
             ViewBag.Categories = _categoryService.GetParents().OrderBy(c => c.OrderNum).ToList();
@@ -95,15 +101,11 @@ namespace Warehouse.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Bạn chưa chọn phân loại cho sản phẩm!");
             }
-            if (_productService.CheckUniqueName(model.Name) == false)
+            if (_productService.CheckExistName(model.Name) == true)
             {
-                ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
-
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name) + "-" + _productService.CountByName(model.Name);
             }
-            if (_productService.CheckUniqueAlias(model.Alias_SEO) == false)
-            {
-                ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
-            }
+   
             if (model.Price < 0)
             {
                 ModelState.AddModelError("Price", "Giá phải >= 0.");
@@ -248,7 +250,7 @@ namespace Warehouse.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(Product product, string OldName, string OldAlias, string base64String)
+        public ActionResult Edit(Product product, string OldName, string base64String)
         {
             product.DateUpdated = DateTime.Now;
             if (product.CategoryId == 0)
@@ -257,16 +259,9 @@ namespace Warehouse.Areas.Admin.Controllers
             }
             if (OldName != product.Name)
             {
-               if(_productService.CheckUniqueName(product.Name) == false)
-               {
-                    ModelState.AddModelError("Name", "Tên sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
-               }
-            }
-            if (OldAlias != product.Alias_SEO)
-            {
-                if (_productService.CheckUniqueAlias(product.Alias_SEO) == false)
+                if (_productService.CheckExistName(product.Name) == true)
                 {
-                    ModelState.AddModelError("Alias_SEO", "Bí danh sản phẩm bị trùng với sản phẩm khác. Vui lòng đặt lại.");
+                    product.Alias_SEO = Functions.UnicodeToKoDauAndGach(product.Name) + "-" + _productService.CountByName(product.Name);
                 }
             }
             if(product.Price < 0 )
@@ -494,7 +489,11 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult CreateTranslation(ProductTranslationViewModel model)
         {
-            if(ModelState.IsValid)
+            if (_productService.CheckExistName(model.Name) == true)
+            {
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name) + "-" + _productService.CountByName(model.Name);
+            }
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -505,7 +504,8 @@ namespace Warehouse.Areas.Admin.Controllers
                         Description = model.Description,
                         Alias_SEO = model.Alias_SEO,
                         LanguageId = model.LanguageId,
-                        Name = model.Name
+                        Name = model.Name,
+                        DateCreated = DateTime.Now
                     });
                     return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
                 }
@@ -534,7 +534,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 Alias_SEO = productTranslation.Alias_SEO,
                 Content = productTranslation.Content,
                 Description = productTranslation.Description,
-                Name = productTranslation.Name
+                Name = productTranslation.Name,
+                DateCreated = productTranslation.DateCreated,
             };
             return View(model);
         }
@@ -544,6 +545,10 @@ namespace Warehouse.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult EditTranslation(ProductTranslationViewModel model)
         {
+            if (_productService.CheckExistName(model.Name) == true)
+            {
+                model.Alias_SEO = Functions.UnicodeToKoDauAndGach(model.Name) + "-" + _productService.CountByName(model.Name);
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -555,7 +560,9 @@ namespace Warehouse.Areas.Admin.Controllers
                         Description = model.Description,
                         Alias_SEO = model.Alias_SEO,
                         LanguageId = model.LanguageId,
-                        Name = model.Name
+                        Name = model.Name,
+                        DateCreated = model.DateCreated,
+                        DateUpdated = DateTime.Now
                     });
                     return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
                 }
@@ -565,6 +572,28 @@ namespace Warehouse.Areas.Admin.Controllers
                 }
             }
             return View(model);
+        }
+        #endregion
+
+        #region Delete Translation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTranslation(int ProductId, string LanguageId)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _productService.DeleteTranslation(ProductId, LanguageId);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return RedirectToAction("Details", new { id = ProductId });
         }
         #endregion
     }

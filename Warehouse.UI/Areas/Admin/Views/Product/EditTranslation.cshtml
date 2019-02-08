@@ -26,6 +26,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <input type="hidden" name="ProductId" value="@Model.ProductId" />
                         <input type="hidden" name="LanguageId" value="@Model.LanguageId" />
+                        @Html.HiddenFor(m => m.DateCreated)
                         <div class="col-md-12">
                             <table class="table table-border-none table-middle">
                                 <tr>
@@ -94,6 +95,12 @@
         $(function () {
             CKEDITOR.replace('Content');
             CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+            $("#Name").keyup(function (e) {
+                e.preventDefault();
+                $.get("@Url.Action("GetAlias")", { Name: $(this).val() }, function (alias) {
+                    $("#Alias_SEO").val(alias);
+                });
+            });
         })
     </script>
 }

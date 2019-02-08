@@ -7,7 +7,6 @@
 }
 
 @section Styles{
-
     <link href="~/Content/customSelect.jquery.css" rel="stylesheet" />
     <style type="text/css">
         body {
@@ -81,6 +80,7 @@
             }
     </style>
 }
+
 @section Scripts{
     <script src="~/Scripts/jquery.responsivetabs.js"></script>
     <script>
@@ -353,17 +353,20 @@
                                         <td>@Html.DisplayFor(model => model.UserCreated)</td>
                                     </tr>
                                     <tr>
-                                        <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
+                                        <td>@Html.DisplayNameFor(m => item.DateCreated)</td>
                                         <td>
-                                            @Warehouse.Common.Format.FormatDateTime(Model.DateCreated)
+                                            @if (item.DateCreated.HasValue == true)
+                                            {
+                                                @Warehouse.Common.Format.FormatDateTime(item.DateCreated.Value)
+                                            }
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>@Html.DisplayNameFor(model => model.DateUpdated)</td>
+                                        <td>@Html.DisplayNameFor(m => item.DateUpdated)</td>
                                         <td>
-                                            @if (Model.DateUpdated.HasValue == true)
+                                            @if (item.DateUpdated.HasValue == true)
                                             {
-                                                @Warehouse.Common.Format.FormatDateTime(Model.DateUpdated.Value)
+                                                @Warehouse.Common.Format.FormatDateTime(item.DateUpdated.Value)
                                             }
                                         </td>
                                     </tr>
@@ -378,18 +381,16 @@
                             <div class="clearfix text-right">
                                 <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
                                 <a href="@Url.Action("EditTranslation",new { ProductId = Model.Id, LanguageId = item.LanguageId })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa bản dịch</a>
+                                <form id="frmDeleteTranslation_@(item.ProductId)_@(item.LanguageId)" class="hidden" action="@Url.Action("DeleteTranslation",new { ProductId = Model.Id, LanguageId = item.LanguageId })" method="post">
+                                    @Html.AntiForgeryToken()
+                                </form>
+                                <a href="javascript:if(confirm('Xác nhận xoá bản dịch này?')) { document.getElementById('frmDeleteTranslation_@(item.ProductId)_@(item.LanguageId)').submit(); console.log('submitted'); }" class="btn bg-red btn-sm"><i class="fa fa-remove"></i> Xoá bản dịch</a>
                                 @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
                             </div>
                         </div>
                         }
                     </div>
                 </div>
-                <!-- /.box-body -->
-                @*<div class="box-footer clearfix text-right">
-                    <a href="@Url.Action("Edit",new { Id = Model.Id })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa</a>
-                    <button class="btn bg-blue btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal">Tạo bản dịch</button>
-                    @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
-                </div>*@
             </div>
         </div>
         <!-- /.col -->

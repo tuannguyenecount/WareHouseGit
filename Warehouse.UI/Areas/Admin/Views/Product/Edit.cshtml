@@ -26,7 +26,6 @@
                         @Html.HiddenFor(m => m.Image)
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <input type="hidden" name="OldName" value="@Model.Name" />
-                        <input type="hidden" name="OldAlias" value="@Model.Alias_SEO" />
                         <div class="col-md-12 text-center">
                             <p>
                                 <img src="~/Photos/Products/@Model.Image" width="200" height="auto" />
@@ -95,7 +94,7 @@
                                     <td class="col-md-2 text-right">@Html.DisplayNameFor(model => model.Alias_SEO)</td>
                                     <td>
                                         @Html.TextBoxFor(model => model.Alias_SEO, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => model.Alias_SEO, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>
                                 <tr>
@@ -219,28 +218,20 @@
                     </form>
                     <br />
                     <table class="table table-condensed table-middle">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Hình</th>
-                                <th>Xóa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.ImagesProducts != null) {
-                                foreach (ImagesProduct imagesProduct in Model.ImagesProducts) {
-                                    <tr class="col-sm-3 col-xs-6">
-                                        <td class="text-center">
-                                            <img src="~/Photos/Products/slide/@imagesProduct.Image" width="100" height="auto" />
-                                        </td>
-                                        <td>
-                                            <form action="@Url.Action("DeleteImage", new { ProductId = Model.Id, ImageId = imagesProduct.Id })" method="post">
-                                                <button onclick="return confirm('Xác nhận xóa hình này?');" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i> Xóa</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                }
+                        @if (Model.ImagesProducts != null) {
+                            foreach (ImagesProduct imagesProduct in Model.ImagesProducts) {
+                                <tr class="col-sm-3 col-xs-6">
+                                    <td class="text-center">
+                                        <img src="~/Photos/Products/slide/@imagesProduct.Image" width="100" height="auto" />
+                                    </td>
+                                    <td>
+                                        <form action="@Url.Action("DeleteImage", new { ProductId = Model.Id, ImageId = imagesProduct.Id })" method="post">
+                                            <button onclick="return confirm('Xác nhận xóa hình này?');" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i> Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             }
-                        </tbody>
+                        }
                     </table>
                 </div>
             </div>
@@ -321,6 +312,12 @@
         $(function () {
             CKEDITOR.replace('Content');
             CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+            $("#Name").keyup(function (e) {
+                e.preventDefault();
+                $.get("@Url.Action("GetAlias")", { Name: $(this).val() }, function (alias) {
+                    $("#Alias_SEO").val(alias);
+                });
+            });
         })
     </script>
     <script type="text/javascript">

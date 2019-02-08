@@ -83,6 +83,7 @@
     <Compile Include="Data\InfoShopDal.cs" />
     <Compile Include="Data\ImagesProductDal.cs" />
     <Compile Include="Data\LanguageDal.cs" />
+    <Compile Include="Data\ProductTranslationDal.cs" />
     <Compile Include="Data\SubscriberDal.cs" />
     <Compile Include="Data\SlideDal.cs" />
     <Compile Include="Data\ProvinceDal.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Interface\IFavoriteProductDal.cs" />
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\ILanguageDal.cs" />
+    <Compile Include="Interface\IProductTranslationDal.cs" />
     <Compile Include="Interface\ISubscriberDal.cs" />
     <Compile Include="Interface\ISlideDal.cs" />
     <Compile Include="Interface\IProvinceDal.cs" />
@@ -243,6 +245,14 @@
     <Compile Include="Migrations\201902050928200_changetableCategory#3.Designer.cs">
       <DependentUpon>201902050928200_changetableCategory#3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902080438301_changeMaxLengthAliasSEO.cs" />
+    <Compile Include="Migrations\201902080438301_changeMaxLengthAliasSEO.Designer.cs">
+      <DependentUpon>201902080438301_changeMaxLengthAliasSEO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902080823066_addcolumnDateCreatedandDateUpdated.cs" />
+    <Compile Include="Migrations\201902080823066_addcolumnDateCreatedandDateUpdated.Designer.cs">
+      <DependentUpon>201902080823066_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -366,6 +376,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902050928200_changetableCategory#3.resx">
       <DependentUpon>201902050928200_changetableCategory#3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080438301_changeMaxLengthAliasSEO.resx">
+      <DependentUpon>201902080438301_changeMaxLengthAliasSEO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080823066_addcolumnDateCreatedandDateUpdated.resx">
+      <DependentUpon>201902080823066_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

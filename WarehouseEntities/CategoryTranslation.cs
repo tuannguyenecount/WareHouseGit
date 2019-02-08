@@ -26,7 +26,7 @@ namespace Warehouse.Entities
         public string Name { get; set; }
 
         [Required(ErrorMessage = "{0} không được để trống!")]
-        [StringLength(256, ErrorMessage = "{0} chỉ được phép tối đa {1} ký tự!")]
+        [StringLength(300, ErrorMessage = "{0} chỉ được phép tối đa {1} ký tự!")]
         [Display(Name = "Bí danh phân loại")]
         public string Alias_SEO { get; set; }
 

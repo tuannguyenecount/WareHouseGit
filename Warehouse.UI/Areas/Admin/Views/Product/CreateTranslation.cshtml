@@ -95,6 +95,12 @@
         $(function () {
             CKEDITOR.replace('Content');
             CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+            $("#Name").keyup(function (e) {
+                e.preventDefault();
+                $.get("@Url.Action("GetAlias")", { Name: $(this).val() }, function (alias) {
+                    $("#Alias_SEO").val(alias);
+                });
+            });
         })
     </script>
 }

@@ -13,11 +13,14 @@ namespace Warehouse.Services.Services
     {
         private IProductDal _productDal;
 
+        private IProductTranslationDal _productTranslationDal;
+
         public bool HttpContext { get; private set; }
 
-        public ProductService(IProductDal productDal)
+        public ProductService(IProductDal productDal, IProductTranslationDal productTranslationDal)
         {
             _productDal = productDal;
+            _productTranslationDal = productTranslationDal;
         }
 
         public List<Product> GetAll()
@@ -164,6 +167,38 @@ namespace Warehouse.Services.Services
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public void DeleteTranslation(int ProductId, string LanguageId)
+        {
+            try
+            {
+                _productDal.DeleteTranslation(ProductId, LanguageId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public int CountByAlias(string alias)
+        {
+            return _productDal.Count(x => x.Alias_SEO == alias) + _productTranslationDal.Count(x => x.Alias_SEO == alias);
+        }
+
+        public int CountByName(string Name)
+        {
+            return _productDal.Count(x => x.Name == Name) + _productTranslationDal.Count(x => x.Name == Name);
+        }
+
+        public bool CheckExistName(string Name)
+        {
+            return _productDal.GetFirst(x => x.Name == Name) != null ||  _productTranslationDal.GetFirst(x => x.Name == Name) != null;
+        }
+
+        public bool CheckExistAlias(string Alias)
+        {
+            return _productDal.GetFirst(x => x.Alias_SEO == Alias) != null || _productTranslationDal.GetFirst(x => x.Alias_SEO == Alias) != null;
         }
     }
 }

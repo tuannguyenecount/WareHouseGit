@@ -462,6 +462,26 @@
     <Compile Include="Migrations\201902050919399_changetableCategory#3.Designer.cs">
       <DependentUpon>201902050919399_changetableCategory#3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902080416565_removeRequiredAliasProduct.cs" />
+    <Compile Include="Migrations\201902080416565_removeRequiredAliasProduct.Designer.cs">
+      <DependentUpon>201902080416565_removeRequiredAliasProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902080420359_removeRequiredAliasProduct2.cs" />
+    <Compile Include="Migrations\201902080420359_removeRequiredAliasProduct2.Designer.cs">
+      <DependentUpon>201902080420359_removeRequiredAliasProduct2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902080433444_removeRequiredAliasProduct3.cs" />
+    <Compile Include="Migrations\201902080433444_removeRequiredAliasProduct3.Designer.cs">
+      <DependentUpon>201902080433444_removeRequiredAliasProduct3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902080437105_changeMaxLengthAliasSEO.cs" />
+    <Compile Include="Migrations\201902080437105_changeMaxLengthAliasSEO.Designer.cs">
+      <DependentUpon>201902080437105_changeMaxLengthAliasSEO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902080819037_addcolumnDateCreatedandDateUpdated.cs" />
+    <Compile Include="Migrations\201902080819037_addcolumnDateCreatedandDateUpdated.Designer.cs">
+      <DependentUpon>201902080819037_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
@@ -1077,6 +1097,7 @@
     <Content Include="Scripts\slider\jquery.jblslider.css" />
     <Content Include="Scripts\slider\jquery.jblslider.js" />
     <Content Include="Scripts\slider\svg-sprite-navigation.svg" />
+    <Content Include="Scripts\treetable.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -1320,6 +1341,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902050919399_changetableCategory#3.resx">
       <DependentUpon>201902050919399_changetableCategory#3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080416565_removeRequiredAliasProduct.resx">
+      <DependentUpon>201902080416565_removeRequiredAliasProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080420359_removeRequiredAliasProduct2.resx">
+      <DependentUpon>201902080420359_removeRequiredAliasProduct2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080433444_removeRequiredAliasProduct3.resx">
+      <DependentUpon>201902080433444_removeRequiredAliasProduct3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080437105_changeMaxLengthAliasSEO.resx">
+      <DependentUpon>201902080437105_changeMaxLengthAliasSEO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902080819037_addcolumnDateCreatedandDateUpdated.resx">
+      <DependentUpon>201902080819037_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

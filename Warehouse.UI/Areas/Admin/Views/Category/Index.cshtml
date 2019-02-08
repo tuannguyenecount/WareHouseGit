@@ -1,25 +1,36 @@
 ﻿@model List<Category>
 
 @{
-    ViewBag.Title = "Phân Loại Cấp " + Request.QueryString["level"]; 
+    ViewBag.Title = "Phân Loại Cấp " + Request.QueryString["level"];
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@section styles{
-    <!-- DataTables -->
-    <link rel="stylesheet" href="~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-}
+@section Styles{
+ <style>
+     .treegrid-indent {
+         width: 0px;
+         height: 16px;
+         display: inline-block;
+         position: relative;
+     }
+
+     .treegrid-expander {
+         width: 0px;
+         height: 16px;
+         display: inline-block;
+         position: relative;
+         left: -17px;
+         cursor: pointer;
+     }
+    </style>   
+ }
+
 
 @section scripts{
+    <script src="~/Scripts/treetable.js"></script>
     <!-- DataTables -->
-    <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(function () {
-            $('#tblData').DataTable({
-                columnDefs: [{ orderable: false, targets: [4] }],
-                order: [[0, 'asc']],
-            });
             $(document).on("submit", "form[name=frm]", function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -67,37 +78,50 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table id="tblAspNetUser" class="table table-bordered " method="post">
-                                    <thead>
+                                <table id="tree-table" class="table table-hover table-bordered">
+                                    @*<thead>
                                         <tr>
                                             <th class="hidden">Parent Id</th>
                                             <th>Tên phân loại</th>
                                             <th>Bí danh</th>
-                                            <th>Phân loại cha</th>
                                             <th class="text-center">Thao tác</th>
                                         </tr>
-                                    </thead>
+                                    </thead>*@
                                     <tbody>
-                                        @foreach (Category category in Model)
+                                    <th>Tên phân loại</th>
+                                    <th>Bí danh</th>
+                                    <th class="text-center">Thao tác</th>
+                                    @foreach (Category category in Model)
+                                    {
+                                        <tr data-id="@category.Id" data-level="1">
+                                            <td data-column="name">
+                                                @Html.DisplayFor(model => category.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => category.Alias_SEO)
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("Details",new { Id = category.Id })" class="btn bg-blue btn-xs"><i class="fa fa-eye"></i> Xem</a>
+                                                @*<a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = category.Id })" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Sửa</a>*@
+                                                <a data-toggle="modal" data-target="#modal-deleteModal" href="@Url.Action("_DeleteModal", new { Id = category.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
+                                            </td>
+                                        </tr>
+                                        foreach (Category subcategory in category.Category1)
                                         {
-                                            <tr>
-                                                <td class="hidden">@category.ParentId</td>
-                                                <td>
-                                                    @Html.DisplayFor(model => category.Name)
+                                            <tr data-id="@subcategory.Id" data-parent="@category.Id" data-level="2">
+                                                <td data-column="name">
+                                                    @Html.DisplayFor(model => subcategory.Name)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(model => category.Alias_SEO)
-                                                </td>
-                                                <td>
-                                                    @(category.Category2?.Deleted == false ? category.Category2?.Name  : "Không có")
+                                                    @Html.DisplayFor(model => subcategory.Alias_SEO)
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="@Url.Action("Details",new { Id = category.Id })" class="btn bg-blue btn-xs"><i class="fa fa-eye"></i> Xem</a>
-                                                    @*<a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = category.Id })" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Sửa</a>*@
-                                                    <a data-toggle="modal" data-target="#modal-deleteModal" href="@Url.Action("_DeleteModal", new { Id = category.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
-                                                </td> 
+                                                    <a href="@Url.Action("Details",new { Id = subcategory.Id })" class="btn bg-blue btn-xs"><i class="fa fa-eye"></i> Xem</a>
+                                                    <a data-toggle="modal" data-target="#modal-deleteModal" href="@Url.Action("_DeleteModal", new { Id = subcategory.Id })" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Xóa</a>
+                                                </td>
                                             </tr>
                                         }
+                                    }
                                     </tbody>
                                 </table>
 
@@ -105,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-              
+
             </div>
         </div>
         <!-- /.col -->
@@ -115,7 +139,7 @@
 
 <div class="modal fade modal-ajax" id="modal-createModal">
     <div class="modal-dialog">
-        <div class="modal-content" >
+        <div class="modal-content">
 
         </div>
         <!-- /.modal-content -->
@@ -125,7 +149,7 @@
 
 <div class="modal fade modal-ajax" id="modal-editModal">
     <div class="modal-dialog">
-        <div class="modal-content" >
+        <div class="modal-content">
 
         </div>
         <!-- /.modal-content -->

@@ -61,17 +61,10 @@
         </li>
 
 
-        <li class="treeview">
-            <a href="#">
+        <li>
+            <a href="@Url.Action("Index","Category")">
                 <i class="fa fa-cubes"></i> <span>Phân Loại Sản Phẩm</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
             </a>
-            <ul class="treeview-menu">
-                <li class="active"><a href="@Url.Action("Index","Category",new { level = 1 })"><i class="fa fa-circle-o"></i> Phân Loại Cấp 1</a></li>
-                <li><a href="@Url.Action("Index","Category",new { level = 2 })"><i class="fa fa-circle-o"></i> Phân Loại Cấp 2</a></li>
-            </ul>
         </li>
 
         <li id="slider">

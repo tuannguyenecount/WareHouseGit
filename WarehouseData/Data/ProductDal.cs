@@ -82,5 +82,15 @@ namespace Warehouse.Data.Data
                 context.SaveChanges();
             }
         }
+
+        public void DeleteTranslation(int ProductId, string LanguageId)
+        {
+            using (var context = new WarehouseContext())
+            {
+                ProductTranslation productTranslation = context.ProductTranslations.Find(ProductId, LanguageId);
+                context.ProductTranslations.Remove(productTranslation);
+                context.SaveChanges();
+            }
+        }
     }
 }

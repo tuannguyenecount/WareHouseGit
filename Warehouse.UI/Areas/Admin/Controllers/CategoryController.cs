@@ -26,17 +26,8 @@ namespace Warehouse.Areas.Admin.Controllers
         }
 
         #region CRUD
-        public ActionResult Index(int? level)
+        public ActionResult Index()
         {
-            level = level ?? 1;
-            switch(level)
-            {
-                case 1: return View(_categoryService.GetParents());
-                case 2:
-                    {
-                        return View(_categoryService.GetAll().Where(p => p.ParentId != null).OrderBy(p => p.ParentId).ThenBy(c => c.OrderNum).ToList());
-                    }
-            }
             return View(_categoryService.GetParents());
         }
 

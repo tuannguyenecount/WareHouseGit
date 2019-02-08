@@ -47,8 +47,18 @@ namespace Warehouse.Services.Interface
 
         int CountHide();
 
+        int CountByAlias(string alias);
+
+        int CountByName(string Name);
+
+        bool CheckExistName(string Name);
+
+        bool CheckExistAlias(string Alias);
+
         void CreateTranslation(ProductTranslation productTranslation);
 
         void EditTranslation(ProductTranslation productTranslation);
+
+        void DeleteTranslation(int ProductId, string LanguageId);
     }
 }

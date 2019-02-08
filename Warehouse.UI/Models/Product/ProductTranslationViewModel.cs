@@ -17,8 +17,7 @@ namespace Warehouse.Models
         [Display(Name = "Tên sản phẩm")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "{0} không được bỏ trống")]
-        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
+        [StringLength(300, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
         [Display(Name = "Bí danh")]
         public string Alias_SEO { get; set; }
 
@@ -28,5 +27,7 @@ namespace Warehouse.Models
 
         [Display(Name = "Nội dung")]
         public string Content { get; set; }
+
+        public Nullable<DateTime> DateCreated { get; set; }
     }
 }
