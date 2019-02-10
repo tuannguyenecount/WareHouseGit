@@ -1,6 +1,8 @@
 ﻿@{ 
     string countProductsHide = Html.Action("CountHide", "Product").ToString();
+    string countProductsDisplay = Html.Action("CountDisplay", "Product").ToString();
     string countBlogHide = Html.Action("CountHide", "Blog").ToString();
+    string countBlogDisplay = Html.Action("CountDisplay", "Blog").ToString();
     string CountOrderWaitConfirm = Html.Action("CountOrderWaitConfirm", "Order").ToString();
 }
 <section class="sidebar">
@@ -53,8 +55,14 @@
                 <i class="fa fa-users"></i>
                 <span>Sản Phẩm</span>
                 <span class="pull-right-container">
-                    @if (countProductsHide != "0") {
+
+                    @if (countProductsHide != "0")
+                    {
                         <span title="@countProductsHide sản phẩm đang ẩn" class="label label-danger pull-right">@countProductsHide</span>
+                    }
+                    @if (countProductsDisplay != "0")
+                    {
+                        <span title="@countProductsDisplay sản phẩm đang hiện" class="label label-primary pull-right">@countProductsDisplay</span>
                     }
                 </span>
             </a>
@@ -71,10 +79,13 @@
             <a href="@Url.Action("Index","Blog")">
                 <i class="fa fa-newspaper-o"></i> <span>Blog</span>
                 <span class="pull-right-container">
+
                     @if (countBlogHide != "0") {
                         <span title="@countBlogHide bài viết đang ẩn" class="label label-danger pull-right">@countBlogHide</span>
                     }
-
+                    @if (countBlogDisplay != "0") {
+                        <span title="@countBlogDisplay bài viết đang hiện" class="label label-primary pull-right">@countBlogDisplay</span>
+                    }
                 </span>
             </a>
         </li>

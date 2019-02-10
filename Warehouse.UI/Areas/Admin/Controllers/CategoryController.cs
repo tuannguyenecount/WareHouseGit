@@ -287,7 +287,9 @@ namespace Warehouse.Areas.Admin.Controllers
 
             return View(model);
         }
+        #endregion
 
+        #region Delete Translation
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteTranslation(int CategoryId, string LanguageId)

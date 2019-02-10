@@ -8,6 +8,7 @@ using Warehouse.Services.Interface;
 using PagedList.Mvc;
 using PagedList;
 using Warehouse.Entities;
+using DevTrends.MvcDonutCaching;
 
 namespace Warehouse.Controllers
 {
@@ -22,41 +23,46 @@ namespace Warehouse.Controllers
         }
 
         [Route("")]
+        [DonutOutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.Server, VaryByParam = "page")]
         public ActionResult Index(int? page)
         {
+            string languageId = Request.Cookies["lang"].Value;
             List<ListBlogViewModel> listBlogViewModel = _blogService.GetListByDisplay(true)
-                .OrderByDescending(b => b.Id).Select(b => new ListBlogViewModel()
+                .Where(x => (languageId != "vi" && x.BlogTranslations.FirstOrDefault(y => y.LanguageId == languageId) != null) || (languageId == "vi"))
+                .OrderByDescending(b => b.Id).Select(x => new ListBlogViewModel()
                 {
-                    Title = b.Title,
-                    Alias = b.Alias,
-                    Description = b.Description,
-                    Image = b.Image,
-                    DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
+                    Id = x.Id,
+                    Title = languageId == "vi" ? x.Title : (x.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Title),
+                    Alias = languageId == "vi" ? x.Alias : (x.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Alias),
+                    Description = languageId == "vi" ? x.Description : (x.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Description),
+                    Image = x.Image,
+                    DateCreated = x.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(x.DateCreated.Value) : ""
                 }).ToList();
             return View(listBlogViewModel.ToPagedList(page ?? 1, 9));
         }
 
-        [Route("{alias}.html")]
-        public ActionResult Details(string alias)
+        [Route("{alias}-{id}.html")]
+        public ActionResult Details(int id, string alias)
         {
-            Blog blog = _blogService.GetByAlias(alias);
+            string languageId = Request.Cookies["lang"].Value;
+            Blog blog = _blogService.GetById(id);
             if (blog == null || blog.Display == false)
                 return Redirect("/pages/404");
 
             DetailsBlogViewModel detailsBlogViewModel = new DetailsBlogViewModel()
             {
                 Id = blog.Id,
-                Content = blog.Content,
-                Alias = blog.Alias,
+                Content = languageId == "vi" ? blog.Content : (blog.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Content),
+                Alias = languageId == "vi" ? blog.Alias : (blog.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Alias),
                 LikeCount = blog.LikeCount,
                 DateCreated = blog.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(blog.DateCreated.Value) : "",
                 ViewCount = blog.ViewCount,
-                Title = blog.Title
+                Title = languageId == "vi" ? blog.Title : (blog.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Title)
             };
             if(Session["read-post-" + blog.Id] == null)
             {
                 Session["read-post-" + blog.Id] = true;
-                blog.LikeCount++;
+                blog.ViewCount++;
                 _blogService.Update(blog);
             }
             return View(detailsBlogViewModel);

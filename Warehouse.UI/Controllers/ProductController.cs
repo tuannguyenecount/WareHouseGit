@@ -8,6 +8,7 @@ using System;
 using Warehouse.Common;
 using Warehouse.Models;
 using PagedList;
+using DevTrends.MvcDonutCaching;
 
 namespace Warehouse.Controllers
 {
@@ -33,6 +34,7 @@ namespace Warehouse.Controllers
         [Route("danh-muc/{aliasCategory}.html")]
         public ActionResult Index(string aliasCategory, string productListView, string sortName, ENUM.SORT_TYPE? sortType, int? page)
         {
+            string languageId = Request.Cookies["lang"].Value;
             Category category = _categoryService.GetByAlias(aliasCategory);
             if (category == null)
             {
@@ -57,8 +59,8 @@ namespace Warehouse.Controllers
                             new GridProductViewModel()
                             {
                                 Id = p.Id,
-                                Name = p.Name,
-                                Alias = p.Alias_SEO,
+                                Name = languageId == "vi" ? p.Name : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                                Alias = languageId == "vi" ? p.Alias_SEO : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                                 Image = p.Image,
                                 SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                                 Price = (int)(p.PriceNew ?? p.Price),
@@ -86,6 +88,7 @@ namespace Warehouse.Controllers
         [Route("{alias}.html")]
         public ActionResult Details(string alias)
         {
+            string languageId = Request.Cookies["lang"].Value;
             var product = _productService.GetByAlias(alias);
             if (product == null || product.Display == false)
             {
@@ -99,8 +102,8 @@ namespace Warehouse.Controllers
             ViewBag.productsRelated = productsRelated.Skip(skip).Take(10).ToList().Select(p=> new GridProductViewModel()
             {
                 Id = p.Id,
-                Name = p.Name,
-                Alias = p.Alias_SEO,
+                Name = languageId == "vi" ? p.Name : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                Alias = languageId == "vi" ? p.Alias_SEO : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                 Image = p.Image,
                 SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                 Price = (int)(p.PriceNew ?? p.Price),
@@ -111,16 +114,16 @@ namespace Warehouse.Controllers
             DetailsProductViewModel _detail = new DetailsProductViewModel()
             {
                 Id = product.Id,
-                Name = product.Name,
-                Alias = product.Alias_SEO,
+                Name = languageId == "vi" ? product.Name : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                Alias = languageId == "vi" ? product.Alias_SEO : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                 Category = product.Category,
                 Image = product.Image,
                 imagesProducts = product.ImagesProducts.ToList(),
                 Price = (int)(product.PriceNew ?? product.Price),
                 FlagColor = "#eba53d",
-                Description = product.Description,
+                Description = languageId == "vi" ? product.Description : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Description),
                 ProductFlag = product.Category.Name,
-                Content = product.Content
+                Content = languageId == "vi" ? product.Content : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Content),
             };
 
             ViewBag.CategoryParent = _categoryService.GetById(product.CategoryId).Category2;
@@ -130,18 +133,19 @@ namespace Warehouse.Controllers
 
         public ActionResult _ContentQuickViewModal(int Id)
         {
+            string languageId = Request.Cookies["lang"].Value;
             Product product = _productService.GetById(Id);
             if (product == null || product.Display == false)
                 return Content("<p>Not Found</p>");
             QuickViewProductViewModel quickViewProductViewModel = new QuickViewProductViewModel()
             {
                 Id = product.Id,
-                Alias = product.Alias_SEO,
+                Name = languageId == "vi" ? product.Name : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
                 FlagColor = "#eba53d",
                 ProductFlag = product.Category.Name,
-                Name = product.Name,
+                Alias = languageId == "vi" ? product.Alias_SEO : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                 Image = product.Image,
-                Description = product.Description,
+                Description = languageId == "vi" ? product.Description : (product.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Description),
                 Price = (int)(product.PriceNew ?? product.Price)
             };
             return PartialView(quickViewProductViewModel);
@@ -156,14 +160,15 @@ namespace Warehouse.Controllers
         [Route("ket-qua-tim-kiem.html")]
         public ActionResult Search(string keyword, int? page)
         {
+            string languageId = Request.Cookies["lang"].Value;
             var dsProduct = _productService.Search(keyword);
             ViewBag.keyword = keyword;
             IPagedList<GridProductViewModel> model = dsProduct.Select(p =>
                             new GridProductViewModel()
                             {
                                 Id = p.Id,
-                                Name = p.Name,
-                                Alias = p.Alias_SEO,
+                                Name = languageId == "vi" ? p.Name : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name),
+                                Alias = languageId == "vi" ? p.Alias_SEO : (p.ProductTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO),
                                 Image = p.Image,
                                 SecondImage = (p.ImagesProducts != null && p.ImagesProducts.Count > 0 ? p.ImagesProducts.ElementAt(0).Image : null),
                                 Price = (int)(p.PriceNew ?? p.Price),

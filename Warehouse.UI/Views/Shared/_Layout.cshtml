@@ -272,7 +272,7 @@
                 expiry.setDate(expiry.getDate() + 30);
                 document.cookie = "lang=" + $(this).attr("data-lang") + "; expires=" + expiry.toGMTString() + "; path=/";
                 $.post("@Url.Action("ChangeLanguage","Shared")", function () {
-                    location.reload();
+                    window.location.replace("/");
                 });
                 return false;
             });

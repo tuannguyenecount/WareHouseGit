@@ -6,6 +6,7 @@ using Warehouse.Entities;
 using Warehouse.Services.Interface;
 using Warehouse.Data.Interface;
 using Warehouse.Common;
+using System.Web;
 
 namespace Warehouse.Services.Services
 {
@@ -53,7 +54,11 @@ namespace Warehouse.Services.Services
         /// <returns></returns>
         public Category GetByAlias(string alias)
         {
-            return _categoryDal.GetSingle(c => c.Alias_SEO == alias);
+            string languageId = HttpContext.Current.Request.Cookies["lang"].Value;
+            if(languageId == "vi")
+                return _categoryDal.GetSingle(c => c.Alias_SEO == alias);
+            else
+                return this.GetById(_categoryTranslationDal.GetSingle(c => c.Alias_SEO == alias).CategoryId);
         }
         /// <summary>
         /// Count All Category

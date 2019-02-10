@@ -20,5 +20,9 @@ namespace Warehouse.Services.Interface
         void Delete(int Id);
         int CountDisplay();
         int CountHide();
+        void CreateTranslation(BlogTranslation blogTranslation);
+        void EditTranslation(BlogTranslation blogTranslation);
+        void DeleteTranslation(int BlogId, string LanguageId);
+        int CountByTitle(string Title);
     }
 }

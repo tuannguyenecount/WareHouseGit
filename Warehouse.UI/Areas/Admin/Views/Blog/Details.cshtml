@@ -2,6 +2,119 @@
 @{
     ViewBag.Title = "Xem bài viết Blog";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Dictionary<string, string> languages = ViewBag.Languages as Dictionary<string, string>;
+}
+
+@section Styles{
+    <link href="~/Content/customSelect.jquery.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            font-family: "Roboto";
+            background-color: #fafafa;
+        }
+
+        .container {
+            margin: 150px auto;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #languageform {
+            box-sizing: border-box;
+        }
+
+            #languageform h2 {
+                text-align: center;
+                font-weight: 500;
+                font-size: 32px;
+                color: #636363;
+            }
+
+            #languageform p.input {
+                margin-top: 20px;
+            }
+
+            #languageform input, #languageform textarea {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px 10px;
+            }
+
+            #languageform textarea {
+                max-width: 100%;
+                height: 100px;
+            }
+
+            #languageform input.button {
+                background: #52b2ff;
+                color: #FFF;
+                border: 0;
+                padding: 9px 0px;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+                #languageform input.button:hover, #languageform input.button:active {
+                    background: #1f81d0;
+                }
+
+        #currentValue {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        #jqcs_s_demo {
+            height: 35px;
+        }
+
+            #jqcs_o_demo .jqcs_option, #jqcs_s_demo .jqcs_option {
+                background-repeat: no-repeat;
+                background-size: 23px 17px;
+                background-position: 5px center;
+                padding: 2.5px 10px 2.5px 35px;
+            }
+    </style>
+}
+@section Scripts{
+    <script src="~/Scripts/jquery.responsivetabs.js"></script>
+    <script>
+        $('.nav-tabs').responsiveTabs();
+    </script>
+    <script src="~/Scripts/customSelect.jquery.min.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $.customSelect({
+                identifier: 'demo',
+                selector: '#countrySelect',
+                placeholder: 'Chọn ngôn ngữ',
+                options: [
+                    @foreach(var item in languages.Where(x => Model.BlogTranslations.Count(y => y.LanguageId == x.Key) == 0))
+                    {
+                        WriteLiteral("['"+item.Key+"', '"+item.Key + ".png', '"+ item.Value +"'],");
+                    }
+                ],
+                template: "<div class='jqcs_option' data-select-value='$0' style='background-image:url(/Scripts/country_icons/$1);'>$2</div>"
+            });
+
+
+            //Just to display the country selected (stored in a hidden input)
+            $(window).click(function (e) {
+                $('#currentValue').html('Current value is: \'' + $('input#countrySelect')[0].value + '\'');
+            });
+            var languageSelected = "@(Request.QueryString["languageSelected"])";
+            if (languageSelected != "") {
+                $("ul[role='tablist'] li").removeClass("active");
+                $("div[role='tabpanel']").removeClass("active");
+                $("ul[role='tablist'] li a[href='#tab-" + languageSelected + "']").parent().addClass("active");
+                $("div#tab-" + languageSelected + "").addClass("active");
+            }
+        })(jQuery);
+
+    </script>
 }
 
 <section class="content-header">
@@ -19,76 +132,171 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body">
-                    <div class="col-md-10">
-                        <table class="table table-hover table-info table-border-none">
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Image)</td>
-                                <td>
-                                    <img src="~/Photos/Blogs/@Model.Image" width="@Context.Application["WidthImageBlog"]" height="@Context.Application["HeightImageBlog"]" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Id)</td>
-                                <td>@Html.DisplayFor(model => model.Id)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Title)</td>
-                                <td>@Html.DisplayFor(model => model.Title)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Description)</td>
-                                <td>@Html.DisplayFor(model => model.Description)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Alias)</td>
-                                <td>@Html.DisplayFor(model => model.Alias)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Display)</td>
-                                <td>
-                                    @if (Model.Display.HasValue && Model.Display.Value == true)
-                                    {
-                                        <span class="text-success">Hiển thị</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-danger">Ẩn</span>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
-                                <td>@Html.DisplayFor(model => model.ViewCount)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.LikeCount)</td>
-                                <td>@Html.DisplayFor(model => model.LikeCount)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
-                                <td>@Html.DisplayFor(model => model.DateCreated)</td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.UserId)</td>
-                                <td>
-                                    @if (Model.User.UserName != null)
-                                    {
-                                        @Html.DisplayFor(model => model.User.UserName)
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@Html.DisplayNameFor(model => model.Content)</td>
-                                <td>@Html.Raw(Model.Content)</td>
-                            </tr>
-                        </table>
+                    <ul class="nav nav-tabs bg-gray" role="tablist">
+                        <li role="presentation" class="active"><a href="#tab-vi" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/vi.png" /> Việt Nam</a></li>
+                        @foreach (var item in Model.BlogTranslations)
+                        {
+                            <li role="presentation">
+                                <a href="#tab-@item.LanguageId" aria-controls="profile" role="tab" data-toggle="tab"><img src="~/Scripts/country_icons/@(item.LanguageId).png" /> @languages[item.LanguageId] </a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tab-vi">
+                            <div>&nbsp;</div>
+                            <div class="col-md-10">
+                                <table class="table table-hover table-info table-border-none">
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Image)</td>
+                                        <td>
+                                            <img src="~/Photos/Blogs/@Model.Image" width="@Context.Application["WidthImageBlog"]" height="@Context.Application["HeightImageBlog"]" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Id)</td>
+                                        <td>@Html.DisplayFor(model => model.Id)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Title)</td>
+                                        <td>@Html.DisplayFor(model => model.Title)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Description)</td>
+                                        <td>@Html.DisplayFor(model => model.Description)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Alias)</td>
+                                        <td>@Html.DisplayFor(model => model.Alias)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Display)</td>
+                                        <td>
+                                            @if (Model.Display.HasValue && Model.Display.Value == true)
+                                            {
+                                                <span class="text-success">Hiển thị</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">Ẩn</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
+                                        <td>@Html.DisplayFor(model => model.ViewCount)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.LikeCount)</td>
+                                        <td>@Html.DisplayFor(model => model.LikeCount)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
+                                        <td>@Html.DisplayFor(model => model.DateCreated)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.UserId)</td>
+                                        <td>
+                                            @if (Model.User.UserName != null)
+                                            {
+                                                @Html.DisplayFor(model => model.User.UserName)
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.Content)</td>
+                                        <td>@Html.Raw(Model.Content)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="clearfix text-center">
+                                <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
+                                <a data-toggle="modal" data-target="#modal-editModal" href="@Url.Action("_EditModal", new { Id = Model.Id })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa</a>
+                                @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
+                            </div>
+                        </div>
+                        @foreach (var item in Model.BlogTranslations)
+                        {
+                            <div role="tabpanel" class="tab-pane" id="tab-@item.LanguageId">
+                                <div>&nbsp;</div>
+                                <div class="col-md-10">
+                                    <table class="table table-hover table-info table-border-none">
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.Image)</td>
+                                            <td>
+                                                <img src="~/Photos/Blogs/@Model.Image" width="@Context.Application["WidthImageBlog"]" height="@Context.Application["HeightImageBlog"]" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.Id)</td>
+                                            <td>@Html.DisplayFor(model => model.Id)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => item.Title)</td>
+                                            <td>@Html.DisplayFor(model => item.Title)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => item.Description)</td>
+                                            <td>@Html.DisplayFor(model => item.Description)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => item.Alias)</td>
+                                            <td>@Html.DisplayFor(model => item.Alias)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.Display)</td>
+                                            <td>
+                                                @if (Model.Display.HasValue && Model.Display.Value == true)
+                                                {
+                                                    <span class="text-success">Hiển thị</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-danger">Ẩn</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
+                                            <td>@Html.DisplayFor(model => model.ViewCount)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.LikeCount)</td>
+                                            <td>@Html.DisplayFor(model => model.LikeCount)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
+                                            <td>@Html.DisplayFor(model => model.DateCreated)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => model.UserId)</td>
+                                            <td>
+                                                @if (Model.User.UserName != null)
+                                                {
+                                                    @Html.DisplayFor(model => model.User.UserName)
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@Html.DisplayNameFor(model => item.Content)</td>
+                                            <td>@Html.Raw(item.Content)</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="clearfix text-center">
+                                    <button class="btn bg-green btn-sm" type="button" data-target="#modalCreateTranslation" data-toggle="modal"><i class="fa fa-plus"></i> Tạo bản dịch</button>
+                                    <a href="@Url.Action("EditTranslation",new { BlogId = Model.Id, LanguageId = item.LanguageId })" class="btn bg-blue btn-sm"><i class="fa fa-edit"></i> Sửa bản dịch</a>
+                                    <form id="frmDeleteBlogTranslation_@(item.BlogId)_@(item.LanguageId)" class="hidden" action="@Url.Action("DeleteTranslation",new { BlogId = Model.Id, LanguageId = item.LanguageId })" method="post">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                    <a href="javascript:if(confirm('Xác nhận xoá bản dịch này?')) { document.getElementById('frmDeleteBlogTranslation_@(item.BlogId)_@(item.LanguageId)').submit(); console.log('submitted'); }" class="btn bg-red btn-sm"><i class="fa fa-remove"></i> Xoá bản dịch</a>
+                                    <a href="@(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() :  Url.Action("Index"))" class="btn btn-default btn-sm">Trở về</a>
+                                </div>
+                            </div>
+                        }
                     </div>
+
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix text-right">
-                    <a href="@Url.Action("Edit",new { Id = Model.Id })" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Sửa</a>
-                    @Html.ActionLink("Về danh sách", "Index", null, new { @class = "btn btn-default btn-sm" })
-                </div>
             </div>
         </div>
         <!-- /.col -->

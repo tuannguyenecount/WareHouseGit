@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\ArticleDal.cs" />
+    <Compile Include="Data\BlogTranslationDal.cs" />
     <Compile Include="Data\BlogDal.cs" />
     <Compile Include="Data\CategoryTranslationDal.cs" />
     <Compile Include="Data\FavoriteProductDal.cs" />
@@ -92,7 +93,8 @@
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WardDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
-    <Compile Include="Interface\IBlog.cs" />
+    <Compile Include="Interface\IBlogTranslationDal.cs" />
+    <Compile Include="Interface\IBlogDal.cs" />
     <Compile Include="Interface\IArticleDal.cs" />
     <Compile Include="Interface\ICategoryTranslationDal.cs" />
     <Compile Include="Interface\ICategoryDal.cs" />
@@ -253,6 +255,10 @@
     <Compile Include="Migrations\201902080823066_addcolumnDateCreatedandDateUpdated.Designer.cs">
       <DependentUpon>201902080823066_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902081439402_removeRequiredBlog2.cs" />
+    <Compile Include="Migrations\201902081439402_removeRequiredBlog2.Designer.cs">
+      <DependentUpon>201902081439402_removeRequiredBlog2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -382,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902080823066_addcolumnDateCreatedandDateUpdated.resx">
       <DependentUpon>201902080823066_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902081439402_removeRequiredBlog2.resx">
+      <DependentUpon>201902081439402_removeRequiredBlog2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

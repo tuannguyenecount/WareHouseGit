@@ -85,6 +85,7 @@ namespace Warehouse
 
             container.RegisterType<ICategoryTranslationDal, CategoryTranslationDal>();
             container.RegisterType<IProductTranslationDal, ProductTranslationDal>();
+            container.RegisterType<IBlogTranslationDal, BlogTranslationDal>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

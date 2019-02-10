@@ -32,9 +32,8 @@ namespace Warehouse.Entities
         [Required(ErrorMessage = "Bạn chưa nhập nội dung!")]
         public string Content { get; set; }
 
-        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
+        [StringLength(300, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
         [Display(Name = "Bí danh")]
-        [Required(ErrorMessage = "Bạn chưa nhập {0}!")]
         public string Alias { get; set; }
 
         public virtual Blog Blog { get; set; }

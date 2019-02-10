@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DevTrends.MvcDonutCaching;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Warehouse.Entities;
@@ -13,11 +15,20 @@ namespace Warehouse.Areas.Admin.Controllers
     public class BlogController : Controller
     {
         IBlogService _blogService;
+        ILanguageService _languageService;
 
-        public BlogController(IBlogService blogService)
+        public BlogController(IBlogService blogService, ILanguageService languageService)
         {
             _blogService = blogService;
+            _languageService = languageService;
         }
+
+        #region Get Alias 
+        public ContentResult GetAlias(string Title)
+        {
+            return Content(Functions.UnicodeToKoDauAndGach(Title));
+        }
+        #endregion
 
         #region CRUD
         public ViewResult Index()
@@ -35,6 +46,12 @@ namespace Warehouse.Areas.Admin.Controllers
             Blog blog = _blogService.GetById(Id.Value);
             if (blog == null)
                 return Redirect("/pages/404");
+
+            Dictionary<string, string> languages = new Dictionary<string, string>();
+            _languageService.GetAll().Where(x => x.Id != "vi")
+                            .OrderBy(x => x.SortOrder).ToList().ForEach(x => languages.Add(x.Id, x.Name));
+            ViewBag.Languages = languages;
+
             return View(blog);
         }
 
@@ -50,14 +67,6 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             blog.UserId = User.Identity.GetUserId();
             blog.DateCreated = DateTime.Now;
-            if (_blogService.CheckUniqueTitle(blog.Title) == false)
-            {
-                ModelState.AddModelError("Title", "Tiêu đề bị trùng với bài viết khác. Vui lòng đặt lại.");
-            }
-            if (_blogService.CheckUniqueAlias(blog.Alias) == false)
-            {
-                ModelState.AddModelError("Alias", "Bí danh bị trùng với bài viết khác. Vui lòng đặt lại.");
-            }
             if (blog.ViewCount < 0)
             {
                 ModelState.AddModelError("ViewCount", "Lượt xem phải >= 0.");
@@ -85,6 +94,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _blogService.Add(blog);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -113,20 +124,6 @@ namespace Warehouse.Areas.Admin.Controllers
         public ActionResult Edit([Bind(Exclude = "UserId")] Blog blog, string OldTitle, string OldAlias, string base64String)
         {
             blog.UserId = User.Identity.GetUserId();
-            if (OldTitle != blog.Title)
-            {
-                if (_blogService.CheckUniqueTitle(blog.Title) == false)
-                {
-                    ModelState.AddModelError("Name", "Tiêu đề bị trùng với bài viết khác. Vui lòng đặt lại.");
-                }
-            }
-            if (OldAlias != blog.Alias)
-            {
-                if (_blogService.CheckUniqueAlias(blog.Alias) == false)
-                {
-                    ModelState.AddModelError("Alias", "Bí danh bị trùng với bài viết khác. Vui lòng đặt lại.");
-                }
-            }
             if (blog.ViewCount < 0)
             {
                 ModelState.AddModelError("ViewCount", "Lượt xem phải >= 0.");
@@ -154,6 +151,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _blogService.Update(blog);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -170,6 +169,8 @@ namespace Warehouse.Areas.Admin.Controllers
         public ActionResult Delete(int Id)
         {
             _blogService.Delete(Id);
+            var cacheManager = new OutputCacheManager();
+            cacheManager.RemoveItems();
             return RedirectToAction("Index");
         }
 
@@ -207,6 +208,8 @@ namespace Warehouse.Areas.Admin.Controllers
                     try
                     {
                         _blogService.Update(blog);
+                        var cacheManager = new OutputCacheManager();
+                        cacheManager.RemoveItems();
                         return RedirectToAction("Edit", new { id = blog.Id });
                     }
                     catch(Exception ex)
@@ -240,5 +243,135 @@ namespace Warehouse.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Create Translation
+        public ActionResult CreateTranslation(int Id, string countrySelect)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(countrySelect);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            return View(new BlogTranslationViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult CreateTranslation(BlogTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _blogService.CreateTranslation(new BlogTranslation()
+                    {
+                        BlogId = model.BlogId,
+                        Alias = model.Alias,
+                        LanguageId = model.LanguageId,
+                        Title = model.Title,
+                        Description = model.Description,
+                        Content = model.Content
+                    });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
+                    return RedirectToAction("Details", new { id = model.BlogId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            ViewBag.LanguageSelected = _languageService.GetById(model.LanguageId);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            return View(model);
+        }
+        #endregion
+
+        #region Edit Translation
+        public ActionResult EditTranslation(int BlogId, string LanguageId)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(LanguageId);
+
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            BlogTranslation blogTranslation = _blogService.GetById(BlogId).BlogTranslations.FirstOrDefault(x => x.LanguageId == LanguageId);
+            if (blogTranslation == null)
+                return Redirect("/pages/404");
+
+            BlogTranslationViewModel model = new BlogTranslationViewModel()
+            {
+                LanguageId = LanguageId,
+                BlogId = BlogId,
+                Alias = blogTranslation.Alias,
+                Title = blogTranslation.Title,
+                Description = blogTranslation.Description,
+                Content = blogTranslation.Content
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult EditTranslation(BlogTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _blogService.EditTranslation(new BlogTranslation()
+                    {
+                        BlogId = model.BlogId,
+                        Alias = model.Alias,
+                        LanguageId = model.LanguageId,
+                        Title = model.Title,
+                        Content = model.Content,
+                        Description = model.Description
+                    });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
+                    return RedirectToAction("Details", new { id = model.BlogId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            ViewBag.LanguageSelected = _languageService.GetById(model.LanguageId);
+
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            BlogTranslation blogTranslation = _blogService.GetById(model.BlogId).BlogTranslations.FirstOrDefault(x => x.LanguageId == model.LanguageId);
+            if (blogTranslation == null)
+                return Redirect("/pages/404");
+
+            return View(model);
+        }
+        #endregion
+
+        #region Delete Translation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTranslation(int BlogId, string LanguageId)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _blogService.DeleteTranslation(BlogId, LanguageId);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return RedirectToAction("Details", new { id = BlogId });
+        }
+        #endregion
     }
 }

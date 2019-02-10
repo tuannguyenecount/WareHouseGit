@@ -482,9 +482,18 @@
     <Compile Include="Migrations\201902080819037_addcolumnDateCreatedandDateUpdated.Designer.cs">
       <DependentUpon>201902080819037_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902081436201_removeRequiredBlog.cs" />
+    <Compile Include="Migrations\201902081436201_removeRequiredBlog.Designer.cs">
+      <DependentUpon>201902081436201_removeRequiredBlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902081438288_removeRequiredBlog2.cs" />
+    <Compile Include="Migrations\201902081438288_removeRequiredBlog2.Designer.cs">
+      <DependentUpon>201902081438288_removeRequiredBlog2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article\ArticleDetailsViewModel.cs" />
+    <Compile Include="Models\Blog\BlogTranslationViewModel.cs" />
     <Compile Include="Models\Blog\DetailsBlogViewModel.cs" />
     <Compile Include="Models\Blog\ListBlogViewModel.cs" />
     <Compile Include="Models\CaptchaImageResult.cs" />
@@ -1040,6 +1049,8 @@
     <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Category\CreateTranslation.cshtml" />
     <Content Include="Areas\Admin\Views\Category\EditTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\CreateTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\EditTranslation.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
@@ -1356,6 +1367,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902080819037_addcolumnDateCreatedandDateUpdated.resx">
       <DependentUpon>201902080819037_addcolumnDateCreatedandDateUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902081436201_removeRequiredBlog.resx">
+      <DependentUpon>201902081436201_removeRequiredBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902081438288_removeRequiredBlog2.resx">
+      <DependentUpon>201902081438288_removeRequiredBlog2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

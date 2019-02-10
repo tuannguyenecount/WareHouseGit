@@ -188,6 +188,8 @@ namespace Warehouse.Areas.Admin.Controllers
                             }
                         }
                     }
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
                     return RedirectToAction("Index");
                 }
             }
@@ -294,6 +296,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _productService.Update(product);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
                     return RedirectToAction("Details", new { Id = product.Id });
                 }
                 catch (Exception ex)
@@ -317,44 +321,13 @@ namespace Warehouse.Areas.Admin.Controllers
         public ActionResult Delete(int Id, string tabActive)
         {
             _productService.Delete(Id);
+            var cacheManager = new OutputCacheManager();
+            cacheManager.RemoveItems("Home", "Index");
             return RedirectToAction("Index", new { tabActive = tabActive });
         }
 
         #endregion
 
-        #region Hide Product
-        public ActionResult Hide(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = _productService.GetById(id.Value);
-            if(product == null)
-            {
-                return Redirect("/pages/404");
-            }
-            ViewBag.Id = product.Id;
-            ViewBag.Name = product.Name;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Hide(FormCollection form)
-        {
-            if (Session["Revalidate"] == null)
-            {
-                object thongbao = "Bạn chưa xác thực mật khẩu lần 2 để thực hiện thao tác xóa này!";
-                return View("_ThongBaoLoi", thongbao);
-            }
-            Product product = _productService.GetById(int.Parse(form["Id"]));
-            product.Display = false;
-            _productService.Update(product);
-            return RedirectToAction("Index");
-        }
-
-        #endregion
 
         #region Show Product
         public ActionResult Show(int? id)
@@ -402,6 +375,8 @@ namespace Warehouse.Areas.Admin.Controllers
                     try
                     {
                         _productService.Update(product);
+                        var cacheManager = new OutputCacheManager();
+                        cacheManager.RemoveItems("Home", "Index");
                         return RedirectToAction("Edit", new { id = product.Id });
                     }
                     catch
@@ -507,6 +482,8 @@ namespace Warehouse.Areas.Admin.Controllers
                         Name = model.Name,
                         DateCreated = DateTime.Now
                     });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
                     return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -564,6 +541,8 @@ namespace Warehouse.Areas.Admin.Controllers
                         DateCreated = model.DateCreated,
                         DateUpdated = DateTime.Now
                     });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
                     return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -586,7 +565,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     _productService.DeleteTranslation(ProductId, LanguageId);
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems();
+                    cacheManager.RemoveItems("Home", "Index");
                 }
                 catch (Exception ex)
                 {

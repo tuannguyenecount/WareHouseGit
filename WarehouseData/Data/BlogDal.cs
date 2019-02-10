@@ -17,8 +17,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Blog>().Include(b => b.User).Where(b => b.Deleted == false).ToList()
-                    : context.Set<Blog>().Include(b => b.User).Where(b => b.Deleted == false).Where(filter).ToList();
+                    ? context.Set<Blog>().Include(b => b.BlogTranslations).Include(b => b.User).Where(b => b.Deleted == false).ToList()
+                    : context.Set<Blog>().Include(b => b.BlogTranslations).Include(b => b.User).Where(b => b.Deleted == false).Where(filter).ToList();
             }
         }
         public override Blog GetSingle(Expression<Func<Blog, bool>> filter)
@@ -26,8 +26,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Blog>().Include(b => b.User).Where(b => b.Deleted == false).SingleOrDefault()
-                    : context.Set<Blog>().Include(b => b.User).Where(b => b.Deleted == false).SingleOrDefault(filter);
+                    ? context.Set<Blog>().Include(b => b.BlogTranslations).Include(b => b.User).Where(b => b.Deleted == false).SingleOrDefault()
+                    : context.Set<Blog>().Include(b => b.BlogTranslations).Include(b => b.User).Where(b => b.Deleted == false).SingleOrDefault(filter);
             }
         }
 
@@ -36,8 +36,8 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext())
             {
                 return filter == null
-                    ? context.Set<Blog>().Include(b => b.User).Where(b => b.Deleted == false).FirstOrDefault()
-                    : context.Set<Blog>().Include(b => b.User).Where(b => b.Deleted == false).FirstOrDefault(filter);
+                    ? context.Set<Blog>().Include(b => b.BlogTranslations).Include(b => b.User).Where(b => b.Deleted == false).FirstOrDefault()
+                    : context.Set<Blog>().Include(b => b.BlogTranslations).Include(b => b.User).Where(b => b.Deleted == false).FirstOrDefault(filter);
             }
         }
 
@@ -55,6 +55,34 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext()) {
                 entity.Deleted = true;
                 context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateTranslation(BlogTranslation blogTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.BlogTranslations.Add(blogTranslation);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditTranslation(BlogTranslation blogTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.Entry(blogTranslation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteTranslation(int BlogId, string LanguageId)
+        {
+            using (var context = new WarehouseContext())
+            {
+                BlogTranslation blogTranslation = context.BlogTranslations.Find(BlogId, LanguageId);
+                context.BlogTranslations.Remove(blogTranslation);
                 context.SaveChanges();
             }
         }

@@ -6,6 +6,7 @@ using Warehouse.Data.Interface;
 using System.Linq;
 using Warehouse.Common;
 using System.Globalization;
+using System.Web;
 
 namespace Warehouse.Services.Services
 {
@@ -14,8 +15,6 @@ namespace Warehouse.Services.Services
         private IProductDal _productDal;
 
         private IProductTranslationDal _productTranslationDal;
-
-        public bool HttpContext { get; private set; }
 
         public ProductService(IProductDal productDal, IProductTranslationDal productTranslationDal)
         {
@@ -68,7 +67,13 @@ namespace Warehouse.Services.Services
 
         public Product GetByAlias(string alias)
         {
-            return _productDal.GetSingle(p => p.Alias_SEO == alias);
+            string languageId = HttpContext.Current.Request.Cookies["lang"].Value;
+            if(languageId == "vi")
+                return _productDal.GetSingle(p => p.Alias_SEO == alias);
+            else
+            {
+                return this.GetById(_productTranslationDal.GetSingle(x => x.LanguageId == languageId && x.Alias_SEO == alias).ProductId); 
+            }
         }
 
         public void Update(Product product)
@@ -127,7 +132,19 @@ namespace Warehouse.Services.Services
         public List<Product> Search(string keyword)
         {
             int countWord = keyword.ToUpper().Split(' ').Count();
-            return _productDal.GetList(p=>p.Display == true).Where(p => p.Name.ToUpper().Split(' ').Join(keyword.ToUpper().Split(' ').AsEnumerable(), o=>o, i=>i, (i,o) => new { inner = i, outer = o }).Count() == countWord).ToList();
+            string languageId = HttpContext.Current.Request.Cookies["lang"].Value;
+            if(languageId == "vi")
+                return _productDal.GetList(p => p.Display == true).Where(p => p.Name.ToUpper().Split(' ').Join(keyword.ToUpper().Split(' ').AsEnumerable(), o=>o, i=>i, (i,o) => new { inner = i, outer = o }).Count() == countWord).ToList();
+            else
+            {
+                List<Product> result = new List<Product>();
+                List<int> lstProductId = _productTranslationDal.GetList(x => x.LanguageId == languageId).Where(x => x.Name.ToUpper().Split(' ').Join(keyword.ToUpper().Split(' ').AsEnumerable(), o => o, i => i, (i, o) => new { inner = i, outer = o }).Count() == countWord).Select(x => x.ProductId).ToList();
+                foreach(int ProductId in lstProductId)
+                {
+                    result.Add(this.GetById(ProductId));
+                }
+                return result;
+            }
         }
 
         public List<Product> GetByUser(string UserName)

@@ -33,6 +33,13 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Alias)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Alias, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>@Html.DisplayNameFor(model => model.Image)</td>
                                     <td>
                                         <button type="button" data-toggle="modal" data-target="#modal-crop-image" id="btnDoiHinh" class="btn btn-default btn-xs"><i class="fa fa-image"></i> Chọn hình</button>
@@ -85,13 +92,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>@Html.DisplayNameFor(model => model.Alias)</td>
-                                    <td>
-                                        @Html.TextBoxFor(model => model.Alias, new {  @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>@Html.DisplayNameFor(model => model.Content)</td>
                                     <td>
                                         @Html.TextAreaFor(m => m.Content)
@@ -101,7 +101,7 @@
                                 <tr>
                                     <td>@Html.DisplayNameFor(model => model.ViewCount)</td>
                                     <td>
-                                        @Html.TextBoxFor(model => model.ViewCount, new { type="text", @class = "divide form-control" })
+                                        @Html.TextBoxFor(model => model.ViewCount, new { type = "text", @class = "divide form-control" })
                                         @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
                                     </td>
                                 </tr>

@@ -8,7 +8,7 @@ using Warehouse.Entities;
 
 namespace Warehouse.Data.Interface
 {
-    public interface IBlogDal : IEntityRepository<Blog>
+    public interface IBlogTranslationDal : IEntityRepository<BlogTranslation>
     {
     }
 }

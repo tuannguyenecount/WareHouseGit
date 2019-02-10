@@ -80,14 +80,19 @@ namespace Warehouse.Controllers
 
         public ActionResult _BlogPartial()
         {
-            ViewBag.Blogs = _blogService.GetListByDisplay(true).OrderByDescending(b=>b.Id).Take(8).Select(b => new ListBlogViewModel() {
-                Id = b.Id,
-                Alias = b.Alias,
-                Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Blogs/" + b.Image,
-                Description = b.Description,
-                Title = b.Title,
-                DateCreated = b.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(b.DateCreated.Value) : ""
-            });
+            string languageId = Request.Cookies["lang"].Value;
+            ViewBag.Blogs = _blogService.GetListByDisplay(true)
+                .Where(x => (languageId != "vi" && x.BlogTranslations.FirstOrDefault(y => y.LanguageId == languageId) != null) || (languageId == "vi"))
+                .OrderByDescending(b => b.Id).Take(8)
+                .Select(x => new ListBlogViewModel()
+                {
+                    Id = x.Id,
+                    Alias = languageId == "vi" ? x.Alias : (x.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Alias),
+                    Image = ConfigurationManager.AppSettings["BaseUrl"] + "/Photos/Blogs/" + x.Image,
+                    Description = languageId == "vi" ? x.Description : (x.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Description),
+                    Title = languageId == "vi" ? x.Title : (x.BlogTranslations?.FirstOrDefault(y => y.LanguageId == languageId)?.Title),
+                    DateCreated = x.DateCreated.HasValue ? Warehouse.Common.Format.FormatDateTime(x.DateCreated.Value) : ""
+                });
             return PartialView();
         }
 

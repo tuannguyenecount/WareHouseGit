@@ -36,9 +36,8 @@ namespace Warehouse.Entities
         [Display(Name = "Hiển thị")]
         public Nullable<bool> Display { get; set; }
 
-        [StringLength(256, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
         [Display(Name = "Bí danh")]
-        [Required(ErrorMessage = "Bạn chưa nhập {0} bài viết blog!")]
+        [StringLength(300, ErrorMessage = "{0} không được vượt quá {1} ký tự!")]
         public string Alias { get; set; }
 
         [DefaultValue(0)]
