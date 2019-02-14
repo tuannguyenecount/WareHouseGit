@@ -518,6 +518,7 @@
     <Compile Include="Models\Product\ProductUpdateViewModel.cs" />
     <Compile Include="Models\Product\QuickViewProductViewModel.cs" />
     <Compile Include="Models\RecaptchaResult.cs" />
+    <Compile Include="Models\Slide\SlideTranslationViewModel.cs" />
     <Compile Include="Models\Statistical.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1084,6 +1085,7 @@
     <Content Include="Areas\Admin\Views\Category\EditTranslation.cshtml" />
     <Content Include="Areas\Admin\Views\Blog\CreateTranslation.cshtml" />
     <Content Include="Areas\Admin\Views\Blog\EditTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Details.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />

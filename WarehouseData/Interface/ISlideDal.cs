@@ -9,6 +9,8 @@ namespace Warehouse.Data.Interface
 {
     public interface ISlideDal : IEntityRepository<Slide>
     {
-        
+        void CreateTranslation(SlideTranslation slideTranslation);
+        void EditTranslation(SlideTranslation slideTranslation);
+        void DeleteTranslation(int SlideId, string LanguageId);
     }
 }

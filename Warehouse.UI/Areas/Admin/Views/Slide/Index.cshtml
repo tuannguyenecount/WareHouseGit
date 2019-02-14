@@ -58,6 +58,8 @@
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </td>
                                     <td>
+                                        <a class="btn bg-blue btn-sm" href="@Url.Action("Details", new { Id = item.Id })"><i class="fa fa-eye"></i> Xem</a>
+
                                         @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
                                         <form class="hidden" action="@Url.Action("Delete")" id="frmDeleteSlide@(item.Id)" method="post">
                                             @Html.AntiForgeryToken()

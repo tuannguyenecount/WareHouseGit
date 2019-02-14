@@ -23,24 +23,24 @@ namespace Warehouse.Data.Data
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Slide>().Where(s => s.Deleted == false).ToList()
-                    : context.Set<Slide>().Where(s => s.Deleted == false).Where(filter).ToList();
+                    ? context.Set<Slide>().Include(x => x.SlideTranslations).Where(s => s.Deleted == false).ToList()
+                    : context.Set<Slide>().Include(x => x.SlideTranslations).Where(s => s.Deleted == false).Where(filter).ToList();
             }
         }
         public override Slide GetFirst(Expression<Func<Slide, bool>> filter)
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Slide>().Where(p => p.Deleted == false).FirstOrDefault()
-                    : context.Set<Slide>().Where(s => s.Deleted == false).FirstOrDefault(filter);
+                    ? context.Set<Slide>().Include(x => x.SlideTranslations).Where(p => p.Deleted == false).FirstOrDefault()
+                    : context.Set<Slide>().Include(x => x.SlideTranslations).Where(s => s.Deleted == false).FirstOrDefault(filter);
             }
         }
         public override Slide GetSingle(Expression<Func<Slide, bool>> filter)
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Slide>().Where(p => p.Deleted == false).SingleOrDefault()
-                    : context.Set<Slide>().Where(s => s.Deleted == false).SingleOrDefault(filter);
+                    ? context.Set<Slide>().Include(x => x.SlideTranslations).Where(p => p.Deleted == false).SingleOrDefault()
+                    : context.Set<Slide>().Include(x => x.SlideTranslations).Where(s => s.Deleted == false).SingleOrDefault(filter);
             }
         }
         public override void Delete(Slide entity)
@@ -48,6 +48,34 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext()) {
                 entity.Deleted = true;
                 context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateTranslation(SlideTranslation slideTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.SlideTranslations.Add(slideTranslation);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditTranslation(SlideTranslation slideTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.Entry(slideTranslation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteTranslation(int SlideId, string LanguageId)
+        {
+            using (var context = new WarehouseContext())
+            {
+                SlideTranslation slideTranslation = context.SlideTranslations.Find(SlideId, LanguageId);
+                context.SlideTranslations.Remove(slideTranslation);
                 context.SaveChanges();
             }
         }

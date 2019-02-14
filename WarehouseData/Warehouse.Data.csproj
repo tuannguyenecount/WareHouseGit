@@ -85,6 +85,7 @@
     <Compile Include="Data\ImagesProductDal.cs" />
     <Compile Include="Data\LanguageDal.cs" />
     <Compile Include="Data\ProductTranslationDal.cs" />
+    <Compile Include="Data\SlideTranslationDal.cs" />
     <Compile Include="Data\SubscriberDal.cs" />
     <Compile Include="Data\SlideDal.cs" />
     <Compile Include="Data\ProvinceDal.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Interface\IInfoShopDal.cs" />
     <Compile Include="Interface\ILanguageDal.cs" />
     <Compile Include="Interface\IProductTranslationDal.cs" />
+    <Compile Include="Interface\ISlideTranslationDal.cs" />
     <Compile Include="Interface\ISubscriberDal.cs" />
     <Compile Include="Interface\ISlideDal.cs" />
     <Compile Include="Interface\IProvinceDal.cs" />

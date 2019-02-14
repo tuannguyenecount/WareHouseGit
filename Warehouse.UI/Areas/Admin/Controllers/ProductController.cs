@@ -328,7 +328,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         #endregion
 
-
         #region Show Product
         public ActionResult Show(int? id)
         {

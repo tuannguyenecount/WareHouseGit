@@ -29,5 +29,7 @@
 
         [DefaultValue(false)]
         public bool Deleted { get; set; }
+
+        public virtual ICollection<SlideTranslation> SlideTranslations { get; set; }
     }
 }

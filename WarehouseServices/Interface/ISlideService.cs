@@ -19,5 +19,11 @@ namespace Warehouse.Services.Interface
 
         void Delete(int id);
 
+        void CreateTranslation(SlideTranslation slideTranslation);
+
+        void EditTranslation(SlideTranslation slideTranslation);
+
+        void DeleteTranslation(int SlideId, string LanguageId);
+
     }
 }

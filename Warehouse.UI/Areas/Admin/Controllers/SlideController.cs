@@ -11,6 +11,7 @@ using Warehouse.Models;
 using System.Configuration;
 using Warehouse.Services.Interface;
 using Warehouse.Entities;
+using DevTrends.MvcDonutCaching;
 
 namespace Warehouse.Areas.Admin.Controllers
 {
@@ -18,16 +19,38 @@ namespace Warehouse.Areas.Admin.Controllers
     public class SlideController : Controller
     {
         private ISlideService _slideService;
+        private ILanguageService _languageService;
+
         readonly List<string> ImageExtensions = ConfigurationManager.AppSettings["ImageExtensions"].ToString().Split('|').ToList();
 
-        public SlideController(ISlideService slideService)
+        public SlideController(ISlideService slideService, ILanguageService languageService)
         {
             _slideService = slideService;
+            _languageService = languageService;
         }
         #region CRUD
         public ActionResult Index()
         {
             return View(_slideService.GetAll());
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Slide slide = _slideService.GetById(id.Value);
+            if (slide == null)
+            {
+                return Redirect("/pages/404");
+            }
+            Dictionary<string, string> languages = new Dictionary<string, string>();
+
+            _languageService.GetAll().Where(x => x.Id != "vi")
+                            .OrderBy(x => x.SortOrder).ToList().ForEach(x => languages.Add(x.Id, x.Name));
+            ViewBag.Languages = languages;
+            return View(slide);
         }
 
         // GET: Admin/Slide/Create
@@ -117,6 +140,111 @@ namespace Warehouse.Areas.Admin.Controllers
                 }
             }
             return View("Index", _slideService.GetAll());
+        }
+        #endregion
+
+        #region Create Translation
+        public ActionResult CreateTranslation(int Id, string countrySelect)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(countrySelect);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+
+            return View(new SlideTranslationViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult CreateTranslation(SlideTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _slideService.CreateTranslation(new SlideTranslation()
+                    {
+                        SlideId = model.SlideId,
+                        LanguageId = model.LanguageId,
+                        Title = model.Title
+                    });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
+                    return RedirectToAction("Details", new { id = model.SlideId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
+        #endregion
+
+        #region Edit Translation
+        public ActionResult EditTranslation(int SlideId, string LanguageId)
+        {
+            ViewBag.LanguageSelected = _languageService.GetById(LanguageId);
+            if (ViewBag.LanguageSelected == null)
+                return Redirect("/pages/404");
+            SlideTranslation slideTranslation = _slideService.GetById(SlideId).SlideTranslations.FirstOrDefault(x => x.LanguageId == LanguageId);
+            if (slideTranslation == null)
+                return Redirect("/pages/404");
+            SlideTranslationViewModel model = new SlideTranslationViewModel()
+            {
+                LanguageId = LanguageId,
+                SlideId = SlideId,
+                Title = slideTranslation.Title
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult EditTranslation(SlideTranslationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _slideService.EditTranslation(new SlideTranslation()
+                    {
+                        SlideId = model.SlideId,
+                        LanguageId = model.LanguageId,
+                        Title = model.Title,
+                    });
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
+                    return RedirectToAction("Details", new { id = model.SlideId, languageSelected = model.LanguageId });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
+        #endregion
+
+        #region Delete Translation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTranslation(int SlideId, string LanguageId)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _slideService.DeleteTranslation(SlideId, LanguageId);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems("Home", "Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return RedirectToAction("Details", new { id = SlideId });
         }
         #endregion
     }
