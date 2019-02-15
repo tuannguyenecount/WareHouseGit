@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Data\ArticleTranslationDal.cs" />
     <Compile Include="Data\ArticleDal.cs" />
     <Compile Include="Data\BlogTranslationDal.cs" />
     <Compile Include="Data\BlogDal.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Data\ProductDal.cs" />
     <Compile Include="Data\WardDal.cs" />
     <Compile Include="Data\WarehouseContext.cs" />
+    <Compile Include="Interface\IArticleTranslationDal.cs" />
     <Compile Include="Interface\IBlogTranslationDal.cs" />
     <Compile Include="Interface\IBlogDal.cs" />
     <Compile Include="Interface\IArticleDal.cs" />

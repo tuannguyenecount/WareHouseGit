@@ -8,7 +8,7 @@ using Warehouse.Services.Interface;
 using Warehouse.Models;
 namespace Warehouse.Controllers
 {
-    [RoutePrefix("bai-viet")]
+    [RoutePrefix("thong-tin")]
     public class ArticleController : Controller
     {
         readonly IArticleService _articleService;
@@ -18,10 +18,10 @@ namespace Warehouse.Controllers
             _articleService = articleService;
         }
 
-        [Route("{alias}.html")]
-        public ActionResult Details(string alias)
+        [Route("{alias}-{id}.html")]
+        public ActionResult Details(int id, string alias)
         {
-            Article article = _articleService.GetByAlias(alias);
+            Article article = _articleService.GetById(id);
 
             if (article == null)
                 return Redirect("/pages/404");

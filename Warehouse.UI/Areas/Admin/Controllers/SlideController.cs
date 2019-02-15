@@ -76,6 +76,8 @@ namespace Warehouse.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _slideService.Add(slide);
+                var cacheManager = new OutputCacheManager();
+                cacheManager.RemoveItems();
                 return RedirectToAction("Index");
             }
 
@@ -111,6 +113,8 @@ namespace Warehouse.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _slideService.Update(slide);
+                var cacheManager = new OutputCacheManager();
+                cacheManager.RemoveItems();
                 return RedirectToAction("Index");
             }
             return View(slide);
@@ -132,6 +136,8 @@ namespace Warehouse.Areas.Admin.Controllers
                 try
                 {
                     _slideService.Delete(id);
+                    var cacheManager = new OutputCacheManager();
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -154,7 +160,6 @@ namespace Warehouse.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
         public ActionResult CreateTranslation(SlideTranslationViewModel model)
         {
             if (ModelState.IsValid)
@@ -168,7 +173,7 @@ namespace Warehouse.Areas.Admin.Controllers
                         Title = model.Title
                     });
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Details", new { id = model.SlideId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -200,7 +205,6 @@ namespace Warehouse.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
         public ActionResult EditTranslation(SlideTranslationViewModel model)
         {
             if (ModelState.IsValid)
@@ -214,7 +218,7 @@ namespace Warehouse.Areas.Admin.Controllers
                         Title = model.Title,
                     });
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Details", new { id = model.SlideId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -237,7 +241,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     _slideService.DeleteTranslation(SlideId, LanguageId);
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                 }
                 catch (Exception ex)
                 {

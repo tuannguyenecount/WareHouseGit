@@ -1,0 +1,66 @@
+﻿@model SlideTranslationViewModel
+@{
+    Language languageSelected = ViewBag.LanguageSelected;
+    ViewBag.Title = "Sửa Slide (bản dịch " + languageSelected.Name + ")";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Sửa Slide (bản dịch @languageSelected.Name)
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Bảng điều khiển</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Html.BeginForm())
+            {
+                <div class="box">
+                    <div class="box-body">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="SlideId" value="@Model.SlideId" />
+                        <input type="hidden" name="LanguageId" value="@Model.LanguageId" />
+                        <div class="col-md-12">
+                            <table class="table table-border-none table-middle">
+                                <tr>
+                                    <td class="col-sm-2 text-right">
+                                        Ngôn ngữ
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" readonly value="@languageSelected.Name" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2 text-right">@Html.DisplayNameFor(model => model.Title)</td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix text-right">
+                        <button type="submit" class="btn bg-green btn-sm"><i class="fa fa-save"></i> Lưu</button>
+                        @Html.ActionLink("Trở về", "Details", new { Id = Model.SlideId, languageSelected = Model.LanguageId }, new { @class = "btn btn-default btn-sm" })
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

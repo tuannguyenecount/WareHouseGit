@@ -10,5 +10,8 @@ namespace Warehouse.Data.Interface
 {
     public interface IArticleDal : IEntityRepository<Article>
     {
+        void CreateTranslation(ArticleTranslation blogTranslation);
+        void EditTranslation(ArticleTranslation blogTranslation);
+        void DeleteTranslation(int ArticleId, string LanguageId);
     }
 }

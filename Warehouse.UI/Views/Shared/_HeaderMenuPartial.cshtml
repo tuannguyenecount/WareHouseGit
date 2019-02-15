@@ -29,12 +29,12 @@
                                                     <div class="row cbp-categories-row">
                                                         <div class="col-12">
                                                             <div class="cbp-category-link-w">
-                                                                <a href="@Url.Action("Index", "Product", new { aliasCategory = Request.Cookies["lang"].Value == "vi" ? category.Alias_SEO : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@(Request.Cookies["lang"].Value == "vi" ? category.Name : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a>
+                                                                <a href="@Url.Action("Index", "Product", new { aliasCategory = languageId == "vi" ? category.Alias_SEO : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })" class="cbp-column-title nav-link cbp-category-title">@(languageId == "vi" ? category.Name : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a>
 
                                                                 <ul class="cbp-links cbp-category-tree">
                                                                     @foreach (Category subCategory in category.Category1.OrderBy(c => c.OrderNum))
                                                                     {
-                                                                        <li><div class="cbp-category-link-w"><a href="@Url.Action("Index", "Product", new { aliasCategory = Request.Cookies["lang"].Value == "vi" ? subCategory.Alias_SEO : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })">@(Request.Cookies["lang"].Value == "vi" ? subCategory.Name : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a></div></li>
+                                                                        <li><div class="cbp-category-link-w"><a href="@Url.Action("Index", "Product", new { aliasCategory = languageId == "vi" ? subCategory.Alias_SEO : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })">@(languageId == "vi" ? subCategory.Name : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a></div></li>
                                                                     }
 
                                                                 </ul>
@@ -68,7 +68,8 @@
                                                         <div class="cbp-category-link-w">
                                                             @foreach (Article article in ViewBag.Articles)
                                                             {
-                                                                <a href="@Url.Action("Details", "Article", new { alias = article.Alias })" class="cbp-column-title nav-link cbp-category-title">@article.Title</a>
+                                                            <a href="@Url.Action("Details", "Article", new { alias = languageId == "vi" ? article.Alias : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias })" class="cbp-column-title nav-link cbp-category-title">
+                                                                @(languageId == "vi" ? article.Title : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Title)</a>
                                                             }
                                                         </div>
                                                     </div>
@@ -100,7 +101,7 @@
         {
             <li>
                 <span class="mm-expand"><i class="fa fa-angle-down expand-icon" aria-hidden="true"></i><i class="fa fa-angle-up close-icon" aria-hidden="true"></i></span>
-                <a href="@Url.Action("Index", "Product", new { aliasCategory = Request.Cookies["lang"].Value == "vi" ? category.Alias_SEO : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })">@(Request.Cookies["lang"].Value == "vi" ? category.Name : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a>
+                <a href="@Url.Action("Index", "Product", new { aliasCategory = languageId == "vi" ? category.Alias_SEO : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })">@(Request.Cookies["lang"].Value == "vi" ? category.Name : category.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a>
                 @if (category.Category1 != null && category.Category1.Count > 0)
                 {
                     <ul>
@@ -109,7 +110,7 @@
                             <li>
                                 @if (subCategory.Category1 == null || subCategory.Category1.Count == 0)
                                 {
-                                    <a href="@Url.Action("Index", "Product", new { aliasCategory = Request.Cookies["lang"].Value == "vi" ? subCategory.Alias_SEO : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO   })">@(Request.Cookies["lang"].Value == "vi" ? subCategory.Name : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name )</a>
+                                    <a href="@Url.Action("Index", "Product", new { aliasCategory = languageId == "vi" ? subCategory.Alias_SEO : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO   })">@(Request.Cookies["lang"].Value == "vi" ? subCategory.Name : subCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name )</a>
                                 }
                                 else
                                 {
@@ -119,7 +120,7 @@
                                         @foreach (Category subSubCategory in subCategory.Category1.OrderBy(c => c.OrderNum))
                                         {
                                             <li>
-                                                <a href="@Url.Action("Index", "Product", new { aliasCategory = Request.Cookies["lang"].Value == "vi" ? subSubCategory.Alias_SEO : subSubCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })">@(Request.Cookies["lang"].Value == "vi" ? subSubCategory.Name : subSubCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a>
+                                                <a href="@Url.Action("Index", "Product", new { aliasCategory = languageId == "vi" ? subSubCategory.Alias_SEO : subSubCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias_SEO })">@(Request.Cookies["lang"].Value == "vi" ? subSubCategory.Name : subSubCategory.CategoryTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Name)</a>
                                             </li>
                                         }
                                     </ul>
@@ -134,7 +135,9 @@
         @foreach (Article article in ViewBag.Articles)
         {
             <li>
-                <a href="@Url.Action("Details", "Article", new { alias = article.Alias })">@article.Title</a>
+                <a href="@Url.Action("Details", "Article", new { alias = languageId == "vi" ? article.Alias : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias })">
+                    @(languageId == "vi" ? article.Title : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Title)
+                </a>
             </li>
         }
         <li>

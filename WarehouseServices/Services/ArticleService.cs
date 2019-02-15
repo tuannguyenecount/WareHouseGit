@@ -65,5 +65,40 @@ namespace Warehouse.Services.Services
                 _articleDal.Delete(article);
         }
 
+        public void CreateTranslation(ArticleTranslation articleTranslation)
+        {
+            try
+            {
+                _articleDal.CreateTranslation(articleTranslation);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void EditTranslation(ArticleTranslation articleTranslation)
+        {
+            try
+            {
+                _articleDal.EditTranslation(articleTranslation);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void DeleteTranslation(int ArticleId, string LanguageId)
+        {
+            try
+            {
+                _articleDal.DeleteTranslation(ArticleId, LanguageId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

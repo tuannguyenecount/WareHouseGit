@@ -16,16 +16,16 @@ namespace Warehouse.Data.Data
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Article>().Where(a => a.Deleted == false).ToList()
-                    : context.Set<Article>().Where(a => a.Deleted == false).Where(filter).ToList();
+                    ? context.Set<Article>().Include(a => a.ArticleTranslations).Where(a => a.Deleted == false).ToList()
+                    : context.Set<Article>().Include(a => a.ArticleTranslations).Where(a => a.Deleted == false).Where(filter).ToList();
             }
         }
         public override Article GetSingle(Expression<Func<Article, bool>> filter)
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Article>().Where(a => a.Deleted == false).SingleOrDefault()
-                    : context.Set<Article>().Where(a => a.Deleted == false).SingleOrDefault(filter);
+                    ? context.Set<Article>().Include(a => a.ArticleTranslations).Where(a => a.Deleted == false).SingleOrDefault()
+                    : context.Set<Article>().Include(a => a.ArticleTranslations).Where(a => a.Deleted == false).SingleOrDefault(filter);
             }
         }
 
@@ -33,8 +33,8 @@ namespace Warehouse.Data.Data
         {
             using (var context = new WarehouseContext()) {
                 return filter == null
-                    ? context.Set<Article>().Where(a => a.Deleted == false).FirstOrDefault()
-                    : context.Set<Article>().Where(a => a.Deleted == false).FirstOrDefault(filter);
+                    ? context.Set<Article>().Include(a => a.ArticleTranslations).Where(a => a.Deleted == false).FirstOrDefault()
+                    : context.Set<Article>().Include(a => a.ArticleTranslations).Where(a => a.Deleted == false).FirstOrDefault(filter);
             }
         }
         public override int Count(Expression<Func<Article, bool>> filter)
@@ -51,6 +51,34 @@ namespace Warehouse.Data.Data
             using (var context = new WarehouseContext()) {
                 entity.Deleted = true;
                 context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateTranslation(ArticleTranslation articleTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.ArticleTranslations.Add(articleTranslation);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditTranslation(ArticleTranslation articleTranslation)
+        {
+            using (var context = new WarehouseContext())
+            {
+                context.Entry(articleTranslation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteTranslation(int BlogId, string LanguageId)
+        {
+            using (var context = new WarehouseContext())
+            {
+                ArticleTranslation articleTranslation = context.ArticleTranslations.Find(BlogId, LanguageId);
+                context.ArticleTranslations.Remove(articleTranslation);
                 context.SaveChanges();
             }
         }

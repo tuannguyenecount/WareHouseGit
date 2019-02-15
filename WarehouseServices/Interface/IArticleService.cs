@@ -18,5 +18,8 @@ namespace Warehouse.Services.Interface
         void Add(Article blog);
         void Update(Article blog);
         void Delete(int Id);
+        void CreateTranslation(ArticleTranslation blogTranslation);
+        void EditTranslation(ArticleTranslation blogTranslation);
+        void DeleteTranslation(int ArticleId, string LanguageId);
     }
 }

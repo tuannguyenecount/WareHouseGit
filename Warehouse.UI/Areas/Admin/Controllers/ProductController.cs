@@ -189,7 +189,7 @@ namespace Warehouse.Areas.Admin.Controllers
                         }
                     }
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Index");
                 }
             }
@@ -297,7 +297,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     _productService.Update(product);
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Details", new { Id = product.Id });
                 }
                 catch (Exception ex)
@@ -322,7 +322,7 @@ namespace Warehouse.Areas.Admin.Controllers
         {
             _productService.Delete(Id);
             var cacheManager = new OutputCacheManager();
-            cacheManager.RemoveItems("Home", "Index");
+            cacheManager.RemoveItems();
             return RedirectToAction("Index", new { tabActive = tabActive });
         }
 
@@ -375,7 +375,7 @@ namespace Warehouse.Areas.Admin.Controllers
                     {
                         _productService.Update(product);
                         var cacheManager = new OutputCacheManager();
-                        cacheManager.RemoveItems("Home", "Index");
+                        cacheManager.RemoveItems();
                         return RedirectToAction("Edit", new { id = product.Id });
                     }
                     catch
@@ -482,7 +482,7 @@ namespace Warehouse.Areas.Admin.Controllers
                         DateCreated = DateTime.Now
                     });
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -541,7 +541,7 @@ namespace Warehouse.Areas.Admin.Controllers
                         DateUpdated = DateTime.Now
                     });
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                     return RedirectToAction("Details", new { id = model.ProductId, languageSelected = model.LanguageId });
                 }
                 catch (Exception ex)
@@ -564,7 +564,7 @@ namespace Warehouse.Areas.Admin.Controllers
                 {
                     _productService.DeleteTranslation(ProductId, LanguageId);
                     var cacheManager = new OutputCacheManager();
-                    cacheManager.RemoveItems("Home", "Index");
+                    cacheManager.RemoveItems();
                 }
                 catch (Exception ex)
                 {

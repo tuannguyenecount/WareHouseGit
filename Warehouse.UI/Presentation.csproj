@@ -1086,6 +1086,8 @@
     <Content Include="Areas\Admin\Views\Blog\CreateTranslation.cshtml" />
     <Content Include="Areas\Admin\Views\Blog\EditTranslation.cshtml" />
     <Content Include="Areas\Admin\Views\Slide\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\CreateTranslation.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\EditTranslation.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
