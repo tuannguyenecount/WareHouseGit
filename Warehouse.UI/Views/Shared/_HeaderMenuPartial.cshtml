@@ -68,7 +68,7 @@
                                                         <div class="cbp-category-link-w">
                                                             @foreach (Article article in ViewBag.Articles)
                                                             {
-                                                            <a href="@Url.Action("Details", "Article", new { alias = languageId == "vi" ? article.Alias : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias })" class="cbp-column-title nav-link cbp-category-title">
+                                                            <a href="@Url.Action("Details", "Article", new { id = article.Id, alias = languageId == "vi" ? article.Alias : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias })" class="cbp-column-title nav-link cbp-category-title">
                                                                 @(languageId == "vi" ? article.Title : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Title)</a>
                                                             }
                                                         </div>
@@ -135,7 +135,7 @@
         @foreach (Article article in ViewBag.Articles)
         {
             <li>
-                <a href="@Url.Action("Details", "Article", new { alias = languageId == "vi" ? article.Alias : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias })">
+                <a href="@Url.Action("Details", "Article", new { id = article.Id, alias = languageId == "vi" ? article.Alias : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Alias })">
                     @(languageId == "vi" ? article.Title : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Title)
                 </a>
             </li>

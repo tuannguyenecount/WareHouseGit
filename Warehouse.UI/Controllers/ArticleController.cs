@@ -21,6 +21,7 @@ namespace Warehouse.Controllers
         [Route("{alias}-{id}.html")]
         public ActionResult Details(int id, string alias)
         {
+            string languageId = Request.Cookies["lang"].Value;
             Article article = _articleService.GetById(id);
 
             if (article == null)
@@ -28,8 +29,8 @@ namespace Warehouse.Controllers
 
             ArticleDetailsViewModel articleDetailsViewModel = new ArticleDetailsViewModel()
             {
-                Content = article.Content,
-                Title = article.Title
+                Content = languageId == "vi" ? article.Content : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Content,
+                Title = languageId == "vi" ? article.Title : article.ArticleTranslations?.FirstOrDefault(x => x.LanguageId == languageId)?.Title,
             };
 
             return View(articleDetailsViewModel);

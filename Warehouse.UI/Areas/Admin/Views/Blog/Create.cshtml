@@ -196,7 +196,13 @@
     <script src="~/bower_components/ckeditor/ckeditor.js"></script>
     <script>
         $(function () {
-            CKEDITOR.replace('Content')
+            CKEDITOR.replace('Content');
+            $("#Title").keyup(function (e) {
+                e.preventDefault();
+                $.get("@Url.Action("GetAlias")", { Title: $(this).val() }, function (alias) {
+                    $("#Alias").val(alias);
+                });
+            });
         })
     </script>
     <script type="text/javascript">

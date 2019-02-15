@@ -24,8 +24,6 @@
                     <div class="box-body">
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(m => m.DateCreated)
-                        <input type="hidden" name="OldTitle" value="@Model.Title" />
-                        <input type="hidden" name="OldAlias" value="@Model.Alias" />
 
                         <div class="col-md-12">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -95,6 +93,12 @@
         $(function () {
             CKEDITOR.replace('Content');
             CKFinder.setupCKEditor(null, '@Url.Content("~/ckfinder")');
+            $("#Title").keyup(function (e) {
+                e.preventDefault();
+                $.get("@Url.Action("GetAlias")", { Title: $(this).val() }, function (alias) {
+                    $("#Alias").val(alias);
+                });
+            });
         })
     </script>
 }
