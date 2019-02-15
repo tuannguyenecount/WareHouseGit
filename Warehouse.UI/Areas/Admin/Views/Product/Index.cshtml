@@ -189,11 +189,69 @@
                         </div>
                         <!-- /.tab-content -->
                     </div>
+                    <table class="table table-bordered table-striped table-excel hidden">
+                        <thead>
+                            <tr>
+                                <th>Mã số</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Bí danh</th>
+                                <th>Mô tả</th>
+                                <th>Phân loại</th>
+                                <th>Giá bán</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày sửa</th>
+                                <th>Tác giả</th>
+                                <th>Hiển thị</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Product item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(p => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(p => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(p => item.Alias_SEO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(p => item.Description)
+                                </td>
+                                <td>
+                                    @(item.Category != null ? item.Category.Name : "")
+                                </td>
+                                <td>
+                                    @Warehouse.Common.Format.FormatCurrencyVND((int)(item.PriceNew ?? item.Price))
+                                </td>
+                                <td>
+                                    @(item.Status ? "Còn hàng" : "Hết hàng")
+                                </td>
+                                <td>
+                                    @Warehouse.Common.Format.FormatDateTime(item.DateCreated)
+                                </td>
+                                <td>
+                                    @(item.DateUpdated.HasValue ? Warehouse.Common.Format.FormatDateTime(item.DateUpdated.Value) : "")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(p => item.UserCreated)
+                                </td>
+                                <td>
+                                    @(item.Display ? "Hiện" : "Ẩn")
+                                </td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /.box-body -->
-                @*<div class="box-footer clearfix">
-                    <a onclick="return confirm('Xác nhận xuất dữ liệu ra file excel? Dữ liệu web vẫn sẽ giữ nguyên')" href="@Url.Action("ExportToExcel")" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</a>
-                </div>*@
+                <div class="box-footer clearfix">
+                    <button onclick="$('.table-excel').tblToExcel()" type="button" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa fa-file-excel-o"></i> Xuất file Excel</button>
+                </div>
             </div>
         </div>
         <!-- /.col -->
