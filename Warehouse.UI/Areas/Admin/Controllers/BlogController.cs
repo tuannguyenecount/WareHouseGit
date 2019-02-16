@@ -230,13 +230,12 @@ namespace Warehouse.Areas.Admin.Controllers
         #endregion
         
         #region Count 
-        [ChildActionOnly]
+        [HttpPost]
         public ContentResult CountDisplay()
         {
             return Content(_blogService.CountDisplay().ToString());
         }
-
-        [ChildActionOnly]
+        [HttpPost]
         public ContentResult CountHide()
         {
             return Content(_blogService.CountHide().ToString());

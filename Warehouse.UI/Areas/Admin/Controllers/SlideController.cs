@@ -28,6 +28,7 @@ namespace Warehouse.Areas.Admin.Controllers
             _slideService = slideService;
             _languageService = languageService;
         }
+
         #region CRUD
         public ActionResult Index()
         {

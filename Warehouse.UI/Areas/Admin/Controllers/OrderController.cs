@@ -53,13 +53,15 @@ namespace Warehouse.Areas.Admin.Controllers
             return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
         }
         #endregion
+
         #region Count Order Wait Confirm
-        [ChildActionOnly]
+        [HttpPost]
         public ContentResult CountOrderWaitConfirm()
         {
             return Content(_orderService.CountOrderWaitConfirm().ToString());
         }
         #endregion
+
         #region Change Status 
         public ActionResult _ChangeStatusModal(int id)
         {

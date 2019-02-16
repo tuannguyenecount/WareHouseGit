@@ -436,6 +436,44 @@
             modal.style.display = 'none';  // Ẩn popup
         });
 
+        $(function () {
+            $.post("@Url.Action("CountHide", "Product")", function (countProductsHide) {
+                if (countProductsHide != 0) {
+                    $("#countProductsHide").removeClass("hidden");
+                    $("#countProductsHide").text(countProductsHide);
+                    $("#countProductsHide").attr("title", countProductsHide + " sản phẩm đang ẩn");
+                }
+            });
+            $.post("@Url.Action("CountDisplay", "Product")", function (countProductsDisplay) {
+                if (countProductsDisplay != 0) {
+                    $("#countProductsDisplay").removeClass("hidden");
+                    $("#countProductsDisplay").text(countProductsDisplay);
+                    $("#countProductsDisplay").attr("title", countProductsDisplay + " sản phẩm đang hiện");
+                }
+            });
+            $.post("@Url.Action("CountHide", "Blog")", function (countBlogHide) {
+                if (countBlogHide != 0) {
+                    $("#countBlogHide").removeClass("hidden");
+                    $("#countBlogHide").text(countBlogHide);
+                    $("#countBlogHide").attr("title", countBlogHide + " bài viết đang ẩn");
+                }
+            });
+            $.post("@Url.Action("CountDisplay", "Blog")", function (countBlogDisplay) {
+                if (countBlogDisplay != 0) {
+                    $("#countBlogDisplay").removeClass("hidden");
+                    $("#countBlogDisplay").text(countBlogDisplay);
+                    $("#countBlogDisplay").attr("title", countBlogDisplay + " bài viết đang hiện");
+                }
+            });
+            $.post("@Url.Action("CountOrderWaitConfirm", "Order")", function (CountOrderWaitConfirm) {
+                if (CountOrderWaitConfirm != 0) {
+                    $("#CountOrderWaitConfirm").removeClass("hidden");
+                    $("#CountOrderWaitConfirm").text(CountOrderWaitConfirm);
+                    $("#CountOrderWaitConfirm").attr("title", CountOrderWaitConfirm + " Có đơn hàng chờ xác nhận");
+                }
+            });
+        });
+
     </script>
 
     @RenderSection("scripts", false)

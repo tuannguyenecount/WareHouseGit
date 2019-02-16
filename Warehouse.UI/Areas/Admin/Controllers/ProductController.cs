@@ -396,17 +396,19 @@ namespace Warehouse.Areas.Admin.Controllers
         #endregion
 
         #region Count Product
-        [ChildActionOnly]
+
+        [HttpPost]
         public ContentResult CountDisplay()
         {
             return Content(_productService.CountDisplay().ToString());
         }
 
-        [ChildActionOnly]
+        [HttpPost]
         public ContentResult CountHide()
         {
             return Content(_productService.CountHide().ToString());
         }
+
         #endregion
 
         #region Processing List Images

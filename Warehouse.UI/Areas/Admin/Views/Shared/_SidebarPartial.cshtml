@@ -1,9 +1,9 @@
 ﻿@{ 
-    string countProductsHide = Html.Action("CountHide", "Product").ToString();
-    string countProductsDisplay = Html.Action("CountDisplay", "Product").ToString();
-    string countBlogHide = Html.Action("CountHide", "Blog").ToString();
-    string countBlogDisplay = Html.Action("CountDisplay", "Blog").ToString();
-    string CountOrderWaitConfirm = Html.Action("CountOrderWaitConfirm", "Order").ToString();
+//string countProductsHide = Html.Action("CountHide", "Product").ToString();
+//string countProductsDisplay = Html.Action("CountDisplay", "Product").ToString();
+//string countBlogHide = Html.Action("CountHide", "Blog").ToString();
+//string countBlogDisplay = Html.Action("CountDisplay", "Blog").ToString();
+//string CountOrderWaitConfirm = Html.Action("CountOrderWaitConfirm", "Order").ToString();
 }
 <section class="sidebar">
     <!-- Sidebar user panel -->
@@ -33,11 +33,9 @@
             <a href="@Url.Action("Index","Order")">
                 <i class="fa fa-book"></i>
                 <span>Đơn Hàng</span>
-                @if (CountOrderWaitConfirm != "0") {
-                    <span class="pull-right-container">
-                        <span data-placement="bottom" title="Có @CountOrderWaitConfirm đơn hàng chờ xác nhận" class="label label-warning pull-right">@CountOrderWaitConfirm</span>
-                    </span>
-                }
+                <span class="pull-right-container">
+                    <span data-placement="bottom" id="CountOrderWaitConfirm" title="Có đơn hàng chờ xác nhận" class="label label-warning pull-right"></span>
+                </span>
             </a>
         </li>
 
@@ -55,15 +53,8 @@
                 <i class="fa fa-users"></i>
                 <span>Sản Phẩm</span>
                 <span class="pull-right-container">
-
-                    @if (countProductsHide != "0")
-                    {
-                        <span title="@countProductsHide sản phẩm đang ẩn" class="label label-danger pull-right">@countProductsHide</span>
-                    }
-                    @if (countProductsDisplay != "0")
-                    {
-                        <span title="@countProductsDisplay sản phẩm đang hiện" class="label label-primary pull-right">@countProductsDisplay</span>
-                    }
+                    <span id="countProductsHide" title="sản phẩm đang ẩn" class="label label-danger pull-right"></span>
+                    <span id="countProductsDisplay" title="sản phẩm đang hiện" class="label label-primary pull-right"></span>             
                 </span>
             </a>
         </li>
@@ -75,17 +66,12 @@
             </a>
         </li>
 
-        <li id="slider">
+        <li id="blogs">
             <a href="@Url.Action("Index","Blog")">
                 <i class="fa fa-newspaper-o"></i> <span>Blog</span>
                 <span class="pull-right-container">
-
-                    @if (countBlogHide != "0") {
-                        <span title="@countBlogHide bài viết đang ẩn" class="label label-danger pull-right">@countBlogHide</span>
-                    }
-                    @if (countBlogDisplay != "0") {
-                        <span title="@countBlogDisplay bài viết đang hiện" class="label label-primary pull-right">@countBlogDisplay</span>
-                    }
+                    <span title="bài viết đang ẩn" id="countBlogHide" class="label label-danger pull-right"></span>
+                    <span title="bài viết đang hiện" id="countBlogDisplay" class="label label-primary pull-right"></span>
                 </span>
             </a>
         </li>
@@ -94,6 +80,9 @@
             <a href="@Url.Action("Customer","AspNetUser",new { customer = 1 })">
                 <i class="fa fa-users"></i> <span>Khách Hàng</span>
             </a>
+            <span class="pull-right-container">
+                <span data-placement="bottom" id="CountCustomer" title="khách hàng" class="label label-primary pull-right"></span>
+            </span>
         </li>
 
         <li class="admin">
@@ -102,7 +91,7 @@
             </a>
         </li>
 
-        <li id="slider">
+        <li id="slides">
             <a href="@Url.Action("Index","Slide")">
                 <i class="fa fa-picture-o"></i> <span>Slide Hình</span>
             </a>
@@ -134,16 +123,12 @@
 
         <li class="header">QUẢN LÝ CÁ NHÂN</li>
         <li>
-            <a href="@Url.Action("ProfileUser","User")">
+            <a href="@Url.Action("ProfileUser","AspNetUser")">
                 <i class="fa fa-user"></i> <span>Hồ Sơ Cá Nhân</span>
             </a>
         </li>
         <li>
             <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
         </li>
-        @*<li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
     </ul>
 </section>
