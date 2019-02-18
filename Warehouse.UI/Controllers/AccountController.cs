@@ -19,6 +19,7 @@ using Warehouse.Services.Interface;
 using Warehouse.Services.Services;
 using Warehouse.Data.Data;
 using Warehouse.Entities;
+using DevTrends.MvcDonutCaching;
 
 namespace Warehouse.Controllers
 {
@@ -181,6 +182,8 @@ namespace Warehouse.Controllers
             {
                 case SignInStatus.Success:
                     {
+                        var cacheManager = new OutputCacheManager();
+                        cacheManager.RemoveItems();
                         return RedirectToLocal(returnUrl);
                     }
                 case SignInStatus.LockedOut:
@@ -577,7 +580,8 @@ namespace Warehouse.Controllers
         public ActionResult LogOff(int? fromAdminArea)
         {
             AuthenticationManager.SignOut();
-            Session["Revalidate"] = null;
+            var cacheManager = new OutputCacheManager();
+            cacheManager.RemoveItems();
             if (fromAdminArea == 1)
             {
                 return RedirectToAction("AdminLogin");

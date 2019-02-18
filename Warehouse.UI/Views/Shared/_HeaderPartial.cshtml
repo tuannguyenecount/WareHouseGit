@@ -31,7 +31,7 @@
                     </div>
                     <div class="d-inline-block">
                         <a href="@Url.Action("Index", "FavoriteProduct")">
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> @Warehouse.Language.Header.Header.ProductFavorite (<span id="iqitwishlist-nb">0</span>)
+                            <i class="fa fa-heart-o" aria-hidden="true"></i> @Warehouse.Language.Header.Header.ProductFavorite (<span id="iqitwishlist-nb">@Html.Action("Count", "FavoriteProduct")</span>)
                         </a>
                     </div>
                     @*<div class="d-inline-block">

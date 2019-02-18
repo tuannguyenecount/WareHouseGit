@@ -83,7 +83,8 @@ namespace Warehouse.Controllers
                     return Json(new { status = 2, message = "Có lỗi!" });
                 }
             }
-            return Json(new { status = 1, message = "Thêm thành công." });
+
+            return Json(new { status = 1, message = "Thêm thành công", count = _ifavoriteProductService.Count(userid) });
         }
 
         [Route("remove/{ProductId}")]
@@ -96,6 +97,19 @@ namespace Warehouse.Controllers
                 _ifavoriteProductService.Delete(favoriteProduct);
             }
             return RedirectToAction("Index");
+        }
+
+        [ChildActionOnly]
+        public ContentResult Count()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Content("0");
+            }
+            else
+            {
+                return Content(_ifavoriteProductService.Count(User.Identity.GetUserId()).ToString());
+            }
         }
     }
 }

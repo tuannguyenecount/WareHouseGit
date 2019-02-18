@@ -319,12 +319,10 @@
                 },
                 success: function (data) {
                     alert(data.message);
+                    $("#iqitwishlist-nb").text(data.count);
                 },
                 error: function (jqXHR) {
                     // Http Status is not 200
-                },
-                complete: function (jqXHR, status) {
-                    // Whether success or error it enters here
                 }
             });
         };

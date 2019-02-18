@@ -14,5 +14,6 @@ namespace Warehouse.Services.Interface
         void Update(FavoriteProduct favorite);
         FavoriteProduct Get(string UserId, int ProductId);
         void Delete(FavoriteProduct favorite);
+        int Count(string UserId);
     }
 }

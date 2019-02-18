@@ -42,5 +42,10 @@ namespace Warehouse.Services.Services
         {
             return _iFavoriteProductDal.GetSingle(f => f.AspNetUserId == UserId && f.ProductId == ProductId);
         }
+
+        public int Count(string UserId)
+        {
+            return _iFavoriteProductDal.Count(x => x.AspNetUserId == UserId);
+        }
     }
 }
